@@ -1,16 +1,44 @@
 {
   "hero": {
-    "title": "Full-Stack Razvoj<br />Poboljšan uz AI",
+    "title": "Full-Stack Razvoj Poboljšan uz AI",
     "subtitle": "Pomažem biznisima da brže grade moderne web i mobilne aplikacije.",
     "cta": "Kontaktiraj me",
     "scrollLabel": "Skrolaj"
   },
   "nav": {
+    "home": "Početna",
+    "projects": "Projekti",
+    "about": "O meni",
+    "contact": "Kontakt",
     "links": {
       "home": "Početna",
       "projects": "Projekti",
       "about": "O meni",
       "contact": "Kontakt"
     }
+  },
+  "projects": {
+    "featured": {
+      "tag": "IZDVOJENI PROJEKAT",
+      "desc": "Sveobuhvatna platforma za rezervacije za upravljanje smještajem, rezervacijama i iskustvom gostiju. Izgrađena sa Flutter-om za cross-platform mobilne aplikacije i React-om za web dashboard."
+    },
+    "list": {
+      "title": "Više Projekata",
+      "subtitle": "Istražite moj nedavni rad i sporedne projekte"
+    }
+  },
+  "contact": {
+    "title": "Radimo Zajedno",
+    "subtitle": "Imate projekat na umu? Razgovarajmo o tome kako možemo oživeti vaše ideje sa modernom tehnologijom i AI rješenjima.",
+    "form": {
+      "name": "Ime",
+      "email": "Email",
+      "message": "Poruka",
+      "send": "Pošalji Poruku"
+    }
+  },
+  "footer": {
+    "rights": "© 2025 Hadzic. Sva prava zadržana.",
+    "builtWith": "Napravljeno sa React, Tailwind & AI"
   }
 }

@@ -1,14 +1,10 @@
-import { useState } from "react";
 import { motion, type Variants } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { ParticleBg } from "./ParticleBg";
 import { HeroAvatar } from "./HeroAvatar";
-import { GlassFrame } from "../ui/GlassFrame";
 import { NeonButton } from "../ui/NeonButton";
 import { DecryptedText } from "../ui/DecryptedText";
 import { MagnetButton } from "../ui/MagnetButton";
-import { SpotlightCard } from "../ui/SpotlightCard";
-import { Navbar } from "../Navbar";
 
 const containerVariants: Variants = {
   hidden: { opacity: 0, y: 24 },
@@ -34,204 +30,145 @@ const itemVariants: Variants = {
 
 export const Hero = () => {
   const { t } = useTranslation();
-  const [menuOpen, setMenuOpen] = useState(false);
 
-  // Helper to render title with white text and neon blue "AI"
+  // Helper to render title with DecryptedText effect and neon "AI"
   const renderDecryptedTitle = () => {
-    const mainText = "Full-Stack Development Enhanced with ";
-    const aiText = "AI";
-    
+    const fullTitle = t("hero.title");
+    // Replace "AI" in text but render it separately with neon effect
+    const textBeforeAI = fullTitle.substring(0, fullTitle.lastIndexOf("AI"));
+    const textAfterAI = fullTitle.substring(fullTitle.lastIndexOf("AI") + 2);
+
     return (
       <>
+        {textBeforeAI && (
+          <DecryptedText
+            text={textBeforeAI}
+            animateOn="view"
+            revealDirection="start"
+            speed={50}
+            maxIterations={8}
+            sequential={true}
+            className="text-white"
+            encryptedClassName="text-white/60"
+            parentClassName="inline"
+          />
+        )}
         <DecryptedText
-          text={mainText}
+          text="AI"
           animateOn="view"
           revealDirection="start"
-          speed={60}
-          maxIterations={10}
+          speed={50}
+          maxIterations={8}
           sequential={true}
-          className="text-white"
-          encryptedClassName="text-white/60"
-          parentClassName="inline"
-        />
-        <DecryptedText
-          text={aiText}
-          animateOn="view"
-          revealDirection="start"
-          speed={60}
-          maxIterations={10}
-          sequential={true}
-          className="text-neon"
+          className="text-neon drop-shadow-[0_0_10px_rgba(59,201,255,0.5)]"
           encryptedClassName="text-neon/60"
           parentClassName="inline"
         />
+        {textAfterAI && (
+          <DecryptedText
+            text={textAfterAI}
+            animateOn="view"
+            revealDirection="start"
+            speed={50}
+            maxIterations={8}
+            sequential={true}
+            className="text-white"
+            encryptedClassName="text-white/60"
+            parentClassName="inline"
+          />
+        )}
       </>
     );
   };
 
   return (
-    <section className="relative w-full min-h-screen bg-[#050505] text-white font-space overflow-hidden">
-      {/* Deep Space Background */}
+    <section id="hero" className="relative w-full h-screen bg-[#0A0A0A] text-white font-space overflow-hidden">
+      {/* Background Particles */}
       <div className="absolute inset-0 z-0">
-        {/* Ambient Glows */}
-        <div className="absolute top-0 left-0 w-[600px] h-[600px] rounded-full opacity-60" 
-             style={{
-               background: 'radial-gradient(circle at top left, rgba(59,201,255,0.15), transparent 40%)'
-             }} />
-        <div className="absolute bottom-0 right-0 w-[800px] h-[800px] rounded-full opacity-50" 
-             style={{
-               background: 'radial-gradient(circle at bottom right, rgba(59,201,255,0.12), transparent 50%)'
-             }} />
-        
-        {/* Particles/Stars */}
         <ParticleBg />
       </div>
 
-      {/* Desktop */}
-      <div className="hidden md:flex items-center justify-center min-h-screen px-6 py-10">
-        <SpotlightCard 
-          className="w-full max-w-6xl" 
-          spotlightColor="rgba(59, 201, 255, 0.4)"
+      {/* Centered Hero Content */}
+      <div className="relative z-10 flex items-center justify-center h-screen px-4 md:px-6 pt-20">
+        {/* Glass Morphism Container */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, ease: [0.22, 0.61, 0.36, 1] }}
+          className="relative w-full max-w-[900px] mx-auto"
         >
-          <GlassFrame className="w-full max-w-6xl">
-            <Navbar />
+          {/* Glass Frame with backdrop blur */}
+          <div className="relative backdrop-blur-xl bg-white/5 border border-white/10 rounded-[48px] p-8 md:p-12 lg:p-14 shadow-[0_8px_32px_0_rgba(0,0,0,0.4)] overflow-hidden">
+            {/* Upright Reflection Behind Avatar - 90% width, 50% height */}
+            <div
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] h-[50%] opacity-50 blur-2xl pointer-events-none z-0"
+              style={{
+                background: 'radial-gradient(ellipse at center, rgba(59,201,255,0.7) 0%, rgba(59,201,255,0.4) 30%, rgba(59,201,255,0.2) 50%, transparent 70%)',
+              }}
+            />
 
-          {/* Content */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="relative z-10 flex flex-col items-center text-center px-8 pb-16 pt-4 gap-8"
-          >
-            <motion.div variants={itemVariants}>
-              <HeroAvatar />
-            </motion.div>
+            {/* Inner content */}
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              className="flex flex-col items-center text-center gap-5 md:gap-6 relative z-10"
+            >
+              {/* Avatar */}
+              <motion.div variants={itemVariants}>
+                <HeroAvatar />
+              </motion.div>
 
-            <div className="space-y-4 max-w-[700px] mx-auto text-center">
+              {/* Title */}
               <motion.h1
                 variants={itemVariants}
-                className="font-bold font-space text-white leading-tight line-clamp-2"
+                className="font-bold font-space text-white leading-tight md:whitespace-nowrap line-clamp-2 md:line-clamp-1"
                 style={{
-                  fontSize: 'clamp(1.5rem, 4vw, 3.5rem)'
+                  fontSize: 'clamp(1.25rem, 2.5vw, 2rem)'
                 }}
               >
                 {renderDecryptedTitle()}
               </motion.h1>
 
+              {/* Subtitle */}
               <motion.p
                 variants={itemVariants}
-                className="text-sm md:text-base text-white/70"
+                className="text-sm md:text-base text-white/70 max-w-[600px] px-4"
               >
                 {t("hero.subtitle")}
               </motion.p>
-            </div>
 
-            <motion.div variants={itemVariants}>
-              <MagnetButton
-                magnetStrength={2}
-                padding={100}
-                activeTransition="transform 0.3s ease-out"
-                inactiveTransition="transform 0.4s ease-in-out"
-                className="overflow-visible"
-              >
-                <NeonButton
-                  variant="primary"
-                  className="px-10 py-4 text-lg font-bold shadow-[0_0_20px_#3BC9FF] rounded-full"
-                  onClick={() => window.open("mailto:your.email@example.com", "_blank")}
+              {/* CTA Button */}
+              <motion.div variants={itemVariants}>
+                <MagnetButton
+                  magnetStrength={3}
+                  padding={100}
+                  activeTransition="transform 0.3s ease-out"
+                  inactiveTransition="transform 0.4s ease-in-out"
+                  className="overflow-visible"
                 >
-                  {t("hero.cta")}
-                </NeonButton>
-              </MagnetButton>
+                  <NeonButton
+                    variant="primary"
+                    className="px-8 md:px-10 py-3 md:py-4 text-sm md:text-base font-semibold shadow-[0_0_20px_rgba(59,201,255,0.4)] hover:shadow-[0_0_30px_rgba(59,201,255,0.6)] rounded-full transition-shadow duration-300"
+                    onClick={() => {
+                      const contactSection = document.getElementById('contact');
+                      if (contactSection) {
+                        contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      }
+                    }}
+                  >
+                    {t("hero.cta")}
+                  </NeonButton>
+                </MagnetButton>
+              </motion.div>
             </motion.div>
 
-            <motion.div
-              variants={itemVariants}
-              className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[11px] text-white/50"
-            >
-              <div className="w-[22px] h-[36px] rounded-full border border-white/30 flex items-start justify-center p-1">
-                <motion.div
-                  animate={{ y: [0, 10, 0], opacity: [0.7, 1, 0.7] }}
-                  transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
-                  className="w-[3px] h-[8px] rounded-full bg-white/70"
-                />
-              </div>
-              <span>{t("hero.scrollLabel", "Scroll")}</span>
-            </motion.div>
-          </motion.div>
-        </GlassFrame>
-        </SpotlightCard>
-      </div>
-
-      {/* Mobile */}
-      <div className="md:hidden relative min-h-screen flex flex-col overflow-x-hidden">
-        <Navbar />
-        {menuOpen && (
-          <div className="fixed inset-0 z-40 bg-black/90 backdrop-blur-xl flex flex-col">
-            <div className="flex items-center justify-between px-4 py-3 border-b border-white/10">
-              <span className="text-neon font-semibold text-sm">hadzic</span>
-              <button
-                onClick={() => setMenuOpen(false)}
-                className="w-8 h-8 flex items-center justify-center"
-                aria-label="Close menu"
-              >
-                <span className="block w-5 h-[2px] bg-white rotate-45 translate-y-[1px]" />
-                <span className="block w-5 h-[2px] bg-white -rotate-45 -translate-y-[1px]" />
-              </button>
-            </div>
-            <nav className="flex-1 flex flex-col items-center justify-center gap-6 text-lg text-white/80">
-              <button onClick={() => setMenuOpen(false)}>{t("nav.links.home")}</button>
-              <button onClick={() => setMenuOpen(false)}>{t("nav.links.projects")}</button>
-              <button onClick={() => setMenuOpen(false)}>{t("nav.links.about")}</button>
-              <button onClick={() => setMenuOpen(false)}>{t("nav.links.contact")}</button>
-            </nav>
-          </div>
-        )}
-
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="flex-1 flex flex-col items-center justify-center px-4 pt-24 pb-10 text-center gap-8"
-        >
-          <motion.div variants={itemVariants} className="w-full max-w-xs mx-auto">
-            <HeroAvatar fullWidthOnMobile />
-          </motion.div>
-
-          <div className="space-y-4 max-w-[700px] mx-auto text-center px-2">
-            <motion.h1
-              variants={itemVariants}
-              className="font-bold font-space text-white leading-tight line-clamp-2"
-              style={{
-                fontSize: 'clamp(1.25rem, 5vw, 2rem)'
-              }}
-            >
-              {renderDecryptedTitle()}
-            </motion.h1>
-            <motion.p
-              variants={itemVariants}
-              className="text-sm text-white/70"
-            >
-              {t("hero.subtitle")}
-            </motion.p>
+            {/* Glass shine effect */}
+            <div className="absolute inset-0 rounded-[48px] bg-gradient-to-br from-white/10 via-transparent to-transparent pointer-events-none" />
           </div>
 
-          <motion.div variants={itemVariants}>
-            <MagnetButton 
-              padding={100}
-              magnetStrength={2}
-              disabled={false}
-              activeTransition="transform 0.3s ease-out"
-              inactiveTransition="transform 0.5s ease-in-out"
-              className="overflow-visible"
-            >
-              <NeonButton 
-                variant="secondary"
-                className="px-10 py-4 text-lg font-bold shadow-[0_0_20px_#3BC9FF] rounded-full"
-              >
-                {t("hero.cta")}
-              </NeonButton>
-            </MagnetButton>
-          </motion.div>
+          {/* Outer glow */}
+          <div className="absolute -inset-[1px] bg-gradient-to-br from-neon/20 to-neon/5 rounded-[48px] blur-xl -z-10" />
         </motion.div>
       </div>
     </section>

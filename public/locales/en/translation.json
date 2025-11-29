@@ -1,16 +1,44 @@
 {
   "hero": {
-    "title": "Full-Stack Development<br />Enhanced with AI",
+    "title": "Full-Stack Development Enhanced with AI",
     "subtitle": "Helping businesses build modern web & mobile apps faster.",
     "cta": "Get in Touch",
     "scrollLabel": "Scroll"
   },
   "nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "about": "About",
+    "contact": "Contact",
     "links": {
       "home": "Home",
       "projects": "Projects",
-      "about": "About",
+      "about": "About Me",
       "contact": "Contact"
     }
+  },
+  "projects": {
+    "featured": {
+      "tag": "FEATURED PROJECT",
+      "desc": "A comprehensive booking platform for managing accommodations, reservations, and guest experiences. Built with Flutter for cross-platform mobile apps and React for web dashboard."
+    },
+    "list": {
+      "title": "More Projects",
+      "subtitle": "Explore my recent work and side projects"
+    }
+  },
+  "contact": {
+    "title": "Let's Work Together",
+    "subtitle": "Have a project in mind? Let's discuss how we can bring your ideas to life with modern technology and AI-powered solutions.",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "message": "Message",
+      "send": "Send Message"
+    }
+  },
+  "footer": {
+    "rights": "© 2025 Hadzic. All rights reserved.",
+    "builtWith": "Built with React, Tailwind & AI"
   }
 }

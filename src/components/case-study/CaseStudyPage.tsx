@@ -26,7 +26,7 @@ const TechIcon: React.FC<{ tech: string; index: number }> = ({ tech, index }) =>
         {/* Icon Container */}
         <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border border-cyan-400/30 flex items-center justify-center transition-all duration-300 group-hover:bg-cyan-500/20 group-hover:border-cyan-400/50 group-hover:shadow-[0_0_20px_rgba(59,201,255,0.4)]">
           <img
-            src={`/${tech.toLowerCase()}.png`}
+            src={`/${tech.toLowerCase()}.avif`}
             alt={tech}
             className="w-10 h-10 object-contain filter drop-shadow-[0_0_8px_rgba(6,182,212,0.6)]"
             onError={(e) => {

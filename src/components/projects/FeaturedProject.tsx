@@ -22,7 +22,7 @@ const TechIcon: React.FC<TechIconProps> = ({ name, className = "" }) => {
     >
       <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border border-cyan-400/30 flex items-center justify-center shadow-[0_0_20px_rgba(6,182,212,0.3)] group-hover:shadow-[0_0_30px_rgba(6,182,212,0.5)] transition-all duration-300">
         <img
-          src={`/${name.toLowerCase()}.png`}
+          src={`/${name.toLowerCase()}.avif`}
           alt={name}
           className="w-8 h-8 object-contain filter drop-shadow-[0_0_8px_rgba(6,182,212,0.6)]"
           onError={(e) => {
@@ -49,41 +49,49 @@ export const FeaturedProject = () => {
     <section className="relative w-full py-24 px-6 overflow-hidden">
       {/* Sci-Fi Circuit Background */}
       <CircuitBackground />
-      
+
       {/* Main Content */}
       <div className="relative z-10 max-w-6xl mx-auto">
         <Link to="/case-study/rabbooking" className="block group">
-          {/* Spotlight Effect Container */}
+          {/* Enhanced Spotlight Effect Container */}
           <div className="relative">
-            {/* Mouse-following spotlight glow */}
-            <div className="absolute inset-0 rounded-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-              <div 
-                className="absolute inset-0 rounded-[40px]"
-                style={{
-                  background: 'radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(59, 201, 255, 0.3) 0%, transparent 50%)',
-                  filter: 'blur(20px)'
-                }}
-                onMouseMove={(e) => {
-                  const rect = e.currentTarget.getBoundingClientRect();
-                  const x = ((e.clientX - rect.left) / rect.width) * 100;
-                  const y = ((e.clientY - rect.top) / rect.height) * 100;
-                  e.currentTarget.style.setProperty('--mouse-x', `${x}%`);
-                  e.currentTarget.style.setProperty('--mouse-y', `${y}%`);
-                }}
-              />
-            </div>
-            
+            {/* Outer spotlight glow that follows mouse */}
+            <div
+              className="absolute -inset-[2px] rounded-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+              style={{
+                background: 'radial-gradient(circle 600px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(59, 201, 255, 0.4) 0%, transparent 50%)',
+                filter: 'blur(30px)'
+              }}
+              onMouseMove={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
+                e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
+              }}
+            />
+
             <motion.div
               initial={{ opacity: 0, y: 60 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: [0.22, 0.61, 0.36, 1] }}
-              className="relative backdrop-blur-3xl bg-white/5 border border-white/10 rounded-[40px] overflow-hidden transition-all duration-500 group-hover:border-white/20 group-hover:shadow-[0_0_40px_rgba(59,201,255,0.2)] cursor-pointer"
+              className="relative backdrop-blur-3xl bg-white/5 rounded-[40px] overflow-hidden transition-all duration-500 cursor-pointer"
+              style={{
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                boxShadow: '0 0 0 1px rgba(59, 201, 255, 0) inset'
+              }}
               onMouseMove={(e) => {
                 const rect = e.currentTarget.getBoundingClientRect();
-                const x = ((e.clientX - rect.left) / rect.width) * 100;
-                const y = ((e.clientY - rect.top) / rect.height) * 100;
-                e.currentTarget.style.setProperty('--mouse-x', `${x}%`);
-                e.currentTarget.style.setProperty('--mouse-y', `${y}%`);
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
+                e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
+
+                // Spotlight border effect
+                e.currentTarget.style.boxShadow = `0 0 0 1px rgba(59, 201, 255, 0.6) inset, 0 0 40px rgba(59, 201, 255, 0.2)`;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = '0 0 0 1px rgba(59, 201, 255, 0) inset';
               }}
             >
               {/* Inner Glow */}
@@ -147,10 +155,32 @@ export const FeaturedProject = () => {
                   transition={{ duration: 0.6, delay: 0.4 }}
                   className="relative flex items-center justify-center"
                 >
-                  {/* 3D Tilted Phone */}
+                  {/* 3D Tilted Mockup Image */}
                   <div className="relative z-10">
-                    <TiltedCard>
-                      <PhonePlaceholder />
+                    <TiltedCard
+                      rotateAmplitude={15}
+                      scaleOnHover={1.05}
+                      showMobileWarning={false}
+                      showTooltip={false}
+                      displayOverlayContent={false}
+                    >
+                      <motion.div
+                        className="relative w-[320px] h-[400px] rounded-[24px] overflow-hidden border-2 border-neon/40 shadow-[0_0_30px_rgba(59,201,255,0.5)]"
+                        whileHover={{ scale: 1.02 }}
+                      >
+                        <img
+                          src="/pizzeria-mockup.avif"
+                          alt="RabBooking App Mockup"
+                          className="w-full h-full object-cover"
+                        />
+                        {/* Glass shine overlay */}
+                        <div
+                          className="absolute inset-0 pointer-events-none"
+                          style={{
+                            background: 'linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%)'
+                          }}
+                        />
+                      </motion.div>
                     </TiltedCard>
                   </div>
 

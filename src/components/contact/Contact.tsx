@@ -29,10 +29,10 @@ export const Contact = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
-    
+
     // Show success state
     setIsSubmitted(true);
-    
+
     // Reset form after 3 seconds
     setTimeout(() => {
       setFormData({ name: '', email: '', message: '' });
@@ -47,7 +47,7 @@ export const Contact = () => {
       url: 'https://github.com/yourusername'
     },
     {
-      name: 'LinkedIn', 
+      name: 'LinkedIn',
       icon: Linkedin,
       url: 'https://linkedin.com/in/yourusername'
     },
@@ -59,12 +59,12 @@ export const Contact = () => {
   ];
 
   return (
-    <section className="relative w-full py-24 px-6 overflow-hidden">
+    <section id="contact" className="relative w-full py-24 px-6 overflow-hidden">
       {/* Neon Pulse Background */}
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="w-[800px] h-[600px] rounded-full bg-gradient-to-r from-cyan-500/10 via-blue-500/5 to-cyan-500/10 blur-3xl animate-pulse" />
       </div>
-      
+
       {/* Main Container */}
       <div className="relative z-10 max-w-5xl mx-auto">
         {/* Glass Card */}
@@ -76,10 +76,10 @@ export const Contact = () => {
         >
           {/* Inner Glow */}
           <div className="absolute inset-0 rounded-[40px] bg-gradient-to-r from-cyan-500/5 via-transparent to-blue-500/5 pointer-events-none" />
-          
+
           {/* Content Grid */}
           <div className="relative z-10 grid md:grid-cols-2 gap-12 p-12 lg:p-16">
-            
+
             {/* Left Side - Info */}
             <motion.div
               initial={{ opacity: 0, x: -40 }}
@@ -126,15 +126,15 @@ export const Contact = () => {
                         href={social.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        initial={{ opacity: 0, scale: 0.8 }}
+                        initial={{ opacity: 0, scale: 0.8, boxShadow: '0 0 0px rgba(59, 201, 255, 0)' }}
                         whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ 
-                          duration: 0.4, 
+                        transition={{
+                          duration: 0.4,
                           delay: 0.6 + index * 0.1,
                           type: "spring",
                           stiffness: 200
                         }}
-                        whileHover={{ 
+                        whileHover={{
                           scale: 1.1,
                           boxShadow: '0 0 20px rgba(59, 201, 255, 0.5)'
                         }}
@@ -228,11 +228,10 @@ export const Contact = () => {
                     type="submit"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className={`w-full px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 ${
-                      isSubmitted 
+                    className={`w-full px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 ${isSubmitted
                         ? 'bg-green-500/20 border-green-400/50 text-green-400 shadow-[0_0_20px_rgba(34,197,94,0.3)]'
                         : 'bg-cyan-500/20 border-cyan-400/50 text-cyan-400 shadow-[0_0_20px_rgba(59,201,255,0.3)] hover:bg-cyan-500/30 hover:border-cyan-400/70 hover:shadow-[0_0_30px_rgba(59,201,255,0.5)]'
-                    } border backdrop-blur-sm`}
+                      } border backdrop-blur-sm`}
                   >
                     {isSubmitted ? (
                       <span className="flex items-center justify-center gap-2">

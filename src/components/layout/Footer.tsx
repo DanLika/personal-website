@@ -8,10 +8,10 @@ export const Footer = () => {
   const { t } = useTranslation();
 
   const footerLinks = [
-    { name: t("nav.home"), href: "/" },
-    { name: t("nav.projects"), href: "/projects" },
-    { name: t("nav.about"), href: "/about" },
-    { name: t("nav.contact"), href: "/contact" }
+    { name: t("nav.links.home"), href: "/" },
+    { name: t("nav.links.projects"), href: "/projects" },
+    { name: t("nav.links.about"), href: "/about" },
+    { name: t("nav.links.contact"), href: "/contact" }
   ];
 
   return (
@@ -30,7 +30,7 @@ export const Footer = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-white/40 text-sm font-light"
           >
-            <p>© 2025 Hadzic. All rights reserved.</p>
+            <p>{t("footer.rights")}</p>
           </motion.div>
 
           {/* Center - Tech Badge */}
@@ -49,7 +49,7 @@ export const Footer = () => {
                 <Sparkles className="w-3 h-3" />
               </motion.div>
               <span className="text-white/60 text-xs font-medium tracking-wide">
-                Built with React, Tailwind & AI
+                {t("footer.builtWith")}
               </span>
             </div>
           </motion.div>
@@ -106,7 +106,7 @@ export const Footer = () => {
                 <Sparkles className="w-3 h-3" />
               </motion.div>
               <span className="text-white/60 text-xs font-medium tracking-wide">
-                Built with React, Tailwind & AI
+                {t("footer.builtWith")}
               </span>
             </div>
           </motion.div>
@@ -132,7 +132,7 @@ export const Footer = () => {
                   inactiveTransition="transform 0.4s ease-in-out"
                   className="relative"
                 >
-                  <Link 
+                  <Link
                     to={link.href}
                     className="text-white/50 text-sm font-light hover:text-cyan-400 transition-colors duration-300"
                   >
@@ -150,7 +150,7 @@ export const Footer = () => {
             transition={{ duration: 0.6, delay: 0.7 }}
             className="text-white/40 text-xs font-light"
           >
-            <p>© 2025 Hadzic. All rights reserved.</p>
+            <p>{t("footer.rights")}</p>
           </motion.div>
         </div>
       </div>
