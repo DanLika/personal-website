@@ -59,7 +59,9 @@ export const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="relative w-full py-24 px-6 overflow-hidden">
+    <section id="contact" className="relative w-full py-24 px-6 md:px-12 lg:px-24 overflow-hidden bg-[#0A0A0A]">
+      {/* Bottom Gradient Transition */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent z-20 pointer-events-none" />
       {/* Neon Pulse Background */}
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="w-[800px] h-[600px] rounded-full bg-gradient-to-r from-cyan-500/10 via-blue-500/5 to-cyan-500/10 blur-3xl animate-pulse" />
@@ -78,7 +80,7 @@ export const Contact = () => {
           <div className="absolute inset-0 rounded-[40px] bg-gradient-to-r from-cyan-500/5 via-transparent to-blue-500/5 pointer-events-none" />
 
           {/* Content Grid */}
-          <div className="relative z-10 grid md:grid-cols-2 gap-12 p-12 lg:p-16">
+          <div className="relative z-10 grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 p-6 md:p-12 lg:p-16">
 
             {/* Left Side - Info */}
             <motion.div
@@ -92,7 +94,7 @@ export const Contact = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="text-4xl md:text-5xl font-bold font-space text-white leading-tight"
+                className="text-3xl md:text-4xl lg:text-5xl font-bold font-space text-white leading-tight"
               >
                 {t("contact.title")}
               </motion.h2>
@@ -126,7 +128,7 @@ export const Contact = () => {
                         href={social.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        initial={{ opacity: 0, scale: 0.8, boxShadow: '0 0 0px rgba(59, 201, 255, 0)' }}
+                        initial={{ opacity: 0, scale: 0.8, boxShadow: '0px 0px 0px rgba(59, 201, 255, 0)' }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         transition={{
                           duration: 0.4,
@@ -136,7 +138,7 @@ export const Contact = () => {
                         }}
                         whileHover={{
                           scale: 1.1,
-                          boxShadow: '0 0 20px rgba(59, 201, 255, 0.5)'
+                          boxShadow: '0px 0px 20px rgba(59, 201, 255, 0.5)'
                         }}
                         className="w-14 h-14 rounded-xl border border-cyan-400/30 bg-cyan-500/10 flex items-center justify-center transition-all duration-300 hover:border-cyan-400/60 hover:bg-cyan-500/20 group"
                       >
@@ -229,8 +231,8 @@ export const Contact = () => {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     className={`w-full px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 ${isSubmitted
-                        ? 'bg-green-500/20 border-green-400/50 text-green-400 shadow-[0_0_20px_rgba(34,197,94,0.3)]'
-                        : 'bg-cyan-500/20 border-cyan-400/50 text-cyan-400 shadow-[0_0_20px_rgba(59,201,255,0.3)] hover:bg-cyan-500/30 hover:border-cyan-400/70 hover:shadow-[0_0_30px_rgba(59,201,255,0.5)]'
+                      ? 'bg-green-500/20 border-green-400/50 text-green-400 shadow-[0_0_20px_rgba(34,197,94,0.3)]'
+                      : 'bg-cyan-500/20 border-cyan-400/50 text-cyan-400 shadow-[0_0_20px_rgba(59,201,255,0.3)] hover:bg-cyan-500/30 hover:border-cyan-400/70 hover:shadow-[0_0_30px_rgba(59,201,255,0.5)]'
                       } border backdrop-blur-sm`}
                   >
                     {isSubmitted ? (

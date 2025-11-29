@@ -1,0 +1,411 @@
+# Portfolio Development Guide
+
+Ovaj fajl je "source of truth" za dizajn i arhitekturu AI-powered portfolia.
+
+## Osnovni ciljevi
+- Prikazati full-stack developera koji koristi AI (Flutter, React, FlutterFlow, Supabase, Firebase, Stripe).
+- Dvojezični sajt: **EN (default) + BS**.
+- Fokus na kvalitetna case study prikazivanja (4 projekta sa detaljnim stranicama).
+
+## Vizuelni stil
+- **Theme:** Dark mode + futuristički glassmorphism + neon cyan akcenti.
+- **Boje:**
+  - Background: #0A0A0A (obsidian) + #13151A (charcoal) + subtle particles.
+  - Akcent: Neon cyan #3BC9FF + glow varijante.
+- **Font:** Space Grotesk (tech sans), koristi se kroz Tailwind `font-space`.
+- **Logo:** `hadzic` u gornjem lijevom uglu, subtle neon glow.
+
+## Optimizacija slika
+- **Sve slike u .avif formatu** za maksimalnu kompresiju:
+  - `hero-me.avif` (48KB umjesto 1.3MB PNG)
+  - `about_me.avif` za About sekciju
+  - Tech ikone: `react.avif`, `flutter.avif`, `firebase.avif`, `stripe.avif`, `supabase.avif`, `flutterflow.avif`
+  - Project mockupi: `pizzeria-mockup.avif`, `ironlife-mockup.avif`, `flutterflow-mockup.avif`
+  - Favicon: `favicon.webp`
+
+## Globalni layout
+
+### Navbar (Sticky)
+- **Desktop:**
+  - Logo `hadzic` (lijevo)
+  - Linkovi: Home | Projects | About | Contact (centar, sa "|" separatorima)
+  - Globe ikona za jezik toggle EN/BS (desno)
+  - Glass morphism sa `backdrop-blur-xl`, `bg-white/5`, border `border-white/10`
+  - MagnetButton efekti na sve linkove i toggle
+- **Mobile:**
+  - Hamburger menu (desno)
+  - Fullscreen glass panel overlay kada se otvori
+  - Globe ikona + jezik toggle na dnu menija
+
+### Routing struktura
+- **Home** (`/`) - Landing stranica sa svim sekcijama
+- **Case Study** (`/case-study/:projectId`) - Detaljna stranica projekta
+
+## Sekcije Home stranice
+
+### 1. Hero Section
+**Layout:**
+- Veliki glass frame kontejner (`rounded-[48px]`, `backdrop-blur-xl`, `bg-white/5`)
+- Centrirana fotografija u neon-bordered okviru
+- Vertikalna refleksija iza avatara (90% širine, 50% visine, radial gradient)
+- DecryptedText animacija za naslov
+
+**Sadržaj:**
+- Avatar sa `hero-me.avif` slikom
+- H1: `Full-Stack Development Enhanced with AI` (EN) / `Full-Stack Razvoj Poboljšan uz AI` (BS)
+- Tagline: `Helping businesses build modern web & mobile apps faster.`
+- CTA dugme: `Get in Touch` sa arrow ikonom
+- Particle background sa cyan/blue bojama
+
+**Avatar detalji:**
+- Neon border (2px, #3BC9FF)
+- Box shadow: `0_0_30px_rgba(59,201,255,0.6)`
+- Responsive sizing: 280px (mobile) → 350px (desktop)
+- Hover: scale 1.05
+
+**Animacije:**
+- Staggered fade-up: Avatar → Title → Subtitle → Button
+- Vertikalna refleksija: radial gradient sa fade-out mask
+- Continuous particle movement
+
+### 2. FeaturedProject Section
+**Layout:**
+- Glass card sa spotlight efektom
+- Grid: 60% tekst (lijevo) + 40% mockup (desno)
+
+**Interakcije:**
+- Enhanced spotlight: mouse-following radial gradient (600px circle)
+- Dynamic border glow: box-shadow prati miš
+- TiltedCard na mockup slici (3D tilt, 15deg amplitude)
+- MagnetButton na sve tech ikone
+
+**Sadržaj:**
+- Tag badge: "FEATURED PROJECT"
+- Naslov projekta
+- Opis (2-3 rečenice)
+- Tech stack sa ikonama
+- Mockup slika: `pizzeria-mockup.avif`
+
+### 3. ProjectList Section
+**Layout:**
+- Vertikalni stack project kartica
+- Svaka kartica: glass panel sa spotlight efektom
+
+**Projekti i mockupi:**
+```typescript
+const MOCKUP_IMAGES = {
+  'rabbooking': '/flutterflow-mockup.avif',     // Mobile booking app
+  'saasDashboard': '/ironlife-mockup.avif',     // Web dashboard
+  'aiChatbot': '/pizzeria-mockup.avif',         // AI chatbot
+  'uiuxDesign': '/flutterflow-mockup.avif'      // FinTech design
+};
+```
+
+**Interakcije:**
+- Spotlight effect po karti (mouse-following neon border)
+- MagnetButton na tech ikone (strength: 6, padding: 30)
+- 3D tilt na mockup slici sa TiltedCard komponentom
+- Hover: translate-y -8px na mockup
+- Click: navigacija na `/case-study/:projectId`
+
+### 4. AboutSection
+**Layout:**
+- Veliki glass panel sa spotlight efektom
+- Grid: 50% tekst (lijevo) + 50% slika (desno)
+
+**Sadržaj:**
+- Naslov: "About Me"
+- Badge: "AI-Augmented Builder"
+- 3 paragrafa teksta:
+  1. Full-stack developer koristeći AI workflows
+  2. Leverage intelligent tools i ML za performance
+  3. Passion za bringing ideas to life
+- Tech Stack: React, Flutter, FlutterFlow, Supabase, Firebase, Stripe
+- Slika: `about_me.avif` u glass okviru sa white/cyan glow
+
+**Tech ikone:**
+- MagnetButton wrapper (strength: 8, padding: 40)
+- Ikone: `.avif` format
+- Hover: scale + neon glow
+
+### 5. Contact Section
+**Layout:**
+- Glass forma + social linkovi
+
+**Forma:**
+- Input polja: Name, Email, Message
+- Submit dugme: "Send Message" sa neon efektom
+- Animacije: staggered fade-in
+
+**Social linkovi:**
+- GitHub, LinkedIn, Gmail ikone (lucide-react)
+- Hover: scale 1.1 + box-shadow cyan glow
+- Initial box-shadow: `0 0 0px rgba(59, 201, 255, 0)` (fixes Framer warning)
+
+### 6. Footer
+**Desktop Layout:**
+- 3-column flex: Copyright (lijevo) | Tech Badge (centar) | Nav Links (desno)
+- Tech badge: Sparkles ikona (rotating 360deg, 8s) + "Built with React, Tailwind & AI"
+- Nav links: MagnetButton efekti (strength: 4, padding: 20)
+
+**Mobile Layout:**
+- Vertikalni stack: Badge → Links → Copyright
+- Centered alignment
+
+**Stilizacija:**
+- `bg-black`, `border-t border-white/10`, `backdrop-blur-md`
+- Subtle glow: `from-cyan-500/3 via-transparent to-blue-500/3`
+
+**i18n keys:**
+- `footer.rights`: "© 2025 Hadzic. All rights reserved." (EN) / "© 2025 Hadzic. Sva prava zadržana." (BS)
+- `footer.builtWith`: "Built with React, Tailwind & AI" (EN) / "Napravljeno sa React, Tailwind & AI" (BS)
+
+## Case Study stranice
+
+**Ruta:** `/case-study/:projectId`
+
+**Data source:**
+- `src/data/projects.ts` - centralizovani projekti data
+- Interface: `ProjectData` (id, title, category, description, overview, techStack, galleryImages, challenges, solutions, results, client, duration, role)
+- Helper: `getNextProject()` za navigaciju
+
+**Layout sekcije:**
+1. **Hero** - Floating mockup sa particles pozadinom
+   - Category tag sa neon border
+   - Veliki naslov projekta
+   - Device frame sa prvom gallery slikom
+   - Floating animation (y: [0, -10, 0])
+
+2. **Overview** - Glass container sa grid
+   - Naslov: "Project Overview"
+   - Bullet points (2-column grid na desktop)
+
+3. **Tech Stack** - Glass container
+   - Grid tech ikona (2/4/6 kolona responsive)
+   - Ikone: `.avif` format sa fallback na text
+
+4. **Results** - Glass container
+   - Grid rezultata (3 kolone na desktop)
+   - Svaki result u glass card sa hover scale
+
+5. **Next Project** - Navigation card
+   - Minimalist glass card
+   - Arrow ikona sa hover animacijom (translate-x)
+   - Link ka sljedećem projektu u listi
+
+**Scroll behavior:**
+- `useEffect(() => window.scrollTo(0, 0), [projectId])` - scroll to top on project change
+
+**Stilizacija:**
+- Background gradient: `from-[#0A0A0A] to-[#13151A]`
+- Floating particles component
+- Sve glass panele sa `backdrop-blur-xl`, `bg-black/40`, `border border-white/10`
+
+## Tehnički stack
+
+### Core
+- Vite + React 18 + TypeScript
+- React Router DOM (routing)
+- TailwindCSS v3 + custom config
+- Framer Motion (animacije)
+
+### i18n
+- react-i18next + i18next
+- Lokacije: `public/locales/{en,bs}/translation.json`
+- Keys struktura:
+  - `hero.*` (title, subtitle, cta)
+  - `nav.links.*` (home, projects, about, contact)
+  - `projects.*` (featured.tag, featured.desc, list.title, list.subtitle)
+  - `contact.*` (title, subtitle, form.*)
+  - `footer.*` (rights, builtWith)
+
+### UI komponente (ReactBits style)
+- **MagnetButton** - Magnetic pull effect na hover
+- **TiltedCard** - 3D perspective tilt
+- **DecryptedText** - Matrix-style text reveal
+- **SpotlightCard** - Mouse-following glow effect
+
+### Particles
+- react-tsparticles + tsparticles-slim
+- Config: slow movement, cyan/blue colors, low opacity
+- Koristi se u Hero i CaseStudy sekcijama
+
+### Icons
+- lucide-react (social, UI ikone)
+- Custom tech ikone (.avif format)
+
+## Tailwind config
+
+**Colors:**
+```js
+colors: {
+  obsidian: "#0A0A0A",
+  charcoal: "#13151A",
+  neon: {
+    DEFAULT: "#3BC9FF",
+    glow: "rgba(59, 201, 255, 0.5)",
+    dim: "#2A8FB5",
+  },
+  teal: {
+    light: "#4ccae2",
+    dark: "#399fb1",
+  },
+  glass: {
+    border: "rgba(255, 255, 255, 0.1)",
+    surface: "rgba(255, 255, 255, 0.03)",
+  },
+}
+```
+
+**Font:**
+```js
+fontFamily: {
+  space: ["'Space Grotesk'", "sans-serif"],
+}
+```
+
+**Box shadows:**
+```js
+boxShadow: {
+  neon: '0 0 20px -5px rgba(59, 201, 255, 0.6)',
+  glass: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+}
+```
+
+## Glassmorphism Pattern
+
+**Standard glass panel:**
+```tsx
+className="backdrop-blur-xl bg-white/5 border border-white/10 rounded-[40px] shadow-2xl"
+```
+
+**Sa spotlight efektom:**
+```tsx
+// Outer glow (parent div)
+<div className="absolute -inset-[2px] rounded-[40px] opacity-0 group-hover:opacity-100"
+  style={{
+    background: 'radial-gradient(circle 600px at var(--mouse-x) var(--mouse-y), rgba(59, 201, 255, 0.4) 0%, transparent 50%)',
+    filter: 'blur(30px)'
+  }}
+/>
+
+// Glass card
+<motion.div
+  onMouseMove={(e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
+    e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
+    e.currentTarget.style.boxShadow = `0 0 0 1px rgba(59, 201, 255, 0.6) inset, 0 0 40px rgba(59, 201, 255, 0.2)`;
+  }}
+  onMouseLeave={(e) => {
+    e.currentTarget.style.boxShadow = '0 0 0 1px rgba(59, 201, 255, 0) inset';
+  }}
+>
+```
+
+## Animacijski pattern
+
+**Entrance animacije:**
+```tsx
+initial={{ opacity: 0, y: 40 }}
+whileInView={{ opacity: 1, y: 0 }}
+transition={{ duration: 0.6, delay: 0.2 }}
+```
+
+**Staggered children:**
+```tsx
+{items.map((item, index) => (
+  <motion.div
+    key={item.id}
+    initial={{ opacity: 0, scale: 0.8 }}
+    whileInView={{ opacity: 1, scale: 1 }}
+    transition={{
+      duration: 0.4,
+      delay: index * 0.1,
+      type: "spring",
+      stiffness: 200
+    }}
+  />
+))}
+```
+
+**Hover efekti:**
+```tsx
+whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(59, 201, 255, 0.5)' }}
+whileTap={{ scale: 0.95 }}
+```
+
+## Responsive breakpoints
+
+**Desktop-first approach:**
+- `md:` - 768px+
+- `lg:` - 1024px+
+
+**Mobile optimizacije:**
+- Stack layouts (flex-col)
+- Full-width containers
+- Hamburger menu
+- Adjusted padding/spacing
+- Smaller font sizes
+
+## Performance optimizacije
+
+**Image optimization:**
+- Svi asset-i u .avif formatu
+- Lazy loading na slike (`loading="lazy"`)
+- Error fallback na sve slike
+
+**Code splitting:**
+- React Router lazy imports
+- Component-based chunking
+
+**Animation performance:**
+- GPU-accelerated transforms (translate, scale, opacity)
+- `will-change` CSS property na hover elementi
+- Framer Motion's layout animations
+
+## Deployment checklist
+
+- [ ] Update meta tags (title, description, OG image)
+- [ ] Favicon postavljen (`favicon.webp`)
+- [ ] Sve slike optimizovane (.avif format)
+- [ ] i18n kompletiran (EN + BS)
+- [ ] Social linkovi funkcionalni
+- [ ] Contact forma povezana na backend/service
+- [ ] Analytics integrisan (Google Analytics / Plausible)
+- [ ] Performance test (Lighthouse score >90)
+- [ ] Mobile responsiveness provjeren
+- [ ] Cross-browser testing (Chrome, Safari, Firefox)
+
+## Known issues & fixes
+
+**Framer Motion warnings:**
+- Fix: Uvijek dodaj `initial` prop sa početnim vrijednostima za sve animated properties
+- Primjer: `initial={{ opacity: 0, boxShadow: '0 0 0px rgba(59, 201, 255, 0)' }}`
+
+**Image loading:**
+- Fix: Dodaj `onError` handler sa fallback SVG ili text
+- Primjer: fallback na text abbreviation za tech ikone
+
+**Scroll behavior:**
+- Fix: `useEffect(() => window.scrollTo(0, 0), [projectId])` u CaseStudyPage
+- Sprečava "bottom of page" bug kada se klika "Next Project"
+
+## Future enhancements
+
+- [ ] Blog sekcija za tech članke
+- [ ] Dark/Light theme toggle
+- [ ] More project case studies (target: 10+)
+- [ ] Testimonials sekcija
+- [ ] Skills radar chart
+- [ ] Project filters (tech stack, type)
+- [ ] Search functionality
+- [ ] Newsletter subscription
+- [ ] Download CV button
+- [ ] Animated cursor trail
+
+---
+
+**Održavaj ovaj dokument ažurnim sa svakom značajnom promjenom u projektu.**

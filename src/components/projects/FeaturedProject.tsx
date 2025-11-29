@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { CircuitBackground } from "./CircuitBackground";
-import { PhonePlaceholder } from "./PhonePlaceholder";
 import { MagnetButton } from "../ui/MagnetButton";
 import { TiltedCard } from "../ui/TiltedCard";
 
@@ -46,7 +45,9 @@ export const FeaturedProject = () => {
   const techStack = ["React", "Flutter", "Stripe", "Firebase", "NodeJS", "MongoDB"];
 
   return (
-    <section className="relative w-full py-24 px-6 overflow-hidden">
+    <section className="relative w-full py-24 px-6 md:px-12 lg:px-24 overflow-hidden bg-black">
+      {/* Bottom Gradient Transition */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0A0A0A] to-transparent z-20 pointer-events-none" />
       {/* Sci-Fi Circuit Background */}
       <CircuitBackground />
 
@@ -96,33 +97,33 @@ export const FeaturedProject = () => {
             >
               {/* Inner Glow */}
               <div className="absolute inset-0 rounded-[40px] bg-gradient-to-r from-cyan-500/5 via-transparent to-blue-500/5 pointer-events-none" />
-              
+
               {/* Content Container */}
-              <div className="relative z-10 grid md:grid-cols-2 gap-12 p-12 lg:p-16">
-                
+              <div className="relative z-10 grid md:grid-cols-2 gap-8 md:gap-12 p-6 md:p-12 lg:p-16">
+
                 {/* Left Side - Content */}
                 <motion.div
                   initial={{ opacity: 0, x: -40 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.6, delay: 0.2 }}
-                  className="space-y-8"
+                  className="space-y-6 md:space-y-8"
                 >
                   {/* Featured Badge */}
                   <div className="inline-flex">
                     <div className="px-4 py-2 rounded-full bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-400/30 backdrop-blur-sm">
-                      <span className="text-cyan-400 text-sm font-semibold tracking-wider">
+                      <span className="text-cyan-400 text-xs md:text-sm font-semibold tracking-wider">
                         {t("projects.featured.tag")}
                       </span>
                     </div>
                   </div>
 
                   {/* Title */}
-                  <h2 className="text-4xl md:text-5xl font-bold font-space text-white leading-tight">
+                  <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-space text-white leading-tight break-words">
                     RabBooking App
                   </h2>
 
                   {/* Description */}
-                  <p className="text-white/70 text-lg leading-relaxed">
+                  <p className="text-white/70 text-base md:text-lg leading-relaxed break-words">
                     {t("projects.featured.desc")}
                   </p>
 
@@ -156,7 +157,7 @@ export const FeaturedProject = () => {
                   className="relative flex items-center justify-center"
                 >
                   {/* 3D Tilted Mockup Image */}
-                  <div className="relative z-10">
+                  <div className="relative z-10 w-full flex justify-center">
                     <TiltedCard
                       rotateAmplitude={15}
                       scaleOnHover={1.05}
@@ -165,7 +166,7 @@ export const FeaturedProject = () => {
                       displayOverlayContent={false}
                     >
                       <motion.div
-                        className="relative w-[320px] h-[400px] rounded-[24px] overflow-hidden border-2 border-neon/40 shadow-[0_0_30px_rgba(59,201,255,0.5)]"
+                        className="relative w-full max-w-[320px] h-auto aspect-[4/5] rounded-[24px] overflow-hidden border-2 border-neon/40 shadow-[0_0_30px_rgba(59,201,255,0.5)]"
                         whileHover={{ scale: 1.02 }}
                       >
                         <img

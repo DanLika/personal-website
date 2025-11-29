@@ -18,11 +18,11 @@ export const Footer = () => {
     <footer className="relative w-full bg-black border-t border-white/10 backdrop-blur-md">
       {/* Subtle Glow */}
       <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/3 via-transparent to-blue-500/3 pointer-events-none" />
-      
-      <div className="relative z-10 max-w-6xl mx-auto px-6 py-6">
+
+      <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-12 lg:px-24 py-6">
         {/* Desktop Layout */}
         <div className="hidden md:flex items-center justify-between">
-          
+
           {/* Left - Copyright */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -75,7 +75,7 @@ export const Footer = () => {
                   inactiveTransition="transform 0.4s ease-in-out"
                   className="relative"
                 >
-                  <Link 
+                  <Link
                     to={link.href}
                     className="text-white/50 text-sm font-light hover:text-cyan-400 transition-colors duration-300"
                   >
@@ -89,7 +89,7 @@ export const Footer = () => {
 
         {/* Mobile Layout */}
         <div className="md:hidden flex flex-col items-center gap-4 text-center">
-          
+
           {/* Tech Badge - First on Mobile */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}

@@ -31,65 +31,34 @@ const itemVariants: Variants = {
 export const Hero = () => {
   const { t } = useTranslation();
 
-  // Helper to render title with DecryptedText effect and neon "AI"
+  // Helper to render title with DecryptedText effect
   const renderDecryptedTitle = () => {
     const fullTitle = t("hero.title");
-    // Replace "AI" in text but render it separately with neon effect
-    const textBeforeAI = fullTitle.substring(0, fullTitle.lastIndexOf("AI"));
-    const textAfterAI = fullTitle.substring(fullTitle.lastIndexOf("AI") + 2);
 
     return (
-      <>
-        {textBeforeAI && (
-          <DecryptedText
-            text={textBeforeAI}
-            animateOn="view"
-            revealDirection="start"
-            speed={50}
-            maxIterations={8}
-            sequential={true}
-            className="text-white"
-            encryptedClassName="text-white/60"
-            parentClassName="inline"
-          />
-        )}
-        <DecryptedText
-          text="AI"
-          animateOn="view"
-          revealDirection="start"
-          speed={50}
-          maxIterations={8}
-          sequential={true}
-          className="text-neon drop-shadow-[0_0_10px_rgba(59,201,255,0.5)]"
-          encryptedClassName="text-neon/60"
-          parentClassName="inline"
-        />
-        {textAfterAI && (
-          <DecryptedText
-            text={textAfterAI}
-            animateOn="view"
-            revealDirection="start"
-            speed={50}
-            maxIterations={8}
-            sequential={true}
-            className="text-white"
-            encryptedClassName="text-white/60"
-            parentClassName="inline"
-          />
-        )}
-      </>
+      <DecryptedText
+        text={fullTitle}
+        animateOn="view"
+        revealDirection="start"
+        speed={50}
+        maxIterations={8}
+        sequential={true}
+        className="text-white"
+        encryptedClassName="text-white/60"
+        parentClassName="inline"
+      />
     );
   };
 
   return (
-    <section id="hero" className="relative w-full h-screen bg-[#0A0A0A] text-white font-space overflow-hidden">
+    <section id="hero" className="relative w-full min-h-screen bg-[#0A0A0A] text-white font-space overflow-hidden">
       {/* Background Particles */}
       <div className="absolute inset-0 z-0">
         <ParticleBg />
       </div>
 
       {/* Centered Hero Content */}
-      <div className="relative z-10 flex items-center justify-center h-screen px-4 md:px-6 pt-20">
+      <div className="relative z-10 flex items-center justify-center min-h-screen px-6 md:px-12 lg:px-24 pt-32 pb-20">
         {/* Glass Morphism Container */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
@@ -124,7 +93,7 @@ export const Hero = () => {
                 variants={itemVariants}
                 className="font-bold font-space text-white leading-tight md:whitespace-nowrap line-clamp-2 md:line-clamp-1"
                 style={{
-                  fontSize: 'clamp(1.25rem, 2.5vw, 2rem)'
+                  fontSize: 'clamp(1.35rem, 3vw, 2.2rem)'
                 }}
               >
                 {renderDecryptedTitle()}
@@ -171,6 +140,8 @@ export const Hero = () => {
           <div className="absolute -inset-[1px] bg-gradient-to-br from-neon/20 to-neon/5 rounded-[48px] blur-xl -z-10" />
         </motion.div>
       </div>
+      {/* Bottom Gradient Transition */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent z-20 pointer-events-none" />
     </section>
   );
 };

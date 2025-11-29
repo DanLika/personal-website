@@ -8,10 +8,10 @@ import { projectsData } from "../../data/projects";
 
 // Map project IDs to mockup images
 const MOCKUP_IMAGES: Record<string, string> = {
-  'rabbooking': '/pizzeria-mockup.avif',
-  'saasDashboard': '/ironlife-mockup.avif',
-  'aiChatbot': '/flutterflow-mockup.avif',
-  'uiuxDesign': '/flutterflow-mockup.avif'
+  'rabbooking': '/flutterflow-mockup.avif',     // Mobile booking app
+  'saasDashboard': '/ironlife-mockup.avif',     // Web dashboard
+  'aiChatbot': '/pizzeria-mockup.avif',         // AI chatbot interface
+  'uiuxDesign': '/flutterflow-mockup.avif'      // FinTech mobile app design
 };
 
 // Convert projectsData to PROJECTS format for ProjectList
@@ -180,7 +180,9 @@ export const ProjectList = () => {
   const { t } = useTranslation();
 
   return (
-    <section id="projects" className="relative w-full py-20 px-6">
+    <section id="projects" className="relative w-full py-20 px-6 md:px-12 lg:px-24 bg-[#0A0A0A]">
+      {/* Bottom Gradient Transition */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent z-20 pointer-events-none" />
       <div className="max-w-4xl mx-auto space-y-8">
         {/* Section Header */}
         <motion.div
@@ -189,10 +191,10 @@ export const ProjectList = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold font-space text-white mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-space text-white mb-4">
             {t("projects.list.title", "More Projects")}
           </h2>
-          <p className="text-white/60 text-lg">
+          <p className="text-white/60 text-base md:text-lg">
             {t("projects.list.subtitle", "Explore my recent work and side projects")}
           </p>
         </motion.div>
