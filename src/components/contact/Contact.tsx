@@ -1,0 +1,259 @@
+import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
+import { useState } from "react";
+import { Mail, Github, Linkedin } from "lucide-react";
+
+interface FormData {
+  name: string;
+  email: string;
+  message: string;
+}
+
+export const Contact = () => {
+  const { t } = useTranslation();
+  const [formData, setFormData] = useState<FormData>({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log('Form submitted:', formData);
+    
+    // Show success state
+    setIsSubmitted(true);
+    
+    // Reset form after 3 seconds
+    setTimeout(() => {
+      setFormData({ name: '', email: '', message: '' });
+      setIsSubmitted(false);
+    }, 3000);
+  };
+
+  const socialLinks = [
+    {
+      name: 'GitHub',
+      icon: Github,
+      url: 'https://github.com/yourusername'
+    },
+    {
+      name: 'LinkedIn', 
+      icon: Linkedin,
+      url: 'https://linkedin.com/in/yourusername'
+    },
+    {
+      name: 'Email',
+      icon: Mail,
+      url: 'mailto:your.email@example.com'
+    }
+  ];
+
+  return (
+    <section className="relative w-full py-24 px-6 overflow-hidden">
+      {/* Neon Pulse Background */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="w-[800px] h-[600px] rounded-full bg-gradient-to-r from-cyan-500/10 via-blue-500/5 to-cyan-500/10 blur-3xl animate-pulse" />
+      </div>
+      
+      {/* Main Container */}
+      <div className="relative z-10 max-w-5xl mx-auto">
+        {/* Glass Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 60 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.22, 0.61, 0.36, 1] }}
+          className="relative backdrop-blur-xl bg-white/5 border border-white/10 rounded-[40px] overflow-hidden shadow-2xl"
+        >
+          {/* Inner Glow */}
+          <div className="absolute inset-0 rounded-[40px] bg-gradient-to-r from-cyan-500/5 via-transparent to-blue-500/5 pointer-events-none" />
+          
+          {/* Content Grid */}
+          <div className="relative z-10 grid md:grid-cols-2 gap-12 p-12 lg:p-16">
+            
+            {/* Left Side - Info */}
+            <motion.div
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="space-y-8"
+            >
+              {/* Headline */}
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="text-4xl md:text-5xl font-bold font-space text-white leading-tight"
+              >
+                {t("contact.title")}
+              </motion.h2>
+
+              {/* Subtext */}
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="text-white/70 leading-relaxed text-lg"
+              >
+                {t("contact.subtitle")}
+              </motion.p>
+
+              {/* Social Links */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                className="space-y-4"
+              >
+                <h3 className="text-white/50 text-sm font-medium tracking-wider uppercase">
+                  Connect With Me
+                </h3>
+                <div className="flex gap-4">
+                  {socialLinks.map((social, index) => {
+                    const Icon = social.icon;
+                    return (
+                      <motion.a
+                        key={social.name}
+                        href={social.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ 
+                          duration: 0.4, 
+                          delay: 0.6 + index * 0.1,
+                          type: "spring",
+                          stiffness: 200
+                        }}
+                        whileHover={{ 
+                          scale: 1.1,
+                          boxShadow: '0 0 20px rgba(59, 201, 255, 0.5)'
+                        }}
+                        className="w-14 h-14 rounded-xl border border-cyan-400/30 bg-cyan-500/10 flex items-center justify-center transition-all duration-300 hover:border-cyan-400/60 hover:bg-cyan-500/20 group"
+                      >
+                        <Icon className="w-6 h-6 text-cyan-400 group-hover:text-cyan-300 transition-colors" />
+                      </motion.a>
+                    );
+                  })}
+                </div>
+              </motion.div>
+            </motion.div>
+
+            {/* Right Side - Form */}
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Name Field */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.6 }}
+                >
+                  <label htmlFor="name" className="block text-white/60 text-sm font-medium mb-2">
+                    {t("contact.form.name")}
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-4 py-3 bg-[#13151A] border border-white/10 rounded-xl text-white placeholder-white/40 transition-all duration-300 focus:border-[#3BC9FF] focus:shadow-[0_0_15px_rgba(59,201,255,0.3)] focus:outline-none"
+                    placeholder={t("contact.form.name")}
+                  />
+                </motion.div>
+
+                {/* Email Field */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.7 }}
+                >
+                  <label htmlFor="email" className="block text-white/60 text-sm font-medium mb-2">
+                    {t("contact.form.email")}
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-4 py-3 bg-[#13151A] border border-white/10 rounded-xl text-white placeholder-white/40 transition-all duration-300 focus:border-[#3BC9FF] focus:shadow-[0_0_15px_rgba(59,201,255,0.3)] focus:outline-none"
+                    placeholder={t("contact.form.email")}
+                  />
+                </motion.div>
+
+                {/* Message Field */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.8 }}
+                >
+                  <label htmlFor="message" className="block text-white/60 text-sm font-medium mb-2">
+                    {t("contact.form.message")}
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    required
+                    rows={5}
+                    className="w-full px-4 py-3 bg-[#13151A] border border-white/10 rounded-xl text-white placeholder-white/40 transition-all duration-300 focus:border-[#3BC9FF] focus:shadow-[0_0_15px_rgba(59,201,255,0.3)] focus:outline-none resize-none"
+                    placeholder={t("contact.form.message")}
+                  />
+                </motion.div>
+
+                {/* Submit Button */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.9 }}
+                >
+                  <motion.button
+                    type="submit"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className={`w-full px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 ${
+                      isSubmitted 
+                        ? 'bg-green-500/20 border-green-400/50 text-green-400 shadow-[0_0_20px_rgba(34,197,94,0.3)]'
+                        : 'bg-cyan-500/20 border-cyan-400/50 text-cyan-400 shadow-[0_0_20px_rgba(59,201,255,0.3)] hover:bg-cyan-500/30 hover:border-cyan-400/70 hover:shadow-[0_0_30px_rgba(59,201,255,0.5)]'
+                    } border backdrop-blur-sm`}
+                  >
+                    {isSubmitted ? (
+                      <span className="flex items-center justify-center gap-2">
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        Message Sent!
+                      </span>
+                    ) : (
+                      t("contact.form.send")
+                    )}
+                  </motion.button>
+                </motion.div>
+              </form>
+            </motion.div>
+          </div>
+
+          {/* Glass Border Highlight */}
+          <div className="absolute inset-0 rounded-[40px] border border-transparent [border-image:linear-gradient(45deg,rgba(59,201,255,0.3),rgba(6,182,212,0.1),rgba(59,201,255,0.3))_1] pointer-events-none" />
+        </motion.div>
+      </div>
+    </section>
+  );
+};

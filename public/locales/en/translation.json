@@ -1,0 +1,16 @@
+{
+  "hero": {
+    "title": "Full-Stack Development<br />Enhanced with AI",
+    "subtitle": "Helping businesses build modern web & mobile apps faster.",
+    "cta": "Get in Touch",
+    "scrollLabel": "Scroll"
+  },
+  "nav": {
+    "links": {
+      "home": "Home",
+      "projects": "Projects",
+      "about": "About",
+      "contact": "Contact"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "hero": {
+    "title": "Full-Stack Razvoj<br />Poboljšan uz AI",
+    "subtitle": "Pomažem biznisima da brže grade moderne web i mobilne aplikacije.",
+    "cta": "Kontaktiraj me",
+    "scrollLabel": "Skrolaj"
+  },
+  "nav": {
+    "links": {
+      "home": "Početna",
+      "projects": "Projekti",
+      "about": "O meni",
+      "contact": "Kontakt"
+    }
+  }
+}
