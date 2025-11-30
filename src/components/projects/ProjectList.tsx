@@ -64,10 +64,10 @@ export const ProjectList = () => {
   const { t } = useTranslation();
 
   return (
-    <section id="projects" className="relative w-full py-20 px-6 md:px-12 lg:px-24 bg-[#0A0A0A]">
+    <section id="projects" className="relative w-full py-20 px-6 md:px-12 lg:px-24 bg-[#0A0A0A] overflow-visible">
       {/* Bottom Gradient Transition */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent z-20 pointer-events-none" />
-      <div className="max-w-4xl mx-auto space-y-8">
+      <div className="max-w-4xl mx-auto space-y-8 overflow-visible">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -177,7 +177,7 @@ export const ProjectList = () => {
                       </div>
 
                       {/* Right Side - Mockup (40% on desktop) */}
-                      <div className="md:col-span-2 flex items-center justify-center relative">
+                      <div className="md:col-span-2 flex items-center justify-center relative overflow-visible">
                         <TiltedCard
                           rotateAmplitude={15}
                           scaleOnHover={1.05}
@@ -186,7 +186,7 @@ export const ProjectList = () => {
                           displayOverlayContent={false}
                           containerHeight="auto"
                           containerWidth="100%"
-                          className="w-full max-w-md md:max-w-2xl"
+                          className="w-full max-w-md md:max-w-[56rem]"
                         >
                           <motion.img
                             src={project.mockupImage}
