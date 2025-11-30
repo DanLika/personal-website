@@ -6,7 +6,7 @@ export const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
-      <Route path="/case-study/:project" element={<CaseStudyPage />} />
+      <Route path="/case-study/:projectId" element={<CaseStudyPage />} />
     </Routes>
   );
 };
