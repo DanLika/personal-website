@@ -69,25 +69,11 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
     <div className="min-h-screen bg-gradient-to-b from-[#0A0A0A] to-[#13151A]">
 
       {/* HERO SECTION */}
-      <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden pt-20 sm:pt-24">
         {/* Background Particles */}
         <FloatingParticles />
 
         <div className="relative z-10 text-center space-y-8 px-6 max-w-6xl mx-auto">
-
-          {/* Category Tag */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex"
-          >
-            <div className="px-8 py-4 rounded-full bg-transparent border-2 border-[#3BC9FF] shadow-[0_0_30px_rgba(59,201,255,0.6)] backdrop-blur-sm">
-              <span className="text-[#3BC9FF] font-bold text-lg tracking-wider">
-                {currentProject.category}
-              </span>
-            </div>
-          </motion.div>
 
           {/* Title */}
           <motion.h1

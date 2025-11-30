@@ -172,8 +172,8 @@ const MOCKUP_IMAGES = {
 
 **Layout sekcije:**
 1. **Hero** - Floating mockup sa particles pozadinom
-   - Category tag sa neon border
-   - Veliki naslov projekta
+   - Veliki naslov projekta (bez category badge-a)
+   - Top padding: `pt-20 sm:pt-24` (jednako Hero sekciji na homepage)
    - Device frame sa prvom gallery slikom
    - Floating animation (y: [0, -10, 0])
 
@@ -225,6 +225,7 @@ const MOCKUP_IMAGES = {
 - **TiltedCard** - 3D perspective tilt
 - **DecryptedText** - Matrix-style text reveal
 - **SpotlightCard** - Mouse-following glow effect
+- **SimpleGallery** - CSS Grid galerija sa lightbox i keyboard navigation (zamijenila MasonryGallery)
 
 ### Particles
 - react-tsparticles + tsparticles-slim
@@ -495,8 +496,26 @@ export interface ProjectData {
 - [ ] Animated cursor trail
 - [ ] Add project mockup images to `/public` folder
 
+## Recent Session Changes (2025-11-30)
+
+### Galerija refaktoring:
+- **OBRISANO:** MasonryGallery.tsx (kompleksna GSAP-based galerija koja nije radila)
+- **DODANO:** SimpleGallery.tsx - jednostavna CSS Grid galerija (`grid-cols-2 sm:grid-cols-3 lg:grid-cols-4`)
+  - Lightbox sa keyboard navigation (ArrowLeft, ArrowRight, Escape)
+  - Aspect ratio 4:3 za konzistentan layout
+  - Framer Motion animacije na hover
+- **AŽURIRANO:** SubProjectCard.tsx koristi SimpleGallery
+- **AŽURIRANO:** CaseStudyPage.tsx koristi SimpleGallery
+
+### Case Study Hero:
+- **UKLONJENO:** Category badge (tag sa "MOBILE APP", "SAAS PLATFORM" itd.)
+- **DODANO:** Top padding `pt-20 sm:pt-24` da odgovara homepage Hero sekciji
+
+### Tailwind config:
+- Dodane `star-movement-bottom` i `star-movement-top` animacije (neiskorištene, bile za StarBorder komponentu)
+
 ---
 
 **Održavaj ovaj dokument ažurnim sa svakom značajnom promjenom u projektu.**
 
-**Last Updated:** 2025-11-30 - Added production projects data, live URLs, and Hero refactoring notes
+**Last Updated:** 2025-11-30 - SimpleGallery, removed Case Study badge, padding fixes
