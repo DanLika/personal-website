@@ -107,20 +107,19 @@ export const projectsData: Record<string, ProjectData> = {
   'pizzeria-bestek': {
     id: 'pizzeria-bestek',
     title: 'Pizzeria Bestek',
-    category: 'WEB APP',
-    description: 'Full ordering system with an Admin Dashboard for real-time order acceptance/rejection.',
+    category: 'WEB APP & DASHBOARD',
+    description: 'A complete food ordering platform featuring a customer app and a real-time Admin Dashboard.',
     overview: [
-      'Complete online ordering system for a local pizzeria',
-      'Real-time order management with admin dashboard',
-      'Email notifications using Resend API',
-      'Customer order tracking and history'
+      'A custom-built web application designed to digitize the ordering process for a local pizzeria.',
+      'The system consists of two parts: a user-friendly frontend for customers to browse the menu and place orders, and a secure Admin Dashboard for staff to accept or reject orders in real-time.',
+      'Supabase handles the live data synchronization, while Resend ensures reliable transactional email notifications for every order status change.'
     ],
-    techStack: ['React', 'Tailwind CSS', 'Supabase', 'Resend'],
+    techStack: ['React', 'Tailwind', 'Supabase', 'Resend'],
     galleryImages: [
-      '/pizzeria-menu.png',
-      '/pizzeria-checkout.png',
-      '/pizzeria-admin.png',
-      '/pizzeria-mockup.avif'
+      '/PizzeriaBestek/pizzeria-1.png',
+      '/PizzeriaBestek/pizzeria-2.png',
+      '/PizzeriaBestek/pizzeria-3.png',
+      '/PizzeriaBestek/pizzeria-4.png'
     ],
     challenges: [
       'Real-time order status updates for both customers and admins',
@@ -135,10 +134,9 @@ export const projectsData: Record<string, ProjectData> = {
       'Built mobile-optimized UI with Tailwind responsive utilities'
     ],
     results: [
-      '100+ orders in first week',
-      '30% increase in online orders',
-      '95% order accuracy rate',
-      '4.8★ customer satisfaction'
+      'Real-time Supabase Sync',
+      'Resend Email Integration',
+      'Full Admin Management'
     ],
     client: 'Pizzeria Bestek',
     duration: '3 months',
