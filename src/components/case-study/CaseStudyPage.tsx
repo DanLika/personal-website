@@ -310,8 +310,8 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
               </p>
             </motion.div>
 
-            {/* Sub-Projects Grid */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Sub-Projects List */}
+            <div className="space-y-12">
               {currentProject.subProjects.map((subProject, index) => (
                 <SubProjectCard
                   key={subProject.id}
