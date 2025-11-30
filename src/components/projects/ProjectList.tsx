@@ -108,13 +108,11 @@ export const ProjectList = () => {
                     }}
                   />
 
-                  {/* Glass Card */}
+                  {/* Card */}
                   <motion.div
-                    className="relative backdrop-blur-md rounded-[30px] overflow-visible transition-all duration-500 cursor-pointer"
+                    className="relative bg-black/40 backdrop-blur-xl rounded-[30px] border border-white/10 overflow-visible transition-all duration-500 cursor-pointer"
                     style={{
-                      background: 'rgba(255, 255, 255, 0.02)',
-                      border: '1px solid rgba(255, 255, 255, 0.06)',
-                      boxShadow: '0 0 0 1px rgba(59, 201, 255, 0) inset, 0 4px 24px 0 rgba(0, 0, 0, 0.2)'
+                      boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.1), 0 0 40px rgba(59, 201, 255, 0.1)'
                     }}
                     onMouseMove={(e) => {
                       const rect = e.currentTarget.getBoundingClientRect();
@@ -131,31 +129,10 @@ export const ProjectList = () => {
                         parent.querySelector('div')?.style.setProperty('--mouse-x', `${x}px`);
                         parent.querySelector('div')?.style.setProperty('--mouse-y', `${y}px`);
                       }
-
-                      // Dynamic border glow on hover
-                      e.currentTarget.style.boxShadow = `0 0 0 1px rgba(59, 201, 255, 0.6) inset, 0 0 40px rgba(59, 201, 255, 0.2)`;
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.boxShadow = '0 0 0 1px rgba(59, 201, 255, 0) inset, 0 4px 24px 0 rgba(0, 0, 0, 0.2)';
                     }}
                   >
-
                     {/* Inner Glow */}
-                    <div
-                      className="absolute inset-0 rounded-[30px] pointer-events-none"
-                      style={{
-                        background: 'linear-gradient(180deg, rgba(59, 201, 255, 0.05) 0%, rgba(59, 201, 255, 0.02) 50%, rgba(59, 201, 255, 0.04) 100%)',
-                        mixBlendMode: 'overlay'
-                      }}
-                    />
-
-                    {/* Glass Sheen */}
-                    <div
-                      className="absolute inset-0 pointer-events-none opacity-30 group-hover:opacity-50 transition-opacity duration-500 rounded-[30px] overflow-hidden"
-                      style={{
-                        background: 'linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%)'
-                      }}
-                    />
+                    <div className="absolute inset-0 rounded-[30px] bg-gradient-to-br from-cyan-500/5 via-transparent to-blue-500/5 pointer-events-none" />
 
                     {/* Content Container */}
                     <div className="relative z-10 grid md:grid-cols-5 gap-8 p-8 overflow-visible">

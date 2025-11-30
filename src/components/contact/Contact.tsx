@@ -44,17 +44,17 @@ export const Contact = () => {
     {
       name: 'GitHub',
       icon: Github,
-      url: 'https://github.com/yourusername'
+      url: 'https://github.com/DanLika'
     },
     {
       name: 'LinkedIn',
       icon: Linkedin,
-      url: 'https://linkedin.com/in/yourusername'
+      url: 'https://www.linkedin.com/in/dusko-licanin-7b2705254/'
     },
     {
       name: 'Email',
       icon: Mail,
-      url: 'mailto:your.email@example.com'
+      url: 'mailto:duskolicanin1234@gmail.com'
     }
   ];
 
@@ -74,16 +74,14 @@ export const Contact = () => {
             }}
           />
 
-          {/* Glass Card */}
+          {/* Card */}
           <motion.div
             initial={{ opacity: 0, y: 60 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.22, 0.61, 0.36, 1] }}
-            className="relative backdrop-blur-xl rounded-[40px] overflow-hidden shadow-2xl transition-all duration-500"
+            className="relative bg-black/40 backdrop-blur-xl rounded-[40px] border border-white/10 overflow-hidden transition-all duration-500"
             style={{
-              background: 'rgba(255, 255, 255, 0.02)',
-              border: '1px solid rgba(255, 255, 255, 0.06)',
-              boxShadow: '0 4px 24px 0 rgba(0, 0, 0, 0.2)'
+              boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.1), 0 0 40px rgba(59, 201, 255, 0.1)'
             }}
             onMouseMove={(e) => {
               const rect = e.currentTarget.getBoundingClientRect();
@@ -100,21 +98,10 @@ export const Contact = () => {
                 parent.querySelector('div')?.style.setProperty('--mouse-x', `${x}px`);
                 parent.querySelector('div')?.style.setProperty('--mouse-y', `${y}px`);
               }
-
-              // Dynamic border glow on hover
-              e.currentTarget.style.boxShadow = `0 0 0 1px rgba(59, 201, 255, 0.6) inset, 0 0 40px rgba(59, 201, 255, 0.2)`;
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = '0 4px 24px 0 rgba(0, 0, 0, 0.2)';
             }}
           >
           {/* Inner Glow */}
-          <div className="absolute inset-0 rounded-[40px] pointer-events-none"
-            style={{
-              background: 'linear-gradient(180deg, rgba(59, 201, 255, 0.05) 0%, rgba(59, 201, 255, 0.02) 50%, rgba(59, 201, 255, 0.04) 100%)',
-              mixBlendMode: 'overlay'
-            }}
-          />
+          <div className="absolute inset-0 rounded-[40px] bg-gradient-to-br from-cyan-500/5 via-transparent to-blue-500/5 pointer-events-none" />
 
           {/* Content Grid */}
           <div className="relative z-10 grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 p-6 md:p-12 lg:p-16">
@@ -264,22 +251,22 @@ export const Contact = () => {
                 >
                   <motion.button
                     type="submit"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className={`w-full px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 ${isSubmitted
-                      ? 'bg-green-500/20 border-green-400/50 text-green-400 shadow-[0_0_20px_rgba(34,197,94,0.3)]'
-                      : 'bg-cyan-500/20 border-cyan-400/50 text-cyan-400 shadow-[0_0_20px_rgba(59,201,255,0.3)] hover:bg-cyan-500/30 hover:border-cyan-400/70 hover:shadow-[0_0_30px_rgba(59,201,255,0.5)]'
-                      } border backdrop-blur-sm`}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={`w-full px-6 py-3 rounded-full transition-all duration-300 ${isSubmitted
+                      ? 'bg-green-500/20 border-green-400/40 backdrop-blur-sm border'
+                      : 'bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-400/40 backdrop-blur-sm hover:from-cyan-500/30 hover:to-blue-500/30 hover:border-cyan-400/60'
+                      } flex items-center justify-center gap-2`}
                   >
                     {isSubmitted ? (
-                      <span className="flex items-center justify-center gap-2">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <>
+                        <svg className="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
-                        Message Sent!
-                      </span>
+                        <span className="text-green-400 text-sm font-semibold">Message Sent!</span>
+                      </>
                     ) : (
-                      t("contact.form.send")
+                      <span className="text-cyan-400 text-sm font-semibold">{t("contact.form.send")}</span>
                     )}
                   </motion.button>
                 </motion.div>

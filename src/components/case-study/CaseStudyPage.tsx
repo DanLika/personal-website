@@ -7,6 +7,7 @@ import { projectsData, getNextProject, type ProjectData } from "../../data/proje
 import SimpleGallery from "../ui/SimpleGallery";
 import { SubProjectCard } from "./SubProjectCard";
 import { Particles } from "../ui/ParticleBg";
+import { Footer } from "../layout/Footer";
 
 interface CaseStudyPageProps {
   project?: ProjectData;
@@ -96,8 +97,8 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
   const nextProject = getNextProject(currentProject.id);
 
   return (
-    <div ref={sectionRef} className="relative min-h-screen bg-gradient-to-b from-[#0A0A0A] to-[#13151A]">
-      {/* Background Particles - Full Page */}
+    <div ref={sectionRef} className="relative min-h-screen bg-[#0A0A0A]">
+      {/* Single Particle Background for entire page */}
       <div className="fixed inset-0 z-0">
         <Particles
           particleCount={150}
@@ -136,24 +137,21 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="inline-flex"
+              className="flex justify-center"
             >
               <a
                 href={currentProject.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group"
               >
-                <motion.div
+                <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-6 py-3 rounded-full bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-400/40 backdrop-blur-sm flex items-center gap-2 transition-all duration-300 hover:bg-cyan-500/30 hover:border-cyan-400/60 hover:shadow-[0_0_20px_rgba(59,201,255,0.4)]"
+                  className="px-6 py-3 rounded-full transition-all duration-300 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-400/40 backdrop-blur-sm hover:from-cyan-500/30 hover:to-blue-500/30 hover:border-cyan-400/60 flex items-center gap-2"
                 >
                   <ExternalLink className="w-4 h-4 text-cyan-400" />
-                  <span className="text-cyan-400 text-sm font-semibold">
-                    View Live Site
-                  </span>
-                </motion.div>
+                  <span className="text-cyan-400 text-sm font-semibold">View Live Site</span>
+                </motion.button>
               </a>
             </motion.div>
           )}
@@ -466,6 +464,9 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
           </div>
         </motion.section>
       )}
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };

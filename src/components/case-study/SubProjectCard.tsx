@@ -24,14 +24,18 @@ export const SubProjectCard: React.FC<SubProjectCardProps> = ({ subProject, inde
       viewport={{ once: true }}
       className="relative"
     >
-      {/* Glass Card Container */}
-      <div className="relative backdrop-blur-xl bg-black/40 border border-white/10 rounded-[30px] p-6 md:p-8 overflow-hidden">
-
-        {/* Inner Glow - Removed hover effect */}
-        <div className="absolute inset-0 rounded-[30px] bg-gradient-to-br from-cyan-500/5 via-transparent to-blue-500/5 opacity-50 pointer-events-none" />
+      {/* Glass Card Container - Matching Project Overview Style */}
+      <div
+        className="relative bg-black/40 backdrop-blur-xl rounded-[40px] border border-white/10 overflow-hidden"
+        style={{
+          boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.1), 0 0 40px rgba(59, 201, 255, 0.1)'
+        }}
+      >
+        {/* Inner Glow */}
+        <div className="absolute inset-0 rounded-[40px] bg-gradient-to-br from-cyan-500/5 via-transparent to-blue-500/5 pointer-events-none" />
 
         {/* Content */}
-        <div className="relative z-10 space-y-6">
+        <div className="relative z-10 space-y-6 p-6 md:p-8">
           {/* Title */}
           <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold font-space text-white leading-tight line-clamp-2">
             {subProject.title[currentLang]}

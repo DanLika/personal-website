@@ -39,10 +39,10 @@ export const projectsData: Record<string, ProjectData> = {
     ],
     techStack: ['Flutter', 'Firebase', 'Stripe', 'iCal Integration'],
     galleryImages: [
-      '/syncbooking-dashboard.png',
-      '/syncbooking-widget.png',
-      '/syncbooking-calendar.png',
-      '/syncbooking-payments.png'
+      '/SyncBooking/SyncBooking.avif',
+      '/SyncBooking/SyncBooking 2.avif',
+      '/SyncBooking/SyncBooking 3.avif',
+      '/SyncBooking/SyncBooking 4.avif'
     ],
     challenges: [
       'Real-time synchronization between multiple booking platforms',

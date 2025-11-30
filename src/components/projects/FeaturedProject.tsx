@@ -64,11 +64,9 @@ export const FeaturedProject = () => {
               initial={{ opacity: 0, y: 60 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: [0.22, 0.61, 0.36, 1] }}
-              className="relative backdrop-blur-3xl rounded-[40px] overflow-hidden transition-all duration-500 cursor-pointer"
+              className="relative bg-black/40 backdrop-blur-xl rounded-[40px] border border-white/10 overflow-hidden transition-all duration-500 cursor-pointer"
               style={{
-                background: 'rgba(255, 255, 255, 0.02)',
-                border: '1px solid rgba(255, 255, 255, 0.06)',
-                boxShadow: '0 4px 24px 0 rgba(0, 0, 0, 0.2)'
+                boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.1), 0 0 40px rgba(59, 201, 255, 0.1)'
               }}
               onMouseMove={(e) => {
                 const rect = e.currentTarget.getBoundingClientRect();
@@ -85,21 +83,10 @@ export const FeaturedProject = () => {
                   parent.querySelector('div')?.style.setProperty('--mouse-x', `${x}px`);
                   parent.querySelector('div')?.style.setProperty('--mouse-y', `${y}px`);
                 }
-
-                // Dynamic border glow on hover
-                e.currentTarget.style.boxShadow = `0 0 0 1px rgba(59, 201, 255, 0.6) inset, 0 0 40px rgba(59, 201, 255, 0.2)`;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = '0 4px 24px 0 rgba(0, 0, 0, 0.2)';
               }}
             >
               {/* Inner Glow */}
-              <div className="absolute inset-0 rounded-[40px] pointer-events-none"
-                style={{
-                  background: 'linear-gradient(180deg, rgba(59, 201, 255, 0.05) 0%, rgba(59, 201, 255, 0.02) 50%, rgba(59, 201, 255, 0.04) 100%)',
-                  mixBlendMode: 'overlay'
-                }}
-              />
+              <div className="absolute inset-0 rounded-[40px] bg-gradient-to-br from-cyan-500/5 via-transparent to-blue-500/5 pointer-events-none" />
 
               {/* Content Container */}
               <div className="relative z-10 grid md:grid-cols-2 gap-8 md:gap-12 p-6 md:p-12 lg:p-16">
@@ -167,24 +154,30 @@ export const FeaturedProject = () => {
                       showMobileWarning={false}
                       showTooltip={false}
                       displayOverlayContent={false}
+                      containerHeight="auto"
+                      containerWidth="100%"
+                      className="w-full max-w-md md:max-w-[56rem]"
                     >
-                      <motion.div
-                        className="relative w-full max-w-[320px] h-auto aspect-[4/5] rounded-[24px] overflow-hidden border-2 border-neon/40 shadow-[0_0_30px_rgba(59,201,255,0.5)]"
-                        whileHover={{ scale: 1.02 }}
-                      >
-                        <img
-                          src="/syncbooking-mockup.avif"
-                          alt="SyncBooking SaaS Mockup"
-                          className="w-full h-full object-cover"
-                        />
-                        {/* Glass shine overlay */}
-                        <div
-                          className="absolute inset-0 pointer-events-none"
-                          style={{
-                            background: 'linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%)'
-                          }}
-                        />
-                      </motion.div>
+                      <motion.img
+                        src="/ironlife-mockup.avif"
+                        alt="SyncBooking SaaS Mockup"
+                        className="w-full h-auto object-cover rounded-2xl aspect-[4/3] drop-shadow-2xl"
+                        initial={{
+                          opacity: 0,
+                          scale: 0.9,
+                          filter: 'brightness(1) drop-shadow(0 25px 50px rgba(0, 0, 0, 0.5))'
+                        }}
+                        whileInView={{
+                          opacity: 1,
+                          scale: 1,
+                          filter: 'brightness(1) drop-shadow(0 25px 50px rgba(0, 0, 0, 0.5))'
+                        }}
+                        whileHover={{
+                          filter: 'brightness(1.1) drop-shadow(0 30px 60px rgba(59, 201, 255, 0.3))',
+                        }}
+                        transition={{ duration: 0.4 }}
+                        loading="lazy"
+                      />
                     </TiltedCard>
                   </div>
 
