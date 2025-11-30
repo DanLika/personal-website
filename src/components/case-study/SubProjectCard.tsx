@@ -18,7 +18,8 @@ const GalleryLoader = ({ images, projectTitle }: { images: string[], projectTitl
     const loadImages = async () => {
       const loadedItems: MasonryItem[] = [];
 
-      for (const imgPath of images) {
+      for (let i = 0; i < images.length; i++) {
+        const imgPath = images[i];
         try {
           const img = new Image();
           img.src = imgPath;
@@ -29,10 +30,10 @@ const GalleryLoader = ({ images, projectTitle }: { images: string[], projectTitl
           });
 
           loadedItems.push({
-            src: imgPath,
-            alt: `${projectTitle} - Screenshot`,
-            width: img.naturalWidth,
-            height: img.naturalHeight,
+            id: `${projectTitle}-${i}`,
+            img: imgPath,
+            height: img.naturalHeight / img.naturalWidth,
+            title: `${projectTitle} - Screenshot ${i + 1}`
           });
         } catch (error) {
           console.warn(`Failed to load image: ${imgPath}`, error);
