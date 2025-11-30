@@ -59,19 +59,19 @@ export const projectsData: Record<string, ProjectData> = {
     id: 'ironlife',
     title: 'IronLife.org',
     category: 'WEBFLOW CMS',
-    description: 'A high-performance fitness and nutrition brand website built on Webflow.',
+    description: 'A high-performance fitness and nutrition brand website built natively on Webflow.',
     overview: [
-      'Professional fitness and nutrition brand website',
-      'Built with Webflow CMS for easy content management',
-      'Optimized for SEO and Core Web Vitals',
-      'Responsive design across all devices'
+      'Comprehensive digital platform for fitness, nutrition, and healthy living',
+      'Built entirely in Webflow with custom CMS for easy content management',
+      'Optimized for speed, accessibility, and search engine visibility',
+      'Allows client to publish articles, recipes, and training guides without code'
     ],
-    techStack: ['Webflow', 'CMS', 'SEO Optimization'],
+    techStack: ['Webflow', 'CMS', 'SEO', 'Figma'],
     galleryImages: [
-      '/ironlife-home.png',
-      '/ironlife-programs.png',
-      '/ironlife-blog.png',
-      '/ironlife-mockup.avif'
+      '/IronLife/IronLife.avif',
+      '/IronLife/IronLife 2.avif',
+      '/IronLife/IronLife 3.avif',
+      '/IronLife/IronLife 4.avif'
     ],
     challenges: [
       'Achieving fast page load times with media-rich content',
@@ -86,10 +86,9 @@ export const projectsData: Record<string, ProjectData> = {
       'Implemented schema markup and meta optimization'
     ],
     results: [
-      '95+ Lighthouse performance score',
-      '100% SEO score',
-      '50% increase in organic traffic',
-      'Featured in Webflow showcase'
+      '99/100 Performance Score',
+      'SEO Optimized Structure',
+      'Easy Client Management'
     ],
     client: 'IronLife Nutrition',
     duration: '2 months',
