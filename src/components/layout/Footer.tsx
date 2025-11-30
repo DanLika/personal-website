@@ -31,7 +31,7 @@ export const Footer = () => {
   };
 
   const footerLinks = [
-    { name: t("nav.links.home"), sectionId: "hero" },
+    { name: t("nav.links.home"), sectionId: "home" },
     { name: t("nav.links.projects"), sectionId: "projects" },
     { name: t("nav.links.about"), sectionId: "about" },
     { name: t("nav.links.contact"), sectionId: "contact" }

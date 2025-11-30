@@ -139,7 +139,7 @@ export const Hero = () => {
   return (
     <section
       ref={sectionRef}
-      id="hero"
+      id="home"
       className="relative w-full min-h-[100svh] md:min-h-screen bg-transparent text-white overflow-hidden"
       aria-label="Hero section"
     >
@@ -204,8 +204,9 @@ export const Hero = () => {
 
             {/* Vertical glow reflection behind avatar */}
             <div
-              className="absolute left-1/2 -translate-x-1/2 w-[50%] h-[85%] blur-3xl pointer-events-none"
+              className="absolute w-[50%] h-[85%] blur-3xl pointer-events-none"
               style={{
+                left: '50%',
                 top: 'calc(50% - 30px)',
                 transform: 'translate(-50%, -50%)',
                 zIndex: 1,
@@ -243,14 +244,14 @@ export const Hero = () => {
               {/* Title - single line on desktop, max 2 lines on mobile */}
               <motion.h1
                 variants={itemVariants}
-                className="font-extrabold font-space text-white leading-tight text-4xl md:text-6xl lg:text-7xl px-1 sm:px-2"
+                className="font-extrabold font-space text-white leading-tight text-4xl md:text-6xl lg:text-7xl px-1 sm:px-2 max-w-full"
               >
                 {/* Mobile: allow wrapping, max 2 lines */}
                 <span className="md:hidden block line-clamp-2 text-center">
                   {t("hero.title")}
                 </span>
-                {/* Desktop: single line with DecryptedText effect */}
-                <span className="hidden md:block whitespace-nowrap">
+                {/* Desktop: prefer single line with DecryptedText, but allow wrap on extreme zoom */}
+                <span className="hidden md:block text-center break-words">
                   {renderTitle}
                 </span>
               </motion.h1>

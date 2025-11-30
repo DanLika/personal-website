@@ -105,7 +105,7 @@ export const Navbar = () => {
   };
 
   const navLinks = [
-    { key: "home", label: t("nav.links.home"), sectionId: "hero" },
+    { key: "home", label: t("nav.links.home"), sectionId: "home" },
     { key: "projects", label: t("nav.links.projects"), sectionId: "projects" },
     { key: "about", label: t("nav.links.about"), sectionId: "about" },
     { key: "contact", label: t("nav.links.contact"), sectionId: "contact" },
@@ -167,7 +167,7 @@ export const Navbar = () => {
               whileHover={{
                 textShadow: "0 0 20px rgba(59, 201, 255, 0.9)",
               }}
-              onClick={() => smoothScrollTo("hero")}
+              onClick={() => smoothScrollTo("home")}
             >
               licanin
             </motion.div>
@@ -246,7 +246,7 @@ export const Navbar = () => {
               textShadow: "0 0 10px rgba(59, 201, 255, 0.6)",
             }}
             onClick={() => {
-              smoothScrollTo("hero");
+              smoothScrollTo("home");
               setMobileMenuOpen(false);
             }}
           >

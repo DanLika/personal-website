@@ -803,8 +803,56 @@ style={{
 
 **Rezultat:** Perfektna vizuelna konzistentnost između HomePage i CaseStudyPage sa istim Particles background sistemom.
 
+## Hero Section Route Rename (Completed - 2025-11-30)
+
+### Problem
+Hero section koristio ID "hero" što je kreirao route `/#hero`. User želio je da route bude `/#home` za bolju semantiku i konzistentnost sa navigacijom.
+
+### Rješenje
+Renamed section ID i ažurirane sve navigation reference u 3 fajla:
+
+**1. Hero.tsx (line 142):**
+```tsx
+<section
+  ref={sectionRef}
+  id="home"  // Changed from "hero"
+  className="relative w-full min-h-[100svh] md:min-h-screen bg-transparent text-white overflow-hidden"
+  aria-label="Hero section"
+>
+```
+
+**2. Footer.tsx (line 34):**
+```tsx
+const footerLinks = [
+  { name: t("nav.links.home"), sectionId: "home" },  // Changed from "hero"
+  { name: t("nav.links.projects"), sectionId: "projects" },
+  { name: t("nav.links.about"), sectionId: "about" },
+  { name: t("nav.links.contact"), sectionId: "contact" }
+];
+```
+
+**3. Navbar.tsx (lines 108, 170, 249):**
+```tsx
+// Line 108 - navLinks array
+const navLinks = [
+  { key: "home", label: t("nav.links.home"), sectionId: "home" },  // Changed from "hero"
+  // ...
+];
+
+// Line 170 - Desktop logo click
+onClick={() => smoothScrollTo("home")}  // Changed from "hero"
+
+// Line 249 - Mobile logo click
+onClick={() => {
+  smoothScrollTo("home");  // Changed from "hero"
+  setMobileMenuOpen(false);
+}}
+```
+
+**Rezultat:** Route je sada `http://localhost:5174/#home` umjesto `/#hero`. Sva navigacija funkcioniše konzistentno.
+
 ---
 
 **Održavaj ovaj dokument ažurnim sa svakom značajnom promjenom u projektu.**
 
-**Last Updated:** 2025-11-30 - Glass effect restoration, button design unification, CaseStudyPage background consistency
+**Last Updated:** 2025-11-30 - Hero section route rename from #hero to #home
