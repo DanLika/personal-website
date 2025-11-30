@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence, useMotionValue, useTransform, animate } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { MagnetButton } from "./ui/MagnetButton";
 
@@ -121,7 +121,7 @@ export const Navbar = () => {
         damping: 30,
       },
     },
-  };
+  } as const;
 
   // Glass morphism styles - shared between desktop and mobile
   const glassStyles = {
