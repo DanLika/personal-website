@@ -4,70 +4,8 @@ import { useParams, Link } from "react-router-dom";
 import { ArrowRight, ExternalLink } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { projectsData, getNextProject, type ProjectData } from "../../data/projects";
-import MasonryGallery, { type MasonryItem } from "../ui/MasonryGallery";
+import SimpleGallery from "../ui/SimpleGallery";
 import { SubProjectCard } from "./SubProjectCard";
-
-// Helper component to load images and get dimensions
-const GalleryLoader = ({ images, projectTitle }: { images: string[], projectTitle: string }) => {
-  const [items, setItems] = useState<MasonryItem[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const loadImages = async () => {
-      setLoading(true);
-      const loadedItems: MasonryItem[] = [];
-
-      await Promise.all(
-        images.map(async (src, index) => {
-          return new Promise<void>((resolve) => {
-            const img = new Image();
-            img.src = src;
-            img.onload = () => {
-              // Calculate aspect ratio or use height directly. 
-              // The Masonry component expects 'height'. 
-              // Let's pass the aspect ratio (h/w) as 'height' for our modified logic, 
-              // OR pass the raw height if we want to stick to the original logic.
-              // In my modified MasonryGallery, I used: const displayHeight = columnWidth * child.height;
-              // So 'height' should be aspect ratio (h/w).
-              const aspectRatio = img.naturalHeight / img.naturalWidth;
-
-              loadedItems.push({
-                id: `img-${index}`,
-                img: src,
-                height: aspectRatio, // Passing aspect ratio
-                title: index === 0 ? `${projectTitle} - Main View` : `${projectTitle} - Image ${index + 1}`
-              });
-              resolve();
-            };
-            img.onerror = () => resolve(); // Skip on error but resolve
-          });
-        })
-      );
-
-      // Sort by original index to maintain order
-      const sortedItems = loadedItems.sort((a, b) => {
-        const indexA = images.indexOf(a.img);
-        const indexB = images.indexOf(b.img);
-        return indexA - indexB;
-      });
-
-      setItems(sortedItems);
-      setLoading(false);
-    };
-
-    loadImages();
-  }, [images]);
-
-  if (loading) {
-    return <div className="text-center text-white/60 py-20">Loading gallery...</div>;
-  }
-
-  return (
-    <div className="w-full min-h-[50vh]">
-      <MasonryGallery items={items} />
-    </div>
-  );
-};
 
 interface CaseStudyPageProps {
   project?: ProjectData;
@@ -116,6 +54,7 @@ const TechIcon: React.FC<{ tech: string; index: number }> = ({ tech, index }) =>
 
 export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
   const { projectId } = useParams<{ projectId: string }>();
+  const { t } = useTranslation();
 
   // Scroll to top when project changes
   useEffect(() => {
@@ -297,16 +236,10 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
               className="text-center mb-16"
             >
               <h2 className="text-4xl md:text-5xl font-bold font-space text-white mb-4">
-                {(() => {
-                  const { t } = useTranslation();
-                  return t("projects.flutterflow.collection.title", "Template Collection");
-                })()}
+                {t("projects.flutterflow.collection.title", "Template Collection")}
               </h2>
               <p className="text-white/60 text-lg">
-                {(() => {
-                  const { t } = useTranslation();
-                  return t("projects.flutterflow.collection.subtitle", "Explore the premium FlutterFlow templates");
-                })()}
+                {t("projects.flutterflow.collection.subtitle", "Explore the premium FlutterFlow templates")}
               </p>
             </motion.div>
 
@@ -379,7 +312,7 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
               Project Gallery
             </h2>
 
-            <GalleryLoader images={currentProject.galleryImages} projectTitle={currentProject.title} />
+            <SimpleGallery images={currentProject.galleryImages} title={currentProject.title} />
           </motion.div>
         </div>
       </section>

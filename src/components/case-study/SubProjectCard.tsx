@@ -1,62 +1,12 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { type SubProject } from "../../data/projects";
-import MasonryGallery, { type MasonryItem } from "../ui/MasonryGallery";
-import { useState, useEffect } from "react";
+import SimpleGallery from "../ui/SimpleGallery";
 
 interface SubProjectCardProps {
   subProject: SubProject;
   index: number;
 }
-
-// Helper component to load images and get dimensions
-const GalleryLoader = ({ images, projectTitle }: { images: string[], projectTitle: string }) => {
-  const [items, setItems] = useState<MasonryItem[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const loadImages = async () => {
-      const loadedItems: MasonryItem[] = [];
-
-      for (let i = 0; i < images.length; i++) {
-        const imgPath = images[i];
-        try {
-          const img = new Image();
-          img.src = imgPath;
-
-          await new Promise((resolve, reject) => {
-            img.onload = () => resolve(img);
-            img.onerror = reject;
-          });
-
-          loadedItems.push({
-            id: `${projectTitle}-${i}`,
-            img: imgPath,
-            height: img.naturalHeight / img.naturalWidth,
-            title: `${projectTitle} - Screenshot ${i + 1}`
-          });
-        } catch (error) {
-          console.warn(`Failed to load image: ${imgPath}`, error);
-        }
-      }
-
-      setItems(loadedItems);
-      setLoading(false);
-    };
-
-    loadImages();
-  }, [images, projectTitle]);
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center py-12">
-        <div className="w-8 h-8 border-4 border-cyan-400/30 border-t-cyan-400 rounded-full animate-spin" />
-      </div>
-    );
-  }
-
-  return <MasonryGallery items={items} />;
-};
 
 export const SubProjectCard: React.FC<SubProjectCardProps> = ({ subProject, index }) => {
   const { i18n } = useTranslation();
@@ -94,9 +44,9 @@ export const SubProjectCard: React.FC<SubProjectCardProps> = ({ subProject, inde
 
           {/* Gallery */}
           <div className="pt-4">
-            <GalleryLoader
+            <SimpleGallery
               images={subProject.galleryImages}
-              projectTitle={subProject.title[currentLang]}
+              title={subProject.title[currentLang]}
             />
           </div>
         </div>
