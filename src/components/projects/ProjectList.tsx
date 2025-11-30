@@ -196,7 +196,7 @@ export const ProjectList = () => {
 
                   {/* Glass Card */}
                   <motion.div
-                    className="relative bg-[#0A0A0A]/40 backdrop-blur-md border border-[#3BC9FF]/30 rounded-[30px] overflow-hidden transition-all duration-500 cursor-pointer"
+                    className="relative bg-[#0A0A0A]/40 backdrop-blur-md border border-[#3BC9FF]/30 rounded-[30px] overflow-visible transition-all duration-500 cursor-pointer"
                     onMouseMove={(e) => {
                       const rect = e.currentTarget.getBoundingClientRect();
                       const x = e.clientX - rect.left;
@@ -223,14 +223,14 @@ export const ProjectList = () => {
 
                     {/* Glass Sheen */}
                     <div
-                      className="absolute inset-0 pointer-events-none opacity-30 group-hover:opacity-50 transition-opacity duration-500"
+                      className="absolute inset-0 pointer-events-none opacity-30 group-hover:opacity-50 transition-opacity duration-500 rounded-[30px] overflow-hidden"
                       style={{
                         background: 'linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%)'
                       }}
                     />
 
                     {/* Content Container */}
-                    <div className="relative z-10 grid md:grid-cols-5 gap-8 p-8">
+                    <div className="relative z-10 grid md:grid-cols-5 gap-8 p-8 overflow-visible">
 
                       {/* Left Side - Content (60% on desktop) */}
                       <div className="md:col-span-3 space-y-4">
@@ -262,7 +262,7 @@ export const ProjectList = () => {
                       </div>
 
                       {/* Right Side - Mockup (40% on desktop) */}
-                      <div className="md:col-span-2 flex items-center justify-center">
+                      <div className="md:col-span-2 flex items-center justify-center md:justify-end relative">
                         <TiltedCard
                           rotateAmplitude={15}
                           scaleOnHover={1.05}
@@ -271,17 +271,19 @@ export const ProjectList = () => {
                           displayOverlayContent={false}
                           containerHeight="auto"
                           containerWidth="100%"
-                          className="max-w-md w-full"
+                          className="max-w-sm md:max-w-lg w-full md:translate-x-12 md:-translate-y-8"
                         >
                           <motion.img
                             src={project.mockupImage}
                             alt={`${project.title} Mockup`}
-                            className="w-full h-auto object-cover rounded-2xl shadow-2xl border border-white/10 aspect-[4/3]"
+                            className="w-full h-auto object-cover rounded-2xl aspect-[4/3] drop-shadow-2xl"
+                            style={{
+                              filter: 'drop-shadow(0 25px 50px rgba(0, 0, 0, 0.5))'
+                            }}
                             initial={{ opacity: 0, scale: 0.9 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                             whileHover={{
-                              filter: 'brightness(1.1)',
-                              boxShadow: '0 0 40px rgba(59, 201, 255, 0.3)'
+                              filter: 'brightness(1.1) drop-shadow(0 30px 60px rgba(59, 201, 255, 0.3))',
                             }}
                             transition={{ duration: 0.4 }}
                             loading="lazy"
