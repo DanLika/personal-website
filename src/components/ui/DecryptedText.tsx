@@ -48,13 +48,13 @@ export const DecryptedText = ({
 }: DecryptedTextProps) => {
   const [displayText, setDisplayText] = useState<string>(text);
   const [isHovering, setIsHovering] = useState<boolean>(false);
-  const [isScrambling, setIsScrambling] = useState<boolean>(false);
   const [revealedIndices, setRevealedIndices] = useState<Set<number>>(new Set());
   const [hasAnimated, setHasAnimated] = useState<boolean>(false);
   const containerRef = useRef<HTMLSpanElement>(null);
+  const isScramblingRef = useRef<boolean>(false);
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval: ReturnType<typeof setInterval>;
     let currentIteration = 0;
 
     const getNextIndex = (revealedSet: Set<number>): number => {
@@ -124,7 +124,7 @@ export const DecryptedText = ({
     };
 
     if (isHovering) {
-      setIsScrambling(true);
+      isScramblingRef.current = true;
       interval = setInterval(() => {
         setRevealedIndices((prevRevealed) => {
           if (sequential) {
@@ -136,7 +136,7 @@ export const DecryptedText = ({
               return newRevealed;
             } else {
               clearInterval(interval);
-              setIsScrambling(false);
+              isScramblingRef.current = false;
               return prevRevealed;
             }
           } else {
@@ -144,7 +144,7 @@ export const DecryptedText = ({
             currentIteration++;
             if (currentIteration >= maxIterations) {
               clearInterval(interval);
-              setIsScrambling(false);
+              isScramblingRef.current = false;
               setDisplayText(text);
             }
             return prevRevealed;
@@ -154,7 +154,7 @@ export const DecryptedText = ({
     } else {
       setDisplayText(text);
       setRevealedIndices(new Set());
-      setIsScrambling(false);
+      isScramblingRef.current = false;
     }
 
     return () => {
@@ -207,7 +207,7 @@ export const DecryptedText = ({
 
       <span aria-hidden="true">
         {displayText.split("").map((char, index) => {
-          const isRevealedOrDone = revealedIndices.has(index) || !isScrambling || !isHovering;
+          const isRevealedOrDone = revealedIndices.has(index) || !isScramblingRef.current || !isHovering;
 
           return (
             <span key={index} className={isRevealedOrDone ? className : encryptedClassName}>

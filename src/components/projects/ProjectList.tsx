@@ -8,23 +8,26 @@ import { projectsData } from "../../data/projects";
 
 // Map project IDs to mockup images
 const MOCKUP_IMAGES: Record<string, string> = {
-  'rabbooking': '/flutterflow-mockup.avif',     // Mobile booking app
-  'saasDashboard': '/ironlife-mockup.avif',     // Web dashboard
-  'aiChatbot': '/pizzeria-mockup.avif',         // AI chatbot interface
-  'uiuxDesign': '/flutterflow-mockup.avif'      // FinTech mobile app design
+  'syncbooking-saas': '/syncbooking-mockup.avif',     // SyncBooking SaaS platform
+  'ironlife': '/ironlife-mockup.avif',                // IronLife Webflow site
+  'pizzeria-bestek': '/pizzeria-mockup.avif',         // Pizzeria ordering system
+  'flutterflow-templates': '/flutterflow-mockup.avif' // FlutterFlow templates
 };
 
 // Convert projectsData to PROJECTS format for ProjectList
-const PROJECTS = Object.values(projectsData).map(project => ({
-  id: project.id,
-  title: project.title,
-  tag: project.category,
-  description: project.description,
-  tech: project.techStack,
-  mockupType: 'laptop' as const, // Default to laptop, can be customized per project
-  imageUrl: project.galleryImages[0],
-  mockupImage: MOCKUP_IMAGES[project.id] || '/pizzeria-mockup.avif'
-}));
+// Exclude SyncBooking since it's featured separately
+const PROJECTS = Object.values(projectsData)
+  .filter(project => project.id !== 'syncbooking-saas')
+  .map(project => ({
+    id: project.id,
+    title: project.title,
+    tag: project.category,
+    description: project.description,
+    tech: project.techStack,
+    mockupType: 'laptop' as const, // Default to laptop, can be customized per project
+    imageUrl: project.galleryImages[0],
+    mockupImage: MOCKUP_IMAGES[project.id] || '/pizzeria-mockup.avif'
+  }));
 
 const TechIcon: React.FC<{ tech: string }> = ({ tech }) => {
   const getIcon = () => {

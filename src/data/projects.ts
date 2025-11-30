@@ -12,174 +12,171 @@ export interface ProjectData {
   client: string;
   duration: string;
   role: string;
+  liveUrl?: string; // Optional live website URL
 }
 
 export const projectsData: Record<string, ProjectData> = {
-  rabbooking: {
-    id: "rabbooking",
-    title: "RabBooking App",
-    category: "MOBILE APP",
-    description: "A comprehensive booking platform for religious accommodations in Saudi Arabia, featuring real-time availability, secure payments, and multilingual support.",
+  'syncbooking-saas': {
+    id: 'syncbooking-saas',
+    title: 'SyncBooking SaaS',
+    category: 'SAAS PLATFORM',
+    description: 'A multi-tenant booking platform offering real-time availability widgets and iCal synchronization for property managers.',
     overview: [
-      "Designed and developed a Flutter-based mobile application for booking religious accommodations",
-      "Implemented real-time availability checking and reservation system",
-      "Created secure payment integration with Stripe for international transactions",
-      "Built admin dashboard for property management and analytics"
+      'A comprehensive SaaS solution designed for property managers',
+      'Allows users to manage reservations across platforms (Airbnb, Booking.com) via iCal sync',
+      'Provides embeddable widgets for direct website bookings',
+      'Real-time availability updates and calendar synchronization'
     ],
-    techStack: ["Flutter", "Firebase", "Stripe", "NodeJS", "MongoDB"],
+    techStack: ['Flutter', 'Firebase', 'Stripe', 'iCal Integration'],
     galleryImages: [
-      "/input_file_3.png",
-      "/input_file_5.png",
-      "/input_file_7.png",
-      "/input_file_10.png",
-      "/input_file_8.png",
-      "/input_file_9.png",
-      "/flutterflow-mockup.avif",
-      "/ironlife-mockup.avif",
-      "/pizzeria-mockup.avif",
-      "/hero-me.avif"
+      '/syncbooking-dashboard.png',
+      '/syncbooking-widget.png',
+      '/syncbooking-calendar.png',
+      '/syncbooking-payments.png'
     ],
     challenges: [
-      "Real-time synchronization between multiple users booking the same properties",
-      "Handling complex payment flows across different countries and currencies",
-      "Implementing Arabic RTL support alongside English LTR interface",
-      "Managing high-quality image uploads and optimization for mobile networks"
+      'Real-time synchronization between multiple booking platforms',
+      'Handling complex iCal parsing and two-way sync',
+      'Multi-tenant architecture with data isolation',
+      'Widget performance and embeddability across different websites'
     ],
     solutions: [
-      "Used Firebase real-time database with conflict resolution for booking management",
-      "Implemented Stripe Connect with multi-currency support and webhooks",
-      "Created flexible localization system with automatic RTL/LTR switching",
-      "Built image compression and CDN integration for optimal performance"
+      'Implemented real-time Firebase listeners with conflict resolution',
+      'Built robust iCal parser with bi-directional synchronization',
+      'Designed secure multi-tenant database schema with row-level security',
+      'Created lightweight widget with iframe embedding and postMessage communication'
     ],
     results: [
-      "10,000+ downloads in first 3 months",
-      "4.8★ average rating on app stores",
-      "95% booking completion rate",
-      "40% reduction in administrative overhead"
+      'Seamless iCal synchronization',
+      'Multi-tenant architecture',
+      'Real-time widget availability'
     ],
-    client: "RabBooking Ltd.",
-    duration: "4 months",
-    role: "Lead Mobile Developer"
+    client: 'SyncBooking Ltd.',
+    duration: '6 months',
+    role: 'Lead Full-Stack Developer'
   },
-  saasDashboard: {
-    id: "saas-dashboard",
-    title: "SaaS Analytics Dashboard",
-    category: "WEB APPLICATION",
-    description: "A modern analytics dashboard for SaaS companies featuring real-time data visualization, custom reporting, and team collaboration tools.",
+  ironlife: {
+    id: 'ironlife',
+    title: 'IronLife.org',
+    category: 'WEBFLOW CMS',
+    description: 'A high-performance fitness and nutrition brand website built on Webflow.',
     overview: [
-      "Developed responsive React-based dashboard with real-time data updates",
-      "Implemented interactive charts and data visualization using Chart.js",
-      "Created custom report builder with export functionality",
-      "Built team collaboration features with real-time notifications"
+      'Professional fitness and nutrition brand website',
+      'Built with Webflow CMS for easy content management',
+      'Optimized for SEO and Core Web Vitals',
+      'Responsive design across all devices'
     ],
-    techStack: ["React", "TypeScript", "Next.js", "Tailwind", "Chart.js", "Webflow"],
+    techStack: ['Webflow', 'CMS', 'SEO Optimization'],
     galleryImages: [
-      "/dashboard-1.png",
-      "/dashboard-2.png",
-      "/dashboard-3.png",
-      "/dashboard-4.png"
+      '/ironlife-home.png',
+      '/ironlife-programs.png',
+      '/ironlife-blog.png',
+      '/ironlife-mockup.avif'
     ],
     challenges: [
-      "Handling large datasets with real-time updates without performance degradation",
-      "Creating responsive charts that work across all device sizes",
-      "Implementing complex filtering and data aggregation logic",
-      "Managing user permissions and data access controls"
+      'Achieving fast page load times with media-rich content',
+      'Creating a flexible CMS structure for non-technical editors',
+      'Ensuring brand consistency across all pages',
+      'Implementing advanced SEO strategies'
     ],
     solutions: [
-      "Used React Query with WebSocket integration for efficient data fetching",
-      "Implemented custom chart components with responsive design principles",
-      "Built advanced filtering system with memoized calculations",
-      "Created role-based access control with JWT authentication"
+      'Optimized images with Webflow automatic compression and lazy loading',
+      'Designed intuitive CMS collections with custom fields',
+      'Created comprehensive style guide and component library',
+      'Implemented schema markup and meta optimization'
     ],
     results: [
-      "50% faster data loading times",
-      "200% increase in user engagement",
-      "30% reduction in support tickets",
-      "Successfully scaled to 10,000+ users"
+      '95+ Lighthouse performance score',
+      '100% SEO score',
+      '50% increase in organic traffic',
+      'Featured in Webflow showcase'
     ],
-    client: "TechStart Inc.",
-    duration: "6 months",
-    role: "Full-Stack Developer"
+    client: 'IronLife Nutrition',
+    duration: '2 months',
+    role: 'Webflow Developer & Designer',
+    liveUrl: 'https://ironlife-org.webflow.io'
   },
-  aiChatbot: {
-    id: "ai-chatbot",
-    title: "AI Customer Service Bot",
-    category: "AI SOLUTION",
-    description: "An intelligent chatbot powered by machine learning that handles customer service inquiries with 95% accuracy and natural language processing.",
+  'pizzeria-bestek': {
+    id: 'pizzeria-bestek',
+    title: 'Pizzeria Bestek',
+    category: 'WEB APP',
+    description: 'Full ordering system with an Admin Dashboard for real-time order acceptance/rejection.',
     overview: [
-      "Developed AI-powered chatbot using Python and machine learning frameworks",
-      "Implemented natural language processing for understanding customer queries",
-      "Created training pipeline for continuous model improvement",
-      "Built analytics dashboard for monitoring bot performance"
+      'Complete online ordering system for a local pizzeria',
+      'Real-time order management with admin dashboard',
+      'Email notifications using Resend API',
+      'Customer order tracking and history'
     ],
-    techStack: ["Python", "TensorFlow", "React", "NodeJS", "MongoDB", "AI"],
+    techStack: ['React', 'Tailwind CSS', 'Supabase', 'Resend'],
     galleryImages: [
-      "/chatbot-1.png",
-      "/chatbot-2.png",
-      "/chatbot-3.png",
-      "/chatbot-4.png"
+      '/pizzeria-menu.png',
+      '/pizzeria-checkout.png',
+      '/pizzeria-admin.png',
+      '/pizzeria-mockup.avif'
     ],
     challenges: [
-      "Training model to understand industry-specific terminology",
-      "Handling multilingual customer queries",
-      "Maintaining context throughout long conversations",
-      "Ensuring fast response times under high load"
+      'Real-time order status updates for both customers and admins',
+      'Handling concurrent orders during peak hours',
+      'Email delivery reliability and templating',
+      'Mobile-first responsive design for on-the-go ordering'
     ],
     solutions: [
-      "Used transfer learning with industry-specific fine-tuning",
-      "Implemented language detection and translation pipeline",
-      "Created conversation state management with context tracking",
-      "Deployed model with auto-scaling and load balancing"
+      'Implemented Supabase real-time subscriptions for instant updates',
+      'Used database transactions with row-level security for data consistency',
+      'Integrated Resend API with custom HTML email templates',
+      'Built mobile-optimized UI with Tailwind responsive utilities'
     ],
     results: [
-      "95% query resolution rate",
-      "60% reduction in human support costs",
-      "24/7 availability across all time zones",
-      "2-second average response time"
+      '100+ orders in first week',
+      '30% increase in online orders',
+      '95% order accuracy rate',
+      '4.8★ customer satisfaction'
     ],
-    client: "Global Services Corp.",
-    duration: "5 months",
-    role: "AI/ML Engineer"
+    client: 'Pizzeria Bestek',
+    duration: '3 months',
+    role: 'Full-Stack Developer',
+    liveUrl: 'https://pizzeriabestek.com'
   },
-  uiuxDesign: {
-    id: "uiux-design",
-    title: "FinTech Mobile App Design",
-    category: "UI/UX DESIGN",
-    description: "Complete UI/UX redesign for a financial technology mobile app, focusing on user experience, accessibility, and modern design principles.",
+  'flutterflow-templates': {
+    id: 'flutterflow-templates',
+    title: 'FlutterFlow Templates',
+    category: 'MARKETPLACE',
+    description: 'A suite of premium templates (Booking, Calendar Sync, PDF Viewer) for developers.',
     overview: [
-      "Conducted user research and competitive analysis",
-      "Designed complete UI/UX system with component library",
-      "Created interactive prototypes and user testing",
-      "Developed design system and brand guidelines"
+      'Premium template suite for FlutterFlow marketplace',
+      'DreamHome: Complete booking app with Stripe integration',
+      'Advanced Calendar: Sync with Google Calendar and iCal',
+      'PDF Viewer: Full-featured document viewer and annotator'
     ],
-    techStack: ["Figma", "UI/UX Design", "React", "FlutterFlow"],
+    techStack: ['FlutterFlow', 'Firebase', 'Stripe', 'Google Calendar API'],
     galleryImages: [
-      "/fintech-1.png",
-      "/fintech-2.png",
-      "/fintech-3.png",
-      "/fintech-4.png"
+      '/flutterflow-dreamhome.png',
+      '/flutterflow-calendar.png',
+      '/flutterflow-pdf.png',
+      '/flutterflow-mockup.avif'
     ],
     challenges: [
-      "Balancing complex financial data with simple user interface",
-      "Ensuring accessibility compliance for users with disabilities",
-      "Creating consistent design across multiple platforms",
-      "User onboarding for complex financial products"
+      'Creating reusable components adaptable to different use cases',
+      'Documentation for non-developers',
+      'Ensuring templates work across iOS and Android',
+      'Providing comprehensive customization options'
     ],
     solutions: [
-      "Designed progressive disclosure patterns for complex information",
-      "Implemented WCAG 2.1 AA accessibility standards",
-      "Created comprehensive design system with reusable components",
-      "Built interactive onboarding flow with step-by-step guidance"
+      'Built modular architecture with clearly defined component boundaries',
+      'Created video tutorials and step-by-step setup guides',
+      'Tested thoroughly on both platforms with edge case handling',
+      'Implemented theme system with easy color and style customization'
     ],
     results: [
-      "40% improvement in user task completion",
-      "25% reduction in support inquiries",
-      "100% accessibility compliance score",
-      "Successfully launched in 5 markets"
+      '500+ template purchases',
+      '4.9★ average rating',
+      'Top-rated in marketplace',
+      'Featured by FlutterFlow'
     ],
-    client: "FinanceFlow Ltd.",
-    duration: "3 months",
-    role: "Lead UI/UX Designer"
+    client: 'Self-Published',
+    duration: '4 months',
+    role: 'Template Creator & Developer',
+    liveUrl: 'https://marketplace.flutterflow.io/creator/65d766a45ade49b3d5dfe437e8a52f87f5b9599e'
   }
 };
 

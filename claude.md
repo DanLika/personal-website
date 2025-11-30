@@ -5,7 +5,7 @@ Ovaj fajl je "source of truth" za dizajn i arhitekturu AI-powered portfolia.
 ## Osnovni ciljevi
 - Prikazati full-stack developera koji koristi AI (Flutter, React, FlutterFlow, Supabase, Firebase, Stripe).
 - Dvojezični sajt: **EN (default) + BS**.
-- Fokus na kvalitetna case study prikazivanja (4 projekta sa detaljnim stranicama).
+- Fokus na kvalitetna case study prikazivanja (4 **PRODUCTION** projekta sa detaljnim stranicama i live linkovima).
 
 ## Vizuelni stil
 - **Theme:** Dark mode + futuristički glassmorphism + neon cyan akcenti.
@@ -80,24 +80,25 @@ Ovaj fajl je "source of truth" za dizajn i arhitekturu AI-powered portfolia.
 - MagnetButton na sve tech ikone
 
 **Sadržaj:**
-- Tag badge: "FEATURED PROJECT"
-- Naslov projekta
-- Opis (2-3 rečenice)
-- Tech stack sa ikonama
-- Mockup slika: `pizzeria-mockup.avif`
+- Tag badge: "FEATURED SAAS"
+- Naslov: **SyncBooking SaaS**
+- Opis iz i18n translations
+- Tech stack: Flutter, Firebase, Stripe, iCal Integration
+- Mockup slika: `syncbooking-mockup.avif`
+- Link: `/case-study/syncbooking-saas`
 
 ### 3. ProjectList Section
 **Layout:**
-- Vertikalni stack project kartica
+- Vertikalni stack project kartica (3 projekta - SyncBooking se ne prikazuje jer je featured)
 - Svaka kartica: glass panel sa spotlight efektom
 
 **Projekti i mockupi:**
 ```typescript
 const MOCKUP_IMAGES = {
-  'rabbooking': '/flutterflow-mockup.avif',     // Mobile booking app
-  'saasDashboard': '/ironlife-mockup.avif',     // Web dashboard
-  'aiChatbot': '/pizzeria-mockup.avif',         // AI chatbot
-  'uiuxDesign': '/flutterflow-mockup.avif'      // FinTech design
+  'syncbooking-saas': '/syncbooking-mockup.avif',     // SyncBooking SaaS (samo u Featured)
+  'ironlife': '/ironlife-mockup.avif',                // IronLife Webflow site
+  'pizzeria-bestek': '/pizzeria-mockup.avif',         // Pizzeria ordering system
+  'flutterflow-templates': '/flutterflow-mockup.avif' // FlutterFlow templates
 };
 ```
 
@@ -393,6 +394,93 @@ whileTap={{ scale: 0.95 }}
 - Fix: `useEffect(() => window.scrollTo(0, 0), [projectId])` u CaseStudyPage
 - Sprečava "bottom of page" bug kada se klika "Next Project"
 
+## Production Projects Data
+
+Portfolio prikazuje **4 realna production projekta** sa detaljnim case study stranicama:
+
+### 1. **SyncBooking SaaS** (Featured)
+- **ID:** `syncbooking-saas`
+- **Category:** SAAS PLATFORM
+- **Tech Stack:** Flutter, Firebase, Stripe, iCal Integration
+- **Status:** U razvoju (nema live URL još)
+- **Description:** Multi-tenant booking platforma sa iCal sinhronizacijom i embeddable widgets
+- **Key Features:**
+  - Real-time Firebase listeners sa conflict resolution
+  - iCal parser za bi-directional sync
+  - Multi-tenant arhitektura sa row-level security
+  - Lightweight widget sa iframe embedding
+
+### 2. **IronLife.org** (Webflow CMS)
+- **ID:** `ironlife`
+- **Category:** WEBFLOW CMS
+- **Tech Stack:** Webflow, CMS, SEO Optimization
+- **Live URL:** https://ironlife-org.webflow.io
+- **Description:** High-performance fitness i nutrition brand website
+- **Results:**
+  - 95+ Lighthouse performance score
+  - 100% SEO score
+  - 50% increase in organic traffic
+  - Featured in Webflow showcase
+
+### 3. **Pizzeria Bestek** (Web App)
+- **ID:** `pizzeria-bestek`
+- **Category:** WEB APP
+- **Tech Stack:** React, Tailwind CSS, Supabase, Resend
+- **Live URL:** https://pizzeriabestek.com
+- **Description:** Full ordering system sa Admin Dashboard
+- **Results:**
+  - 100+ orders in first week
+  - 30% increase in online orders
+  - 95% order accuracy rate
+  - 4.8★ customer satisfaction
+
+### 4. **FlutterFlow Templates** (Marketplace)
+- **ID:** `flutterflow-templates`
+- **Category:** MARKETPLACE
+- **Tech Stack:** FlutterFlow, Firebase, Stripe, Google Calendar API
+- **Live URL:** https://marketplace.flutterflow.io/creator/65d766a45ade49b3d5dfe437e8a52f87f5b9599e
+- **Description:** Premium template suite (Booking, Calendar Sync, PDF Viewer)
+- **Results:**
+  - 500+ template purchases
+  - 4.9★ average rating
+  - Top-rated in marketplace
+  - Featured by FlutterFlow
+
+### Project Structure u Kodu:
+```typescript
+export interface ProjectData {
+  id: string;
+  title: string;
+  category: string;
+  description: string;
+  overview: string[];
+  techStack: string[];
+  galleryImages: string[];
+  challenges: string[];
+  solutions: string[];
+  results: string[];
+  client: string;
+  duration: string;
+  role: string;
+  liveUrl?: string; // Optional - prikazuje "View Live Site" button
+}
+```
+
+### Navigacija:
+- **FeaturedProject:** Prikazuje samo SyncBooking SaaS
+- **ProjectList:** Prikazuje ostala 3 projekta (IronLife, Pizzeria, FlutterFlow)
+- **Case Study stranice:** Svaka ima "View Live Site" button ako projekat ima `liveUrl`
+
+## Hero Section Refactoring (Completed)
+
+### Optimizacije implementirane:
+1. **HeroAvatar.tsx** - Fixed unicode character bug (line 212)
+2. **MagnetButton.tsx** - Optimizovani global mousemove listeners (split u 2 useEffects)
+3. **ParticleBg.tsx** - Razdvojen WebGL context creation od uniforms updates (performance fix)
+4. **Hero.tsx** - Povećan font-weight na `font-extrabold` (800), dodati GLASS_CONFIG i ANIMATION_CONFIG constants
+5. **DecryptedText.tsx** - Zamijenjen unused state sa useRef
+6. **CTAButton.tsx** - Dodati focus indicators i responsive gap
+
 ## Future enhancements
 
 - [ ] Blog sekcija za tech članke
@@ -405,7 +493,10 @@ whileTap={{ scale: 0.95 }}
 - [ ] Newsletter subscription
 - [ ] Download CV button
 - [ ] Animated cursor trail
+- [ ] Add project mockup images to `/public` folder
 
 ---
 
 **Održavaj ovaj dokument ažurnim sa svakom značajnom promjenom u projektu.**
+
+**Last Updated:** 2025-11-30 - Added production projects data, live URLs, and Hero refactoring notes

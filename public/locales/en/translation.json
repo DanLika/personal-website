@@ -17,19 +17,27 @@
       "contact": "Contact"
     }
   },
+  "about": {
+    "title": "About Me",
+    "badge": "AI-Augmented Builder",
+    "p1": "I am a full-stack developer specializing in building modern web and mobile applications using AI-optimized workflows. I combine the speed of AI tools with the robustness of manual coding.",
+    "p2": "My stack includes Flutter & React for interfaces, backed by Supabase & Firebase for scalable data. I focus on delivering complete solutions—from design to deployment.",
+    "p3": "Whether it's a complex SaaS with multi-tenancy or a high-performance marketing site, I deliver quality code at twice the speed of traditional development."
+  },
   "projects": {
     "featured": {
-      "tag": "FEATURED PROJECT",
-      "desc": "A comprehensive booking platform for managing accommodations, reservations, and guest experiences. Built with Flutter for cross-platform mobile apps and React for web dashboard."
+      "tag": "FEATURED SAAS",
+      "title": "SyncBooking SaaS",
+      "desc": "A powerful multi-tenant platform enabling property owners to sync reservations via iCal and embed booking widgets directly into their websites."
     },
     "list": {
       "title": "More Projects",
-      "subtitle": "Explore my recent work and side projects"
+      "subtitle": "Recent work and marketplace contributions"
     }
   },
   "contact": {
-    "title": "Let's Work Together",
-    "subtitle": "Have a project in mind? Let's discuss how we can bring your ideas to life with modern technology and AI-powered solutions.",
+    "title": "Let's Build Something",
+    "subtitle": "Have a project in mind? Let's discuss how we can build it faster.",
     "form": {
       "name": "Name",
       "email": "Email",

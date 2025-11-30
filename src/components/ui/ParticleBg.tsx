@@ -120,6 +120,9 @@ export const Particles = ({
 }: ParticlesProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const mouseRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const programRef = useRef<Program | null>(null);
+  const particlesRef = useRef<Mesh | null>(null);
+  const speedRef = useRef(speed);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -216,6 +219,11 @@ export const Particles = ({
 
     const particles = new Mesh(gl, { mode: gl.POINTS, geometry, program });
 
+    // Store refs for dynamic updates
+    programRef.current = program;
+    particlesRef.current = particles;
+    speedRef.current = speed;
+
     let animationFrameId: number;
     let lastTime = performance.now();
     let elapsed = 0;
@@ -228,7 +236,7 @@ export const Particles = ({
       animationFrameId = requestAnimationFrame(update);
       const delta = t - lastTime;
       lastTime = t;
-      elapsed += delta * speed;
+      elapsed += delta * speedRef.current;
 
       program.uniforms.uTime.value = elapsed * 0.001;
 
@@ -243,7 +251,7 @@ export const Particles = ({
       if (!disableRotation) {
         particles.rotation.x = Math.sin(elapsed * 0.0002) * 0.1;
         particles.rotation.y = Math.cos(elapsed * 0.0005) * 0.15;
-        particles.rotation.z += 0.003 * speed;
+        particles.rotation.z += 0.003 * speedRef.current;
       }
 
       renderer.render({ scene: particles, camera });
@@ -261,20 +269,23 @@ export const Particles = ({
       if (container.contains(gl.canvas)) {
         container.removeChild(gl.canvas);
       }
+      programRef.current = null;
+      particlesRef.current = null;
     };
-  }, [
-    particleCount,
-    particleSpread,
-    speed,
-    particleColors,
-    moveParticlesOnHover,
-    particleHoverFactor,
-    alphaParticles,
-    particleBaseSize,
-    sizeRandomness,
-    cameraDistance,
-    disableRotation
-  ]);
+    // Only recreate WebGL context when particle count or colors change
+  }, [particleCount, particleColors, moveParticlesOnHover, cameraDistance, disableRotation]);
+
+  // Separate effect to update uniforms dynamically without recreating WebGL context
+  useEffect(() => {
+    if (programRef.current) {
+      const pixelRatio = Math.min(window.devicePixelRatio, 2);
+      programRef.current.uniforms.uSpread.value = particleSpread;
+      programRef.current.uniforms.uBaseSize.value = particleBaseSize * pixelRatio;
+      programRef.current.uniforms.uSizeRandomness.value = sizeRandomness;
+      programRef.current.uniforms.uAlphaParticles.value = alphaParticles ? 1 : 0;
+    }
+    speedRef.current = speed;
+  }, [particleSpread, particleBaseSize, sizeRandomness, alphaParticles, speed]);
 
   return (
     <div

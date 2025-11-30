@@ -30,14 +30,15 @@ export const CTAButton = ({
       disabled={disabled}
       className={`
         relative overflow-hidden
-        px-6 sm:px-8 md:px-10 
+        px-6 sm:px-8 md:px-10
         py-3 sm:py-3.5 md:py-4
         text-sm sm:text-base font-semibold
         rounded-full
         bg-gradient-to-r from-[#3BC9FF] to-[#2AB8F0]
         text-[#0A0A0A]
-        flex items-center justify-center gap-2
+        flex items-center justify-center gap-1.5 sm:gap-2
         transition-shadow duration-300
+        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3BC9FF] focus-visible:ring-offset-2 focus-visible:ring-offset-black
         disabled:opacity-50 disabled:cursor-not-allowed
         ${className}
       `}
@@ -76,7 +77,7 @@ export const CTAButton = ({
       />
 
       {/* Button content */}
-      <span className="relative z-10 flex items-center gap-2">
+      <span className="relative z-10 flex items-center gap-1.5 sm:gap-2">
         {children}
       </span>
 

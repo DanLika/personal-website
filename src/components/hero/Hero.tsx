@@ -1,12 +1,34 @@
 import { motion, type Variants } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { ArrowRight } from "lucide-react";
+import { useMemo } from "react";
 
 // Components
 import { Particles } from "../ui/ParticleBg";
 import { HeroAvatar } from "./HeroAvatar";
 import { DecryptedText } from "../ui/DecryptedText";
 import { CTAButton } from "../ui/CTAButton";
+
+/**
+ * Glass morphism configuration constants
+ */
+const GLASS_CONFIG = {
+  containerOpacity: 0.02,
+  borderOpacity: 0.06,
+  blurOpacity: 0.25,
+  blurAmount: 12,
+  glowReflectionOpacity: 0.3,
+} as const;
+
+/**
+ * Animation configuration constants
+ */
+const ANIMATION_CONFIG = {
+  staggerChildren: 0.15,
+  delayChildren: 0.2,
+  itemDuration: 0.7,
+  itemEase: [0.22, 0.61, 0.36, 1] as const,
+} as const;
 
 /**
  * Animation variants for staggered content reveal
@@ -17,8 +39,8 @@ const containerVariants: Variants = {
     opacity: 1,
     transition: {
       when: "beforeChildren",
-      staggerChildren: 0.15,
-      delayChildren: 0.2,
+      staggerChildren: ANIMATION_CONFIG.staggerChildren,
+      delayChildren: ANIMATION_CONFIG.delayChildren,
     },
   },
 };
@@ -27,15 +49,15 @@ const itemVariants: Variants = {
   hidden: {
     opacity: 0,
     y: 30,
-    filter: "blur(12px)"
+    filter: `blur(${GLASS_CONFIG.blurAmount}px)`
   },
   visible: {
     opacity: 1,
     y: 0,
     filter: "blur(0px)",
     transition: {
-      duration: 0.7,
-      ease: [0.22, 0.61, 0.36, 1]
+      duration: ANIMATION_CONFIG.itemDuration,
+      ease: ANIMATION_CONFIG.itemEase
     },
   },
 };
@@ -94,9 +116,9 @@ export const Hero = () => {
 
   /**
    * Renders the title with DecryptedText effect
-   * Falls back to plain text if component fails
+   * Memoized to prevent unnecessary re-renders
    */
-  const renderTitle = () => {
+  const renderTitle = useMemo(() => {
     const title = t("hero.title");
 
     return (
@@ -112,7 +134,7 @@ export const Hero = () => {
         parentClassName="inline"
       />
     );
-  };
+  }, [t]);
 
   return (
     <section
@@ -171,8 +193,8 @@ export const Hero = () => {
           <div
             className="relative rounded-[28px] sm:rounded-[36px] md:rounded-[44px] lg:rounded-[48px] p-5 sm:p-6 md:p-8 lg:p-12 overflow-hidden"
             style={{
-              background: `rgba(255, 255, 255, 0.02)`,
-              border: "1px solid rgba(255, 255, 255, 0.06)",
+              background: `rgba(255, 255, 255, ${GLASS_CONFIG.containerOpacity})`,
+              border: `1px solid rgba(255, 255, 255, ${GLASS_CONFIG.borderOpacity})`,
               boxShadow: `0 4px 24px 0 rgba(0, 0, 0, 0.2)`,
             }}
           >
@@ -181,9 +203,9 @@ export const Hero = () => {
               className="absolute inset-0 rounded-[28px] sm:rounded-[36px] md:rounded-[44px] lg:rounded-[48px] overflow-hidden pointer-events-none flex items-center justify-center"
               style={{ zIndex: 0 }}
             >
-              {/* Inner container - responsive sizing */}
+              {/* Inner container - responsive sizing aligned with avatar */}
               <div
-                className="relative w-[280px] h-[350px] sm:w-[350px] sm:h-[450px] md:w-[450px] md:h-[550px] lg:w-[500px] lg:h-[600px]"
+                className="relative w-[160px] h-[200px] sm:w-[200px] sm:h-[250px] md:w-[240px] md:h-[300px] lg:w-[280px] lg:h-[350px]"
               >
                 {/* The blurred image layer */}
                 <div
@@ -192,8 +214,8 @@ export const Hero = () => {
                     backgroundImage: `url('/hero-me.avif')`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center 25%',
-                    opacity: 0.25,
-                    filter: 'blur(12px)',
+                    opacity: GLASS_CONFIG.blurOpacity,
+                    filter: `blur(${GLASS_CONFIG.blurAmount}px)`,
                   }}
                 />
               </div>
@@ -213,13 +235,13 @@ export const Hero = () => {
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50%] h-[85%] blur-3xl pointer-events-none"
               style={{
                 zIndex: 1,
-                opacity: 0.3,
+                opacity: GLASS_CONFIG.glowReflectionOpacity,
                 background: `
                   radial-gradient(
-                    ellipse 100% 150% at 50% 30%, 
-                    rgba(59, 201, 255, 0.4) 0%, 
-                    rgba(59, 201, 255, 0.2) 25%, 
-                    rgba(59, 201, 255, 0.08) 50%, 
+                    ellipse 100% 150% at 50% 30%,
+                    rgba(59, 201, 255, 0.4) 0%,
+                    rgba(59, 201, 255, 0.2) 25%,
+                    rgba(59, 201, 255, 0.08) 50%,
                     transparent 75%
                   )
                 `,
@@ -247,7 +269,7 @@ export const Hero = () => {
               {/* Title - single line on desktop, max 2 lines on mobile */}
               <motion.h1
                 variants={itemVariants}
-                className="font-bold font-space text-white leading-snug md:leading-tight md:whitespace-nowrap px-1 sm:px-2"
+                className="font-extrabold font-space text-white leading-snug md:leading-tight md:whitespace-nowrap px-1 sm:px-2"
                 style={{
                   fontSize: "clamp(1rem, 4vw, 2.5rem)",
                 }}
@@ -258,7 +280,7 @@ export const Hero = () => {
                 </span>
                 {/* Desktop: single line with DecryptedText effect */}
                 <span className="hidden md:block whitespace-nowrap">
-                  {renderTitle()}
+                  {renderTitle}
                 </span>
               </motion.h1>
 

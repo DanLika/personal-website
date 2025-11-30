@@ -29,7 +29,7 @@ export const MagnetButton = ({
   const magnetRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (disabled) {
+    if (disabled || !isActive) {
       setPosition({ x: 0, y: 0 });
       return;
     }
@@ -45,7 +45,6 @@ export const MagnetButton = ({
       const distY = Math.abs(centerY - e.clientY);
 
       if (distX < width / 2 + padding && distY < height / 2 + padding) {
-        setIsActive(true);
         const offsetX = (e.clientX - centerX) / magnetStrength;
         const offsetY = (e.clientY - centerY) / magnetStrength;
         setPosition({ x: offsetX, y: offsetY });
@@ -59,7 +58,32 @@ export const MagnetButton = ({
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
     };
-  }, [padding, disabled, magnetStrength]);
+  }, [padding, disabled, magnetStrength, isActive]);
+
+  // Separate effect to detect when mouse enters the proximity
+  useEffect(() => {
+    if (disabled) return;
+
+    const handleMouseEnter = (e: MouseEvent) => {
+      if (!magnetRef.current) return;
+
+      const { left, top, width, height } = magnetRef.current.getBoundingClientRect();
+      const centerX = left + width / 2;
+      const centerY = top + height / 2;
+
+      const distX = Math.abs(centerX - e.clientX);
+      const distY = Math.abs(centerY - e.clientY);
+
+      if (distX < width / 2 + padding && distY < height / 2 + padding) {
+        setIsActive(true);
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseEnter, { passive: true });
+    return () => {
+      window.removeEventListener("mousemove", handleMouseEnter);
+    };
+  }, [padding, disabled]);
 
   const transitionStyle = isActive ? activeTransition : inactiveTransition;
 

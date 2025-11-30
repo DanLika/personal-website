@@ -17,19 +17,27 @@
       "contact": "Kontakt"
     }
   },
+  "about": {
+    "title": "O Meni",
+    "badge": "AI-Augmented Builder",
+    "p1": "Ja sam full-stack developer specijalizovan za izradu modernih web i mobilnih aplikacija koristeći AI-optimizirane procese. Kombinujem brzinu AI alata sa stabilnošću ručnog kodiranja.",
+    "p2": "Moj stack uključuje Flutter i React za interfejse, podržan sa Supabase i Firebase tehnologijama za skalabilne podatke. Fokusiram se na isporuku kompletnih rješenja — od dizajna do produkcije.",
+    "p3": "Bilo da je u pitanju složen SaaS sistem ili brzi marketinški websajt, isporučujem kvalitetan kod dvostruko brže od tradicionalnog razvoja."
+  },
   "projects": {
     "featured": {
-      "tag": "IZDVOJENI PROJEKAT",
-      "desc": "Sveobuhvatna platforma za rezervacije za upravljanje smještajem, rezervacijama i iskustvom gostiju. Izgrađena sa Flutter-om za cross-platform mobilne aplikacije i React-om za web dashboard."
+      "tag": "ISTAKNUTI SAAS",
+      "title": "SyncBooking SaaS",
+      "desc": "Moćna multi-tenant platforma koja omogućava vlasnicima nekretnina sinhronizaciju rezervacija putem iCal-a i ugradnju widgeta direktno na njihove sajtove."
     },
     "list": {
-      "title": "Više Projekata",
-      "subtitle": "Istražite moj nedavni rad i sporedne projekte"
+      "title": "Ostali Projekti",
+      "subtitle": "Nedavni radovi i marketplace doprinosi"
     }
   },
   "contact": {
-    "title": "Radimo Zajedno",
-    "subtitle": "Imate projekat na umu? Razgovarajmo o tome kako možemo oživeti vaše ideje sa modernom tehnologijom i AI rješenjima.",
+    "title": "Hajde da napravimo nešto",
+    "subtitle": "Imate ideju za projekat? Hajde da razgovaramo kako ga možemo realizovati brže.",
     "form": {
       "name": "Ime",
       "email": "Email",

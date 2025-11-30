@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ExternalLink } from "lucide-react";
 import { projectsData, getNextProject, type ProjectData } from "../../data/projects";
 import MasonryGallery, { type MasonryItem } from "../ui/MasonryGallery";
 
@@ -121,7 +121,7 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
   }, [projectId]);
 
   // Get project from URL parameter or use default
-  const currentProject = projectId ? projectsData[projectId] : (project || projectsData.rabbooking);
+  const currentProject = projectId ? projectsData[projectId] : (project || projectsData['syncbooking-saas']);
   const nextProject = getNextProject(currentProject.id);
 
   return (
@@ -157,6 +157,34 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
           >
             {currentProject.title}
           </motion.h1>
+
+          {/* View Live Site Button */}
+          {currentProject.liveUrl && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="inline-flex"
+            >
+              <a
+                href={currentProject.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group"
+              >
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-6 py-3 rounded-full bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-400/40 backdrop-blur-sm flex items-center gap-2 transition-all duration-300 hover:bg-cyan-500/30 hover:border-cyan-400/60 hover:shadow-[0_0_20px_rgba(59,201,255,0.4)]"
+                >
+                  <ExternalLink className="w-4 h-4 text-cyan-400" />
+                  <span className="text-cyan-400 text-sm font-semibold">
+                    View Live Site
+                  </span>
+                </motion.div>
+              </a>
+            </motion.div>
+          )}
 
           {/* Main Visual Mockup */}
           <motion.div

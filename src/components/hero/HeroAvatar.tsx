@@ -194,8 +194,8 @@ export const HeroAvatar = ({
               className="absolute w-[300%] h-[60%]"
               style={{
                 background: `linear-gradient(
-                  105deg, 
-                  transparent 0%, 
+                  105deg,
+                  transparent 0%,
                   transparent 35%,
                   rgba(255, 255, 255, 0.1) 42%,
                   rgba(255, 255, 255, 0.4) 48%,
@@ -209,7 +209,7 @@ export const HeroAvatar = ({
                 left: "-100%",
               }}
               animate={{
-                left: ["−150%", "150%"],
+                left: ["-150%", "150%"],
               }}
               transition={{
                 duration: 3,

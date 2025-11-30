@@ -42,7 +42,7 @@ const TechIcon: React.FC<TechIconProps> = ({ name, className = "" }) => {
 export const FeaturedProject = () => {
   const { t } = useTranslation();
 
-  const techStack = ["React", "Flutter", "Stripe", "Firebase", "NodeJS", "MongoDB"];
+  const techStack = ["Flutter", "Firebase", "Stripe", "iCal Integration"];
 
   return (
     <section className="relative w-full py-24 px-6 md:px-12 lg:px-24 overflow-hidden bg-black">
@@ -53,7 +53,7 @@ export const FeaturedProject = () => {
 
       {/* Main Content */}
       <div className="relative z-10 max-w-6xl mx-auto">
-        <Link to="/case-study/rabbooking" className="block group">
+        <Link to="/case-study/syncbooking-saas" className="block group">
           {/* Enhanced Spotlight Effect Container */}
           <div className="relative">
             {/* Outer spotlight glow that follows mouse */}
@@ -119,7 +119,7 @@ export const FeaturedProject = () => {
 
                   {/* Title */}
                   <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-space text-white leading-tight break-words">
-                    RabBooking App
+                    {t("projects.featured.title")}
                   </h2>
 
                   {/* Description */}
@@ -170,8 +170,8 @@ export const FeaturedProject = () => {
                         whileHover={{ scale: 1.02 }}
                       >
                         <img
-                          src="/pizzeria-mockup.avif"
-                          alt="RabBooking App Mockup"
+                          src="/syncbooking-mockup.avif"
+                          alt="SyncBooking SaaS Mockup"
                           className="w-full h-full object-cover"
                         />
                         {/* Glass shine overlay */}
