@@ -1,22 +1,32 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import { useNavigate, useLocation } from "react-router-dom";
 import { MagnetButton } from "../ui/MagnetButton";
 import { Sparkles } from "lucide-react";
 
 export const Footer = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const smoothScrollTo = (sectionId: string) => {
     // Check if we're on the homepage
-    if (window.location.pathname === '/') {
+    if (location.pathname === '/') {
       // If on homepage, scroll directly to the section
       const element = document.getElementById(sectionId);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     } else {
-      // If on case study or other page, navigate to homepage with hash
-      window.location.href = `/#${sectionId}`;
+      // If on case study or other page, navigate to homepage with hash using React Router
+      navigate(`/#${sectionId}`);
+      // Scroll to section after navigation completes
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
     }
   };
 

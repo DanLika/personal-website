@@ -117,10 +117,11 @@ export const projectsData: Record<string, ProjectData> = {
     ],
     techStack: ['React', 'Tailwind', 'Supabase', 'Resend'],
     galleryImages: [
-      '/PizzeriaBestek/pizzeria-1.png',
-      '/PizzeriaBestek/pizzeria-2.png',
-      '/PizzeriaBestek/pizzeria-3.png',
-      '/PizzeriaBestek/pizzeria-4.png'
+      '/Pizzeria_Bestek/pizzeria-1.avif',
+      '/Pizzeria_Bestek/pizzeria-2.avif',
+      '/Pizzeria_Bestek/pizzeria-3.avif',
+      '/Pizzeria_Bestek/pizzeria-4.avif',
+      '/Pizzeria_Bestek/pizzeria-5.avif'
     ],
     challenges: [
       'Real-time order status updates for both customers and admins',
@@ -150,7 +151,8 @@ export const projectsData: Record<string, ProjectData> = {
     category: 'MARKETPLACE',
     description: 'A suite of premium templates (Booking, Calendar Sync, PDF Viewer) for developers.',
     overview: [
-      'A collection of premium, high-performance templates built for the FlutterFlow Marketplace. These solutions provide developers with robust foundations for booking systems, productivity tools, and document management.'
+      'A collection of premium, high-performance templates built for the FlutterFlow Marketplace. These solutions provide developers with robust foundations for booking systems, productivity tools, and document management.',
+      'Each template is designed with modularity in mind, featuring comprehensive documentation, cross-platform compatibility, and extensive customization options to accelerate development workflows.'
     ],
     techStack: ['FlutterFlow', 'Firebase'],
     galleryImages: ['/flutterflow-mockup.avif'],
@@ -189,15 +191,9 @@ export const projectsData: Record<string, ProjectData> = {
         galleryImages: [
           '/DreamHome_Template/DreamHome Booking App Template 1.avif',
           '/DreamHome_Template/DreamHome Booking App Template 2.avif',
-          '/DreamHome_Template/DreamHome Booking App Template 3.avif',
-          '/DreamHome_Template/DreamHome Booking App Template 4.avif',
-          '/DreamHome_Template/DreamHome Booking App Template 5.avif',
-          '/DreamHome_Template/DreamHome Booking App Template 6.avif',
-          '/DreamHome_Template/DreamHome Booking App Template 7.avif',
           '/DreamHome_Template/DreamHome Booking App Template 8.avif',
           '/DreamHome_Template/DreamHome Booking App Template 9.avif',
           '/DreamHome_Template/DreamHome Booking App Template 10.avif',
-          '/DreamHome_Template/DreamHome Booking App Template 11.avif',
           '/DreamHome_Template/DreamHome Booking App Template 12.avif'
         ]
       },
@@ -214,12 +210,10 @@ export const projectsData: Record<string, ProjectData> = {
         galleryImages: [
           '/Schedule_template/Calendar Template - Tasks and Google events.avif',
           '/Schedule_template/Calendar Template - Tasks and Google events 2.avif',
-          '/Schedule_template/Calendar Template - Tasks and Google events 3.avif',
           '/Schedule_template/Calendar Template - Tasks and Google events 4.avif',
           '/Schedule_template/Calendar Template - Tasks and Google events 5.avif',
           '/Schedule_template/Calendar Template - Tasks and Google events 6.avif',
-          '/Schedule_template/Calendar Template - Tasks and Google events 7.avif',
-          '/Schedule_template/Calendar Template - Tasks and Google events 8.avif'
+          '/Schedule_template/Calendar Template - Tasks and Google events 7.avif'
         ]
       },
       {

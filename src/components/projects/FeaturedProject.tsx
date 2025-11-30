@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { CircuitBackground } from "./CircuitBackground";
 import { MagnetButton } from "../ui/MagnetButton";
 import { TiltedCard } from "../ui/TiltedCard";
 
@@ -45,30 +44,19 @@ export const FeaturedProject = () => {
   const techStack = ["Flutter", "Firebase", "Stripe", "iCal Integration"];
 
   return (
-    <section className="relative w-full py-24 px-6 md:px-12 lg:px-24 overflow-hidden bg-black">
-      {/* Bottom Gradient Transition */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0A0A0A] to-transparent z-20 pointer-events-none" />
-      {/* Sci-Fi Circuit Background */}
-      <CircuitBackground />
+    <section className="relative w-full py-24 px-6 md:px-12 lg:px-24 overflow-hidden bg-transparent">
 
       {/* Main Content */}
       <div className="relative z-10 max-w-6xl mx-auto">
         <Link to="/case-study/syncbooking-saas" className="block group">
-          {/* Enhanced Spotlight Effect Container */}
+          {/* Spotlight Effect Container */}
           <div className="relative">
             {/* Outer spotlight glow that follows mouse */}
             <div
               className="absolute -inset-[2px] rounded-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
               style={{
-                background: 'radial-gradient(circle 600px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(59, 201, 255, 0.4) 0%, transparent 50%)',
+                background: 'radial-gradient(circle 600px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(59, 201, 255, 0.2) 0%, transparent 50%)',
                 filter: 'blur(30px)'
-              }}
-              onMouseMove={(e) => {
-                const rect = e.currentTarget.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
-                e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
               }}
             />
 
@@ -76,27 +64,42 @@ export const FeaturedProject = () => {
               initial={{ opacity: 0, y: 60 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: [0.22, 0.61, 0.36, 1] }}
-              className="relative backdrop-blur-3xl bg-white/5 rounded-[40px] overflow-hidden transition-all duration-500 cursor-pointer"
+              className="relative backdrop-blur-3xl rounded-[40px] overflow-hidden transition-all duration-500 cursor-pointer"
               style={{
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                boxShadow: '0 0 0 1px rgba(59, 201, 255, 0) inset'
+                background: 'rgba(255, 255, 255, 0.02)',
+                border: '1px solid rgba(255, 255, 255, 0.06)',
+                boxShadow: '0 4px 24px 0 rgba(0, 0, 0, 0.2)'
               }}
               onMouseMove={(e) => {
                 const rect = e.currentTarget.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
+
+                // Update CSS custom properties for spotlight
                 e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
                 e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
 
-                // Spotlight border effect
+                // Update parent div for outer glow
+                const parent = e.currentTarget.parentElement;
+                if (parent) {
+                  parent.querySelector('div')?.style.setProperty('--mouse-x', `${x}px`);
+                  parent.querySelector('div')?.style.setProperty('--mouse-y', `${y}px`);
+                }
+
+                // Dynamic border glow on hover
                 e.currentTarget.style.boxShadow = `0 0 0 1px rgba(59, 201, 255, 0.6) inset, 0 0 40px rgba(59, 201, 255, 0.2)`;
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = '0 0 0 1px rgba(59, 201, 255, 0) inset';
+                e.currentTarget.style.boxShadow = '0 4px 24px 0 rgba(0, 0, 0, 0.2)';
               }}
             >
               {/* Inner Glow */}
-              <div className="absolute inset-0 rounded-[40px] bg-gradient-to-r from-cyan-500/5 via-transparent to-blue-500/5 pointer-events-none" />
+              <div className="absolute inset-0 rounded-[40px] pointer-events-none"
+                style={{
+                  background: 'linear-gradient(180deg, rgba(59, 201, 255, 0.05) 0%, rgba(59, 201, 255, 0.02) 50%, rgba(59, 201, 255, 0.04) 100%)',
+                  mixBlendMode: 'overlay'
+                }}
+              />
 
               {/* Content Container */}
               <div className="relative z-10 grid md:grid-cols-2 gap-8 md:gap-12 p-6 md:p-12 lg:p-16">
@@ -111,19 +114,19 @@ export const FeaturedProject = () => {
                   {/* Featured Badge */}
                   <div className="inline-flex">
                     <div className="px-4 py-2 rounded-full bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-400/30 backdrop-blur-sm">
-                      <span className="text-cyan-400 text-xs md:text-sm font-semibold tracking-wider">
+                      <span className="text-cyan-400 text-xs md:text-sm font-semibold tracking-wider line-clamp-1">
                         {t("projects.featured.tag")}
                       </span>
                     </div>
                   </div>
 
                   {/* Title */}
-                  <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-space text-white leading-tight break-words">
+                  <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-space text-white leading-tight line-clamp-2">
                     {t("projects.featured.title")}
                   </h2>
 
                   {/* Description */}
-                  <p className="text-white/70 text-base md:text-lg leading-relaxed break-words">
+                  <p className="text-sm md:text-base lg:text-lg text-white/70 leading-relaxed line-clamp-4">
                     {t("projects.featured.desc")}
                   </p>
 
@@ -213,8 +216,7 @@ export const FeaturedProject = () => {
                 </motion.div>
               </div>
 
-              {/* Glass Border Highlight */}
-              <div className="absolute inset-0 rounded-[40px] border border-transparent [border-image:linear-gradient(45deg,rgba(59,201,255,0.3),rgba(6,182,212,0.1),rgba(59,201,255,0.3))_1] pointer-events-none" />
+              {/* Glass Border Highlight - Removed border-image due to rendering issues */}
             </motion.div>
           </div>
         </Link>

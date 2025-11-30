@@ -1,10 +1,9 @@
 import { motion, type Variants } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { ArrowRight } from "lucide-react";
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 
 // Components
-import { Particles } from "../ui/ParticleBg";
 import { HeroAvatar } from "./HeroAvatar";
 import { DecryptedText } from "../ui/DecryptedText";
 import { CTAButton } from "../ui/CTAButton";
@@ -15,7 +14,7 @@ import { CTAButton } from "../ui/CTAButton";
 const GLASS_CONFIG = {
   containerOpacity: 0.02,
   borderOpacity: 0.06,
-  blurOpacity: 0.25,
+  blurOpacity: 0.35,
   blurAmount: 12,
   glowReflectionOpacity: 0.3,
 } as const;
@@ -100,6 +99,7 @@ const glassCardVariants: Variants = {
  */
 export const Hero = () => {
   const { t } = useTranslation();
+  const sectionRef = useRef<HTMLElement>(null);
 
   /**
    * Smooth scroll to contact section
@@ -138,39 +138,11 @@ export const Hero = () => {
 
   return (
     <section
+      ref={sectionRef}
       id="hero"
-      className="relative w-full min-h-[100svh] md:min-h-screen bg-[#0A0A0A] text-white overflow-hidden"
+      className="relative w-full min-h-[100svh] md:min-h-screen bg-transparent text-white overflow-hidden"
       aria-label="Hero section"
     >
-      {/* ===== BACKGROUND LAYER ===== */}
-      {/* Radial gradient base */}
-      <div
-        className="absolute inset-0 z-0"
-        style={{
-          background: `
-            radial-gradient(ellipse 80% 50% at 50% 0%, rgba(59, 201, 255, 0.08) 0%, transparent 50%),
-            radial-gradient(ellipse 60% 40% at 50% 100%, rgba(59, 201, 255, 0.05) 0%, transparent 50%),
-            linear-gradient(180deg, #0A0A0A 0%, #0D1117 50%, #0A0A0A 100%)
-          `,
-        }}
-      />
-
-      {/* Interactive particle background */}
-      <div className="absolute inset-0 z-[1]">
-        <Particles
-          particleCount={150}
-          particleSpread={10}
-          speed={0.1}
-          particleColors={["#ffffff", "#3BC9FF", "#5DD9FF", "#a0e7ff"]}
-          moveParticlesOnHover={true}
-          particleHoverFactor={1}
-          alphaParticles={true}
-          particleBaseSize={80}
-          sizeRandomness={1}
-          cameraDistance={20}
-          disableRotation={false}
-        />
-      </div>
 
       {/* ===== MAIN CONTENT ===== */}
       <div className="relative z-10 flex items-center justify-center min-h-[100svh] md:min-h-screen px-4 sm:px-6 md:px-8 lg:px-12 pt-20 sm:pt-24 pb-12 sm:pb-16 md:pb-20">
@@ -203,9 +175,9 @@ export const Hero = () => {
               className="absolute inset-0 rounded-[28px] sm:rounded-[36px] md:rounded-[44px] lg:rounded-[48px] overflow-hidden pointer-events-none flex items-center justify-center"
               style={{ zIndex: 0 }}
             >
-              {/* Inner container - responsive sizing aligned with avatar */}
+              {/* Inner container - responsive sizing aligned with avatar - increased size */}
               <div
-                className="relative w-[160px] h-[200px] sm:w-[200px] sm:h-[250px] md:w-[240px] md:h-[300px] lg:w-[280px] lg:h-[350px]"
+                className="relative w-[260px] h-[325px] sm:w-[330px] sm:h-[415px] md:w-[400px] md:h-[500px] lg:w-[470px] lg:h-[590px]"
               >
                 {/* The blurred image layer */}
                 <div
@@ -232,14 +204,16 @@ export const Hero = () => {
 
             {/* Vertical glow reflection behind avatar */}
             <div
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50%] h-[85%] blur-3xl pointer-events-none"
+              className="absolute left-1/2 -translate-x-1/2 w-[50%] h-[85%] blur-3xl pointer-events-none"
               style={{
+                top: 'calc(50% - 30px)',
+                transform: 'translate(-50%, -50%)',
                 zIndex: 1,
                 opacity: GLASS_CONFIG.glowReflectionOpacity,
                 background: `
                   radial-gradient(
                     ellipse 100% 150% at 50% 30%,
-                    rgba(59, 201, 255, 0.4) 0%,
+                    rgba(59, 201, 255, 0.2) 0%,
                     rgba(59, 201, 255, 0.2) 25%,
                     rgba(59, 201, 255, 0.08) 50%,
                     transparent 75%
@@ -269,10 +243,7 @@ export const Hero = () => {
               {/* Title - single line on desktop, max 2 lines on mobile */}
               <motion.h1
                 variants={itemVariants}
-                className="font-extrabold font-space text-white leading-snug md:leading-tight md:whitespace-nowrap px-1 sm:px-2"
-                style={{
-                  fontSize: "clamp(1rem, 4vw, 2.5rem)",
-                }}
+                className="font-extrabold font-space text-white leading-tight text-4xl md:text-6xl lg:text-7xl px-1 sm:px-2"
               >
                 {/* Mobile: allow wrapping, max 2 lines */}
                 <span className="md:hidden block line-clamp-2 text-center">
@@ -287,7 +258,7 @@ export const Hero = () => {
               {/* Subtitle */}
               <motion.p
                 variants={itemVariants}
-                className="text-xs sm:text-sm md:text-base text-white/60 max-w-[90%] sm:max-w-[500px] md:max-w-[600px] px-1 sm:px-2 leading-relaxed"
+                className="text-sm md:text-base lg:text-lg text-white/60 max-w-[90%] sm:max-w-[500px] md:max-w-[600px] px-1 sm:px-2 leading-relaxed"
               >
                 {t("hero.subtitle")}
               </motion.p>
@@ -306,17 +277,6 @@ export const Hero = () => {
           </div>
         </motion.div>
       </div>
-
-      {/* ===== GRADIENT TRANSITIONS ===== */}
-      {/* Bottom fade to next section */}
-      <div
-        className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent z-20 pointer-events-none"
-      />
-
-      {/* Top subtle gradient */}
-      <div
-        className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-[#0A0A0A] to-transparent z-20 pointer-events-none"
-      />
     </section>
   );
 };

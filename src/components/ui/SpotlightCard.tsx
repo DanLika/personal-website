@@ -8,12 +8,14 @@ interface Position {
 interface SpotlightCardProps extends React.PropsWithChildren {
   className?: string;
   spotlightColor?: `rgba(${number}, ${number}, ${number}, ${number})`;
+  glowIntensity?: number; // 0-1 range for glow opacity
 }
 
 export const SpotlightCard: React.FC<SpotlightCardProps> = ({
   children,
   className = "",
-  spotlightColor = "rgba(255, 255, 255, 0.25)",
+  spotlightColor = "rgba(59, 201, 255, 0.2)", // Changed default to cyan with 0.2 opacity
+  glowIntensity = 1, // Full intensity by default
 }) => {
   const divRef = useRef<HTMLDivElement>(null);
   const [isFocused, setIsFocused] = useState<boolean>(false);
@@ -27,9 +29,26 @@ export const SpotlightCard: React.FC<SpotlightCardProps> = ({
     setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
   };
 
+  // Touch event handlers for mobile
+  const handleTouchMove: React.TouchEventHandler<HTMLDivElement> = (e) => {
+    if (!divRef.current || isFocused) return;
+
+    const rect = divRef.current.getBoundingClientRect();
+    const touch = e.touches[0];
+    setPosition({ x: touch.clientX - rect.left, y: touch.clientY - rect.top });
+  };
+
+  const handleTouchStart: React.TouchEventHandler<HTMLDivElement> = () => {
+    setOpacity(glowIntensity);
+  };
+
+  const handleTouchEnd: React.TouchEventHandler<HTMLDivElement> = () => {
+    setOpacity(0);
+  };
+
   const handleFocus = () => {
     setIsFocused(true);
-    setOpacity(0.6);
+    setOpacity(glowIntensity);
   };
 
   const handleBlur = () => {
@@ -38,7 +57,7 @@ export const SpotlightCard: React.FC<SpotlightCardProps> = ({
   };
 
   const handleMouseEnter = () => {
-    setOpacity(0.6);
+    setOpacity(glowIntensity);
   };
 
   const handleMouseLeave = () => {
@@ -49,17 +68,20 @@ export const SpotlightCard: React.FC<SpotlightCardProps> = ({
     <div
       ref={divRef}
       onMouseMove={handleMouseMove}
-      onFocus={handleFocus}
-      onBlur={handleBlur}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
       className={`relative overflow-hidden ${className}`}
     >
       <div
         className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 ease-in-out"
         style={{
           opacity,
-          background: `radial-gradient(circle at ${position.x}px ${position.y}px, ${spotlightColor}, transparent 80%)`,
+          background: `radial-gradient(circle 600px at ${position.x}px ${position.y}px, ${spotlightColor}, transparent 50%)`,
         }}
       />
       {children}

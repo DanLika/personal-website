@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import { useNavigate, useLocation } from "react-router-dom";
 import { MagnetButton } from "./ui/MagnetButton";
 
 /**
@@ -15,6 +16,8 @@ import { MagnetButton } from "./ui/MagnetButton";
  */
 export const Navbar = () => {
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [isAtTop, setIsAtTop] = useState(true);
@@ -83,14 +86,21 @@ export const Navbar = () => {
 
   const smoothScrollTo = (sectionId: string) => {
     // Check if we're on the homepage
-    if (window.location.pathname === "/") {
+    if (location.pathname === "/") {
       const element = document.getElementById(sectionId);
       if (element) {
         element.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     } else {
-      // If on case study or other page, navigate to homepage with hash
-      window.location.href = `/#${sectionId}`;
+      // If on case study or other page, navigate to homepage with hash using React Router
+      navigate(`/#${sectionId}`);
+      // Scroll to section after navigation completes
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 100);
     }
   };
 
@@ -202,7 +212,7 @@ export const Navbar = () => {
             >
               <motion.button
                 onClick={toggleLang}
-                className="w-10 h-10 flex items-center justify-center rounded-full border border-white/15 bg-white/5 hover:bg-white/10 transition-all duration-300"
+                className="w-10 h-10 flex items-center justify-center rounded-full border border-white/15 bg-white/5 hover:bg-white/10 transition-all duration-300 p-[1px]"
                 whileHover={{ scale: 1.1, rotate: 10 }}
                 whileTap={{ scale: 0.95 }}
                 title={i18n.language === "en" ? "Switch to Bosnian" : "Switch to English"}
@@ -210,7 +220,7 @@ export const Navbar = () => {
                 <img
                   src="/globe.avif"
                   alt="Change Language"
-                  className="w-5 h-5 object-contain opacity-80"
+                  className="w-8 h-8 object-contain opacity-80"
                 />
               </motion.button>
             </MagnetButton>
@@ -356,7 +366,7 @@ export const Navbar = () => {
                 <img
                   src="/globe.avif"
                   alt="Change Language"
-                  className="w-5 h-5 object-contain opacity-80"
+                  className="w-8 h-8 object-contain opacity-80"
                 />
                 <span className="text-white/70 text-sm">
                   {i18n.language === "en" ? "English" : "Bosanski"}

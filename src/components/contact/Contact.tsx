@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import { Mail, Github, Linkedin } from "lucide-react";
-import { Particles } from "../ui/ParticleBg";
 
 interface FormData {
   name: string;
@@ -60,28 +59,62 @@ export const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="relative w-full py-24 px-6 md:px-12 lg:px-24 overflow-hidden bg-[#0A0A0A]">
-      {/* Particle Background */}
-      <Particles className="absolute inset-0 z-0" />
-
-      {/* Bottom Gradient Transition */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent z-20 pointer-events-none" />
-      {/* Neon Pulse Background */}
-      <div className="absolute inset-0 flex items-center justify-center z-5">
-        <div className="w-[800px] h-[600px] rounded-full bg-gradient-to-r from-cyan-500/10 via-blue-500/5 to-cyan-500/10 blur-3xl animate-pulse" />
-      </div>
+    <section id="contact" className="relative w-full py-24 px-6 md:px-12 lg:px-24 overflow-hidden bg-transparent">
 
       {/* Main Container */}
-      <div className="relative z-10 max-w-5xl mx-auto">
-        {/* Glass Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 60 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.22, 0.61, 0.36, 1] }}
-          className="relative backdrop-blur-xl bg-white/5 border border-white/10 rounded-[40px] overflow-hidden shadow-2xl"
-        >
+      <div className="relative z-10 max-w-5xl mx-auto group">
+        {/* Spotlight Effect Container */}
+        <div className="relative">
+          {/* Outer spotlight glow that follows mouse */}
+          <div
+            className="absolute -inset-[2px] rounded-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+            style={{
+              background: 'radial-gradient(circle 600px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(59, 201, 255, 0.2) 0%, transparent 50%)',
+              filter: 'blur(30px)'
+            }}
+          />
+
+          {/* Glass Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 60 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.22, 0.61, 0.36, 1] }}
+            className="relative backdrop-blur-xl rounded-[40px] overflow-hidden shadow-2xl transition-all duration-500"
+            style={{
+              background: 'rgba(255, 255, 255, 0.02)',
+              border: '1px solid rgba(255, 255, 255, 0.06)',
+              boxShadow: '0 4px 24px 0 rgba(0, 0, 0, 0.2)'
+            }}
+            onMouseMove={(e) => {
+              const rect = e.currentTarget.getBoundingClientRect();
+              const x = e.clientX - rect.left;
+              const y = e.clientY - rect.top;
+
+              // Update CSS custom properties for spotlight
+              e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
+              e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
+
+              // Update parent div for outer glow
+              const parent = e.currentTarget.parentElement;
+              if (parent) {
+                parent.querySelector('div')?.style.setProperty('--mouse-x', `${x}px`);
+                parent.querySelector('div')?.style.setProperty('--mouse-y', `${y}px`);
+              }
+
+              // Dynamic border glow on hover
+              e.currentTarget.style.boxShadow = `0 0 0 1px rgba(59, 201, 255, 0.6) inset, 0 0 40px rgba(59, 201, 255, 0.2)`;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.boxShadow = '0 4px 24px 0 rgba(0, 0, 0, 0.2)';
+            }}
+          >
           {/* Inner Glow */}
-          <div className="absolute inset-0 rounded-[40px] bg-gradient-to-r from-cyan-500/5 via-transparent to-blue-500/5 pointer-events-none" />
+          <div className="absolute inset-0 rounded-[40px] pointer-events-none"
+            style={{
+              background: 'linear-gradient(180deg, rgba(59, 201, 255, 0.05) 0%, rgba(59, 201, 255, 0.02) 50%, rgba(59, 201, 255, 0.04) 100%)',
+              mixBlendMode: 'overlay'
+            }}
+          />
 
           {/* Content Grid */}
           <div className="relative z-10 grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 p-6 md:p-12 lg:p-16">
@@ -98,7 +131,7 @@ export const Contact = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="text-3xl md:text-4xl lg:text-5xl font-bold font-space text-white leading-tight"
+                className="text-3xl md:text-4xl lg:text-5xl font-bold font-space text-white leading-tight line-clamp-2"
               >
                 {t("contact.title")}
               </motion.h2>
@@ -108,7 +141,7 @@ export const Contact = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
-                className="text-white/70 leading-relaxed text-lg"
+                className="text-sm md:text-base lg:text-lg text-white/70 leading-relaxed"
               >
                 {t("contact.subtitle")}
               </motion.p>
@@ -132,7 +165,7 @@ export const Contact = () => {
                         href={social.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        initial={{ opacity: 0, scale: 0.8, boxShadow: '0 0 0px rgba(59, 201, 255, 0)' }}
+                        initial={{ opacity: 0, scale: 0.8 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         transition={{
                           duration: 0.4,
@@ -141,10 +174,9 @@ export const Contact = () => {
                           stiffness: 200
                         }}
                         whileHover={{
-                          scale: 1.1,
-                          boxShadow: '0 0 20px rgba(59, 201, 255, 0.5)'
+                          scale: 1.1
                         }}
-                        className="w-14 h-14 rounded-xl border border-cyan-400/30 bg-cyan-500/10 flex items-center justify-center transition-all duration-300 hover:border-cyan-400/60 hover:bg-cyan-500/20 group"
+                        className="w-14 h-14 rounded-xl border border-cyan-400/30 bg-cyan-500/10 flex items-center justify-center transition-all duration-300 hover:border-cyan-400/60 hover:bg-cyan-500/20 hover:shadow-[0_0_20px_rgba(59,201,255,0.5)] group"
                       >
                         <Icon className="w-6 h-6 text-cyan-400 group-hover:text-cyan-300 transition-colors" />
                       </motion.a>
@@ -255,9 +287,9 @@ export const Contact = () => {
             </motion.div>
           </div>
 
-          {/* Glass Border Highlight */}
-          <div className="absolute inset-0 rounded-[40px] border border-transparent [border-image:linear-gradient(45deg,rgba(59,201,255,0.3),rgba(6,182,212,0.1),rgba(59,201,255,0.3))_1] pointer-events-none" />
+          {/* Glass Border Highlight - Removed border-image due to rendering issues */}
         </motion.div>
+        </div>
       </div>
     </section>
   );

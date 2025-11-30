@@ -69,22 +69,41 @@ export const HeroAvatar = ({
     mouseY.set((event.clientY - centerY) / rect.height);
   };
 
+  // Handle touch movement for 3D tilt (mobile)
+  const handleTouchMove = (event: React.TouchEvent<HTMLDivElement>) => {
+    if (!containerRef.current) return;
+
+    const rect = containerRef.current.getBoundingClientRect();
+    const touch = event.touches[0];
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    mouseX.set((touch.clientX - centerX) / rect.width);
+    mouseY.set((touch.clientY - centerY) / rect.height);
+  };
+
   const handleMouseLeave = () => {
     setIsHovered(false);
     mouseX.set(0);
     mouseY.set(0);
   };
 
-  // Pulsing glow animation variants
+  const handleTouchEnd = () => {
+    setIsHovered(false);
+    mouseX.set(0);
+    mouseY.set(0);
+  };
+
+  // Pulsing glow animation variants (reduced intensity from 0.4 to 0.2)
   const glowVariants: Variants = {
     initial: {
-      boxShadow: `0 0 30px ${glowColor}66, 0 0 60px ${glowColor}33, inset 0 0 20px ${glowColor}1a`,
+      boxShadow: `0 0 30px rgba(59, 201, 255, 0.2), 0 0 60px rgba(59, 201, 255, 0.1), inset 0 0 20px rgba(59, 201, 255, 0.05)`,
     },
     animate: {
       boxShadow: [
-        `0 0 30px ${glowColor}66, 0 0 60px ${glowColor}33, inset 0 0 20px ${glowColor}1a`,
-        `0 0 50px ${glowColor}80, 0 0 100px ${glowColor}4d, inset 0 0 30px ${glowColor}26`,
-        `0 0 30px ${glowColor}66, 0 0 60px ${glowColor}33, inset 0 0 20px ${glowColor}1a`,
+        `0 0 30px rgba(59, 201, 255, 0.2), 0 0 60px rgba(59, 201, 255, 0.1), inset 0 0 20px rgba(59, 201, 255, 0.05)`,
+        `0 0 50px rgba(59, 201, 255, 0.3), 0 0 100px rgba(59, 201, 255, 0.15), inset 0 0 30px rgba(59, 201, 255, 0.08)`,
+        `0 0 30px rgba(59, 201, 255, 0.2), 0 0 60px rgba(59, 201, 255, 0.1), inset 0 0 20px rgba(59, 201, 255, 0.05)`,
       ],
       transition: {
         duration: 3,
@@ -121,6 +140,9 @@ export const HeroAvatar = ({
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
+      onTouchMove={handleTouchMove}
+      onTouchStart={() => setIsHovered(true)}
+      onTouchEnd={handleTouchEnd}
       style={{
         rotateX: isHovered ? rotateX : 0,
         rotateY: isHovered ? rotateY : 0,
@@ -129,11 +151,11 @@ export const HeroAvatar = ({
       }}
       className="relative w-[160px] h-[160px] sm:w-[200px] sm:h-[200px] md:w-[240px] md:h-[240px] lg:w-[280px] lg:h-[280px] cursor-pointer"
     >
-      {/* Outer glow layer - soft ambient light */}
+      {/* Outer glow layer - soft ambient light (reduced intensity) */}
       <div
         className="absolute -inset-4 rounded-[40px] md:rounded-[48px] blur-2xl opacity-60 pointer-events-none"
         style={{
-          background: `radial-gradient(ellipse at center, ${glowColor}40 0%, ${glowColor}20 40%, transparent 70%)`,
+          background: `radial-gradient(ellipse at center, rgba(59, 201, 255, 0.15) 0%, rgba(59, 201, 255, 0.08) 40%, transparent 70%)`,
         }}
       />
 
@@ -150,7 +172,7 @@ export const HeroAvatar = ({
           ease: "easeInOut",
         }}
         style={{
-          background: `linear-gradient(180deg, transparent 0%, ${glowColor}30 30%, ${glowColor}50 50%, ${glowColor}30 70%, transparent 100%)`,
+          background: `linear-gradient(180deg, transparent 0%, rgba(59, 201, 255, 0.19) 30%, rgba(59, 201, 255, 0.31) 50%, rgba(59, 201, 255, 0.19) 70%, transparent 100%)`,
         }}
       />
 
@@ -159,6 +181,15 @@ export const HeroAvatar = ({
         variants={enablePulsingGlow ? glowVariants : undefined}
         initial="initial"
         animate={enablePulsingGlow ? "animate" : "initial"}
+        whileHover={{
+          scale: 1.02,
+          boxShadow: `0 0 50px rgba(59, 201, 255, 0.35), 0 0 100px rgba(59, 201, 255, 0.2), inset 0 0 30px rgba(59, 201, 255, 0.1)`,
+        }}
+        transition={{
+          type: "spring",
+          stiffness: 400,
+          damping: 30,
+        }}
         className="relative w-full h-full rounded-[32px] md:rounded-[40px] overflow-hidden border-2 transition-all duration-300"
         style={{
           borderColor: glowColor,
@@ -169,7 +200,7 @@ export const HeroAvatar = ({
         <div
           className="absolute inset-0 opacity-30"
           style={{
-            background: `linear-gradient(135deg, ${glowColor}20 0%, transparent 50%, ${glowColor}10 100%)`,
+            background: `linear-gradient(135deg, rgba(59, 201, 255, 0.13) 0%, transparent 50%, rgba(59, 201, 255, 0.06) 100%)`,
           }}
         />
 
@@ -181,66 +212,13 @@ export const HeroAvatar = ({
           loading="eager"
         />
 
-        {/* Animated diagonal light reflection overlay */}
-        {enableReflection && (
-          <motion.div
-            className="absolute inset-0 z-20 pointer-events-none overflow-hidden rounded-[30px] md:rounded-[38px]"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-          >
-            {/* Moving reflection shine - more visible */}
-            <motion.div
-              className="absolute w-[300%] h-[60%]"
-              style={{
-                background: `linear-gradient(
-                  105deg,
-                  transparent 0%,
-                  transparent 35%,
-                  rgba(255, 255, 255, 0.1) 42%,
-                  rgba(255, 255, 255, 0.4) 48%,
-                  rgba(255, 255, 255, 0.6) 50%,
-                  rgba(255, 255, 255, 0.4) 52%,
-                  rgba(255, 255, 255, 0.1) 58%,
-                  transparent 65%,
-                  transparent 100%
-                )`,
-                top: "-30%",
-                left: "-100%",
-              }}
-              animate={{
-                left: ["-150%", "150%"],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                repeatDelay: 4,
-                ease: "easeInOut",
-              }}
-            />
-
-            {/* Static glass edge highlight - always visible */}
-            <div
-              className="absolute inset-0"
-              style={{
-                background: `linear-gradient(
-                  135deg,
-                  rgba(255, 255, 255, 0.25) 0%,
-                  rgba(255, 255, 255, 0.1) 20%,
-                  transparent 50%,
-                  transparent 80%,
-                  rgba(255, 255, 255, 0.05) 100%
-                )`,
-              }}
-            />
-          </motion.div>
-        )}
+        {/* Shimmer effect removed */}
 
         {/* Inner border glow accent */}
         <div
           className="absolute inset-0 z-15 pointer-events-none rounded-[30px] md:rounded-[38px]"
           style={{
-            boxShadow: `inset 0 0 20px ${glowColor}30, inset 0 0 40px ${glowColor}15`,
+            boxShadow: `inset 0 0 20px rgba(59, 201, 255, 0.19), inset 0 0 40px rgba(59, 201, 255, 0.08)`,
           }}
         />
       </motion.div>

@@ -14,6 +14,7 @@ interface ParticlesProps {
   cameraDistance?: number;
   disableRotation?: boolean;
   className?: string;
+  externalMouseRef?: React.MutableRefObject<{ x: number; y: number } | null>;
 }
 
 // Our neon color palette
@@ -116,7 +117,8 @@ export const Particles = ({
   sizeRandomness = 1,
   cameraDistance = 20,
   disableRotation = false,
-  className = ''
+  className = '',
+  externalMouseRef
 }: ParticlesProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const mouseRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
@@ -167,7 +169,8 @@ export const Particles = ({
       mouseRef.current = { x: 0, y: 0 };
     };
 
-    if (moveParticlesOnHover) {
+    // If external mouse tracking provided, skip adding local listeners
+    if (moveParticlesOnHover && !externalMouseRef) {
       container.addEventListener('mousemove', handleMouseMove);
       container.addEventListener('mouseleave', handleMouseLeave);
     }
@@ -241,9 +244,12 @@ export const Particles = ({
       program.uniforms.uTime.value = elapsed * 0.001;
 
       if (moveParticlesOnHover) {
+        // Use external mouse ref if provided, otherwise use local ref
+        const currentMouse = externalMouseRef?.current || mouseRef.current;
+
         // Smooth interpolation for mouse movement
-        smoothMouseX += (mouseRef.current.x - smoothMouseX) * 0.05;
-        smoothMouseY += (mouseRef.current.y - smoothMouseY) * 0.05;
+        smoothMouseX += (currentMouse.x - smoothMouseX) * 0.05;
+        smoothMouseY += (currentMouse.y - smoothMouseY) * 0.05;
         particles.position.x = -smoothMouseX * particleHoverFactor;
         particles.position.y = -smoothMouseY * particleHoverFactor;
       }
@@ -261,7 +267,7 @@ export const Particles = ({
 
     return () => {
       window.removeEventListener('resize', resize);
-      if (moveParticlesOnHover) {
+      if (moveParticlesOnHover && !externalMouseRef) {
         container.removeEventListener('mousemove', handleMouseMove);
         container.removeEventListener('mouseleave', handleMouseLeave);
       }
@@ -273,7 +279,7 @@ export const Particles = ({
       particlesRef.current = null;
     };
     // Only recreate WebGL context when particle count or colors change
-  }, [particleCount, particleColors, moveParticlesOnHover, cameraDistance, disableRotation]);
+  }, [particleCount, particleColors, moveParticlesOnHover, cameraDistance, disableRotation, externalMouseRef]);
 
   // Separate effect to update uniforms dynamically without recreating WebGL context
   useEffect(() => {

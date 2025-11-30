@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { MagnetButton } from "../ui/MagnetButton";
 import { TiltedCard } from "../ui/TiltedCard";
-import { Particles } from "../ui/ParticleBg";
 import React from "react";
 import { projectsData } from "../../data/projects";
 
@@ -65,12 +64,8 @@ export const ProjectList = () => {
   const { t } = useTranslation();
 
   return (
-    <section id="projects" className="relative w-full py-20 px-6 md:px-12 lg:px-24 bg-[#0A0A0A] overflow-hidden">
-      {/* Particle Background */}
-      <Particles className="absolute inset-0 z-0" />
+    <section id="projects" className="relative w-full py-20 px-6 md:px-12 lg:px-24 bg-transparent overflow-hidden">
 
-      {/* Bottom Gradient Transition */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent z-20 pointer-events-none" />
       <div className="max-w-4xl mx-auto space-y-8 relative z-10">
         {/* Section Header */}
         <motion.div
@@ -79,10 +74,10 @@ export const ProjectList = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-space text-white mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-space text-white mb-4 leading-tight line-clamp-2">
             {t("projects.list.title", "More Projects")}
           </h2>
-          <p className="text-white/60 text-base md:text-lg">
+          <p className="text-sm md:text-base lg:text-lg text-white/60 leading-relaxed">
             {t("projects.list.subtitle", "Explore my recent work and side projects")}
           </p>
         </motion.div>
@@ -108,14 +103,19 @@ export const ProjectList = () => {
                   <div
                     className="absolute -inset-[2px] rounded-[30px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                     style={{
-                      background: 'radial-gradient(circle 600px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(59, 201, 255, 0.4) 0%, transparent 50%)',
+                      background: 'radial-gradient(circle 600px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(59, 201, 255, 0.2) 0%, transparent 50%)',
                       filter: 'blur(30px)'
                     }}
                   />
 
                   {/* Glass Card */}
                   <motion.div
-                    className="relative bg-[#0A0A0A]/40 backdrop-blur-md border border-[#3BC9FF]/30 rounded-[30px] overflow-visible transition-all duration-500 cursor-pointer"
+                    className="relative backdrop-blur-md rounded-[30px] overflow-visible transition-all duration-500 cursor-pointer"
+                    style={{
+                      background: 'rgba(255, 255, 255, 0.02)',
+                      border: '1px solid rgba(255, 255, 255, 0.06)',
+                      boxShadow: '0 0 0 1px rgba(59, 201, 255, 0) inset, 0 4px 24px 0 rgba(0, 0, 0, 0.2)'
+                    }}
                     onMouseMove={(e) => {
                       const rect = e.currentTarget.getBoundingClientRect();
                       const x = e.clientX - rect.left;
@@ -136,9 +136,18 @@ export const ProjectList = () => {
                       e.currentTarget.style.boxShadow = `0 0 0 1px rgba(59, 201, 255, 0.6) inset, 0 0 40px rgba(59, 201, 255, 0.2)`;
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.boxShadow = '0 0 0 1px rgba(59, 201, 255, 0) inset';
+                      e.currentTarget.style.boxShadow = '0 0 0 1px rgba(59, 201, 255, 0) inset, 0 4px 24px 0 rgba(0, 0, 0, 0.2)';
                     }}
                   >
+
+                    {/* Inner Glow */}
+                    <div
+                      className="absolute inset-0 rounded-[30px] pointer-events-none"
+                      style={{
+                        background: 'linear-gradient(180deg, rgba(59, 201, 255, 0.05) 0%, rgba(59, 201, 255, 0.02) 50%, rgba(59, 201, 255, 0.04) 100%)',
+                        mixBlendMode: 'overlay'
+                      }}
+                    />
 
                     {/* Glass Sheen */}
                     <div
@@ -156,19 +165,19 @@ export const ProjectList = () => {
                         {/* Tag */}
                         <div className="inline-flex">
                           <div className="px-3 py-1 rounded-full bg-cyan-500/20 border border-cyan-400/40">
-                            <span className="text-cyan-400 text-xs font-semibold tracking-wider">
+                            <span className="text-cyan-400 text-xs font-semibold tracking-wider line-clamp-1">
                               {project.tag}
                             </span>
                           </div>
                         </div>
 
                         {/* Title */}
-                        <h3 className="text-2xl md:text-3xl font-bold font-space text-white group-hover:text-cyan-400 transition-colors duration-300">
+                        <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold font-space text-white group-hover:text-cyan-400 transition-colors duration-300 leading-tight line-clamp-2">
                           {project.title}
                         </h3>
 
                         {/* Description */}
-                        <p className="text-white/60 leading-relaxed">
+                        <p className="text-sm md:text-base lg:text-lg text-white/60 leading-relaxed line-clamp-3">
                           {project.description}
                         </p>
 
@@ -196,11 +205,16 @@ export const ProjectList = () => {
                             src={project.mockupImage}
                             alt={`${project.title} Mockup`}
                             className="w-full h-auto object-cover rounded-2xl aspect-[4/3] drop-shadow-2xl"
-                            style={{
-                              filter: 'drop-shadow(0 25px 50px rgba(0, 0, 0, 0.5))'
+                            initial={{
+                              opacity: 0,
+                              scale: 0.9,
+                              filter: 'brightness(1) drop-shadow(0 25px 50px rgba(0, 0, 0, 0.5))'
                             }}
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
+                            whileInView={{
+                              opacity: 1,
+                              scale: 1,
+                              filter: 'brightness(1) drop-shadow(0 25px 50px rgba(0, 0, 0, 0.5))'
+                            }}
                             whileHover={{
                               filter: 'brightness(1.1) drop-shadow(0 30px 60px rgba(59, 201, 255, 0.3))',
                             }}

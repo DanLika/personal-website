@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { MagnetButton } from "../ui/MagnetButton";
-import { Particles } from "../ui/ParticleBg";
 
 const TECH_STACK = [
   "React",
@@ -66,170 +65,177 @@ const TechIcon: React.FC<TechIconProps> = ({ tech, index }) => {
 
 export const AboutSection = () => {
   return (
-    <section id="about" className="relative w-full py-24 px-6 md:px-12 lg:px-24 bg-black overflow-hidden">
-      {/* Particle Background */}
-      <Particles className="absolute inset-0 z-0" />
-
-      {/* Bottom Gradient Transition */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0A0A0A] to-transparent z-20 pointer-events-none" />
-      {/* Background Glow */}
-      <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-transparent to-blue-500/5 pointer-events-none z-5" />
+    <section id="about" className="relative w-full py-24 px-6 md:px-12 lg:px-24 bg-transparent overflow-hidden">
 
       {/* Main Container */}
-      <div className="relative z-10 max-w-6xl mx-auto">
+      <div className="relative z-10 max-w-4xl mx-auto group">
         {/* Spotlight Effect Container */}
-        <div className="relative group">
-          {/* Mouse-following spotlight glow */}
-          <div className="absolute inset-0 rounded-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-            <div
-              className="absolute inset-0 rounded-[40px]"
-              style={{
-                background: 'radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.1) 0%, rgba(59, 201, 255, 0.2) 30%, transparent 60%)',
-                filter: 'blur(20px)'
-              }}
-              onMouseMove={(e) => {
-                const rect = e.currentTarget.getBoundingClientRect();
-                const x = ((e.clientX - rect.left) / rect.width) * 100;
-                const y = ((e.clientY - rect.top) / rect.height) * 100;
-                e.currentTarget.style.setProperty('--mouse-x', `${x}%`);
-                e.currentTarget.style.setProperty('--mouse-y', `${y}%`);
-              }}
-            />
-          </div>
+        <div className="relative">
+          {/* Outer spotlight glow that follows mouse/touch */}
+          <div
+            className="absolute -inset-[2px] rounded-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+            style={{
+              background: 'radial-gradient(circle 600px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(59, 201, 255, 0.2) 0%, transparent 50%)',
+              filter: 'blur(30px)'
+            }}
+          />
 
           {/* Glass Panel */}
           <motion.div
             initial={{ opacity: 0, y: 60 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.22, 0.61, 0.36, 1] }}
-            className="relative backdrop-blur-xl bg-white/5 border border-white/10 rounded-[40px] overflow-hidden shadow-2xl group-hover:border-white/20 group-hover:shadow-[0_0_40px_rgba(255,255,255,0.1)] cursor-pointer"
+            className="relative backdrop-blur-xl rounded-[40px] overflow-hidden shadow-2xl transition-all duration-500"
+            style={{
+              background: 'rgba(255, 255, 255, 0.02)',
+              border: '1px solid rgba(255, 255, 255, 0.06)',
+              boxShadow: '0 4px 24px 0 rgba(0, 0, 0, 0.2)'
+            }}
             onMouseMove={(e) => {
               const rect = e.currentTarget.getBoundingClientRect();
-              const x = ((e.clientX - rect.left) / rect.width) * 100;
-              const y = ((e.clientY - rect.top) / rect.height) * 100;
-              e.currentTarget.style.setProperty('--mouse-x', `${x}%`);
-              e.currentTarget.style.setProperty('--mouse-y', `${y}%`);
+              const x = e.clientX - rect.left;
+              const y = e.clientY - rect.top;
+
+              // Update CSS custom properties for spotlight
+              e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
+              e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
+
+              // Update parent div for outer glow
+              const parent = e.currentTarget.parentElement;
+              if (parent) {
+                parent.querySelector('div')?.style.setProperty('--mouse-x', `${x}px`);
+                parent.querySelector('div')?.style.setProperty('--mouse-y', `${y}px`);
+              }
+
+              // Dynamic border glow on hover
+              e.currentTarget.style.boxShadow = `0 0 0 1px rgba(59, 201, 255, 0.6) inset, 0 0 40px rgba(59, 201, 255, 0.2)`;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.boxShadow = '0 4px 24px 0 rgba(0, 0, 0, 0.2)';
+            }}
+            onTouchMove={(e) => {
+              const rect = e.currentTarget.getBoundingClientRect();
+              const touch = e.touches[0];
+              const x = touch.clientX - rect.left;
+              const y = touch.clientY - rect.top;
+
+              // Update CSS custom properties for spotlight (touch)
+              e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
+              e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
+
+              // Update parent div for outer glow
+              const parent = e.currentTarget.parentElement;
+              if (parent) {
+                parent.querySelector('div')?.style.setProperty('--mouse-x', `${x}px`);
+                parent.querySelector('div')?.style.setProperty('--mouse-y', `${y}px`);
+              }
+
+              // Dynamic border glow on touch
+              e.currentTarget.style.boxShadow = `0 0 0 1px rgba(59, 201, 255, 0.6) inset, 0 0 40px rgba(59, 201, 255, 0.2)`;
+            }}
+            onTouchEnd={(e) => {
+              e.currentTarget.style.boxShadow = '0 4px 24px 0 rgba(0, 0, 0, 0.2)';
             }}
           >
             {/* Inner Glow */}
-            <div className="absolute inset-0 rounded-[40px] bg-gradient-to-r from-cyan-500/5 via-transparent to-blue-500/5 pointer-events-none" />
+            <div className="absolute inset-0 rounded-[40px] pointer-events-none"
+              style={{
+                background: 'linear-gradient(180deg, rgba(59, 201, 255, 0.05) 0%, rgba(59, 201, 255, 0.02) 50%, rgba(59, 201, 255, 0.04) 100%)',
+                mixBlendMode: 'overlay'
+              }}
+            />
 
-            {/* Content Grid */}
-            <div className="relative z-10 grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 p-6 md:p-12 lg:p-16">
+          {/* Content - Centered Vertical Layout */}
+          <div className="relative z-10 flex flex-col items-center text-center p-8 md:p-12 lg:p-16 space-y-8">
 
-              {/* Left Column - Content */}
-              <motion.div
-                initial={{ opacity: 0, x: -40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="space-y-8"
-              >
-                {/* Title */}
-                <motion.h2
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.3 }}
-                  className="text-4xl md:text-5xl font-bold font-space text-white"
-                >
-                  About Me
-                </motion.h2>
+            {/* Photo */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              whileHover={{ scale: 1.02 }}
+              className="relative"
+            >
+              {/* Glow Effect */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-400/20 to-blue-500/20 blur-2xl opacity-60" />
 
-                {/* Badge */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.4 }}
-                  className="inline-flex"
-                >
-                  <div className="px-4 py-2 rounded-full bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-400/30 backdrop-blur-sm">
-                    <span className="text-cyan-400 text-sm font-semibold tracking-wider">
-                      AI-Augmented Builder
-                    </span>
-                  </div>
-                </motion.div>
+              {/* Photo Container */}
+              <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-2 border-cyan-400/30 shadow-[0_0_30px_rgba(59,201,255,0.3)]">
+                <img
+                  src="/about_me.avif"
+                  alt="Developer Photo"
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = "data:image/svg+xml,%3Csvg width='160' height='160' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='160' height='160' fill='%230A0A0A'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%233BC9FF' font-family='Arial' font-size='14'%3EPhoto%3C/text%3E%3C/svg%3E";
+                  }}
+                />
+              </div>
+            </motion.div>
 
-                {/* Body Text */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.5 }}
-                  className="space-y-6"
-                >
-                  <p className="text-white/70 leading-relaxed text-lg">
-                    I'm a full-stack developer who builds modern web and mobile apps using AI-optimized workflows. I combine Flutter, React, Supabase, Firebase and Stripe to deliver fast, scalable and clean solutions.
-                  </p>
-                  <p className="text-white/70 leading-relaxed text-lg">
-                    I leverage intelligent tools and machine learning to streamline performance and create more intuitive user experiences across all my projects.
-                  </p>
-                  <p className="text-white/70 leading-relaxed text-lg">
-                    My passion is bringing innovative ideas to life, from concept to ensuring every application is robust, efficient, and future-proof.
-                  </p>
-                </motion.div>
+            {/* Title */}
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="text-3xl md:text-4xl lg:text-5xl font-bold font-space text-white leading-tight line-clamp-2"
+            >
+              About Me
+            </motion.h2>
 
-                {/* Tech Stack Grid */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.6 }}
-                  className="space-y-6"
-                >
-                  <h3 className="text-white/50 text-sm font-medium tracking-wider uppercase">
-                    Tech Stack
-                  </h3>
-                  <div className="grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-8 gap-6">
-                    {TECH_STACK.map((tech, index) => (
-                      <TechIcon key={tech} tech={tech} index={index} />
-                    ))}
-                  </div>
-                </motion.div>
-              </motion.div>
+            {/* Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              <div className="px-4 py-2 rounded-full bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-400/30 backdrop-blur-sm">
+                <span className="text-cyan-400 text-sm font-semibold tracking-wider">
+                  AI-Augmented Builder
+                </span>
+              </div>
+            </motion.div>
 
-              {/* Right Column - Visual */}
-              <motion.div
-                initial={{ opacity: 0, x: 40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className="flex items-center justify-center"
-              >
-                {/* Photo Frame */}
-                <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
-                  className="relative"
-                >
-                  {/* Glow Effect */}
-                  <div className="absolute inset-0 rounded-[40px] bg-gradient-to-br from-white/20 to-cyan-400/20 blur-xl opacity-60" />
+            {/* Body Text */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="max-w-2xl space-y-5"
+            >
+              <p className="text-sm md:text-base lg:text-lg text-white/70 leading-relaxed">
+                I'm a full-stack developer who builds modern web and mobile apps using AI-optimized workflows. I combine Flutter, React, Supabase, Firebase and Stripe to deliver fast, scalable and clean solutions.
+              </p>
+              <p className="text-sm md:text-base lg:text-lg text-white/70 leading-relaxed">
+                I leverage intelligent tools and machine learning to streamline performance and create more intuitive user experiences across all my projects.
+              </p>
+              <p className="text-sm md:text-base lg:text-lg text-white/70 leading-relaxed">
+                My passion is bringing innovative ideas to life, from concept to ensuring every application is robust, efficient, and future-proof.
+              </p>
+            </motion.div>
 
-                  {/* Photo Container */}
-                  <div className="relative rounded-[40px] overflow-hidden border border-white/20 shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)]">
-                    <img
-                      src="/about_me.avif"
-                      alt="Developer Photo"
-                      className="w-full h-auto object-cover"
-                      onError={(e) => {
-                        // Fallback placeholder if image not found
-                        const target = e.target as HTMLImageElement;
-                        target.src = "data:image/svg+xml,%3Csvg width='400' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='400' height='400' fill='%230A0A0A'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%233BC9FF' font-family='Arial' font-size='20'%3EDeveloper Photo%3C/text%3E%3C/svg%3E";
-                      }}
-                    />
+            {/* Tech Stack Grid */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="w-full space-y-6 pt-4"
+            >
+              <h3 className="text-white/50 text-sm font-medium tracking-wider uppercase">
+                Tech Stack
+              </h3>
+              <div className="flex flex-wrap justify-center gap-6">
+                {TECH_STACK.map((tech, index) => (
+                  <TechIcon key={tech} tech={tech} index={index} />
+                ))}
+              </div>
+            </motion.div>
+          </div>
 
-                    {/* Glass Overlay */}
-                    <div
-                      className="absolute inset-0 pointer-events-none"
-                      style={{
-                        background: 'linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%)'
-                      }}
-                    />
-                  </div>
-                </motion.div>
-              </motion.div>
-            </div>
-
-            {/* Glass Border Highlight */}
-            <div className="absolute inset-0 rounded-[40px] border border-transparent [border-image:linear-gradient(45deg,rgba(59,201,255,0.3),rgba(6,182,212,0.1),rgba(59,201,255,0.3))_1] pointer-events-none" />
-          </motion.div>
-        </div>
+          {/* Glass Border Highlight - Removed border-image due to rendering issues */}
+        </motion.div>
       </div>
+    </div>
     </section>
   );
 };
