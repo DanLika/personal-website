@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import { Mail, Github, Linkedin } from "lucide-react";
+import { Particles } from "../ui/ParticleBg";
 
 interface FormData {
   name: string;
@@ -60,10 +61,13 @@ export const Contact = () => {
 
   return (
     <section id="contact" className="relative w-full py-24 px-6 md:px-12 lg:px-24 overflow-hidden bg-[#0A0A0A]">
+      {/* Particle Background */}
+      <Particles className="absolute inset-0 z-0" />
+
       {/* Bottom Gradient Transition */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent z-20 pointer-events-none" />
       {/* Neon Pulse Background */}
-      <div className="absolute inset-0 flex items-center justify-center">
+      <div className="absolute inset-0 flex items-center justify-center z-5">
         <div className="w-[800px] h-[600px] rounded-full bg-gradient-to-r from-cyan-500/10 via-blue-500/5 to-cyan-500/10 blur-3xl animate-pulse" />
       </div>
 

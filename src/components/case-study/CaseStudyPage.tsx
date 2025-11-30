@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ArrowRight, ExternalLink } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { projectsData, getNextProject, type ProjectData } from "../../data/projects";
 import SimpleGallery from "../ui/SimpleGallery";
 import { SubProjectCard } from "./SubProjectCard";
+import { Particles } from "../ui/ParticleBg";
 
 interface CaseStudyPageProps {
   project?: ProjectData;
@@ -71,7 +72,7 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
       {/* HERO SECTION */}
       <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden pt-20 sm:pt-24">
         {/* Background Particles */}
-        <FloatingParticles />
+        <Particles className="absolute inset-0 z-0" />
 
         <div className="relative z-10 text-center space-y-8 px-6 max-w-6xl mx-auto">
 
@@ -419,45 +420,4 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
   );
 };
 
-const FloatingParticles: React.FC = () => {
-  const [particles, setParticles] = useState<Array<{ id: number; x: number; y: number; size: number; duration: number }>>([]);
-
-  useEffect(() => {
-    const newParticles = Array.from({ length: 20 }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 3 + 1,
-      duration: Math.random() * 20 + 10
-    }));
-    setParticles(newParticles);
-  }, []);
-
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {particles.map((particle) => (
-        <motion.div
-          key={particle.id}
-          className="absolute rounded-full bg-cyan-400/20"
-          style={{
-            width: particle.size,
-            height: particle.size,
-            left: `${particle.x}%`,
-            top: `${particle.y}%`,
-          }}
-          animate={{
-            y: [0, -30, 0],
-            x: [0, 10, 0],
-            opacity: [0.2, 0.5, 0.2],
-          }}
-          transition={{
-            duration: particle.duration,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: particle.id * 0.5,
-          }}
-        />
-      ))}
-    </div>
-  );
-};
+// Removed FloatingParticles - now using Particles from ParticleBg

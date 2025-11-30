@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { MagnetButton } from "../ui/MagnetButton";
+import { Particles } from "../ui/ParticleBg";
 
 const TECH_STACK = [
   "React",
@@ -65,11 +66,14 @@ const TechIcon: React.FC<TechIconProps> = ({ tech, index }) => {
 
 export const AboutSection = () => {
   return (
-    <section id="about" className="relative w-full py-24 px-6 md:px-12 lg:px-24 bg-black">
+    <section id="about" className="relative w-full py-24 px-6 md:px-12 lg:px-24 bg-black overflow-hidden">
+      {/* Particle Background */}
+      <Particles className="absolute inset-0 z-0" />
+
       {/* Bottom Gradient Transition */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0A0A0A] to-transparent z-20 pointer-events-none" />
       {/* Background Glow */}
-      <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-transparent to-blue-500/5 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-transparent to-blue-500/5 pointer-events-none z-5" />
 
       {/* Main Container */}
       <div className="relative z-10 max-w-6xl mx-auto">
