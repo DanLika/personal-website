@@ -236,7 +236,6 @@ export const Hero = () => {
                   imageSrc="/hero-me.avif"
                   imageAlt="Portrait"
                   glowColor="#3BC9FF"
-                  enableReflection={true}
                   enablePulsingGlow={true}
                 />
               </motion.div>

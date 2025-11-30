@@ -1,10 +1,13 @@
-import { motion, type HTMLMotionProps } from "framer-motion";
-import type { ButtonHTMLAttributes, ReactNode } from "react";
+import { motion } from "framer-motion";
+import type { ReactNode } from "react";
 
-interface NeonButtonProps extends Omit<HTMLMotionProps<"button">, "onAnimationStart">, ButtonHTMLAttributes<HTMLButtonElement> {
+interface NeonButtonProps {
   children: ReactNode;
   variant?: "primary" | "secondary";
   className?: string;
+  onClick?: () => void;
+  disabled?: boolean;
+  type?: "button" | "submit" | "reset";
 }
 
 export const NeonButton = ({

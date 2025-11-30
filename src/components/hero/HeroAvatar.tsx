@@ -8,8 +8,6 @@ interface HeroAvatarProps {
   imageAlt?: string;
   /** Primary glow color in hex */
   glowColor?: string;
-  /** Enable/disable the animated diagonal reflection */
-  enableReflection?: boolean;
   /** Enable/disable the pulsing glow animation */
   enablePulsingGlow?: boolean;
 }
@@ -25,10 +23,9 @@ interface HeroAvatarProps {
  * 
  * @example
  * ```tsx
- * <HeroAvatar 
+ * <HeroAvatar
  *   imageSrc="/hero-me.avif"
  *   glowColor="#3BC9FF"
- *   enableReflection={true}
  *   enablePulsingGlow={true}
  * />
  * ```
@@ -37,7 +34,6 @@ export const HeroAvatar = ({
   imageSrc = "/hero-me.avif",
   imageAlt = "Portrait",
   glowColor = "#3BC9FF",
-  enableReflection = true,
   enablePulsingGlow = true,
 }: HeroAvatarProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
