@@ -128,7 +128,7 @@ export const Contact = () => {
                         href={social.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        initial={{ opacity: 0, scale: 0.8, boxShadow: '0px 0px 0px rgba(59, 201, 255, 0)' }}
+                        initial={{ opacity: 0, scale: 0.8, boxShadow: '0 0 0px rgba(59, 201, 255, 0)' }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         transition={{
                           duration: 0.4,
@@ -138,7 +138,7 @@ export const Contact = () => {
                         }}
                         whileHover={{
                           scale: 1.1,
-                          boxShadow: '0px 0px 20px rgba(59, 201, 255, 0.5)'
+                          boxShadow: '0 0 20px rgba(59, 201, 255, 0.5)'
                         }}
                         className="w-14 h-14 rounded-xl border border-cyan-400/30 bg-cyan-500/10 flex items-center justify-center transition-all duration-300 hover:border-cyan-400/60 hover:bg-cyan-500/20 group"
                       >
