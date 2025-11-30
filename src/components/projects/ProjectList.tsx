@@ -143,41 +143,7 @@ const TechIcon: React.FC<{ tech: string }> = ({ tech }) => {
   );
 };
 
-interface MockupImageProps {
-  src: string;
-  alt: string;
-  className?: string;
-}
-
-const MockupImage: React.FC<MockupImageProps> = ({ src, alt, className = "" }) => {
-  return (
-    <TiltedCard
-      rotateAmplitude={15}
-      scaleOnHover={1.05}
-      showMobileWarning={false}
-      showTooltip={false}
-      displayOverlayContent={false}
-    >
-      <motion.div
-        className={`relative w-[240px] h-[180px] md:w-[280px] md:h-[210px] rounded-[20px] overflow-hidden border-2 border-neon/40 shadow-[0_0_30px_rgba(59,201,255,0.4)] ${className}`}
-        whileHover={{ scale: 1.02 }}
-      >
-        <img
-          src={src}
-          alt={alt}
-          className="w-full h-full object-cover"
-        />
-        {/* Glass shine overlay */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: 'linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%)'
-          }}
-        />
-      </motion.div>
-    </TiltedCard>
-  );
-};
+// Removed MockupImage component - now using TiltedCard directly with clean images
 
 export const ProjectList = () => {
   const { t } = useTranslation();
@@ -297,18 +263,30 @@ export const ProjectList = () => {
 
                       {/* Right Side - Mockup (40% on desktop) */}
                       <div className="md:col-span-2 flex items-center justify-center">
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          whileInView={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.6, delay: 0.3 }}
-                          className="transform group-hover:translate-y-[-8px] transition-transform duration-500"
+                        <TiltedCard
+                          rotateAmplitude={15}
+                          scaleOnHover={1.05}
+                          showMobileWarning={false}
+                          showTooltip={false}
+                          displayOverlayContent={false}
+                          containerHeight="auto"
+                          containerWidth="100%"
+                          className="max-w-md w-full"
                         >
-                          <MockupImage
+                          <motion.img
                             src={project.mockupImage}
                             alt={`${project.title} Mockup`}
-                            className="transform rotate-[-5deg] group-hover:rotate-0 transition-transform duration-500"
+                            className="w-full h-auto object-cover rounded-2xl shadow-2xl border border-white/10 aspect-[4/3]"
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            whileHover={{
+                              filter: 'brightness(1.1)',
+                              boxShadow: '0 0 40px rgba(59, 201, 255, 0.3)'
+                            }}
+                            transition={{ duration: 0.4 }}
+                            loading="lazy"
                           />
-                        </motion.div>
+                        </TiltedCard>
                       </div>
                     </div>
                   </motion.div>

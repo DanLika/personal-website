@@ -103,11 +103,18 @@ const MOCKUP_IMAGES = {
 ```
 
 **Interakcije:**
-- Spotlight effect po karti (mouse-following neon border)
+- Spotlight effect na glavnoj kartici (mouse-following neon border i glow)
 - MagnetButton na tech ikone (strength: 6, padding: 30)
-- 3D tilt na mockup slici sa TiltedCard komponentom
-- Hover: translate-y -8px na mockup
+- TiltedCard direktno na mockup slici (bez device frame-a)
+- Clean mockup slike: `rounded-2xl`, `shadow-2xl`, `border border-white/10`, `aspect-[4/3]`
+- Hover: brightness filter (1.1) + cyan glow (`0 0 40px rgba(59, 201, 255, 0.3)`)
 - Click: navigacija na `/case-study/:projectId`
+
+**Mockup styling:**
+- Slike su direktno prikazane bez device frame containera
+- TiltedCard wrapper omogućava 3D tilt animaciju (rotateAmplitude: 15)
+- Scale na hover: 1.05
+- Responsive: max-w-md, aspect-[4/3] za konzistentan layout
 
 ### 4. AboutSection
 **Layout:**
@@ -514,8 +521,20 @@ export interface ProjectData {
 ### Tailwind config:
 - Dodane `star-movement-bottom` i `star-movement-top` animacije (neiskorištene, bile za StarBorder komponentu)
 
+### ProjectList mockup refaktoring (2025-11-30):
+- **UKLONJENO:** MockupImage komponenta sa device frame wrapperom
+- **REFAKTORISANO:** Direktna primjena TiltedCard na mockup slike
+- **STYLING:**
+  - Clean slike bez device frame containera: `rounded-2xl`, `shadow-2xl`, `border border-white/10`
+  - Aspect ratio fiksiran: `aspect-[4/3]` za konzistentnost
+  - Hover efekti: `brightness(1.1)` + cyan glow `0 0 40px rgba(59, 201, 255, 0.3)`
+- **ANIMACIJE:**
+  - TiltedCard 3D tilt (rotateAmplitude: 15, scaleOnHover: 1.05)
+  - Spotlight effect ostaje na glavnoj kartici (mouse-following neon glow)
+- **PERFORMANCE:** Lazy loading na slike (`loading="lazy"`)
+
 ---
 
 **Održavaj ovaj dokument ažurnim sa svakom značajnom promjenom u projektu.**
 
-**Last Updated:** 2025-11-30 - SimpleGallery, removed Case Study badge, padding fixes
+**Last Updated:** 2025-11-30 - SimpleGallery, ProjectList mockup cleanup, removed device frames
