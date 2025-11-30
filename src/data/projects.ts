@@ -2,7 +2,8 @@ export interface SubProject {
   id: string;
   title: { en: string; bs: string };
   description: { en: string; bs: string };
-  galleryImages: string[];
+  galleryImages: string[]; // Horizontal images
+  galleryImagesVertical?: string[]; // Optional vertical images
   features?: string[];
 }
 

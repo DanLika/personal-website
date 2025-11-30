@@ -25,15 +25,15 @@ export const SubProjectCard: React.FC<SubProjectCardProps> = ({ subProject, inde
       className="relative group"
     >
       {/* Glass Card Container */}
-      <div className="relative backdrop-blur-xl bg-black/40 border border-white/10 rounded-[30px] p-6 md:p-8 overflow-hidden hover:border-cyan-400/40 transition-all duration-500">
+      <div className="relative backdrop-blur-xl bg-black/40 border border-white/10 rounded-[30px] p-6 md:p-8 overflow-hidden transition-all duration-500">
 
-        {/* Inner Glow */}
-        <div className="absolute inset-0 rounded-[30px] bg-gradient-to-br from-cyan-500/5 via-transparent to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+        {/* Inner Glow - Removed hover effect */}
+        <div className="absolute inset-0 rounded-[30px] bg-gradient-to-br from-cyan-500/5 via-transparent to-blue-500/5 opacity-50 pointer-events-none" />
 
         {/* Content */}
         <div className="relative z-10 space-y-6">
           {/* Title */}
-          <h3 className="text-2xl md:text-3xl font-bold font-space text-white group-hover:text-cyan-400 transition-colors duration-300">
+          <h3 className="text-2xl md:text-3xl font-bold font-space text-white">
             {subProject.title[currentLang]}
           </h3>
 
@@ -42,13 +42,27 @@ export const SubProjectCard: React.FC<SubProjectCardProps> = ({ subProject, inde
             {subProject.description[currentLang]}
           </p>
 
-          {/* Gallery */}
-          <div className="pt-4">
-            <SimpleGallery
-              images={subProject.galleryImages}
-              title={subProject.title[currentLang]}
-            />
-          </div>
+          {/* Horizontal Gallery */}
+          {subProject.galleryImages && subProject.galleryImages.length > 0 && (
+            <div className="pt-4 space-y-2">
+              <h4 className="text-white/50 text-sm font-medium tracking-wider uppercase">Horizontal Gallery</h4>
+              <SimpleGallery
+                images={subProject.galleryImages}
+                title={`${subProject.title[currentLang]} - Horizontal`}
+              />
+            </div>
+          )}
+
+          {/* Vertical Gallery */}
+          {subProject.galleryImagesVertical && subProject.galleryImagesVertical.length > 0 && (
+            <div className="pt-4 space-y-2">
+              <h4 className="text-white/50 text-sm font-medium tracking-wider uppercase">Vertical Gallery</h4>
+              <SimpleGallery
+                images={subProject.galleryImagesVertical}
+                title={`${subProject.title[currentLang]} - Vertical`}
+              />
+            </div>
+          )}
         </div>
 
         {/* Glass Border Highlight */}

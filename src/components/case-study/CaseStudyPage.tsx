@@ -284,25 +284,27 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
         </div>
       </section>
 
-      {/* GALLERY SECTION */}
-      <section className="relative w-full py-24 px-6">
-        <div className="max-w-6xl mx-auto">
-          {/* Gallery Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="mb-20 sm:mb-24 md:mb-32"
-          >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-8 sm:mb-12 text-center">
-              Project Gallery
-            </h2>
+      {/* GALLERY SECTION - Hidden for FlutterFlow Templates (has subProjects with own galleries) */}
+      {currentProject.id !== 'flutterflow-templates' && (
+        <section className="relative w-full py-24 px-6">
+          <div className="max-w-6xl mx-auto">
+            {/* Gallery Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="mb-20 sm:mb-24 md:mb-32"
+            >
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-8 sm:mb-12 text-center">
+                Project Gallery
+              </h2>
 
-            <SimpleGallery images={currentProject.galleryImages} title={currentProject.title} />
-          </motion.div>
-        </div>
-      </section>
+              <SimpleGallery images={currentProject.galleryImages} title={currentProject.title} />
+            </motion.div>
+          </div>
+        </section>
+      )}
 
       {/* RESULTS SECTION */}
       <section className="relative w-full py-24 px-6">
