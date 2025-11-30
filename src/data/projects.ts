@@ -28,10 +28,16 @@ export const projectsData: Record<string, ProjectData> = {
     ],
     techStack: ["Flutter", "Firebase", "Stripe", "NodeJS", "MongoDB"],
     galleryImages: [
-      "/rabbooking-1.png",
-      "/rabbooking-2.png", 
-      "/rabbooking-3.png",
-      "/rabbooking-4.png"
+      "/input_file_3.png",
+      "/input_file_5.png",
+      "/input_file_7.png",
+      "/input_file_10.png",
+      "/input_file_8.png",
+      "/input_file_9.png",
+      "/flutterflow-mockup.avif",
+      "/ironlife-mockup.avif",
+      "/pizzeria-mockup.avif",
+      "/hero-me.avif"
     ],
     challenges: [
       "Real-time synchronization between multiple users booking the same properties",
@@ -56,7 +62,7 @@ export const projectsData: Record<string, ProjectData> = {
     role: "Lead Mobile Developer"
   },
   saasDashboard: {
-    id: "saas-dashboard", 
+    id: "saas-dashboard",
     title: "SaaS Analytics Dashboard",
     category: "WEB APPLICATION",
     description: "A modern analytics dashboard for SaaS companies featuring real-time data visualization, custom reporting, and team collaboration tools.",
@@ -92,7 +98,7 @@ export const projectsData: Record<string, ProjectData> = {
       "Successfully scaled to 10,000+ users"
     ],
     client: "TechStart Inc.",
-    duration: "6 months", 
+    duration: "6 months",
     role: "Full-Stack Developer"
   },
   aiChatbot: {
@@ -109,7 +115,7 @@ export const projectsData: Record<string, ProjectData> = {
     techStack: ["Python", "TensorFlow", "React", "NodeJS", "MongoDB", "AI"],
     galleryImages: [
       "/chatbot-1.png",
-      "/chatbot-2.png", 
+      "/chatbot-2.png",
       "/chatbot-3.png",
       "/chatbot-4.png"
     ],
@@ -150,7 +156,7 @@ export const projectsData: Record<string, ProjectData> = {
     galleryImages: [
       "/fintech-1.png",
       "/fintech-2.png",
-      "/fintech-3.png", 
+      "/fintech-3.png",
       "/fintech-4.png"
     ],
     challenges: [

@@ -1,17 +1,30 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
 import { MagnetButton } from "../ui/MagnetButton";
 import { Sparkles } from "lucide-react";
 
 export const Footer = () => {
   const { t } = useTranslation();
 
+  const smoothScrollTo = (sectionId: string) => {
+    // Check if we're on the homepage
+    if (window.location.pathname === '/') {
+      // If on homepage, scroll directly to the section
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    } else {
+      // If on case study or other page, navigate to homepage with hash
+      window.location.href = `/#${sectionId}`;
+    }
+  };
+
   const footerLinks = [
-    { name: t("nav.links.home"), href: "/" },
-    { name: t("nav.links.projects"), href: "/projects" },
-    { name: t("nav.links.about"), href: "/about" },
-    { name: t("nav.links.contact"), href: "/contact" }
+    { name: t("nav.links.home"), sectionId: "hero" },
+    { name: t("nav.links.projects"), sectionId: "projects" },
+    { name: t("nav.links.about"), sectionId: "about" },
+    { name: t("nav.links.contact"), sectionId: "contact" }
   ];
 
   return (
@@ -75,12 +88,12 @@ export const Footer = () => {
                   inactiveTransition="transform 0.4s ease-in-out"
                   className="relative"
                 >
-                  <Link
-                    to={link.href}
+                  <button
+                    onClick={() => smoothScrollTo(link.sectionId)}
                     className="text-white/50 text-sm font-light hover:text-cyan-400 transition-colors duration-300"
                   >
                     {link.name}
-                  </Link>
+                  </button>
                 </MagnetButton>
               </motion.div>
             ))}
@@ -132,12 +145,12 @@ export const Footer = () => {
                   inactiveTransition="transform 0.4s ease-in-out"
                   className="relative"
                 >
-                  <Link
-                    to={link.href}
+                  <button
+                    onClick={() => smoothScrollTo(link.sectionId)}
                     className="text-white/50 text-sm font-light hover:text-cyan-400 transition-colors duration-300"
                   >
                     {link.name}
-                  </Link>
+                  </button>
                 </MagnetButton>
               </motion.div>
             ))}

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Hero } from "../hero/Hero";
 import { FeaturedProject } from "../projects/FeaturedProject";
 import { ProjectList } from "../projects/ProjectList";
@@ -6,14 +7,28 @@ import { Contact } from "../contact/Contact";
 import { Footer } from "../layout/Footer";
 
 export const HomePage = () => {
-  return (
-    <div className="min-h-screen bg-[#0A0A0A]">
-      <Hero />
-      <FeaturedProject />
-      <ProjectList />
-      <AboutSection />
-      <Contact />
-      <Footer />
-    </div>
-  );
+    useEffect(() => {
+        // Handle hash-based navigation (e.g., /#about)
+        const hash = window.location.hash.substring(1); // Remove the '#'
+        if (hash) {
+            // Small delay to ensure DOM is ready
+            setTimeout(() => {
+                const element = document.getElementById(hash);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 100);
+        }
+    }, []);
+
+    return (
+        <>
+            <Hero />
+            <FeaturedProject />
+            <ProjectList />
+            <AboutSection />
+            <Contact />
+            <Footer />
+        </>
+    );
 };

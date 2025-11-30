@@ -3,6 +3,69 @@ import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { projectsData, getNextProject, type ProjectData } from "../../data/projects";
+import MasonryGallery, { type MasonryItem } from "../ui/MasonryGallery";
+
+// Helper component to load images and get dimensions
+const GalleryLoader = ({ images, projectTitle }: { images: string[], projectTitle: string }) => {
+  const [items, setItems] = useState<MasonryItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadImages = async () => {
+      setLoading(true);
+      const loadedItems: MasonryItem[] = [];
+
+      await Promise.all(
+        images.map(async (src, index) => {
+          return new Promise<void>((resolve) => {
+            const img = new Image();
+            img.src = src;
+            img.onload = () => {
+              // Calculate aspect ratio or use height directly. 
+              // The Masonry component expects 'height'. 
+              // Let's pass the aspect ratio (h/w) as 'height' for our modified logic, 
+              // OR pass the raw height if we want to stick to the original logic.
+              // In my modified MasonryGallery, I used: const displayHeight = columnWidth * child.height;
+              // So 'height' should be aspect ratio (h/w).
+              const aspectRatio = img.naturalHeight / img.naturalWidth;
+
+              loadedItems.push({
+                id: `img-${index}`,
+                img: src,
+                height: aspectRatio, // Passing aspect ratio
+                title: index === 0 ? `${projectTitle} - Main View` : `${projectTitle} - Image ${index + 1}`
+              });
+              resolve();
+            };
+            img.onerror = () => resolve(); // Skip on error but resolve
+          });
+        })
+      );
+
+      // Sort by original index to maintain order
+      const sortedItems = loadedItems.sort((a, b) => {
+        const indexA = images.indexOf(a.img);
+        const indexB = images.indexOf(b.img);
+        return indexA - indexB;
+      });
+
+      setItems(sortedItems);
+      setLoading(false);
+    };
+
+    loadImages();
+  }, [images]);
+
+  if (loading) {
+    return <div className="text-center text-white/60 py-20">Loading gallery...</div>;
+  }
+
+  return (
+    <div className="w-full min-h-[50vh]">
+      <MasonryGallery items={items} />
+    </div>
+  );
+};
 
 interface CaseStudyPageProps {
   project?: ProjectData;
@@ -13,8 +76,8 @@ const TechIcon: React.FC<{ tech: string; index: number }> = ({ tech, index }) =>
     <motion.div
       initial={{ opacity: 0, scale: 0.8 }}
       whileInView={{ opacity: 1, scale: 1 }}
-      transition={{ 
-        duration: 0.4, 
+      transition={{
+        duration: 0.4,
         delay: index * 0.1,
         type: "spring",
         stiffness: 200
@@ -51,26 +114,26 @@ const TechIcon: React.FC<{ tech: string; index: number }> = ({ tech, index }) =>
 
 export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
   const { projectId } = useParams<{ projectId: string }>();
-  
+
   // Scroll to top when project changes
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [projectId]);
-  
+
   // Get project from URL parameter or use default
   const currentProject = projectId ? projectsData[projectId] : (project || projectsData.rabbooking);
   const nextProject = getNextProject(currentProject.id);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0A0A0A] to-[#13151A]">
-      
+
       {/* HERO SECTION */}
       <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background Particles */}
         <FloatingParticles />
-        
+
         <div className="relative z-10 text-center space-y-8 px-6 max-w-6xl mx-auto">
-          
+
           {/* Category Tag */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
@@ -127,9 +190,9 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
                     }}
                   />
                 </div>
-                
+
                 {/* Glass Overlay */}
-                <div 
+                <div
                   className="absolute inset-0 pointer-events-none"
                   style={{
                     background: 'linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%)'
@@ -144,7 +207,7 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
       {/* OVERVIEW SECTION */}
       <section className="relative w-full py-24 px-6">
         <div className="max-w-6xl mx-auto">
-          
+
           {/* Glass Container */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -157,9 +220,9 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
           >
             {/* Inner Glow */}
             <div className="absolute inset-0 rounded-[40px] bg-gradient-to-br from-cyan-500/5 via-transparent to-blue-500/5 pointer-events-none" />
-            
+
             <div className="relative z-10 p-12 space-y-8">
-              
+
               {/* Section Title */}
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
@@ -195,7 +258,7 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
       {/* TECH STACK SECTION */}
       <section className="relative w-full py-24 px-6">
         <div className="max-w-6xl mx-auto">
-          
+
           {/* Glass Container */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -208,9 +271,9 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
           >
             {/* Inner Glow */}
             <div className="absolute inset-0 rounded-[40px] bg-gradient-to-br from-cyan-500/5 via-transparent to-blue-500/5 pointer-events-none" />
-            
+
             <div className="relative z-10 p-12 space-y-8">
-              
+
               {/* Section Title */}
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
@@ -232,10 +295,30 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
         </div>
       </section>
 
+      {/* GALLERY SECTION */}
+      <section className="relative w-full py-24 px-6">
+        <div className="max-w-6xl mx-auto">
+          {/* Gallery Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mb-20 sm:mb-24 md:mb-32"
+          >
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-8 sm:mb-12 text-center">
+              Project Gallery
+            </h2>
+
+            <GalleryLoader images={currentProject.galleryImages} projectTitle={currentProject.title} />
+          </motion.div>
+        </div>
+      </section>
+
       {/* RESULTS SECTION */}
       <section className="relative w-full py-24 px-6">
         <div className="max-w-6xl mx-auto">
-          
+
           {/* Glass Container */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -248,9 +331,9 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
           >
             {/* Inner Glow */}
             <div className="absolute inset-0 rounded-[30px] bg-gradient-to-br from-cyan-500/5 via-transparent to-blue-500/5 pointer-events-none" />
-            
+
             <div className="relative z-10 p-12 space-y-8">
-              
+
               {/* Section Title */}
               <motion.h3
                 initial={{ opacity: 0, y: 20 }}
@@ -268,13 +351,13 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
                     key={index}
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ 
-                      duration: 0.6, 
+                    transition={{
+                      duration: 0.6,
                       delay: 0.3 + index * 0.1,
                       type: "spring",
                       stiffness: 200
                     }}
-                    whileHover={{ 
+                    whileHover={{
                       scale: 1.05,
                       boxShadow: '0 0 20px rgba(59, 201, 255, 0.5)'
                     }}
@@ -284,7 +367,7 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
                     <div className="w-12 h-12 rounded-full bg-cyan-500/20 border border-cyan-400/50 flex items-center justify-center mx-auto mb-4">
                       <ArrowRight className="w-6 h-6 text-cyan-400" />
                     </div>
-                    
+
                     {/* Content */}
                     <div>
                       <h4 className="text-white font-bold text-lg mb-2">
@@ -308,7 +391,7 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
           className="relative w-full py-20 px-6"
         >
           <div className="max-w-4xl mx-auto">
-            <Link 
+            <Link
               to={`/case-study/${nextProject.id}`}
               className="group block"
             >
@@ -321,7 +404,7 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
               >
                 {/* Inner Glow */}
                 <div className="absolute inset-0 rounded-[30px] bg-gradient-to-br from-cyan-500/3 via-transparent to-blue-500/3 pointer-events-none" />
-                
+
                 <div className="relative z-10 p-8 flex items-center justify-between">
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 rounded-full bg-cyan-500/10 border border-cyan-400/30 flex items-center justify-center">
@@ -332,7 +415,7 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
                       <h3 className="text-white text-xl font-bold">{nextProject.title}</h3>
                     </div>
                   </div>
-                  
+
                   <div className="text-right">
                     <span className="text-cyan-400 text-sm font-medium group-hover:text-cyan-300 transition-colors">
                       View Case Study
