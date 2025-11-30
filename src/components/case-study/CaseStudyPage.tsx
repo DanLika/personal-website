@@ -189,22 +189,24 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
                 Project Overview
               </motion.h2>
 
-              {/* Overview Points */}
-              <div className="grid md:grid-cols-2 gap-6">
-                {currentProject.overview.map((point, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
-                    className="flex items-start gap-4"
-                  >
-                    <div className="w-2 h-2 rounded-full bg-cyan-400 mt-2 flex-shrink-0" />
-                    <p className="text-white/80 leading-relaxed">
-                      {point}
-                    </p>
-                  </motion.div>
-                ))}
+              {/* Overview Points - Centered horizontally and vertically */}
+              <div className="flex items-center justify-center min-h-[200px]">
+                <div className="grid md:grid-cols-2 gap-6 max-w-5xl">
+                  {currentProject.overview.map((point, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
+                      className="flex items-start gap-4"
+                    >
+                      <div className="w-2 h-2 rounded-full bg-cyan-400 mt-2 flex-shrink-0" />
+                      <p className="text-white/80 leading-relaxed">
+                        {point}
+                      </p>
+                    </motion.div>
+                  ))}
+                </div>
               </div>
             </div>
           </motion.div>
@@ -273,11 +275,13 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
                 Technology Stack
               </motion.h2>
 
-              {/* Tech Grid */}
-              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-                {currentProject.techStack.map((tech, index) => (
-                  <TechIcon key={tech} tech={tech} index={index} />
-                ))}
+              {/* Tech Grid - Centered horizontally and vertically */}
+              <div className="flex items-center justify-center min-h-[200px]">
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 max-w-5xl">
+                  {currentProject.techStack.map((tech, index) => (
+                    <TechIcon key={tech} tech={tech} index={index} />
+                  ))}
+                </div>
               </div>
             </div>
           </motion.div>
