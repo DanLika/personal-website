@@ -33,6 +33,17 @@
     "list": {
       "title": "Ostali Projekti",
       "subtitle": "Nedavni radovi i marketplace doprinosi"
+    },
+    "flutterflow": {
+      "results": {
+        "deployment": "Brza Implementacija",
+        "monetizable": "Monetizacija",
+        "lowcode": "Čist Low-Code"
+      },
+      "collection": {
+        "title": "Kolekcija Templejta",
+        "subtitle": "Istražite premium FlutterFlow templejte"
+      }
     }
   },
   "contact": {

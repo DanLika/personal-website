@@ -1,3 +1,11 @@
+export interface SubProject {
+  id: string;
+  title: { en: string; bs: string };
+  description: { en: string; bs: string };
+  galleryImages: string[];
+  features?: string[];
+}
+
 export interface ProjectData {
   id: string;
   title: string;
@@ -13,6 +21,7 @@ export interface ProjectData {
   duration: string;
   role: string;
   liveUrl?: string; // Optional live website URL
+  subProjects?: SubProject[]; // Optional for modular collection projects
 }
 
 export const projectsData: Record<string, ProjectData> = {
@@ -142,18 +151,10 @@ export const projectsData: Record<string, ProjectData> = {
     category: 'MARKETPLACE',
     description: 'A suite of premium templates (Booking, Calendar Sync, PDF Viewer) for developers.',
     overview: [
-      'Premium template suite for FlutterFlow marketplace',
-      'DreamHome: Complete booking app with Stripe integration',
-      'Advanced Calendar: Sync with Google Calendar and iCal',
-      'PDF Viewer: Full-featured document viewer and annotator'
+      'A collection of premium, high-performance templates built for the FlutterFlow Marketplace. These solutions provide developers with robust foundations for booking systems, productivity tools, and document management.'
     ],
-    techStack: ['FlutterFlow', 'Firebase', 'Stripe', 'Google Calendar API'],
-    galleryImages: [
-      '/flutterflow-dreamhome.png',
-      '/flutterflow-calendar.png',
-      '/flutterflow-pdf.png',
-      '/flutterflow-mockup.avif'
-    ],
+    techStack: ['FlutterFlow', 'Firebase'],
+    galleryImages: ['/flutterflow-mockup.avif'],
     challenges: [
       'Creating reusable components adaptable to different use cases',
       'Documentation for non-developers',
@@ -167,15 +168,80 @@ export const projectsData: Record<string, ProjectData> = {
       'Implemented theme system with easy color and style customization'
     ],
     results: [
-      '500+ template purchases',
-      '4.9★ average rating',
-      'Top-rated in marketplace',
-      'Featured by FlutterFlow'
+      'Rapid Deployment',
+      'Monetizable Assets',
+      'Clean Low-Code'
     ],
     client: 'Self-Published',
     duration: '4 months',
     role: 'Template Creator & Developer',
-    liveUrl: 'https://marketplace.flutterflow.io/creator/65d766a45ade49b3d5dfe437e8a52f87f5b9599e'
+    liveUrl: 'https://marketplace.flutterflow.io/creator/65d766a45ade49b3d5dfe437e8a52f87f5b9599e',
+    subProjects: [
+      {
+        id: 'dreamhome',
+        title: {
+          en: 'DreamHome Booking App',
+          bs: 'DreamHome Aplikacija za Rezervacije'
+        },
+        description: {
+          en: 'A comprehensive rental booking solution featuring advanced search filtering, automated check-in logic via Cloud Functions, and seamless Stripe payment integration.',
+          bs: 'Sveobuhvatno rješenje za rezervaciju smještaja sa naprednim filtriranjem pretrage, automatizovanom logikom prijave putem Cloud funkcija i integrisanim Stripe plaćanjem.'
+        },
+        galleryImages: [
+          '/DreamHome_Template/DreamHome Booking App Template 1.avif',
+          '/DreamHome_Template/DreamHome Booking App Template 2.avif',
+          '/DreamHome_Template/DreamHome Booking App Template 3.avif',
+          '/DreamHome_Template/DreamHome Booking App Template 4.avif',
+          '/DreamHome_Template/DreamHome Booking App Template 5.avif',
+          '/DreamHome_Template/DreamHome Booking App Template 6.avif',
+          '/DreamHome_Template/DreamHome Booking App Template 7.avif',
+          '/DreamHome_Template/DreamHome Booking App Template 8.avif',
+          '/DreamHome_Template/DreamHome Booking App Template 9.avif',
+          '/DreamHome_Template/DreamHome Booking App Template 10.avif',
+          '/DreamHome_Template/DreamHome Booking App Template 11.avif',
+          '/DreamHome_Template/DreamHome Booking App Template 12.avif'
+        ]
+      },
+      {
+        id: 'calendar-tasks',
+        title: {
+          en: 'Advanced Calendar & Tasks',
+          bs: 'Napredni Kalendar i Zadaci'
+        },
+        description: {
+          en: 'An integrated productivity suite that syncs Firestore tasks with Google Calendar events in real-time, featuring a unified dashboard for complete schedule management.',
+          bs: 'Integrisani paket za produktivnost koji sinhronizuje Firestore zadatke sa Google Calendar događajima u stvarnom vremenu, uz jedinstvenu kontrolnu ploču za upravljanje rasporedom.'
+        },
+        galleryImages: [
+          '/Schedule_template/Calendar Template - Tasks and Google events.avif',
+          '/Schedule_template/Calendar Template - Tasks and Google events 2.avif',
+          '/Schedule_template/Calendar Template - Tasks and Google events 3.avif',
+          '/Schedule_template/Calendar Template - Tasks and Google events 4.avif',
+          '/Schedule_template/Calendar Template - Tasks and Google events 5.avif',
+          '/Schedule_template/Calendar Template - Tasks and Google events 6.avif',
+          '/Schedule_template/Calendar Template - Tasks and Google events 7.avif',
+          '/Schedule_template/Calendar Template - Tasks and Google events 8.avif'
+        ]
+      },
+      {
+        id: 'pdf-viewer',
+        title: {
+          en: 'PDF Viewer Widgets',
+          bs: 'PDF Viewer Widgeti'
+        },
+        description: {
+          en: 'A set of custom widgets enabling robust PDF viewing capabilities on both web and mobile, including night mode, page snapping, and secure Firebase Storage access.',
+          bs: 'Set prilagođenih widgeta koji omogućavaju napredan pregled PDF dokumenata na webu i mobilnim uređajima, uključujući noćni režim i siguran pristup Firebase pohrani.'
+        },
+        galleryImages: [
+          '/PDF_widget/PDF Viewer Widgets for Mobile & Web 1.avif',
+          '/PDF_widget/PDF Viewer Widgets for Mobile & Web 2.avif',
+          '/PDF_widget/PDF Viewer Widgets for Mobile & Web 3.avif',
+          '/PDF_widget/PDF Viewer Widgets for Mobile & Web 4.avif',
+          '/PDF_widget/PDF Viewer Widgets for Mobile & Web 5.avif'
+        ]
+      }
+    ]
   }
 };
 

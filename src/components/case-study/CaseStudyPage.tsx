@@ -2,8 +2,10 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ArrowRight, ExternalLink } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { projectsData, getNextProject, type ProjectData } from "../../data/projects";
 import MasonryGallery, { type MasonryItem } from "../ui/MasonryGallery";
+import { SubProjectCard } from "./SubProjectCard";
 
 // Helper component to load images and get dimensions
 const GalleryLoader = ({ images, projectTitle }: { images: string[], projectTitle: string }) => {
@@ -282,6 +284,45 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
           </motion.div>
         </div>
       </section>
+
+      {/* SUB-PROJECTS SECTION (Conditional - only for FlutterFlow Templates) */}
+      {currentProject.subProjects && currentProject.subProjects.length > 0 && (
+        <section className="relative w-full py-24 px-6">
+          <div className="max-w-7xl mx-auto">
+            {/* Section Title */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-4xl md:text-5xl font-bold font-space text-white mb-4">
+                {(() => {
+                  const { t } = useTranslation();
+                  return t("projects.flutterflow.collection.title", "Template Collection");
+                })()}
+              </h2>
+              <p className="text-white/60 text-lg">
+                {(() => {
+                  const { t } = useTranslation();
+                  return t("projects.flutterflow.collection.subtitle", "Explore the premium FlutterFlow templates");
+                })()}
+              </p>
+            </motion.div>
+
+            {/* Sub-Projects Grid */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {currentProject.subProjects.map((subProject, index) => (
+                <SubProjectCard
+                  key={subProject.id}
+                  subProject={subProject}
+                  index={index}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* TECH STACK SECTION */}
       <section className="relative w-full py-24 px-6">

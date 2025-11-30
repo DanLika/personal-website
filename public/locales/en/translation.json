@@ -33,6 +33,17 @@
     "list": {
       "title": "More Projects",
       "subtitle": "Recent work and marketplace contributions"
+    },
+    "flutterflow": {
+      "results": {
+        "deployment": "Rapid Deployment",
+        "monetizable": "Monetizable Assets",
+        "lowcode": "Clean Low-Code"
+      },
+      "collection": {
+        "title": "Template Collection",
+        "subtitle": "Explore the premium FlutterFlow templates"
+      }
     }
   },
   "contact": {
