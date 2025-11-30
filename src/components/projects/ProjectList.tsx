@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { MagnetButton } from "../ui/MagnetButton";
 import { TiltedCard } from "../ui/TiltedCard";
+import { Particles } from "../ui/ParticleBg";
 import React from "react";
 import { projectsData } from "../../data/projects";
 
@@ -64,10 +65,13 @@ export const ProjectList = () => {
   const { t } = useTranslation();
 
   return (
-    <section id="projects" className="relative w-full py-20 px-6 md:px-12 lg:px-24 bg-[#0A0A0A] overflow-visible">
+    <section id="projects" className="relative w-full py-20 px-6 md:px-12 lg:px-24 bg-[#0A0A0A] overflow-hidden">
+      {/* Particle Background */}
+      <Particles className="absolute inset-0 z-0" />
+
       {/* Bottom Gradient Transition */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent z-20 pointer-events-none" />
-      <div className="max-w-4xl mx-auto space-y-8 overflow-visible">
+      <div className="max-w-4xl mx-auto space-y-8 relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
