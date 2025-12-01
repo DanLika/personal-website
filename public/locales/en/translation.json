@@ -1,4 +1,9 @@
 {
+  "meta": {
+    "title": "SaaS MVP Development & AI Solutions | Duško Ličanin",
+    "description": "Full-Stack Developer specializing in Rapid SaaS MVP Development and AI SaaS Solutions. Building scalable web & mobile apps 2x faster using AI-Augmented workflows.",
+    "keywords": "saas mvp development, ai saas solutions, saas website design, development outsourcing, flutter developer, react developer, banja luka"
+  },
   "hero": {
     "title": "Full-Stack Development Enhanced with AI",
     "subtitle": "Helping businesses build modern web & mobile apps faster.",
@@ -65,9 +70,9 @@
   "blog": {
     "section": {
       "badge": "INSIGHTS",
-      "title": "Latest Articles",
-      "subtitle": "Thoughts on web development, SaaS, and AI-assisted programming.",
-      "cta": "See All Articles"
+      "title": "Latest Insights",
+      "subtitle": "Technology, Business, and the Future of Development.",
+      "cta": "View All Articles →"
     },
     "page": {
       "badge": "BLOG",
@@ -78,6 +83,96 @@
       "backToBlog": "Back to Blog",
       "nextArticle": "Next Article",
       "readTime": "min read"
+    }
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Everything you need to know before we start.",
+    "items": [
+      {
+        "q": "Why choose custom development over WordPress?",
+        "a": "WordPress is fine for blogs, but it's slow and vulnerable. I build custom web applications (React/Next.js) that are secure, load instantly, and rank better on Google."
+      },
+      {
+        "q": "What does 'AI-Augmented' mean for me?",
+        "a": "It means efficiency. I use AI tools to automate boilerplate coding, leaving me more time to focus on your business logic and design. You get a better product, faster."
+      },
+      {
+        "q": "How much does a project cost?",
+        "a": "Every project is unique. However, thanks to AI tools saving my time, I can offer premium agency quality at a more accessible price point. Contact me for an estimate."
+      },
+      {
+        "q": "Do you work with international clients?",
+        "a": "Absolutely. Based in Banja Luka, I work as a Full Stack Developer for clients worldwide, delivering 'Silicon Valley' quality code remotely."
+      },
+      {
+        "q": "Do you offer post-launch maintenance?",
+        "a": "Yes. Software needs care. I offer maintenance packages to keep your application secure and up-to-date."
+      }
+    ]
+  },
+  "caseStudies": {
+    "results_title": "Project Results",
+    "gallery_title": "Project Gallery",
+    "tech_stack_title": "Technology Stack",
+    "next_project": "Next Project",
+    "view_case_study": "View Case Study",
+    "view_live_site": "View Live Site",
+    "syncbooking-saas": {
+      "title": "SyncBooking SaaS",
+      "category": "SaaS Platform",
+      "tagline": "A centralized reservation management engine that syncs global booking channels in real-time.",
+      "challenge_title": "The Challenge",
+      "challenge_text": "Property managers face a major issue: calendar fragmentation. Managing availability across multiple OTAs manually leads to costly double-bookings. The goal was to create a single-source-of-truth system to automate operations.",
+      "solution_title": "The Solution",
+      "solution_text": "I designed a robust multi-tenant SaaS using Flutter for a fast interface and Firebase for data sync. The core innovation is a custom iCal parsing engine for bidirectional sync. I also integrated Stripe for subscriptions and Resend for transactional emails.",
+      "results": [
+        { "title": "Bidirectional Sync", "desc": "Complex iCal logic eliminates double bookings instantly." },
+        { "title": "Direct Booking Widgets", "desc": "Embeddable widgets allow commission-free bookings." },
+        { "title": "Scalable Architecture", "desc": "Cloud Functions isolate data for multiple tenants securely." }
+      ]
+    },
+    "ironlife": {
+      "title": "IronLife.org",
+      "category": "Webflow CMS Site",
+      "tagline": "A high-performance digital publishing platform optimized for speed, SEO dominance, and content growth.",
+      "challenge_title": "The Challenge",
+      "challenge_text": "In the fitness market, speed equals trust. The client needed a content-heavy digital ecosystem without sacrificing performance. The main hurdle was operational: the non-tech team needed to publish complex content daily without developer aid.",
+      "solution_title": "The Solution",
+      "solution_text": "I built a custom Webflow solution focused on semantic HTML and high-performance metrics. Using Webflow CMS, I linked dynamic collections, giving the client a powerful no-code dashboard to manage their entire presence.",
+      "results": [
+        { "title": "99/100 Performance", "desc": "Near-perfect Lighthouse scores via aggressive optimization." },
+        { "title": "SEO Foundation", "desc": "Schema markup and logic-first hierarchy for better ranking." },
+        { "title": "Zero-Code Ops", "desc": "Client publishes content 50% faster with a custom CMS." }
+      ]
+    },
+    "pizzeria-bestek": {
+      "title": "Pizzeria Bestek",
+      "category": "Food Ordering Web App",
+      "tagline": "A full-stack ordering ecosystem with real-time admin oversight and sub-second data sync.",
+      "challenge_title": "The Challenge",
+      "challenge_text": "Local restaurants lose margin to aggregator apps. The client needed a custom digital ecosystem: a seamless mobile-first ordering experience for customers and a Mission Control dashboard for kitchen staff.",
+      "solution_title": "The Solution",
+      "solution_text": "I built a reactive web app with React and Tailwind. The backend uses Supabase (PostgreSQL). I leveraged Supabase Realtime (WebSockets) to push new orders to the Admin Dashboard instantly without page refreshes.",
+      "results": [
+        { "title": "Sub-Second Latency", "desc": "Orders appear in the kitchen instantly via WebSockets." },
+        { "title": "Automated Logistics", "desc": "Programmatic email updates via Resend API." },
+        { "title": "Secure Roles", "desc": "Strict Row Level Security (RLS) separates admin and user data." }
+      ]
+    },
+    "flutterflow-templates": {
+      "title": "FlutterFlow Marketplace",
+      "category": "Mobile App Development",
+      "tagline": "A suite of modular, pre-engineered foundations that accelerate development cycles for global builders.",
+      "challenge_title": "The Challenge",
+      "challenge_text": "Low-code platforms often lack complex business logic. The market lacked high-quality starting points that handled production-level backend needs, not just visual design.",
+      "solution_title": "The Solution",
+      "solution_text": "I engineered a library of logic-first templates. This includes booking systems with Cloud Functions and Stripe, and productivity suites with 2-way Google Calendar sync.",
+      "results": [
+        { "title": "Faster Speed to Market", "desc": "Developers skip weeks of backend coding." },
+        { "title": "Modular Design", "desc": "Components can be dropped into any project easily." },
+        { "title": "Cross-Platform", "desc": "Flutter engine ensures parity across iOS and Android." }
+      ]
     }
   }
 }

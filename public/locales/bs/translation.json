@@ -1,4 +1,9 @@
 {
+  "meta": {
+    "title": "Izrada Web Stranica i Mobilnih Aplikacija Banja Luka | Duško Ličanin",
+    "description": "Premium izrada web stranica, SaaS platformi i mobilnih aplikacija (Flutter/React). AI-Augmented razvoj softvera u Banja Luci. 2x brža isporuka MVP-a.",
+    "keywords": "izrada web stranica banja luka, razvoj softvera bih, flutter developer, react, saas mvp, izrada aplikacija, full stack developer"
+  },
   "hero": {
     "title": "Full-Stack Razvoj Poboljšan uz AI",
     "subtitle": "Pomažem biznisima da brže grade moderne web i mobilne aplikacije.",
@@ -65,9 +70,9 @@
   "blog": {
     "section": {
       "badge": "ČLANCI",
-      "title": "Najnoviji Članci",
-      "subtitle": "Razmišljanja o web razvoju, SaaS-u i AI-potpomognutom programiranju.",
-      "cta": "Pogledaj Sve Članke"
+      "title": "Najnoviji Uvidi",
+      "subtitle": "Tehnologija, Biznis i Budućnost Razvoja.",
+      "cta": "Pogledaj Sve Članke →"
     },
     "page": {
       "badge": "BLOG",
@@ -78,6 +83,96 @@
       "backToBlog": "Nazad na Blog",
       "nextArticle": "Sljedeći Članak",
       "readTime": "min čitanja"
+    }
+  },
+  "faq": {
+    "title": "Česta Pitanja",
+    "subtitle": "Sve što trebate znati prije početka saradnje.",
+    "items": [
+      {
+        "q": "Zašto odabrati custom izradu umjesto WordPress-a?",
+        "a": "WordPress je dobar za blogove, ali je spor i ranjiv. Ja radim custom izradu web stranica (React/Next.js) koje su sigurne, učitavaju se trenutno i rangiraju bolje na Google-u."
+      },
+      {
+        "q": "Šta znači 'AI-Augmented' razvoj za mene?",
+        "a": "To znači efikasnost. Koristim AI alate da automatizujem pisanje standardnog koda, što mi ostavlja više vremena da se posvetim vašoj poslovnoj logici i dizajnu. Dobijate bolji proizvod brže."
+      },
+      {
+        "q": "Koliko košta izrada projekta?",
+        "a": "Svaki projekat je unikatan. Ipak, zahvaljujući AI alatima koji štede moje vrijeme, mogu ponuditi premium kvalitet agencije po pristupačnijoj cijeni. Kontaktirajte me za procjenu."
+      },
+      {
+        "q": "Da li radite sa klijentima van BiH?",
+        "a": "Apsolutno. Iako sam u Banja Luci, radim kao Full Stack Developer za klijente širom svijeta, nudeći 'Silicon Valley' kvalitet koda."
+      },
+      {
+        "q": "Nudite li održavanje nakon lansiranja?",
+        "a": "Da. Softver zahtijeva brigu. Nudim pakete održavanja kako bi vaša aplikacija ostala sigurna i ažurirana."
+      }
+    ]
+  },
+  "caseStudies": {
+    "results_title": "Rezultati Projekta",
+    "gallery_title": "Galerija Projekta",
+    "tech_stack_title": "Tehnologije",
+    "next_project": "Sljedeći Projekat",
+    "view_case_study": "Pogledaj Studiju",
+    "view_live_site": "Pogledaj Sajt",
+    "syncbooking-saas": {
+      "title": "SyncBooking SaaS",
+      "category": "SaaS Platforma",
+      "tagline": "Centralizovani sistem za rezervacije i booking koji sinhronizuje sve kanale prodaje u realnom vremenu.",
+      "challenge_title": "Problem",
+      "challenge_text": "Vlasnici nekretnina i agencije suočavaju se sa velikim problemom: fragmentacijom kalendara. Ručno upravljanje dostupnošću na više kanala (Airbnb, Booking.com) često dovodi do skupih 'duplih rezervacija'. Cilj je bio kreirati 'single source of truth' web aplikaciju koja automatizuje poslovanje.",
+      "solution_title": "Rješenje",
+      "solution_text": "Dizajnirao sam robusnu multi-tenant SaaS platformu koristeći Flutter za brz interfejs i Firebase za sinhronizaciju podataka. Ključna inovacija je custom iCal parsing engine koji omogućava dvosmjernu sinhronizaciju kalendara. Također sam integrisao Stripe za automatsku naplatu i Resend za transakcijske e-mailove.",
+      "results": [
+        { "title": "Dvosmjerna sinhronizacija", "desc": "Eliminisane duple rezervacije putem custom iCal logike." },
+        { "title": "Direktne rezervacije", "desc": "Embeddable widgeti za booking direktno na sajtu klijenta." },
+        { "title": "Skalabilna arhitektura", "desc": "Firebase Cloud Functions izoluju podatke za više korisnika." }
+      ]
+    },
+    "ironlife": {
+      "title": "IronLife.org",
+      "category": "Webflow CMS Sajt",
+      "tagline": "Premium platforma za digitalno izdavaštvo optimizovana za brzinu, SEO dominaciju i lako upravljanje sadržajem.",
+      "challenge_title": "Problem",
+      "challenge_text": "Na zasićenom tržištu fitnessa, brzina učitavanja i vidljivost su ključ. Klijentu je bila potrebna izrada web stranice sa velikom količinom sadržaja koja ne žrtvuje performanse. Netehnički tim je trebao način da svakodnevno objavljuje sadržaj bez potrebe za programerom.",
+      "solution_title": "Rješenje",
+      "solution_text": "Kreirao sam custom Webflow rješenje fokusirano na semantički HTML i vrhunski Web dizajn. Koristeći Webflow CMS, povezao sam dinamičke kolekcije, dajući klijentu moćan 'no-code' dashboard za samostalno upravljanje portalom.",
+      "results": [
+        { "title": "99/100 Performanse", "desc": "Skoro savršen Lighthouse skor agresivnom optimizacijom." },
+        { "title": "SEO Optimizacija", "desc": "Logička hijerarhija i schema markup za brže indeksiranje." },
+        { "title": "Jednostavan CMS", "desc": "50% brže objavljivanje sadržaja zahvaljujući custom interfejsu." }
+      ]
+    },
+    "pizzeria-bestek": {
+      "title": "Pizzeria Bestek",
+      "category": "Web App za Naručivanje",
+      "tagline": "Kompletan softver za restorane i naručivanje hrane sa live admin panelom i sinhronizacijom u sekundi.",
+      "challenge_title": "Problem",
+      "challenge_text": "Lokalni ugostitelji gube profit zbog visokih provizija aplikacija za dostavu. Klijentu je bila potrebna digitalizacija kroz custom softver: brz mobilni interfejs za kupce i 'Mission Control' dashboard za osoblje.",
+      "solution_title": "Rješenje",
+      "solution_text": "Izradio sam reaktivnu web aplikaciju koristeći React i Tailwind CSS. Backend koristi Supabase (PostgreSQL). Ključna stvar je Supabase Realtime koji šalje nove narudžbe na Admin Panel trenutno, bez osvježavanja stranice.",
+      "results": [
+        { "title": "Real-time Narudžbe", "desc": "Narudžbe stižu u kuhinju u milisekundama." },
+        { "title": "Automatizacija", "desc": "Automatsko slanje email statusa (Prihvaćeno, Peče se) putem Resend-a." },
+        { "title": "Siguran Admin Panel", "desc": "RLS zaštita podataka i odvojene role za osoblje." }
+      ]
+    },
+    "flutterflow-templates": {
+      "title": "FlutterFlow Marketplace",
+      "category": "Razvoj Mobilnih Aplikacija",
+      "tagline": "Kolekcija modularnih rješenja koja ubrzavaju razvoj mobilnih aplikacija za globalne developere.",
+      "challenge_title": "Problem",
+      "challenge_text": "Developerima na low-code platformama često nedostaje kompleksna poslovna logika. Na tržištu su nedostajale kvalitetne komponente koje imaju riješenu backend logiku, a ne samo lijep dizajn.",
+      "solution_title": "Rješenje",
+      "solution_text": "Inženjerio sam biblioteku 'logic-first' Flutter templejta. Uključuje sisteme za booking sa Cloud Functions logikom, Stripe integracijom i dvosmjernom kalendar sinhronizacijom.",
+      "results": [
+        { "title": "Brži izlazak na tržište", "desc": "Developeri preskaču sedmice kodiranja uz gotovu logiku." },
+        { "title": "Modularnost", "desc": "Komponente se lako integrišu u postojeće projekte." },
+        { "title": "Cross-Platform", "desc": "Identične performanse na iOS i Android uređajima." }
+      ]
     }
   }
 }

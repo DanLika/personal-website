@@ -158,7 +158,7 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
                   className="px-6 py-3 rounded-full transition-all duration-300 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-400/40 backdrop-blur-sm hover:from-cyan-500/30 hover:to-blue-500/30 hover:border-cyan-400/60 flex items-center gap-2"
                 >
                   <ExternalLink className="w-4 h-4 text-cyan-400" />
-                  <span className="text-cyan-400 text-sm font-semibold">View Live Site</span>
+                  <span className="text-cyan-400 text-sm font-semibold">{t("caseStudies.view_live_site", "View Live Site")}</span>
                 </motion.button>
               </a>
             </motion.div>
@@ -236,7 +236,7 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="text-3xl md:text-4xl lg:text-5xl font-bold font-space text-white text-center leading-tight line-clamp-2"
               >
-                Project Overview
+                {t(`caseStudies.${currentProject.id}.challenge_title`, "Project Overview")}
               </motion.h2>
 
               {/* Overview Points - Centered horizontally and vertically */}
@@ -323,7 +323,7 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="text-3xl md:text-4xl lg:text-5xl font-bold font-space text-white text-center leading-tight line-clamp-2"
               >
-                Technology Stack
+                {t(`caseStudies.${currentProject.id}.solution_title`, "Technology Stack")}
               </motion.h2>
 
               {/* Tech Grid - Centered horizontally and vertically */}
@@ -352,7 +352,7 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
               className="mb-20 sm:mb-24 md:mb-32"
             >
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-8 sm:mb-12 text-center">
-                Project Gallery
+                {t("caseStudies.gallery_title", "Project Gallery")}
               </h2>
 
               <SimpleGallery images={currentProject.galleryImages} title={currentProject.title} />
@@ -388,7 +388,7 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="text-2xl md:text-3xl lg:text-4xl font-bold font-space text-white text-center leading-tight line-clamp-2"
               >
-                Project Results
+                {t("caseStudies.results_title", "Project Results")}
               </motion.h3>
 
               {/* Results Grid */}
@@ -457,14 +457,14 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
                       <ArrowRight className="w-5 h-5 md:w-6 md:h-6 text-cyan-400 group-hover:translate-x-1 transition-transform duration-300" />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className="text-white/60 text-xs md:text-sm font-medium mb-1 line-clamp-1">Next Project</p>
+                      <p className="text-white/60 text-xs md:text-sm font-medium mb-1 line-clamp-1">{t("caseStudies.next_project", "Next Project")}</p>
                       <h3 className="text-white text-lg md:text-xl font-bold line-clamp-1">{nextProject.title}</h3>
                     </div>
                   </div>
 
                   <div className="text-right flex-shrink-0">
                     <span className="text-cyan-400 text-xs md:text-sm font-medium group-hover:text-cyan-300 transition-colors whitespace-nowrap">
-                      View Case Study
+                      {t("caseStudies.view_case_study", "View Case Study")}
                     </span>
                   </div>
                 </div>
