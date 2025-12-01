@@ -22,9 +22,9 @@
   "about": {
     "title": "O Meni",
     "badge": "AI-Augmented Builder",
-    "p1": "Ja sam full-stack developer specijalizovan za izradu modernih web i mobilnih aplikacija koristeći AI-optimizirane procese. Kombinujem brzinu AI alata sa stabilnošću ručnog kodiranja.",
-    "p2": "Moj stack uključuje Flutter i React za interfejse, podržan sa Supabase i Firebase tehnologijama za skalabilne podatke. Fokusiram se na isporuku kompletnih rješenja — od dizajna do produkcije.",
-    "p3": "Bilo da je u pitanju složen SaaS sistem ili brzi marketinški websajt, isporučujem kvalitetan kod dvostruko brže od tradicionalnog razvoja."
+    "p1": "Ja sam Duško Ličanin, full-stack developer iz Banje Luke specijalizovan za moderne web i mobilne aplikacije. Koristim AI-optimizirane procese kako bih ubrzao razvoj bez kompromisa na kvalitetu.",
+    "p2": "Klijentima nudim kompletnu izradu web stranica, razvoj mobilnih aplikacija (iOS/Android), kao i prilagođena SaaS rješenja. Radim sa React i Flutter frameworkima, dok backend podržavam putem Supabase i Firebase tehnologija.",
+    "p3": "Bilo da vam treba marketinški sajt, poslovna aplikacija ili kompletan SaaS sistem — isporučujem kvalitetan kod dvostruko brže od tradicionalnog razvoja zahvaljujući AI alatima."
   },
   "projects": {
     "featured": {
