@@ -976,8 +976,92 @@ style={{
 ### useSpotlight Hook
 Kreiran novi reusable hook u `src/hooks/useSpotlight.ts` za spotlight effect handling sa RAF batching.
 
+## Blog System Implementation (2025-12-02)
+
+### Blog Architecture
+Portfolio ima implementiran blog sistem sa bilingual (EN/BS) podrškom.
+
+**Fajlovi:**
+- `src/data/blogs.ts` - Centralizovani blog podaci
+- `src/pages/BlogPage.tsx` - Lista svih članaka
+- `src/pages/BlogPostPage.tsx` - Pojedinačni članak sa ReactMarkdown
+
+**Interface:**
+```typescript
+export interface BlogPost {
+  id: string;
+  slug: string;
+  title: { en: string; bs: string; };
+  excerpt: { en: string; bs: string; };
+  content: { en: string; bs: string; };  // Markdown content
+  date: string;  // ISO format: "2025-12-01"
+  readTime: { en: string; bs: string; };
+  coverImage: string;
+  category: { en: string; bs: string; };
+}
+```
+
+**Helper funkcije:**
+- `getBlogBySlug(slug)` - Dohvati blog po slug-u
+- `getNextBlog(currentSlug)` - Dohvati sljedeći blog za navigaciju
+
+### Trenutni Blog Članci (4 članka)
+
+1. **SaaS Website Design 2025** (id: 7)
+   - Slug: `dizajn-razvoj-saas-web-stranica-2025`
+   - Category: SaaS
+   - Read time: 14 min
+   - Images: 6 (saas-website-design-hero, saas-ux-ui-elements, saas-website-examples, saas-marketing-strategies, saas-conversion-optimization, saas-metrics-analytics)
+
+2. **Website Development Cost 2025** (id: 6)
+   - Slug: `cijena-izrade-web-sajta-2025`
+   - Category: Web Development
+   - Read time: 12 min
+   - Images: 5 (website-development-cost-hero, cms-vs-static-comparison, web-development-factors, regional-pricing-balkans, web-maintenance-costs)
+
+3. **AWS SaaS Factory 2025** (id: 5)
+   - Slug: `aws-saas-factory-2025`
+   - Category: AWS Cloud
+   - Read time: 15 min
+   - Images: 6 (aws-saas-factory-hero, aws-multi-tenant-architecture, aws-saas-security, aws-cost-optimization, aws-devops-automation, aws-saas-analytics)
+
+4. **AI SaaS Solutions 2025** (id: 4)
+   - Slug: `ai-saas-rjesenja-poslovanje-2025`
+   - Category: AI & Technology
+   - Read time: 12 min
+   - Images: 4 (ai-saas-hero, ai-saas-implementation, ai-saas-personalization, ai-saas-future)
+
+### Blog Image Structure
+Slike su organizovane po slug-u članka:
+```
+public/blog/
+├── ai-saas-rjesenja-poslovanje-2025/
+│   ├── ai-saas-hero.avif
+│   ├── ai-saas-implementation.avif
+│   ├── ai-saas-personalization.avif
+│   └── ai-saas-future.avif
+├── aws-saas-factory-2025/
+│   └── ... (6 slika)
+├── cijena-izrade-web-sajta-2025/
+│   └── ... (5 slika)
+└── dizajn-razvoj-saas-web-stranica-2025/
+    └── ... (6 slika)
+```
+
+**Naming Convention:** SEO-friendly nazivi (lowercase, hyphens, descriptive)
+
+### Typography Configuration
+Tailwind Typography plugin (`@tailwindcss/typography`) koristi se za markdown stilizaciju.
+
+**Prose classes u BlogPostPage.tsx:**
+- `prose-invert` - Dark mode
+- `prose-lg` - Larger text
+- Custom heading sizes, colors, spacing
+- Code blocks sa cyan accent
+- Images sa rounded corners i border
+
 ---
 
 **Održavaj ovaj dokument ažurnim sa svakom značajnom promjenom u projektu.**
 
-**Last Updated:** 2025-12-01 - Navbar animation fixes, tech stack updates, icon brightness system
+**Last Updated:** 2025-12-02 - Blog system implementation with 4 articles

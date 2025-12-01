@@ -27,6 +27,694 @@ export interface BlogPost {
 
 export const blogsData: BlogPost[] = [
   {
+    id: "7",
+    slug: "dizajn-razvoj-saas-web-stranica-2025",
+    title: {
+      en: "SaaS Website Design 2025: Complete Guide to Building High-Converting Platforms",
+      bs: "Dizajn SaaS web stranica 2025: Kompletan vodič za izradu platformi s visokom konverzijom"
+    },
+    excerpt: {
+      en: "Master SaaS website design in 2025: Learn UX/UI best practices, conversion optimization strategies, and real-world examples from successful SaaS platforms like Slack and Notion.",
+      bs: "Savladajte dizajn SaaS web stranica u 2025: Naučite najbolje UX/UI prakse, strategije optimizacije konverzije i primjere iz prakse uspješnih SaaS platformi poput Slacka i Notiona."
+    },
+    content: {
+      en: `# SaaS Website Design 2025: Complete Guide to Building High-Converting Platforms
+
+Creating effective SaaS website design requires understanding both user psychology and technical implementation. Modern SaaS platforms need more than attractive visuals—they need conversion-focused architecture.
+
+In 2025, the SaaS market continues growing rapidly. Your website serves as the primary conversion tool. Every element must work toward turning visitors into paying customers.
+
+This comprehensive guide covers everything from UX/UI fundamentals to advanced conversion optimization techniques used by successful SaaS companies worldwide.
+
+![SaaS website design hero](/blog/dizajn-razvoj-saas-web-stranica-2025/saas-website-design-hero.avif)
+
+## Understanding SaaS Website Fundamentals
+
+SaaS websites differ fundamentally from traditional business sites. They must educate, demonstrate value, and convert—often in a single session.
+
+### What Makes SaaS Websites Unique?
+
+SaaS products are intangible. Users can't touch or see them before purchasing. Your website must bridge this gap through:
+
+- **Clear value propositions**: Explain benefits in seconds
+- **Social proof**: Reviews, testimonials, and case studies
+- **Interactive demos**: Let visitors experience the product
+- **Transparent pricing**: Remove friction from purchase decisions
+
+The best SaaS websites treat design as a conversion tool, not just an aesthetic choice.
+
+### The Psychology Behind SaaS Conversions
+
+Understanding user psychology drives effective design decisions. Key principles include:
+
+**Cognitive Load Reduction**: Simplify choices and remove unnecessary elements. Too many options paralyze decision-making.
+
+**Trust Building**: Users need confidence before sharing payment information. Security badges, testimonials, and professional design build trust.
+
+**Urgency Creation**: Limited-time offers and feature countdowns encourage faster decisions without feeling manipulative.
+
+## Essential UX/UI Elements for SaaS Success
+
+The most successful SaaS platforms share common design elements that drive conversions.
+
+![SaaS UX/UI elements](/blog/dizajn-razvoj-saas-web-stranica-2025/saas-ux-ui-elements.avif)
+
+### Navigation and Information Architecture
+
+Your navigation structure determines how easily users find information. Best practices include:
+
+- **Maximum 7 main navigation items**: Prevents choice overload
+- **Sticky headers**: Keep navigation accessible while scrolling
+- **Clear CTAs**: "Start Free Trial" or "Get Started" prominently displayed
+- **Logical hierarchy**: Features → Pricing → Resources → Company
+
+### Hero Section Optimization
+
+The hero section has approximately 3 seconds to capture attention. Essential elements:
+
+**Headline Formula**: [Benefit] + [Timeframe] + [Without Pain Point]
+
+Example: "Increase team productivity by 40% without changing your workflow"
+
+**Supporting Elements**:
+- Subheadline explaining how
+- Primary CTA button (high contrast)
+- Secondary CTA for hesitant visitors
+- Social proof snippet (customer count or rating)
+
+### Feature Presentation Strategies
+
+Don't just list features—show benefits and outcomes:
+
+- **Use icons**: Visual processing is faster than reading
+- **Group related features**: Create logical categories
+- **Show, don't tell**: Screenshots and animations demonstrate value
+- **Connect to outcomes**: "Automated reports → Save 5 hours weekly"
+
+## Real-World SaaS Website Examples
+
+Learning from successful SaaS platforms accelerates your design process.
+
+![SaaS website examples](/blog/dizajn-razvoj-saas-web-stranica-2025/saas-website-examples.avif)
+
+### Slack: Simplicity and Clarity
+
+Slack's website demonstrates masterful simplicity:
+
+- **Clean hero**: One clear message with product visualization
+- **Progressive disclosure**: Information reveals as users scroll
+- **Strong social proof**: Fortune 500 logos and statistics
+- **Consistent branding**: Purple accent maintains recognition
+
+**Key Lesson**: Remove everything that doesn't drive conversions.
+
+### Notion: Versatility Showcase
+
+Notion faces the challenge of explaining a versatile product:
+
+- **Template gallery**: Shows possibilities without overwhelming
+- **Use-case segmentation**: Different pages for different users
+- **Interactive examples**: Embedded Notion pages demonstrate features
+- **Community focus**: User-generated content builds trust
+
+**Key Lesson**: Let the product demonstrate itself.
+
+### HubSpot: Enterprise-Grade Trust
+
+HubSpot targets larger businesses requiring extensive trust-building:
+
+- **Comprehensive resources**: Blog, academy, certifications
+- **Detailed case studies**: ROI-focused success stories
+- **Free tools**: Value before purchase
+- **Clear upgrade paths**: From free to enterprise
+
+**Key Lesson**: Provide value at every stage of the buyer journey.
+
+## Marketing and Conversion Strategies
+
+Beautiful design without strategy wastes resources. Effective SaaS marketing integrates with design.
+
+![SaaS marketing strategies](/blog/dizajn-razvoj-saas-web-stranica-2025/saas-marketing-strategies.avif)
+
+### Landing Page Optimization
+
+Different traffic sources need different landing pages:
+
+**Paid Traffic Pages**:
+- Single focused CTA
+- Message matches ad copy
+- Minimal navigation (reduce exit points)
+- Strong urgency elements
+
+**Organic Traffic Pages**:
+- Educational content
+- Multiple CTAs at different commitment levels
+- Internal linking to related content
+- Newsletter capture for nurturing
+
+### A/B Testing Framework
+
+Systematic testing improves conversion rates over time:
+
+**Priority Testing Elements**:
+1. Headlines (highest impact)
+2. CTA button text and color
+3. Social proof placement
+4. Pricing presentation
+5. Form field count
+
+**Testing Rules**:
+- One variable at a time
+- Statistical significance before decisions
+- Document all tests and results
+- Roll out winners site-wide
+
+### Email Capture Strategies
+
+Email remains the highest-ROI marketing channel:
+
+- **Value-first offers**: Ebooks, templates, free tools
+- **Exit-intent popups**: Capture leaving visitors
+- **Content upgrades**: Related resources within blog posts
+- **Free trial follow-ups**: Nurture non-converters
+
+## Conversion Rate Optimization Deep Dive
+
+CRO transforms good websites into great revenue generators.
+
+![SaaS conversion optimization](/blog/dizajn-razvoj-saas-web-stranica-2025/saas-conversion-optimization.avif)
+
+### Pricing Page Best Practices
+
+Pricing pages often make or break conversions:
+
+**Structure Recommendations**:
+- 3 pricing tiers (avoid decision paralysis)
+- Highlight recommended plan visually
+- Annual vs monthly toggle (encourage annual)
+- Feature comparison table
+- FAQ section addressing objections
+
+**Psychological Techniques**:
+- Anchoring with highest tier first
+- Decoy pricing to push middle tier
+- Savings calculations for annual plans
+- "Most Popular" badges
+
+### Reducing Friction Points
+
+Every click and form field loses potential customers:
+
+**Form Optimization**:
+- Ask only essential information
+- Enable social sign-up (Google, Microsoft)
+- Show progress for multi-step forms
+- Auto-fill where possible
+
+**Checkout Optimization**:
+- Guest checkout option
+- Multiple payment methods
+- Clear security indicators
+- Money-back guarantee prominent
+
+### Social Proof Integration
+
+Strategic social proof placement increases trust:
+
+- **Homepage**: Customer logos and aggregate statistics
+- **Feature pages**: Relevant testimonials per feature
+- **Pricing page**: ROI-focused case studies
+- **Checkout**: Security badges and guarantees
+
+## Measuring Success: Analytics and Metrics
+
+Data-driven decisions outperform intuition consistently.
+
+![SaaS metrics analytics](/blog/dizajn-razvoj-saas-web-stranica-2025/saas-metrics-analytics.avif)
+
+### Key Performance Indicators
+
+Track these metrics to understand website performance:
+
+**Traffic Metrics**:
+- Unique visitors
+- Traffic sources
+- Bounce rate by page
+- Time on site
+
+**Conversion Metrics**:
+- Visitor-to-trial rate
+- Trial-to-paid rate
+- Free-to-paid conversion
+- Revenue per visitor
+
+**Engagement Metrics**:
+- Page depth
+- Feature page views
+- Pricing page visits
+- Demo requests
+
+### Analytics Tools Setup
+
+Essential tools for SaaS website analytics:
+
+- **Google Analytics 4**: Traffic and behavior analysis
+- **Hotjar/FullStory**: Session recordings and heatmaps
+- **Mixpanel**: Product analytics integration
+- **Google Search Console**: SEO performance
+
+### Interpreting Data for Decisions
+
+Numbers without context mislead:
+
+**Red Flags**:
+- High pricing page views, low conversions → pricing issues
+- High time on page, low CTA clicks → confusing messaging
+- Mobile bounce rate higher than desktop → responsive issues
+- High blog traffic, low product interest → wrong audience
+
+## Technical Implementation Considerations
+
+Design decisions affect technical performance and vice versa.
+
+### Performance Optimization
+
+Speed directly impacts conversions:
+
+- **Target**: Under 3 seconds load time
+- **Optimize images**: WebP/AVIF formats, lazy loading
+- **Minimize JavaScript**: Only essential scripts
+- **CDN usage**: Global content delivery
+- **Caching strategy**: Browser and server caching
+
+### Mobile-First Design
+
+Over 50% of SaaS research happens on mobile:
+
+- **Touch-friendly buttons**: Minimum 44px tap targets
+- **Readable typography**: 16px minimum font size
+- **Simplified navigation**: Hamburger menus done right
+- **Fast mobile experience**: Optimized for 3G connections
+
+### SEO Integration
+
+Organic traffic provides sustainable growth:
+
+- **Technical SEO**: Fast loading, proper structure
+- **Content SEO**: Keyword-targeted pages
+- **Local SEO**: If targeting specific regions
+- **Link building**: Quality over quantity
+
+## Building Your SaaS Website: Action Steps
+
+Transform this knowledge into action with a structured approach.
+
+### Phase 1: Research and Planning (Week 1-2)
+
+- Analyze competitor websites
+- Define target user personas
+- Map customer journey stages
+- Create information architecture
+- Set conversion goals
+
+### Phase 2: Design and Prototyping (Week 3-4)
+
+- Create wireframes for key pages
+- Design high-fidelity mockups
+- Gather stakeholder feedback
+- Conduct user testing
+- Iterate based on feedback
+
+### Phase 3: Development and Launch (Week 5-8)
+
+- Build responsive templates
+- Integrate analytics tools
+- Set up A/B testing infrastructure
+- Performance optimization
+- Quality assurance testing
+
+### Phase 4: Optimization (Ongoing)
+
+- Monitor key metrics weekly
+- Run systematic A/B tests
+- Gather user feedback
+- Iterate on underperforming pages
+- Scale what works
+
+## Conclusion
+
+Effective SaaS website design combines psychology, strategy, and technical execution. The best platforms continuously test and improve based on data.
+
+Start with fundamentals: clear value proposition, intuitive navigation, and strategic CTAs. Build trust through social proof and professional design. Then optimize relentlessly based on user behavior.
+
+Remember: your website is your best salesperson. Invest in making it convert.
+
+**Ready to build your SaaS website?** Start with the fundamentals covered in this guide, then iterate based on your specific audience and product.`,
+      bs: `# Dizajn SaaS web stranica 2025: Kompletan vodič za izradu platformi s visokom konverzijom
+
+Kreiranje efektivnog dizajna SaaS web stranica zahtijeva razumijevanje i psihologije korisnika i tehničke implementacije. Moderne SaaS platforme trebaju više od atraktivnih vizuala—trebaju arhitekturu fokusiranu na konverziju.
+
+U 2025, SaaS tržište nastavlja brzo rasti. Vaša web stranica služi kao primarni alat za konverziju. Svaki element mora raditi na pretvaranju posjetitelja u plaćajuće korisnike.
+
+Ovaj sveobuhvatni vodič pokriva sve od UX/UI osnova do naprednih tehnika optimizacije konverzije koje koriste uspješne SaaS kompanije širom svijeta.
+
+![SaaS website design hero](/blog/dizajn-razvoj-saas-web-stranica-2025/saas-website-design-hero.avif)
+
+## Razumijevanje osnova SaaS web stranica
+
+SaaS web stranice se fundamentalno razlikuju od tradicionalnih poslovnih sajtova. Moraju educirati, demonstrirati vrijednost i konvertirati—često u jednoj sesiji.
+
+### Šta čini SaaS web stranice jedinstvenim?
+
+SaaS proizvodi su nematerijalni. Korisnici ih ne mogu dodirnuti ili vidjeti prije kupovine. Vaša web stranica mora premostiti ovaj jaz kroz:
+
+- **Jasne vrijednosne propozicije**: Objasnite prednosti u sekundama
+- **Društveni dokaz**: Recenzije, svjedočanstva i studije slučaja
+- **Interaktivne demo verzije**: Dozvolite posjetiteljima da iskuse proizvod
+- **Transparentne cijene**: Uklonite trenje iz odluka o kupovini
+
+Najbolje SaaS web stranice tretiraju dizajn kao alat za konverziju, ne samo estetski izbor.
+
+### Psihologija iza SaaS konverzija
+
+Razumijevanje psihologije korisnika pokreće efektivne dizajnerske odluke. Ključni principi uključuju:
+
+**Smanjenje kognitivnog opterećenja**: Pojednostavite izbore i uklonite nepotrebne elemente. Previše opcija paralizira donošenje odluka.
+
+**Izgradnja povjerenja**: Korisnici trebaju povjerenje prije dijeljenja informacija o plaćanju. Sigurnosne oznake, svjedočanstva i profesionalni dizajn grade povjerenje.
+
+**Kreiranje hitnosti**: Vremenski ograničene ponude i odbrojavanja funkcija ohrabruju brže odluke bez manipulativnog osjećaja.
+
+## Esencijalni UX/UI elementi za SaaS uspjeh
+
+Najuspješnije SaaS platforme dijele zajedničke dizajnerske elemente koji pokreću konverzije.
+
+![SaaS UX/UI elementi](/blog/dizajn-razvoj-saas-web-stranica-2025/saas-ux-ui-elements.avif)
+
+### Navigacija i informacijska arhitektura
+
+Vaša struktura navigacije određuje koliko lako korisnici pronalaze informacije. Najbolje prakse uključuju:
+
+- **Maksimalno 7 glavnih stavki navigacije**: Sprječava preopterećenje izborom
+- **Sticky zaglavlja**: Navigacija ostaje dostupna tijekom skrolanja
+- **Jasni CTA-ovi**: "Započni besplatno" ili "Kreni" istaknuto prikazani
+- **Logična hijerarhija**: Funkcije → Cijene → Resursi → Kompanija
+
+### Optimizacija Hero sekcije
+
+Hero sekcija ima otprilike 3 sekunde da privuče pažnju. Esencijalni elementi:
+
+**Formula za naslov**: [Prednost] + [Vremenski okvir] + [Bez bolne točke]
+
+Primjer: "Povećajte produktivnost tima za 40% bez mijenjanja vašeg načina rada"
+
+**Prateći elementi**:
+- Podnaslov koji objašnjava kako
+- Primarni CTA gumb (visoki kontrast)
+- Sekundarni CTA za neodlučne posjetitelje
+- Isječak društvenog dokaza (broj korisnika ili ocjena)
+
+### Strategije prezentacije funkcija
+
+Nemojte samo nabrajati funkcije—pokažite prednosti i rezultate:
+
+- **Koristite ikone**: Vizualna obrada je brža od čitanja
+- **Grupirajte povezane funkcije**: Kreirajte logične kategorije
+- **Pokažite, nemojte pričati**: Snimke zaslona i animacije demonstriraju vrijednost
+- **Povežite s rezultatima**: "Automatizirani izvještaji → Uštedite 5 sati tjedno"
+
+## Primjeri SaaS web stranica iz prakse
+
+Učenje od uspješnih SaaS platformi ubrzava vaš proces dizajna.
+
+![Primjeri SaaS web stranica](/blog/dizajn-razvoj-saas-web-stranica-2025/saas-website-examples.avif)
+
+### Slack: Jednostavnost i jasnoća
+
+Slackova web stranica demonstrira majstorsku jednostavnost:
+
+- **Čisti hero**: Jedna jasna poruka s vizualizacijom proizvoda
+- **Progresivno otkrivanje**: Informacije se otkrivaju dok korisnici skrolaju
+- **Snažan društveni dokaz**: Fortune 500 logotipi i statistike
+- **Konzistentan branding**: Ljubičasti akcent održava prepoznatljivost
+
+**Ključna lekcija**: Uklonite sve što ne pokreće konverzije.
+
+### Notion: Prezentacija svestranosti
+
+Notion se suočava s izazovom objašnjavanja svestranog proizvoda:
+
+- **Galerija predložaka**: Pokazuje mogućnosti bez preopterećenja
+- **Segmentacija po slučaju korištenja**: Različite stranice za različite korisnike
+- **Interaktivni primjeri**: Ugrađene Notion stranice demonstriraju funkcije
+- **Fokus na zajednicu**: Korisnički generiran sadržaj gradi povjerenje
+
+**Ključna lekcija**: Neka proizvod sam sebe demonstrira.
+
+### HubSpot: Povjerenje na enterprise razini
+
+HubSpot cilja veće kompanije koje zahtijevaju opsežnu izgradnju povjerenja:
+
+- **Sveobuhvatni resursi**: Blog, akademija, certifikacije
+- **Detaljne studije slučaja**: Priče o uspjehu fokusirane na ROI
+- **Besplatni alati**: Vrijednost prije kupovine
+- **Jasni putevi nadogradnje**: Od besplatnog do enterprise
+
+**Ključna lekcija**: Pružite vrijednost u svakoj fazi putovanja kupca.
+
+## Marketing i strategije konverzije
+
+Lijep dizajn bez strategije troši resurse. Efektivan SaaS marketing se integrira s dizajnom.
+
+![SaaS marketing strategije](/blog/dizajn-razvoj-saas-web-stranica-2025/saas-marketing-strategies.avif)
+
+### Optimizacija landing stranica
+
+Različiti izvori prometa trebaju različite landing stranice:
+
+**Stranice za plaćeni promet**:
+- Jedan fokusirani CTA
+- Poruka odgovara tekstu oglasa
+- Minimalna navigacija (smanjite izlazne točke)
+- Snažni elementi hitnosti
+
+**Stranice za organski promet**:
+- Edukativni sadržaj
+- Višestruki CTA-ovi na različitim razinama angažmana
+- Interno povezivanje na povezani sadržaj
+- Hvatanje email-a za njegovanje
+
+### Okvir za A/B testiranje
+
+Sistematsko testiranje poboljšava stope konverzije tijekom vremena:
+
+**Prioritetni elementi za testiranje**:
+1. Naslovi (najveći utjecaj)
+2. Tekst i boja CTA gumba
+3. Pozicioniranje društvenog dokaza
+4. Prezentacija cijena
+5. Broj polja u obrascu
+
+**Pravila testiranja**:
+- Jedna varijabla istovremeno
+- Statistička značajnost prije odluka
+- Dokumentirajte sve testove i rezultate
+- Uvedite pobjednike na cijeli sajt
+
+### Strategije hvatanja email-a
+
+Email ostaje marketinški kanal s najvišim ROI-jem:
+
+- **Ponude usmjerene na vrijednost**: E-knjige, predlošci, besplatni alati
+- **Popup-ovi pri namjeri izlaska**: Uhvatite posjetitelje koji odlaze
+- **Nadogradnje sadržaja**: Povezani resursi unutar blog postova
+- **Praćenje besplatnih probnih verzija**: Njegovajte one koji nisu konvertirali
+
+## Dubinski pregled optimizacije stope konverzije
+
+CRO transformira dobre web stranice u odlične generatore prihoda.
+
+![SaaS optimizacija konverzije](/blog/dizajn-razvoj-saas-web-stranica-2025/saas-conversion-optimization.avif)
+
+### Najbolje prakse za stranicu s cijenama
+
+Stranice s cijenama često odlučuju o konverzijama:
+
+**Preporuke za strukturu**:
+- 3 razine cijena (izbjegavajte paralizu odlučivanja)
+- Vizualno istaknite preporučeni plan
+- Prebacivanje godišnje vs mjesečno (potaknite godišnje)
+- Tablica usporedbe funkcija
+- FAQ sekcija koja adresira prigovore
+
+**Psihološke tehnike**:
+- Sidrenje s najvišom razinom prvo
+- Mamac cijene za guranje srednje razine
+- Izračuni ušteda za godišnje planove
+- Oznake "Najpopularnije"
+
+### Smanjenje točaka trenja
+
+Svaki klik i polje obrasca gubi potencijalne kupce:
+
+**Optimizacija obrasca**:
+- Tražite samo esencijalne informacije
+- Omogućite društvenu prijavu (Google, Microsoft)
+- Pokažite napredak za višestepene obrasce
+- Automatsko popunjavanje gdje je moguće
+
+**Optimizacija naplate**:
+- Opcija gostujuće naplate
+- Višestruki načini plaćanja
+- Jasni sigurnosni indikatori
+- Garancija povrata novca istaknuta
+
+### Integracija društvenog dokaza
+
+Strateško pozicioniranje društvenog dokaza povećava povjerenje:
+
+- **Početna stranica**: Logotipi kupaca i agregirane statistike
+- **Stranice funkcija**: Relevantna svjedočanstva po funkciji
+- **Stranica s cijenama**: Studije slučaja fokusirane na ROI
+- **Naplata**: Sigurnosne oznake i garancije
+
+## Mjerenje uspjeha: Analitika i metrike
+
+Odluke temeljene na podacima nadmašuju intuiciju konzistentno.
+
+![SaaS metrike i analitika](/blog/dizajn-razvoj-saas-web-stranica-2025/saas-metrics-analytics.avif)
+
+### Ključni pokazatelji učinka
+
+Pratite ove metrike da razumijete performanse web stranice:
+
+**Metrike prometa**:
+- Jedinstveni posjetitelji
+- Izvori prometa
+- Stopa napuštanja po stranici
+- Vrijeme na stranici
+
+**Metrike konverzije**:
+- Stopa posjetitelj-u-probnu verziju
+- Stopa probna verzija-u-plaćeni
+- Konverzija besplatno-u-plaćeni
+- Prihod po posjetitelju
+
+**Metrike angažmana**:
+- Dubina stranice
+- Pregledi stranica funkcija
+- Posjete stranici s cijenama
+- Zahtjevi za demo
+
+### Postavljanje alata za analitiku
+
+Esencijalni alati za analitiku SaaS web stranica:
+
+- **Google Analytics 4**: Analiza prometa i ponašanja
+- **Hotjar/FullStory**: Snimke sesija i toplinske mape
+- **Mixpanel**: Integracija analitike proizvoda
+- **Google Search Console**: SEO performanse
+
+### Interpretacija podataka za odluke
+
+Brojevi bez konteksta zavode:
+
+**Crvene zastavice**:
+- Visoki pregledi stranice s cijenama, niske konverzije → problemi s cijenama
+- Visoko vrijeme na stranici, niski klikovi na CTA → zbunjujuća poruka
+- Stopa napuštanja na mobilnom viša nego na desktopu → problemi s responsivnošću
+- Visok promet na blogu, nizak interes za proizvod → pogrešna publika
+
+## Razmatranja tehničke implementacije
+
+Dizajnerske odluke utječu na tehničke performanse i obrnuto.
+
+### Optimizacija performansi
+
+Brzina direktno utječe na konverzije:
+
+- **Cilj**: Ispod 3 sekunde vrijeme učitavanja
+- **Optimizirajte slike**: WebP/AVIF formati, lijeno učitavanje
+- **Minimizirajte JavaScript**: Samo esencijalne skripte
+- **Korištenje CDN-a**: Globalna isporuka sadržaja
+- **Strategija keširanja**: Keširanje preglednika i servera
+
+### Mobile-first dizajn
+
+Preko 50% SaaS istraživanja događa se na mobilnim uređajima:
+
+- **Gumbi prilagođeni dodiru**: Minimalno 44px ciljevi za dodir
+- **Čitljiva tipografija**: Minimalna veličina fonta 16px
+- **Pojednostavljena navigacija**: Hamburger meniji ispravno napravljeni
+- **Brzo mobilno iskustvo**: Optimizirano za 3G veze
+
+### SEO integracija
+
+Organski promet pruža održivi rast:
+
+- **Tehnički SEO**: Brzo učitavanje, pravilna struktura
+- **Sadržajni SEO**: Stranice ciljane ključnim riječima
+- **Lokalni SEO**: Ako ciljate određene regije
+- **Izgradnja linkova**: Kvaliteta iznad kvantitete
+
+## Izgradnja vaše SaaS web stranice: Koraci akcije
+
+Transformirajte ovo znanje u akciju sa strukturiranim pristupom.
+
+### Faza 1: Istraživanje i planiranje (Tjedan 1-2)
+
+- Analizirajte web stranice konkurenata
+- Definirajte persone ciljnih korisnika
+- Mapirajte faze putovanja kupca
+- Kreirajte informacijsku arhitekturu
+- Postavite ciljeve konverzije
+
+### Faza 2: Dizajn i prototipiranje (Tjedan 3-4)
+
+- Kreirajte wireframe za ključne stranice
+- Dizajnirajte mockupe visoke vjernosti
+- Prikupite povratne informacije dionika
+- Provedite korisničko testiranje
+- Iterirajte na temelju povratnih informacija
+
+### Faza 3: Razvoj i lansiranje (Tjedan 5-8)
+
+- Izgradite responsivne predloške
+- Integrirajte alate za analitiku
+- Postavite infrastrukturu za A/B testiranje
+- Optimizacija performansi
+- Testiranje osiguranja kvalitete
+
+### Faza 4: Optimizacija (Kontinuirano)
+
+- Pratite ključne metrike tjedno
+- Provodite sistematske A/B testove
+- Prikupljajte povratne informacije korisnika
+- Iterirajte na stranicama koje loše performiraju
+- Skalirajte ono što funkcionira
+
+## Zaključak
+
+Efektivan dizajn SaaS web stranica kombinira psihologiju, strategiju i tehničku izvedbu. Najbolje platforme kontinuirano testiraju i poboljšavaju na temelju podataka.
+
+Započnite s osnovama: jasna vrijednosna propozicija, intuitivna navigacija i strateški CTA-ovi. Izgradite povjerenje kroz društveni dokaz i profesionalni dizajn. Zatim neumorno optimizirajte na temelju ponašanja korisnika.
+
+Zapamtite: vaša web stranica je vaš najbolji prodavač. Uložite u to da konvertira.
+
+**Spremni za izgradnju vaše SaaS web stranice?** Započnite s osnovama pokrivenim u ovom vodiču, zatim iterirajte na temelju vaše specifične publike i proizvoda.`
+    },
+    date: "2025-12-01",
+    readTime: {
+      en: "14 min read",
+      bs: "14 min čitanja"
+    },
+    coverImage: "/blog/dizajn-razvoj-saas-web-stranica-2025/saas-website-design-hero.avif",
+    category: {
+      en: "SaaS",
+      bs: "SaaS"
+    }
+  },
+  {
     id: "6",
     slug: "cijena-izrade-web-sajta-2025",
     title: {
