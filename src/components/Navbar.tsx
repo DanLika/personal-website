@@ -85,7 +85,9 @@ export const Navbar = () => {
   }, [mobileMenuOpen]);
 
   const toggleLang = () => {
-    i18n.changeLanguage(i18n.language === "en" ? "bs" : "en");
+    const newLang = i18n.language === "en" ? "bs" : "en";
+    i18n.changeLanguage(newLang);
+    localStorage.setItem("i18nextLng", newLang);
   };
 
   const toggleMobileMenu = () => {

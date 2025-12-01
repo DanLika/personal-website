@@ -8,6 +8,7 @@ import { FAQSection } from "../faq/FAQSection";
 import { Contact } from "../contact/Contact";
 import { Footer } from "../layout/Footer";
 import { Particles } from "../ui/ParticleBg";
+import { SEO } from "../seo/SEO";
 
 export const HomePage = () => {
     const pageRef = useRef<HTMLDivElement>(null);
@@ -56,6 +57,9 @@ export const HomePage = () => {
 
     return (
         <div ref={pageRef} className="relative w-full bg-[#0A0A0A]">
+            {/* Dynamic SEO Meta Tags */}
+            <SEO />
+
             {/* Single Particle Background for entire page */}
             <div className="fixed inset-0 z-0">
                 <Particles

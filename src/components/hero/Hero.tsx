@@ -1,7 +1,7 @@
 import { motion, type Variants } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { ArrowRight } from "lucide-react";
-import { useMemo, useRef } from "react";
+import { useRef } from "react";
 
 // Components
 import { HeroAvatar } from "./HeroAvatar";
@@ -109,27 +109,8 @@ export const Hero = () => {
     }
   };
 
-  /**
-   * Renders the title with DecryptedText effect
-   * Memoized to prevent unnecessary re-renders
-   */
-  const renderTitle = useMemo(() => {
-    const title = t("hero.title");
-
-    return (
-      <DecryptedText
-        text={title}
-        animateOn="view"
-        revealDirection="start"
-        speed={45}
-        maxIterations={10}
-        sequential={true}
-        className="text-white"
-        encryptedClassName="text-white/50"
-        parentClassName="inline"
-      />
-    );
-  }, [t]);
+  // Get the title text directly - DecryptedText handles language changes internally
+  const heroTitle = t("hero.title");
 
   return (
     <section
@@ -245,7 +226,17 @@ export const Hero = () => {
                 </span>
                 {/* Desktop: prefer single line with DecryptedText, but allow wrap on extreme zoom */}
                 <span className="hidden md:block text-center break-words">
-                  {renderTitle}
+                  <DecryptedText
+                    text={heroTitle}
+                    animateOn="view"
+                    revealDirection="start"
+                    speed={45}
+                    maxIterations={10}
+                    sequential={true}
+                    className="text-white"
+                    encryptedClassName="text-white/50"
+                    parentClassName="inline"
+                  />
                 </span>
               </motion.h1>
 

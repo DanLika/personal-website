@@ -27,6 +27,7 @@ export const PhonePlaceholder = () => {
             <div className="absolute inset-0 flex flex-col items-center justify-center p-6 space-y-4">
               {/* App Icon Placeholder */}
               <motion.div
+                initial={{ scale: 1 }}
                 animate={{ scale: [1, 1.05, 1] }}
                 transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                 className="w-20 h-20 rounded-2xl bg-gradient-to-br from-cyan-500/30 to-blue-500/30 border border-cyan-400/40 flex items-center justify-center shadow-[0_0_20px_rgba(59,201,255,0.4)]"
@@ -79,7 +80,8 @@ export const PhonePlaceholder = () => {
       
       {/* Phone Glow Effect */}
       <motion.div
-        animate={{ 
+        initial={{ boxShadow: '0 0 20px rgba(59, 201, 255, 0.3)' }}
+        animate={{
           boxShadow: [
             '0 0 20px rgba(59, 201, 255, 0.3)',
             '0 0 40px rgba(59, 201, 255, 0.5)',

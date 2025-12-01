@@ -10,11 +10,11 @@ interface CTAButtonProps {
 
 /**
  * CTAButton - Primary call-to-action button with neon glow and shimmer effect
- * 
+ *
  * Features:
  * - Filled cyan background matching the neon theme
  * - Animated shimmer effect on hover
- * - Glow intensifies on hover
+ * - Glow intensifies on hover (via CSS)
  * - Subtle scale animation on hover/tap
  * - Smooth spring animations
  */
@@ -38,20 +38,15 @@ export const CTAButton = ({
         text-[#0A0A0A]
         flex items-center justify-center gap-1.5 sm:gap-2
         transition-shadow duration-300
+        shadow-[0_0_20px_rgba(59,201,255,0.4),0_4px_15px_rgba(0,0,0,0.3)]
+        hover:shadow-[0_0_30px_rgba(59,201,255,0.6),0_0_60px_rgba(59,201,255,0.3),0_6px_20px_rgba(0,0,0,0.4)]
         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3BC9FF] focus-visible:ring-offset-2 focus-visible:ring-offset-black
         disabled:opacity-50 disabled:cursor-not-allowed
         ${className}
       `}
-      style={{
-        boxShadow: "0 0 20px rgba(59, 201, 255, 0.4), 0 4px 15px rgba(0, 0, 0, 0.3)",
-      }}
-      whileHover={!disabled ? {
-        scale: 1.03,
-        boxShadow: "0 0 30px rgba(59, 201, 255, 0.6), 0 0 60px rgba(59, 201, 255, 0.3), 0 6px 20px rgba(0, 0, 0, 0.4)",
-      } : {}}
-      whileTap={!disabled ? {
-        scale: 0.97,
-      } : {}}
+      initial={{ scale: 1 }}
+      whileHover={!disabled ? { scale: 1.03 } : {}}
+      whileTap={!disabled ? { scale: 0.97 } : {}}
       transition={{
         type: "spring",
         stiffness: 400,
@@ -63,11 +58,9 @@ export const CTAButton = ({
         className="absolute inset-0 z-0"
         style={{
           background: "linear-gradient(105deg, transparent 20%, rgba(255, 255, 255, 0.4) 45%, rgba(255, 255, 255, 0.6) 50%, rgba(255, 255, 255, 0.4) 55%, transparent 80%)",
-          transform: "translateX(-100%)",
         }}
-        animate={{
-          transform: ["translateX(-100%)", "translateX(100%)"],
-        }}
+        initial={{ x: "-100%" }}
+        animate={{ x: ["−100%", "100%"] }}
         transition={{
           duration: 2,
           repeat: Infinity,

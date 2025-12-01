@@ -8,6 +8,7 @@ import SimpleGallery from "../ui/SimpleGallery";
 import { SubProjectCard } from "./SubProjectCard";
 import { Particles } from "../ui/ParticleBg";
 import { Footer } from "../layout/Footer";
+import { SEO } from "../seo/SEO";
 
 interface CaseStudyPageProps {
   project?: ProjectData;
@@ -104,8 +105,21 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
   const currentProject = projectId ? projectsData[projectId] : (project || projectsData['syncbooking-saas']);
   const nextProject = getNextProject(currentProject.id);
 
+  // Get i18n content for SEO
+  const projectTitle = t(`caseStudies.${currentProject.id}.title`, currentProject.title);
+  const projectTagline = t(`caseStudies.${currentProject.id}.tagline`, currentProject.description);
+
   return (
     <div ref={sectionRef} className="relative min-h-screen bg-[#0A0A0A]">
+      {/* Dynamic SEO for Case Study */}
+      <SEO
+        title={`${projectTitle} | Duško Ličanin`}
+        description={projectTagline}
+        url={`https://licanin.com/case-study/${currentProject.id}`}
+        image={currentProject.galleryImages[0]}
+        type="article"
+      />
+
       {/* Single Particle Background for entire page */}
       <div className="fixed inset-0 z-0">
         <Particles
@@ -136,7 +150,7 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-4xl md:text-6xl lg:text-7xl font-bold font-space text-white leading-tight line-clamp-2"
           >
-            {currentProject.title}
+            {t(`caseStudies.${currentProject.id}.title`, currentProject.title)}
           </motion.h1>
 
           {/* View Live Site Button */}
@@ -210,7 +224,7 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
         </div>
       </section>
 
-      {/* OVERVIEW SECTION */}
+      {/* CHALLENGE SECTION */}
       <section className="relative w-full py-16 md:py-24 px-6 md:px-12 lg:px-16">
         <div className="max-w-6xl mx-auto">
 
@@ -236,27 +250,64 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="text-3xl md:text-4xl lg:text-5xl font-bold font-space text-white text-center leading-tight line-clamp-2"
               >
-                {t(`caseStudies.${currentProject.id}.challenge_title`, "Project Overview")}
+                {t(`caseStudies.${currentProject.id}.challenge_title`, "The Challenge")}
               </motion.h2>
 
-              {/* Overview Points - Centered horizontally and vertically */}
-              <div className="flex items-center justify-center min-h-[300px] w-full">
-                <div className="grid md:grid-cols-2 gap-6 max-w-4xl w-full">
-                  {currentProject.overview.map((point, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
-                      className="flex items-start gap-4"
-                    >
-                      <div className="w-2 h-2 rounded-full bg-cyan-400 mt-2 flex-shrink-0" />
-                      <p className="text-white/80 leading-relaxed">
-                        {point}
-                      </p>
-                    </motion.div>
-                  ))}
-                </div>
+              {/* Challenge Text */}
+              <div className="flex items-center justify-center w-full">
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                  className="text-white/80 text-lg leading-relaxed max-w-4xl text-center"
+                >
+                  {t(`caseStudies.${currentProject.id}.challenge_text`, currentProject.overview.join(' '))}
+                </motion.p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* SOLUTION SECTION */}
+      <section className="relative w-full py-16 md:py-24 px-6 md:px-12 lg:px-16">
+        <div className="max-w-6xl mx-auto">
+
+          {/* Glass Container */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="relative backdrop-blur-xl rounded-[40px] border border-white/10 overflow-hidden"
+            style={{
+              background: 'linear-gradient(to bottom right, rgba(6,182,212,0.05), transparent, rgba(59,130,246,0.05)), rgba(0,0,0,0.4)',
+              boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.1), 0 0 40px rgba(59, 201, 255, 0.1)'
+            }}
+          >
+
+            <div className="relative z-10 p-8 md:p-12 lg:p-16 space-y-8">
+
+              {/* Section Title */}
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="text-3xl md:text-4xl lg:text-5xl font-bold font-space text-white text-center leading-tight line-clamp-2"
+              >
+                {t(`caseStudies.${currentProject.id}.solution_title`, "The Solution")}
+              </motion.h2>
+
+              {/* Solution Text */}
+              <div className="flex items-center justify-center w-full">
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                  className="text-white/80 text-lg leading-relaxed max-w-4xl text-center"
+                >
+                  {t(`caseStudies.${currentProject.id}.solution_text`, currentProject.solutions.join(' '))}
+                </motion.p>
               </div>
             </div>
           </motion.div>
@@ -323,12 +374,12 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="text-3xl md:text-4xl lg:text-5xl font-bold font-space text-white text-center leading-tight line-clamp-2"
               >
-                {t(`caseStudies.${currentProject.id}.solution_title`, "Technology Stack")}
+                {t("caseStudies.tech_stack_title", "Technology Stack")}
               </motion.h2>
 
-              {/* Tech Grid - Centered horizontally and vertically */}
-              <div className="flex items-center justify-center min-h-[250px] w-full">
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 max-w-3xl w-full">
+              {/* Tech Icons - Single row, centered */}
+              <div className="flex items-center justify-center w-full">
+                <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
                   {currentProject.techStack.map((tech, index) => (
                     <TechIcon key={tech} tech={tech} index={index} />
                   ))}
@@ -393,36 +444,49 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
 
               {/* Results Grid */}
               <div className="grid md:grid-cols-3 gap-6 md:gap-8">
-                {currentProject.results.map((result, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, scale: 0.9, boxShadow: '0 0 0px rgba(59, 201, 255, 0)' }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{
-                      duration: 0.6,
-                      delay: 0.3 + index * 0.1,
-                      type: "spring",
-                      stiffness: 200
-                    }}
-                    whileHover={{
-                      scale: 1.05,
-                      boxShadow: '0 0 20px rgba(59, 201, 255, 0.5)'
-                    }}
-                    className="relative bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-2xl border border-cyan-400/30 p-6 text-center backdrop-blur-sm"
-                  >
-                    {/* Icon */}
-                    <div className="w-12 h-12 rounded-full bg-cyan-500/20 border border-cyan-400/50 flex items-center justify-center mx-auto mb-4">
-                      <ArrowRight className="w-6 h-6 text-cyan-400" />
-                    </div>
+                {(() => {
+                  const i18nResults = t(`caseStudies.${currentProject.id}.results`, { returnObjects: true });
+                  const results = Array.isArray(i18nResults) ? i18nResults : currentProject.results.map(r => ({ title: r, desc: '' }));
 
-                    {/* Content */}
-                    <div>
-                      <h4 className="text-white font-bold text-lg mb-2">
-                        {result}
-                      </h4>
-                    </div>
-                  </motion.div>
-                ))}
+                  return results.map((result: { title: string; desc: string } | string, index: number) => {
+                    const title = typeof result === 'string' ? result : result.title;
+                    const desc = typeof result === 'string' ? '' : result.desc;
+
+                    return (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{
+                          duration: 0.6,
+                          delay: 0.3 + index * 0.1,
+                          type: "spring",
+                          stiffness: 200
+                        }}
+                        whileHover={{ scale: 1.05 }}
+                        className="relative bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-2xl border border-cyan-400/30 p-6 text-center backdrop-blur-sm transition-shadow duration-300 hover:shadow-[0_0_20px_rgba(59,201,255,0.5)]"
+                      >
+                        {/* Icon */}
+                        <div className="w-12 h-12 rounded-full bg-cyan-500/20 border border-cyan-400/50 flex items-center justify-center mx-auto mb-4">
+                          <ArrowRight className="w-6 h-6 text-cyan-400" />
+                        </div>
+
+                        {/* Content */}
+                        <div>
+                          <h4 className="text-white font-bold text-lg mb-2">
+                            {title}
+                          </h4>
+                          {desc && (
+                            <p className="text-white/60 text-sm">
+                              {desc}
+                            </p>
+                          )}
+                        </div>
+                      </motion.div>
+                    );
+                  });
+                })()}
               </div>
             </div>
           </motion.div>
@@ -458,7 +522,7 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
                     </div>
                     <div className="min-w-0 flex-1">
                       <p className="text-white/60 text-xs md:text-sm font-medium mb-1 line-clamp-1">{t("caseStudies.next_project", "Next Project")}</p>
-                      <h3 className="text-white text-lg md:text-xl font-bold line-clamp-1">{nextProject.title}</h3>
+                      <h3 className="text-white text-lg md:text-xl font-bold line-clamp-1">{t(`caseStudies.${nextProject.id}.title`, nextProject.title)}</h3>
                     </div>
                   </div>
 

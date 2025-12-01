@@ -6,9 +6,14 @@
   },
   "hero": {
     "title": "Full-Stack Development Enhanced with AI",
+    "h1": "Full-Stack Development for Digital Products & AI SaaS Solutions",
     "subtitle": "Helping businesses build modern web & mobile apps faster.",
+    "subheadline": "Bridging the gap between 'No-Code' speed and 'Pro-Code' scalability. Helping startups in Banja Luka & Worldwide launch SaaS MVPs 2x faster than traditional agencies.",
     "cta": "Get in Touch",
-    "scrollLabel": "Scroll"
+    "cta_primary": "Start Your MVP",
+    "cta_secondary": "View Selected Work ↓",
+    "scrollLabel": "Scroll",
+    "tech_text": "Specialized in React, Flutter & AI Integrations."
   },
   "nav": {
     "home": "Home",
@@ -26,10 +31,14 @@
   },
   "about": {
     "title": "About Me",
+    "heading": "I don't just write code. I build smart systems.",
     "badge": "AI-Augmented Builder",
     "p1": "I'm Duško Ličanin, a full-stack developer based in Banja Luka, specializing in modern web and mobile applications. I leverage AI-optimized workflows to accelerate development without compromising quality.",
     "p2": "I offer complete web development, mobile app development (iOS/Android), and custom SaaS solutions for clients. I work with React and Flutter frameworks, backed by Supabase and Firebase for scalable infrastructure.",
-    "p3": "Whether you need a marketing website, business application, or full SaaS platform — I deliver quality code twice as fast as traditional development thanks to AI-powered tools."
+    "p3": "Whether you need a marketing website, business application, or full SaaS platform — I deliver quality code twice as fast as traditional development thanks to AI-powered tools.",
+    "why_me": "Why me? Because you need a technical partner who understands both code and business velocity.",
+    "tech_stack": "Tech Stack",
+    "connect": "Connect With Me"
   },
   "projects": {
     "featured": {
@@ -55,7 +64,10 @@
   },
   "contact": {
     "title": "Let's Build Something",
+    "heading": "Ready to build the future?",
     "subtitle": "Have a project in mind? Let's discuss how we can build it faster.",
+    "subheadline": "Whether you're a local startup that needs an MVP, or a foreign agency looking for reliable Full Stack Developer outsourcing in Europe – I deliver code that makes a difference.",
+    "cta_button": "Schedule Free Consultation",
     "form": {
       "name": "Name",
       "email": "Email",
@@ -66,6 +78,11 @@
   "footer": {
     "rights": "© 2025 Licanin. All rights reserved.",
     "builtWith": "Built with React, Tailwind & AI"
+  },
+  "blog_section": {
+    "title": "Latest Insights",
+    "subtitle": "Technology, Business, and the Future of Development.",
+    "cta_view_all": "View All Articles →"
   },
   "blog": {
     "section": {
@@ -133,7 +150,7 @@
       ]
     },
     "ironlife": {
-      "title": "IronLife.org",
+      "title": "IronLife",
       "category": "Webflow CMS Site",
       "tagline": "A high-performance digital publishing platform optimized for speed, SEO dominance, and content growth.",
       "challenge_title": "The Challenge",

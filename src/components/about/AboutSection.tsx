@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { MagnetButton } from "../ui/MagnetButton";
 import { useSpotlight } from "../../hooks/useSpotlight";
 
@@ -75,6 +76,7 @@ const TechIcon: React.FC<TechIconProps> = ({ tech, index }) => {
 };
 
 export const AboutSection = () => {
+  const { t } = useTranslation();
   const { handleMouseMove, handleTouchMove, cleanup } = useSpotlight();
 
   useEffect(() => {
@@ -149,7 +151,7 @@ export const AboutSection = () => {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="text-3xl md:text-4xl lg:text-5xl font-bold font-space text-white leading-tight line-clamp-2"
             >
-              About Me
+              {t("about.title")}
             </motion.h2>
 
             {/* Badge */}
@@ -161,7 +163,7 @@ export const AboutSection = () => {
             >
               <div className="px-4 py-2 rounded-full bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-400/30 backdrop-blur-sm">
                 <span className="text-cyan-400 text-sm font-semibold tracking-wider">
-                  AI-Augmented Builder
+                  {t("about.badge")}
                 </span>
               </div>
             </motion.div>
@@ -175,13 +177,13 @@ export const AboutSection = () => {
               className="max-w-2xl space-y-5"
             >
               <p className="text-sm md:text-base lg:text-lg text-white/70 leading-relaxed">
-                I'm a full-stack developer who builds modern web and mobile apps using AI-optimized workflows. I combine Flutter, React, Supabase, Firebase and Stripe to deliver fast, scalable and clean solutions.
+                {t("about.p1")}
               </p>
               <p className="text-sm md:text-base lg:text-lg text-white/70 leading-relaxed">
-                I leverage intelligent tools and machine learning to streamline performance and create more intuitive user experiences across all my projects.
+                {t("about.p2")}
               </p>
               <p className="text-sm md:text-base lg:text-lg text-white/70 leading-relaxed">
-                My passion is bringing innovative ideas to life, from concept to ensuring every application is robust, efficient, and future-proof.
+                {t("about.p3")}
               </p>
             </motion.div>
 
@@ -194,7 +196,7 @@ export const AboutSection = () => {
               className="w-full space-y-6 pt-4"
             >
               <h3 className="text-white/50 text-sm font-medium tracking-wider uppercase">
-                Tech Stack
+                {t("about.tech_stack")}
               </h3>
               <div className="flex flex-wrap justify-center gap-6">
                 {TECH_STACK.map((tech, index) => (

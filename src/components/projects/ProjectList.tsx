@@ -15,20 +15,10 @@ const MOCKUP_IMAGES: Record<string, string> = {
   'flutterflow-templates': '/flutterflow-mockup.avif' // FlutterFlow templates
 };
 
-// Convert projectsData to PROJECTS format for ProjectList
-// Exclude SyncBooking since it's featured separately
-const PROJECTS = Object.values(projectsData)
+// Get project IDs excluding SyncBooking (which is featured separately)
+const PROJECT_IDS = Object.values(projectsData)
   .filter(project => project.id !== 'syncbooking-saas')
-  .map(project => ({
-    id: project.id,
-    title: project.title,
-    tag: project.category,
-    description: project.description,
-    tech: project.techStack,
-    mockupType: 'laptop' as const, // Default to laptop, can be customized per project
-    imageUrl: project.galleryImages[0],
-    mockupImage: MOCKUP_IMAGES[project.id] || '/pizzeria-mockup.avif'
-  }));
+  .map(project => project.id);
 
 // Icons that need brightness boost (dark icons) - different levels
 const DARK_ICONS_HIGH = ['resend', 'webflow', 'seo']; // Need more brightness
@@ -77,6 +67,19 @@ export const ProjectList = () => {
     return cleanup;
   }, [cleanup]);
 
+  // Build projects array with i18n translations (inside component so it updates on language change)
+  const projects = PROJECT_IDS.map(projectId => {
+    const projectData = projectsData[projectId];
+    return {
+      id: projectId,
+      title: t(`caseStudies.${projectId}.title`, projectData.title),
+      tag: t(`caseStudies.${projectId}.category`, projectData.category),
+      description: t(`caseStudies.${projectId}.tagline`, projectData.description),
+      tech: projectData.techStack,
+      mockupImage: MOCKUP_IMAGES[projectId] || '/pizzeria-mockup.avif'
+    };
+  });
+
   return (
     <section id="projects" className="relative w-full py-20 px-6 md:px-12 lg:px-24 bg-transparent overflow-hidden">
 
@@ -90,16 +93,16 @@ export const ProjectList = () => {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold font-space text-white mb-4 leading-tight line-clamp-2">
-            {t("projects.list.title", "More Projects")}
+            {t("projects.list.title")}
           </h2>
           <p className="text-sm md:text-base lg:text-lg text-white/60 leading-relaxed">
-            {t("projects.list.subtitle", "Explore my recent work and side projects")}
+            {t("projects.list.subtitle")}
           </p>
         </motion.div>
 
         {/* Projects Stack */}
         <div className="space-y-6">
-          {PROJECTS.map((project, index) => (
+          {projects.map((project, index) => (
             <motion.div
               key={project.id}
               initial={{ opacity: 0, y: 40 }}

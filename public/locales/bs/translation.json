@@ -6,9 +6,14 @@
   },
   "hero": {
     "title": "Full-Stack Razvoj Poboljšan uz AI",
+    "h1": "Full-Stack Razvoj Web Stranica i Mobilnih Aplikacija uz AI",
     "subtitle": "Pomažem biznisima da brže grade moderne web i mobilne aplikacije.",
+    "subheadline": "Spajam brzinu 'No-Code' alata sa skalabilnošću 'Pro-Code' rješenja. Pomažem biznisima u Banja Luci i svijetu da lansiraju SaaS MVP 2x brže od klasičnih agencija.",
     "cta": "Kontaktiraj me",
-    "scrollLabel": "Skrolaj"
+    "cta_primary": "Započni Svoj MVP",
+    "cta_secondary": "Vidi Odabrane Radove ↓",
+    "scrollLabel": "Skrolaj",
+    "tech_text": "Specijalizovan za React, Flutter i AI integracije."
   },
   "nav": {
     "home": "Početna",
@@ -26,10 +31,14 @@
   },
   "about": {
     "title": "O Meni",
+    "heading": "Ne pišem samo kod. Gradim pametne sisteme.",
     "badge": "AI-Augmented Builder",
     "p1": "Ja sam Duško Ličanin, full-stack developer iz Banje Luke specijalizovan za moderne web i mobilne aplikacije. Koristim AI-optimizirane procese kako bih ubrzao razvoj bez kompromisa na kvalitetu.",
     "p2": "Klijentima nudim kompletnu izradu web stranica, razvoj mobilnih aplikacija (iOS/Android), kao i prilagođena SaaS rješenja. Radim sa React i Flutter frameworkima, dok backend podržavam putem Supabase i Firebase tehnologija.",
-    "p3": "Bilo da vam treba marketinški sajt, poslovna aplikacija ili kompletan SaaS sistem — isporučujem kvalitetan kod dvostruko brže od tradicionalnog razvoja zahvaljujući AI alatima."
+    "p3": "Bilo da vam treba marketinški sajt, poslovna aplikacija ili kompletan SaaS sistem — isporučujem kvalitetan kod dvostruko brže od tradicionalnog razvoja zahvaljujući AI alatima.",
+    "why_me": "Zašto mene? Jer vam treba tehnički partner koji razumije i kod i biznis brzinu.",
+    "tech_stack": "Tehnologije",
+    "connect": "Povežite Se Sa Mnom"
   },
   "projects": {
     "featured": {
@@ -55,7 +64,10 @@
   },
   "contact": {
     "title": "Hajde da napravimo nešto",
+    "heading": "Spremni da izgradimo budućnost?",
     "subtitle": "Imate ideju za projekat? Hajde da razgovaramo kako ga možemo realizovati brže.",
+    "subheadline": "Bilo da ste lokalni startup kojem treba MVP, ili strana agencija koja traži pouzdan Full Stack Developer outsourcing u Evropi – isporučujem kod koji pravi razliku.",
+    "cta_button": "Zakaži Besplatne Konsultacije",
     "form": {
       "name": "Ime",
       "email": "Email",
@@ -66,6 +78,11 @@
   "footer": {
     "rights": "© 2025 Licanin. Sva prava zadržana.",
     "builtWith": "Napravljeno sa React, Tailwind & AI"
+  },
+  "blog_section": {
+    "title": "Najnoviji Uvidi",
+    "subtitle": "Tehnologija, Biznis i Budućnost Razvoja.",
+    "cta_view_all": "Pogledaj Sve Članke →"
   },
   "blog": {
     "section": {
@@ -133,7 +150,7 @@
       ]
     },
     "ironlife": {
-      "title": "IronLife.org",
+      "title": "IronLife",
       "category": "Webflow CMS Sajt",
       "tagline": "Premium platforma za digitalno izdavaštvo optimizovana za brzinu, SEO dominaciju i lako upravljanje sadržajem.",
       "challenge_title": "Problem",

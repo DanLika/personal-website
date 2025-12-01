@@ -137,7 +137,7 @@ export const Contact = () => {
                 className="space-y-4"
               >
                 <h3 className="text-white/50 text-sm font-medium tracking-wider uppercase">
-                  Connect With Me
+                  {t("about.connect")}
                 </h3>
                 <div className="flex gap-4">
                   {socialLinks.map((social, index) => {

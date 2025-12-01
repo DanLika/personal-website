@@ -12,7 +12,8 @@ export const FAQSection = () => {
   const { t } = useTranslation();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const faqItems = t("faq.items", { returnObjects: true }) as FAQItem[];
+  const rawFaqItems = t("faq.items", { returnObjects: true });
+  const faqItems: FAQItem[] = Array.isArray(rawFaqItems) ? rawFaqItems : [];
 
   const toggleItem = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);

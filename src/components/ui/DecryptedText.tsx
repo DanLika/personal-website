@@ -53,6 +53,18 @@ export const DecryptedText = ({
   const containerRef = useRef<HTMLSpanElement>(null);
   const isScramblingRef = useRef<boolean>(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const previousTextRef = useRef<string>(text);
+
+  // Reset when text changes (e.g., language switch)
+  useEffect(() => {
+    if (previousTextRef.current !== text) {
+      previousTextRef.current = text;
+      hasAnimatedRef.current = false;
+      revealedIndicesRef.current = new Set();
+      isScramblingRef.current = false;
+      setDisplayText(text);
+    }
+  }, [text]);
 
   useEffect(() => {
     // Clear existing interval first

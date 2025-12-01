@@ -120,8 +120,8 @@ export const FeaturedProject = () => {
 
                   {/* Tech Stack */}
                   <div className="space-y-4">
-                    <h3 className="text-white/50 text-sm font-semibold tracking-wider">
-                      Tech Stack
+                    <h3 className="text-white/50 text-sm font-semibold tracking-wider uppercase">
+                      {t("about.tech_stack")}
                     </h3>
                     <div className="flex flex-wrap gap-3">
                       {techStack.map((tech, index) => (
