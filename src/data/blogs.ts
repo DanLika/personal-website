@@ -27,6 +27,1280 @@ export interface BlogPost {
 
 export const blogsData: BlogPost[] = [
   {
+    id: "6",
+    slug: "cijena-izrade-web-sajta-2025",
+    title: {
+      en: "Website Development Cost 2025: Guide for Bosnia, Croatia & Serbia",
+      bs: "Cijena izrade web sajta 2025: Vodič za BiH, Hrvatsku i Srbiju"
+    },
+    excerpt: {
+      en: "Complete pricing guide for website development in Bosnia, Croatia and Serbia: learn about costs (€500-5000+), differences between CMS and static sites, and factors affecting web design pricing.",
+      bs: "Kompletan vodič o cijenama izrade web sajtova u BiH, Hrvatskoj i Srbiji: saznajte o troškovima (€500-5000+), razlikama između CMS i statičkih sajtova, i faktorima koji utiču na cijenu web dizajna."
+    },
+    content: {
+      en: `# Website Development Cost 2025: Guide for Bosnia, Croatia & Serbia
+
+Creating a website is a crucial step for any business today. It enhances online presence and credibility. But how much does it cost to build a website? The answer varies.
+
+In Bosnia and Herzegovina, Croatia, and Serbia, prices differ based on several factors. Complexity and features play a big role. A basic website might cost between €500 and €2000. More complex sites can exceed €5000.
+
+Understanding the difference between a website, a web page, and a web application is essential. Each serves a unique purpose. This guide will help you navigate the costs and options available in the Balkans.
+
+![Website development cost overview](/blog/cijena-izrade-web-sajta-2025/website-development-cost-hero.avif)
+
+## Basic Terms: Website vs. Web Page vs. Web Application
+
+Understanding fundamental terms is crucial before diving into web development. Clear definitions help you make informed decisions about your online presence.
+
+### What is a Website?
+
+A website is a collection of linked web pages. These pages are accessible under a single domain. Websites serve as the digital face of a business or personal brand.
+
+A professional website establishes credibility and provides 24/7 accessibility to your business information. It's your primary digital asset for reaching customers online.
+
+### What is a Web Page?
+
+A web page is an individual document on the internet. It's part of a larger website and contains specific information or functionality. A single page can host text, images, and multimedia elements.
+
+Each web page serves a specific purpose - whether it's your homepage, about page, contact form, or blog post. Pages work together to create a complete user experience.
+
+### What is a Web Application?
+
+A web application is a more complex entity. Unlike static pages, web apps perform specific tasks via internet browsers. They often require user interactions and offer dynamic content.
+
+Key distinctions include:
+- **Website**: A group of web pages under one domain
+- **Web Page**: A single document part of a website
+- **Web Application**: Interactive software accessed through browsers
+
+Web applications require more resources to develop and maintain than simple web pages. Examples include online banking systems, booking platforms, and social media sites.
+
+## Website Development Pricing: Market Overview in BiH, Croatia & Serbia
+
+The cost of creating a website varies across regions. In Bosnia and Herzegovina, Croatia, and Serbia, prices reflect local market conditions and the competitive landscape of web development services.
+
+### Average Basic Website Prices (€500-2000)
+
+A basic website typically ranges from €500 to €2000. This cost covers simple designs with essential features such as:
+- 5-10 pages of content
+- Template-based design
+- Contact forms
+- Basic SEO setup
+- Responsive design for mobile devices
+
+These websites are perfect for small businesses, freelancers, and local services that need a professional online presence without complex functionality.
+
+### Complex Sites and E-commerce Pricing (€2000-5000+)
+
+For businesses seeking custom functionality, costs increase significantly. Complex websites can range from €2000 to €5000, or even more. Elements such as:
+- Custom design and branding
+- E-commerce functionality with payment integration
+- User account systems
+- Custom databases and APIs
+- Advanced animations and interactions
+
+E-commerce platforms require additional features like product catalogs, shopping carts, payment gateways, inventory management, and shipping integrations - all contributing to higher development costs.
+
+### Regional Pricing Factors
+
+Local competition plays a role in pricing. Numerous web designers offer services across the region, impacting price differences. Experience and reputation also influence rates, with seasoned professionals charging premium prices for their expertise.
+
+It's essential to compare quotes from various agencies. Research and transparency help in understanding what each package includes. Remember that web development isn't just about the initial costs.
+
+![Market pricing comparison](/blog/cijena-izrade-web-sajta-2025/regional-pricing-comparison.avif)
+
+## Factors Affecting Website Development Cost
+
+Several factors drive website cost beyond the basic pricing structure. Understanding these elements helps you budget effectively and avoid unexpected expenses.
+
+### Complexity and Number of Pages
+
+Complexity is a primary determinant. More intricate sites require more resources. Features like e-commerce, member portals, and custom databases increase complexity significantly.
+
+The number of pages directly impacts development time. A 5-page website costs less than a 50-page site. Each additional page requires:
+- Content creation or migration
+- Design consistency
+- Navigation structure updates
+- SEO optimization
+
+### Custom Design vs. Template Design
+
+Design choices significantly affect pricing:
+
+**Template Design** (€500-1500):
+- Pre-made themes modified to fit your brand
+- Faster development time
+- Limited customization options
+- May look similar to other sites using the same template
+
+**Custom Design** (€2000-8000+):
+- Unique design created specifically for your brand
+- Complete control over layout and functionality
+- Better alignment with brand identity
+- Longer development timeline
+
+Custom designs require more investment but set businesses apart and provide a unique user experience that reflects your brand values.
+
+### Technology Stack Choice
+
+The choice of CMS or static solution influences cost:
+
+**CMS Options** (WordPress, Joomla, Drupal):
+- Higher initial cost
+- Greater flexibility for updates
+- Plugin ecosystem for extended functionality
+- More maintenance requirements
+
+**Static Sites**:
+- Lower development cost
+- Faster loading times
+- Limited content management
+- Better for security
+
+Specialized technologies like custom React applications or advanced backend systems may increase costs substantially due to specialized developer expertise required.
+
+### Agency Experience and Reputation
+
+Experience level affects pricing significantly. Renowned developers command higher rates. Their expertise ensures:
+- Quality code that's maintainable
+- Best practices for security
+- Reliable project management
+- Ongoing support and consultation
+
+While established agencies charge more, they often deliver superior results with fewer revisions and better long-term performance.
+
+## Website Types and Their Costs
+
+Different websites serve various purposes, affecting their cost structure and development approach.
+
+### Presentation Websites (Simple)
+
+Presentation sites are straightforward. They focus on delivering information clearly. Small businesses often opt for these basic sites.
+
+**Typical Cost**: €500-1500
+
+**Features**:
+- 5-10 pages (Home, About, Services, Contact, etc.)
+- Template-based design
+- Basic contact forms
+- Image galleries
+- Google Maps integration
+
+They use pre-made templates, minimizing costs. Simplicity is their strength, offering low maintenance needs. Ideal for businesses needing an online presence without complexity.
+
+### Business Websites with CMS
+
+**Typical Cost**: €1500-3500
+
+**Features**:
+- Custom or premium template design
+- Content Management System (WordPress, Joomla)
+- Blog functionality
+- Newsletter integration
+- Advanced contact forms
+- Social media integration
+- Basic SEO optimization
+
+These websites provide businesses with the ability to manage their own content, add blog posts, and update information without developer assistance.
+
+### E-commerce and Online Stores
+
+**Typical Cost**: €3000-8000+
+
+**Features**:
+- Product catalog management
+- Shopping cart functionality
+- Payment gateway integration
+- Inventory management
+- Order tracking systems
+- Customer account areas
+- Email notifications
+- Shipping calculator
+
+E-commerce sites require robust security, payment processing capabilities, and extensive testing. The complexity of inventory management and order processing justifies higher development costs.
+
+### Web Applications and SaaS Platforms
+
+**Typical Cost**: €8000-50,000+
+
+**Features**:
+- Custom user authentication
+- Database architecture
+- API integrations
+- Real-time updates
+- Advanced user permissions
+- Subscription management
+- Analytics dashboards
+
+These projects demand significant resources and expertise. Custom development matches unique business processes and requires ongoing maintenance and updates.
+
+![Website types and pricing](/blog/cijena-izrade-web-sajta-2025/website-types-pricing.avif)
+
+## CMS Website vs. Static Website: Differences and Costs
+
+Understanding the distinction between CMS and static websites is vital for making the right choice for your business.
+
+### Benefits of CMS Websites (WordPress, Joomla, Drupal)
+
+A CMS (Content Management System) website allows easy content updates. Users can add pages, posts, and multimedia without coding knowledge.
+
+**CMS Advantages**:
+- Easy content management through admin panels
+- Plugin and theme support for extended functionality
+- Scalability for growing businesses
+- SEO-friendly features built-in
+- User permissions for team collaboration
+- Regular community updates and improvements
+
+**CMS Disadvantages**:
+- Requires more maintenance
+- Security updates needed regularly
+- Can be slower than static sites
+- May require hosting with more resources
+- Learning curve for non-technical users
+
+Popular CMS platforms include WordPress (powering 43% of all websites), Joomla, and Drupal. Each offers different strengths depending on your needs.
+
+### When to Use Static Websites?
+
+Static websites consist of HTML and CSS files. They display fixed content that requires a developer for any changes.
+
+**Static Site Advantages**:
+- Faster load times (no database queries)
+- Greater security (no admin panel to hack)
+- Simplified hosting requirements
+- Lower hosting costs
+- Better performance under traffic spikes
+
+**Static Site Disadvantages**:
+- Difficult to update without technical knowledge
+- No built-in content management
+- Limited functionality without JavaScript
+- Scaling content requires more development work
+
+**When to Choose Static**:
+- Landing pages
+- Portfolio sites
+- Sites that rarely change
+- Maximum performance is critical
+- Minimal budget for hosting
+
+### Maintenance Cost Comparison
+
+**CMS Websites**:
+- Monthly maintenance: €50-200
+- Includes security updates, backups, plugin updates
+- Content updates can be done in-house
+- May require developer support occasionally
+
+**Static Websites**:
+- Monthly maintenance: €20-50
+- Minimal maintenance required
+- Content updates require developer
+- Lower security concerns
+
+Choosing between these options depends on business goals. A dynamic, content-driven operation may prefer CMS. Conversely, a static site suits those prioritizing speed and security.
+
+## Additional Costs: Domain, Hosting, Maintenance
+
+Building a website involves more than just initial development. Additional costs can significantly impact the long-term budget.
+
+### Annual Domain Costs (.ba, .hr, .rs domains)
+
+Domain registration is essential. It's the website's online address and identity.
+
+**Domain Pricing**:
+- .ba domain: €15-25/year
+- .hr domain: €30-50/year
+- .rs domain: €15-25/year
+- .com domain: €10-15/year
+- Premium domains: €100-10,000+
+
+Domain registration must be renewed annually. Some registrars offer multi-year discounts. Choose a memorable, brand-relevant domain name for best results.
+
+### Hosting Packages and Pricing
+
+Hosting provides space on servers for your site's files. Prices vary based on bandwidth, storage needs, and performance requirements.
+
+**Shared Hosting** (€5-15/month):
+- Suitable for small websites
+- Limited resources
+- Shared server with other sites
+- Good for starting out
+
+**VPS Hosting** (€20-50/month):
+- More resources and control
+- Better performance
+- Root access
+- Suitable for medium traffic sites
+
+**Dedicated Hosting** (€100-300/month):
+- Entire server dedicated to your site
+- Maximum performance and security
+- Full control and customization
+- For high-traffic sites
+
+**Cloud Hosting** (€10-100+/month):
+- Scalable resources
+- Pay for what you use
+- High availability
+- Modern infrastructure
+
+### Regular Maintenance and Security Updates
+
+Regular maintenance ensures optimal performance and security. Costs depend on the site's complexity and the frequency of updates.
+
+**Maintenance Services Include**:
+- Security updates and patches
+- Plugin and theme updates
+- Regular backups
+- Performance monitoring
+- Uptime monitoring
+- Security scanning
+- Broken link checks
+
+**Monthly Maintenance Cost**: €50-300 depending on complexity
+
+### Content Updates and Upgrades
+
+Upgrades and improvements add value but come at a price. Implementing new features or redesigning sections incurs extra charges.
+
+**Common Updates**:
+- New page creation: €50-200 per page
+- Feature additions: €200-2000
+- Design refreshes: €500-3000
+- Content updates: €30-100/hour
+
+Proper budgeting for these elements guarantees sustained website functionality and prevents unexpected issues.
+
+![Additional costs breakdown](/blog/cijena-izrade-web-sajta-2025/additional-costs-breakdown.avif)
+
+## Web Design Pricing: What's Included?
+
+Creating a website involves more than just design; it's a comprehensive process that affects the final cost.
+
+### UI/UX Design and User Experience
+
+User interface (UI) design ensures the site is visually engaging and intuitive. A good UI keeps visitors on the site longer and improves conversion rates.
+
+**UI/UX Includes**:
+- Wireframing and prototyping
+- User flow mapping
+- Interactive mockups
+- Usability testing
+- Accessibility considerations
+- Conversion optimization
+
+Professional UI/UX design can increase conversion rates by 200% or more. Investment in this area pays dividends through better user engagement.
+
+### Graphics and Photography
+
+Visual appeal is crucial. This includes layout, color schemes, and typography, which enhance user experience.
+
+**Graphic Elements**:
+- Custom icons and illustrations
+- Image optimization
+- Stock photography licenses
+- Custom photography: €500-2000
+- Video production: €1000-5000
+- Infographics: €200-800
+
+Quality visuals create professional impressions and communicate your brand values effectively.
+
+### Brand Identity and Logo Design
+
+If you don't have an established brand, website projects often include brand identity development.
+
+**Brand Package** (€500-3000):
+- Logo design (multiple concepts)
+- Color palette development
+- Typography selection
+- Brand guidelines document
+- Business card design
+- Social media templates
+
+A cohesive brand identity across your website and marketing materials builds recognition and trust.
+
+### Responsive Design for All Devices
+
+Responsive design is no longer optional - it's essential. Over 60% of web traffic comes from mobile devices.
+
+**Responsive Design Ensures**:
+- Optimal viewing on smartphones
+- Tablet compatibility
+- Desktop experience
+- Touch-friendly navigation
+- Fast mobile loading times
+- Google mobile-first indexing compliance
+
+Google prioritizes mobile-friendly sites in search results. Responsive design is crucial for SEO success.
+
+## SEO Optimization and Responsive Design as Cost Factors
+
+SEO optimization and responsive design significantly affect both the initial cost and long-term success of your website.
+
+### On-Page SEO Optimization
+
+On-page SEO includes optimizations made directly on your website to improve search engine rankings.
+
+**SEO Services Include**:
+- Keyword research and strategy
+- Meta titles and descriptions
+- Header tag optimization (H1, H2, H3)
+- Image alt text optimization
+- Internal linking structure
+- XML sitemap creation
+- Schema markup implementation
+
+**SEO Optimization Cost**: €300-1500 for initial setup
+
+Professional SEO can increase organic traffic by 50-200% within 6-12 months. It's one of the best long-term investments for your website.
+
+### Mobile-First Responsive Design
+
+Mobile-first design means designing for mobile devices first, then scaling up to larger screens.
+
+**Mobile-First Benefits**:
+- Better mobile user experience
+- Faster mobile loading times
+- Improved Google rankings
+- Higher mobile conversion rates
+- Future-proof design approach
+
+With mobile traffic dominating, mobile-first design is essential for modern websites.
+
+### Loading Speed and Core Web Vitals
+
+Google's Core Web Vitals are ranking factors that measure user experience.
+
+**Core Web Vitals Include**:
+- **LCP** (Largest Contentful Paint): Loading performance
+- **FID** (First Input Delay): Interactivity
+- **CLS** (Cumulative Layout Shift): Visual stability
+
+**Speed Optimization** (€200-800):
+- Image compression and optimization
+- Code minification
+- Browser caching
+- CDN integration
+- Database optimization
+
+A 1-second delay in page load time can decrease conversions by 7%. Speed optimization directly impacts revenue.
+
+### Google Analytics and Tracking Setup
+
+Understanding your website's performance is crucial for growth.
+
+**Analytics Setup** (€100-300):
+- Google Analytics 4 installation
+- Conversion tracking
+- Event tracking setup
+- Custom dashboard creation
+- Google Search Console integration
+- Heat mapping tools (optional)
+
+Proper tracking enables data-driven decisions about website improvements and marketing strategies.
+
+![SEO and performance factors](/blog/cijena-izrade-web-sajta-2025/seo-performance-factors.avif)
+
+## How to Choose the Right Web Developer in BiH, HR or SR?
+
+Choosing the right web solution for your business is vital. Consider your specific goals and target audience first.
+
+### Selection Criteria for Web Agencies
+
+Evaluate the features and expertise you need. A simple presentation site might suffice, or you might need a full web application.
+
+**Key Criteria**:
+- Years of experience in the industry
+- Technical expertise in required technologies
+- Team size and availability
+- Communication style and language capabilities
+- Project management methodology
+- Post-launch support offerings
+
+### Questions You Should Ask
+
+Before committing to a web developer or agency, ask these essential questions:
+
+1. **What's your typical project timeline?**
+2. **Can you provide references from similar projects?**
+3. **What's included in your maintenance packages?**
+4. **How do you handle project changes and revisions?**
+5. **What's your process for testing and quality assurance?**
+6. **Do you offer training for content management?**
+7. **What happens if issues arise after launch?**
+8. **Can you help with ongoing digital marketing?**
+
+### Portfolio and Project References
+
+Always review the agency's portfolio carefully:
+
+**Portfolio Review Checklist**:
+- Similar industry experience
+- Design style matches your preferences
+- Functionality complexity
+- Live website performance
+- Mobile responsiveness
+- Loading speeds
+
+Request 2-3 client references and actually contact them. Ask about their experience, communication, timeline adherence, and post-launch support.
+
+### Post-Launch Support
+
+Post-launch support is often overlooked but crucial:
+
+**Support Should Include**:
+- Initial bug fixes (30-90 days)
+- Training sessions for content management
+- Technical support contact
+- Emergency support availability
+- Update and maintenance options
+- Performance monitoring
+
+Clarify support terms before signing contracts. Understand what's included and what incurs additional costs.
+
+## Frequently Asked Questions About Website Development Costs
+
+Addressing common concerns helps you make informed decisions about website investment.
+
+### How Long Does Website Development Take?
+
+Timeline varies based on complexity:
+
+- **Basic website**: 2-4 weeks
+- **Business website with CMS**: 4-8 weeks
+- **E-commerce site**: 8-16 weeks
+- **Custom web application**: 3-12 months
+
+Factors affecting timeline include:
+- Content availability
+- Number of revisions
+- Third-party integrations
+- Client feedback speed
+- Scope changes
+
+### Can I Update Content Myself?
+
+With CMS websites, yes! You can update:
+- Text content
+- Images and videos
+- Blog posts
+- Product information
+- Contact details
+
+Most agencies provide training sessions. Content management doesn't require technical skills with modern CMS platforms.
+
+### What's the Best Solution for My Business?
+
+It depends on your specific needs:
+
+**Choose Basic Website if**:
+- You need simple online presence
+- Budget is limited (under €1500)
+- Content changes are infrequent
+- You're a local service business
+
+**Choose CMS Website if**:
+- You want to manage your own content
+- You plan to blog regularly
+- You need flexibility for growth
+- You have €1500-3500 budget
+
+**Choose E-commerce if**:
+- You sell products online
+- You need inventory management
+- Payment processing is required
+- Budget allows €3000-8000
+
+**Choose Custom Application if**:
+- You need unique functionality
+- Standard solutions don't fit
+- You have specific workflow requirements
+- Budget exceeds €8000
+
+### How Much Does Website Redesign Cost?
+
+Redesign costs vary based on scope:
+
+**Visual Refresh** (€800-2000):
+- Updated colors and fonts
+- New images
+- Layout improvements
+- Existing content retained
+
+**Complete Redesign** (€2000-5000):
+- New design from scratch
+- Restructured navigation
+- Updated content
+- New functionality
+
+**Platform Migration** (€3000-8000+):
+- Moving to new CMS
+- Complete rebuild
+- Data migration
+- SEO preservation
+
+Redesigns typically cost 60-80% of a new website build.
+
+## Conclusion: ROI of Investing in Quality Website
+
+Investing in a professional website can significantly improve your business's online presence. A quality site doesn't just attract visitors - it converts them into customers.
+
+With good design and optimization, your website can:
+- Increase customer trust and credibility
+- Generate leads 24/7
+- Reduce customer service costs
+- Provide measurable marketing ROI
+- Scale your business reach
+
+Studies show that businesses with professional websites generate 2-3x more revenue than those without. Your website is an investment in long-term success.
+
+**Average ROI Timeline**:
+- Month 1-3: Initial traffic and brand visibility
+- Month 4-6: Lead generation begins
+- Month 7-12: Positive ROI achieved
+- Year 2+: Compounding returns from SEO and reputation
+
+A well-designed website typically pays for itself within 6-12 months through increased business opportunities. Choose quality over cost savings - your online presence is too important to compromise.`,
+      bs: `# Cijena izrade web sajta 2025: Vodič za BiH, Hrvatsku i Srbiju
+
+Kreiranje web sajta je ključan korak za svaki biznis danas. Povećava online prisustvo i kredibilitet. Ali koliko košta izrada web sajta? Odgovor varira.
+
+U Bosni i Hercegovini, Hrvatskoj i Srbiji, cijene se razlikuju na osnovu nekoliko faktora. Kompleksnost i funkcionalnosti igraju veliku ulogu. Osnovni web sajt može koštati između €500 i €2000. Složeniji sajtovi mogu premašiti €5000.
+
+Razumijevanje razlike između web sajta, web stranice i web aplikacije je bitno. Svaki služi jedinstvenoj svrsi. Ovaj vodič će vam pomoći da se snađete u troškovima i opcijama dostupnim na Balkanu.
+
+![Pregled cijene izrade web sajta](/blog/cijena-izrade-web-sajta-2025/website-development-cost-hero.avif)
+
+## Osnovni pojmovi: Web sajt vs. Web stranica vs. Web aplikacija
+
+Razumijevanje osnovnih pojmova je ključno prije nego što se upustite u web razvoj. Jasne definicije vam pomažu da donesete informirane odluke o vašem online prisustvu.
+
+### Šta je web sajt (website)?
+
+Web sajt je kolekcija povezanih web stranica. Ove stranice su dostupne pod jednim domenom. Web sajtovi služe kao digitalno lice biznisa ili lične brend.
+
+Profesionalan web sajt uspostavlja kredibilitet i pruža 24/7 pristupačnost informacijama o vašem biznisu. To je vaš primarni digitalni resurs za dostizanje kupaca online.
+
+### Šta je web stranica (web page)?
+
+Web stranica je pojedinačni dokument na internetu. Dio je većeg web sajta i sadrži specifične informacije ili funkcionalnost. Jedna stranica može sadržavati tekst, slike i multimedijalne elemente.
+
+Svaka web stranica služi specifičnoj svrsi - bilo da je to vaša početna stranica, O nama stranica, kontakt forma ili blog post. Stranice rade zajedno da kreiraju kompletno korisničko iskustvo.
+
+### Šta je web aplikacija?
+
+Web aplikacija je složeniji entitet. Za razliku od statičkih stranica, web aplikacije obavljaju specifične zadatke putem internet pretraživača. One često zahtijevaju korisničke interakcije i nude dinamičan sadržaj.
+
+Ključne razlike uključuju:
+- **Web sajt**: Grupa web stranica pod jednim domenom
+- **Web stranica**: Pojedinačni dokument dio web sajta
+- **Web aplikacija**: Interaktivni softver pristupljen kroz pretraživače
+
+Web aplikacije zahtijevaju više resursa za razvoj i održavanje od jednostavnih web stranica. Primjeri uključuju online banking sisteme, booking platforme i društvene mreže.
+
+## Cijena izrade sajta: Pregled tržišta u BiH, Hrvatskoj i Srbiji
+
+Cijena kreiranja web sajta varira kroz regije. U Bosni i Hercegovini, Hrvatskoj i Srbiji, cijene odražavaju lokalne tržišne uslove i kompetitivni pejzaž usluga web razvoja.
+
+### Prosječne cijene osnovnih web sajtova (€500-2000)
+
+Osnovni web sajt tipično košta od €500 do €2000. Ova cijena pokriva jednostavne dizajne sa osnovnim funkcijama kao što su:
+- 5-10 stranica sadržaja
+- Dizajn baziran na template-u
+- Kontakt forme
+- Osnovno SEO podešavanje
+- Responzivni dizajn za mobilne uređaje
+
+Ovi web sajtovi su savršeni za mala preduzeća, frilenecere i lokalne usluge koje trebaju profesionalno online prisustvo bez složene funkcionalnosti.
+
+### Cijene složenijih sajtova i e-commerce (€2000-5000+)
+
+Za preduzeća koja traže custom funkcionalnost, cijene značajno rastu. Složeni web sajtovi mogu koštati od €2000 do €5000, ili čak više. Elementi kao što su:
+- Custom dizajn i branding
+- E-commerce funkcionalnost sa integracijom plaćanja
+- Sistemi korisničkih naloga
+- Custom baze podataka i API-ji
+- Napredne animacije i interakcije
+
+E-commerce platforme zahtijevaju dodatne funkcije kao što su katalozi proizvoda, korpe za kupovinu, payment gateway-i, upravljanje inventarom i integracije dostave - sve doprinosi višim troškovima razvoja.
+
+### Faktori koji određuju cijenu u regiji
+
+Lokalna konkurencija igra ulogu u cijeni. Brojni web dizajneri nude usluge kroz regiju, utiču na razlike u cijenama. Iskustvo i reputacija takođe utiču na rate, sa iskusnim profesionalcima koji naplaćuju premium cijene za svoju ekspertizu.
+
+Bitno je uporediti ponude od različitih agencija. Istraživanje i transparentnost pomažu u razumijevanju šta svaki paket uključuje. Zapamtite da web razvoj nije samo o inicijalnim troškovima.
+
+![Poređenje tržišnih cijena](/blog/cijena-izrade-web-sajta-2025/regional-pricing-comparison.avif)
+
+## Faktori koji utiču na cijenu izrade web sajta
+
+Niz faktora utiče na cijenu web sajta izvan osnovne strukture cijena. Razumijevanje ovih elemenata pomaže da budžetirate efikasno i izbjegnete neočekivane troškove.
+
+### Kompleksnost i broj stranica
+
+Kompleksnost je primarni determinant. Složeniji sajtovi zahtijevaju više resursa. Funkcije kao što su e-commerce, portali za članove i custom baze podataka značajno povećavaju kompleksnost.
+
+Broj stranica direktno utiče na vrijeme razvoja. Web sajt od 5 stranica košta manje od sajta sa 50 stranica. Svaka dodatna stranica zahtijeva:
+- Kreiranje ili migraciju sadržaja
+- Konzistentnost dizajna
+- Ažuriranje navigacijske strukture
+- SEO optimizaciju
+
+### Custom dizajn vs. template dizajn
+
+Izbor dizajna značajno utiče na cijenu:
+
+**Template Dizajn** (€500-1500):
+- Gotove teme modifikovane da odgovaraju vašem brendu
+- Brže vrijeme razvoja
+- Ograničene opcije prilagođavanja
+- Može izgledati slično drugim sajtovima koji koriste isti template
+
+**Custom Dizajn** (€2000-8000+):
+- Unikatan dizajn kreiran specifično za vaš brend
+- Potpuna kontrola nad layoutom i funkcionalnošću
+- Bolja usklađenost sa identitetom brenda
+- Duža vremenska linija razvoja
+
+Custom dizajni zahtijevaju više investicije ali izdvajaju preduzeća i pružaju jedinstveno korisničko iskustvo koje odražava vrijednosti vašeg brenda.
+
+### Izbor tehnologije i platforme
+
+Izbor CMS-a ili statičkog rješenja utiče na cijenu:
+
+**CMS Opcije** (WordPress, Joomla, Drupal):
+- Viša inicijalna cijena
+- Veća fleksibilnost za ažuriranja
+- Plugin ekosistem za proširenu funkcionalnost
+- Više zahtjeva za održavanje
+
+**Statički Sajtovi**:
+- Niža cijena razvoja
+- Brža vremena učitavanja
+- Ograničeno upravljanje sadržajem
+- Bolje za sigurnost
+
+Specijalizovane tehnologije kao što su custom React aplikacije ili napredni backend sistemi mogu značajno povećati troškove zbog potrebne specijalizovane ekspertize developera.
+
+### Iskustvo i reputacija web agencije
+
+Nivo iskustva značajno utiče na cijenu. Renomirani developeri naplaćuju više rate. Njihova ekspertiza osigurava:
+- Kvalitetan kod koji je održiv
+- Najbolje prakse za sigurnost
+- Pouzdano upravljanje projektom
+- Kontinuiranu podršku i konsultacije
+
+Dok etablirane agencije naplaćuju više, često isporučuju superiorne rezultate sa manje revizija i boljom dugoročnom performansom.
+
+## Tipovi web sajtova i njihove cijene
+
+Različiti web sajtovi služe različitim svrhama, utiču na njihovu strukturu troškova i pristup razvoju.
+
+### Prezentacijski sajtovi (jednostavni)
+
+Prezentacijski sajtovi su jednostavni. Fokusiraju se na jasno isporučivanje informacija. Mala preduzeća često biraju ove osnovne sajtove.
+
+**Tipična Cijena**: €500-1500
+
+**Funkcije**:
+- 5-10 stranica (Početna, O nama, Usluge, Kontakt, itd.)
+- Dizajn baziran na template-u
+- Osnovne kontakt forme
+- Galerije slika
+- Google Maps integracija
+
+Koriste gotove template-e, minimizirajući troškove. Jednostavnost je njihova snaga, nudeći niske potrebe za održavanjem. Idealni za preduzeća koja trebaju online prisustvo bez kompleksnosti.
+
+### Poslovni sajtovi sa CMS-om
+
+**Tipična Cijena**: €1500-3500
+
+**Funkcije**:
+- Custom ili premium template dizajn
+- Content Management System (WordPress, Joomla)
+- Blog funkcionalnost
+- Newsletter integracija
+- Napredne kontakt forme
+- Integracija društvenih mreža
+- Osnovna SEO optimizacija
+
+Ovi web sajtovi pružaju preduzećima mogućnost da upravljaju svojim sadržajem, dodaju blog postove i ažuriraju informacije bez pomoći developera.
+
+### E-commerce i web trgovine
+
+**Tipična Cijena**: €3000-8000+
+
+**Funkcije**:
+- Upravljanje katalogom proizvoda
+- Funkcionalnost korpe za kupovinu
+- Integracija payment gateway-a
+- Upravljanje inventarom
+- Sistemi praćenja narudžbi
+- Oblasti korisničkih naloga
+- Email notifikacije
+- Kalkulator dostave
+
+E-commerce sajtovi zahtijevaju robusnu sigurnost, mogućnosti procesiranja plaćanja i ekstenzivno testiranje. Kompleksnost upravljanja inventarom i procesiranja narudžbi opravdava više troškove razvoja.
+
+### Web aplikacije i SaaS platforme
+
+**Tipična Cijena**: €8000-50,000+
+
+**Funkcije**:
+- Custom autentifikacija korisnika
+- Arhitektura baze podataka
+- API integracije
+- Real-time ažuriranja
+- Napredne korisničke dozvole
+- Upravljanje pretplatama
+- Analytics dashboard-i
+
+Ovi projekti zahtijevaju značajne resurse i ekspertizu. Custom razvoj odgovara jedinstvenim poslovnim procesima i zahtijeva kontinuirano održavanje i ažuriranja.
+
+![Tipovi web sajtova i cijene](/blog/cijena-izrade-web-sajta-2025/website-types-pricing.avif)
+
+## CMS web sajt vs. Statički web sajt: Razlike i cijene
+
+Razumijevanje razlike između CMS i statičkih web sajtova je vitalno za donošenje pravilnog izbora za vaše preduzeće.
+
+### Prednosti CMS web sajtova (WordPress, Joomla, Drupal)
+
+CMS (Content Management System) web sajt omogućava lako ažuriranje sadržaja. Korisnici mogu dodavati stranice, postove i multimediju bez znanja kodiranja.
+
+**CMS Prednosti**:
+- Lako upravljanje sadržajem kroz admin panele
+- Podrška za plugine i teme za proširenu funkcionalnost
+- Skalabilnost za rastuća preduzeća
+- SEO-friendly funkcije ugrađene
+- Korisničke dozvole za timsku saradnju
+- Redovne community ažuriranja i poboljšanja
+
+**CMS Nedostaci**:
+- Zahtijeva više održavanja
+- Sigurnosna ažuriranja potrebna redovno
+- Može biti sporije od statičkih sajtova
+- Može zahtijevati hosting sa više resursa
+- Kriva učenja za netehničke korisnike
+
+Popularne CMS platforme uključuju WordPress (pokreće 43% svih web sajtova), Joomla i Drupal. Svaka nudi različite snage u zavisnosti od vaših potreba.
+
+### Kada koristiti statičke web sajtove?
+
+Statički web sajtovi se sastoje od HTML i CSS fajlova. Prikazuju fiksni sadržaj koji zahtijeva developera za bilo kakve promjene.
+
+**Prednosti Statičkih Sajtova**:
+- Brža vremena učitavanja (bez upita baze)
+- Veća sigurnost (nema admin panel za hakovanje)
+- Pojednostavljeni zahtjevi hostinga
+- Niži troškovi hostinga
+- Bolje performanse pod špicevima saobraćaja
+
+**Nedostaci Statičkih Sajtova**:
+- Teško ažuriranje bez tehničkog znanja
+- Nema ugrađenog upravljanja sadržajem
+- Ograničena funkcionalnost bez JavaScript-a
+- Skaliranje sadržaja zahtijeva više razvojnog rada
+
+**Kada Izabrati Statički**:
+- Landing stranice
+- Portfolio sajtovi
+- Sajtovi koji se rijetko mijenjaju
+- Maksimalna performansa je kritična
+- Minimalan budžet za hosting
+
+### Poređenje troškova održavanja
+
+**CMS Web Sajtovi**:
+- Mjesečno održavanje: €50-200
+- Uključuje sigurnosna ažuriranja, backup-e, plugin ažuriranja
+- Ažuriranja sadržaja mogu biti urađena interno
+- Može zahtijevati podršku developera povremeno
+
+**Statički Web Sajtovi**:
+- Mjesečno održavanje: €20-50
+- Minimalno održavanje potrebno
+- Ažuriranja sadržaja zahtijevaju developera
+- Niže sigurnosne brige
+
+Izbor između ovih opcija zavisi od poslovnih ciljeva. Dinamična, content-driven operacija može preferirati CMS. Nasuprot tome, statički sajt odgovara onima koji prioritizuju brzinu i sigurnost.
+
+## Dodatni troškovi: Domen, hosting, održavanje
+
+Izgradnja web sajta uključuje više od samo inicijalnog razvoja. Dodatni troškovi mogu značajno uticati na dugoročni budžet.
+
+### Godišnji trošak domena (.ba, .hr, .rs domene)
+
+Registracija domena je bitna. To je online adresa i identitet web sajta.
+
+**Cijene Domena**:
+- .ba domen: €15-25/godišnje
+- .hr domen: €30-50/godišnje
+- .rs domen: €15-25/godišnje
+- .com domen: €10-15/godišnje
+- Premium domene: €100-10,000+
+
+Registracija domena mora biti obnovljena godišnje. Neki registratori nude višegodišnje popuste. Izaberite pamtljivo, brend-relevantno ime domena za najbolje rezultate.
+
+### Hosting paketi i cijene
+
+Hosting pruža prostor na serverima za fajlove vašeg sajta. Cijene variraju na osnovu bandwidth-a, potreba za storage-om i zahtjeva za performansama.
+
+**Shared Hosting** (€5-15/mjesečno):
+- Pogodan za male web sajtove
+- Ograničeni resursi
+- Dijeljeni server sa drugim sajtovima
+- Dobar za početak
+
+**VPS Hosting** (€20-50/mjesečno):
+- Više resursa i kontrole
+- Bolje performanse
+- Root pristup
+- Pogodan za sajtove sa srednjim saobraćajem
+
+**Dedicated Hosting** (€100-300/mjesečno):
+- Cijeli server posvećen vašem sajtu
+- Maksimalne performanse i sigurnost
+- Potpuna kontrola i prilagođavanje
+- Za sajtove sa visokim saobraćajem
+
+**Cloud Hosting** (€10-100+/mjesečno):
+- Skalabilni resursi
+- Plaćanje za ono što koristite
+- Visoka dostupnost
+- Moderna infrastruktura
+
+### Redovno održavanje i sigurnosni update-i
+
+Redovno održavanje osigurava optimalnu performansu i sigurnost. Troškovi zavise od kompleksnosti sajta i frekvencije ažuriranja.
+
+**Usluge Održavanja Uključuju**:
+- Sigurnosna ažuriranja i zakrpe
+- Plugin i tema ažuriranja
+- Redovni backup-i
+- Praćenje performansi
+- Praćenje uptime-a
+- Sigurnosno skeniranje
+- Provjera neispravnih linkova
+
+**Mjesečni Trošak Održavanja**: €50-300 zavisno od kompleksnosti
+
+### Content updates i nadogradnje
+
+Nadogradnje i poboljšanja dodaju vrijednost ali dolaze po cijeni. Implementacija novih funkcija ili redizajn sekcija izaziva dodatne troškove.
+
+**Uobičajena Ažuriranja**:
+- Kreiranje nove stranice: €50-200 po stranici
+- Dodavanje funkcija: €200-2000
+- Osvježavanje dizajna: €500-3000
+- Ažuriranja sadržaja: €30-100/sat
+
+Pravilno budžetiranje za ove elemente garantuje održivu funkcionalnost web sajta i sprječava neočekivane probleme.
+
+![Razbijanje dodatnih troškova](/blog/cijena-izrade-web-sajta-2025/additional-costs-breakdown.avif)
+
+## Cijena web dizajna: Šta sve ulazi u cijenu?
+
+Kreiranje web sajta uključuje više od samo dizajna; to je sveobuhvatan proces koji utiče na finalnu cijenu.
+
+### UI/UX dizajn i korisničko iskustvo
+
+User interface (UI) dizajn osigurava da je sajt vizuelno privlačan i intuitivan. Dobar UI zadržava posjetioce na sajtu duže i poboljšava stope konverzije.
+
+**UI/UX Uključuje**:
+- Wireframing i prototipiranje
+- Mapiranje korisničkog toka
+- Interaktivne makete
+- Testiranje upotrebljivosti
+- Razmatranja pristupačnosti
+- Optimizacija konverzije
+
+Profesionalni UI/UX dizajn može povećati stope konverzije za 200% ili više. Investicija u ovu oblast isplaćuje se kroz bolje angažovanje korisnika.
+
+### Grafički elementi i fotografije
+
+Vizuelna privlačnost je ključna. Ovo uključuje layout, šeme boja i tipografiju, koje poboljšavaju korisničko iskustvo.
+
+**Grafički Elementi**:
+- Custom ikone i ilustracije
+- Optimizacija slika
+- Licence za stock fotografije
+- Custom fotografija: €500-2000
+- Video produkcija: €1000-5000
+- Infografike: €200-800
+
+Kvalitetni vizueli kreiraju profesionalne utiske i efikasno komuniciraju vrijednosti vašeg brenda.
+
+### Brand identity i logo dizajn
+
+Ako nemate uspostavljen brend, projekti web sajtova često uključuju razvoj brand identiteta.
+
+**Brand Paket** (€500-3000):
+- Dizajn logoa (više koncepata)
+- Razvoj palete boja
+- Selekcija tipografije
+- Dokument brand smjernica
+- Dizajn vizit karti
+- Template-i za društvene mreže
+
+Kohezivan brand identitet kroz vaš web sajt i marketing materijale gradi prepoznatljivost i povjerenje.
+
+### Responsive dizajn za sve uređaje
+
+Responzivni dizajn više nije opcija - esencijalan je. Preko 60% web saobraćaja dolazi sa mobilnih uređaja.
+
+**Responzivni Dizajn Osigurava**:
+- Optimalan prikaz na pametnim telefonima
+- Kompatibilnost sa tabletima
+- Desktop iskustvo
+- Touch-friendly navigaciju
+- Brza vremena učitavanja na mobilnom
+- Usklađenost sa Google mobile-first indexing-om
+
+Google prioritizuje mobile-friendly sajtove u rezultatima pretraživanja. Responzivni dizajn je ključan za SEO uspjeh.
+
+## SEO optimizacija i responzivni dizajn kao faktori cijene
+
+SEO optimizacija i responzivni dizajn značajno utiču i na inicijalnu cijenu i dugoročni uspjeh vašeg web sajta.
+
+### On-page SEO optimizacija
+
+On-page SEO uključuje optimizacije napravljene direktno na vašem web sajtu da poboljšaju rangiranje u search engine-ima.
+
+**SEO Usluge Uključuju**:
+- Istraživanje ključnih riječi i strategija
+- Meta naslovi i opisi
+- Optimizacija header tag-ova (H1, H2, H3)
+- Optimizacija alt teksta slika
+- Struktura internog linkovanja
+- Kreiranje XML sitemap-a
+- Implementacija schema markup-a
+
+**Cijena SEO Optimizacije**: €300-1500 za inicijalno podešavanje
+
+Profesionalni SEO može povećati organski saobraćaj za 50-200% unutar 6-12 mjeseci. To je jedna od najboljih dugoročnih investicija za vaš web sajt.
+
+### Mobile-first responsive dizajn
+
+Mobile-first dizajn znači dizajniranje prvo za mobilne uređaje, zatim skaliranje na veće ekrane.
+
+**Mobile-First Benefiti**:
+- Bolje mobilno korisničko iskustvo
+- Brža vremena učitavanja na mobilnom
+- Poboljšani Google rangovi
+- Više mobilne stope konverzije
+- Future-proof dizajn pristup
+
+Sa dominacijom mobilnog saobraćaja, mobile-first dizajn je esencijalan za moderne web sajtove.
+
+### Brzina učitavanja i Core Web Vitals
+
+Google-ovi Core Web Vitals su ranking faktori koji mjere korisničko iskustvo.
+
+**Core Web Vitals Uključuju**:
+- **LCP** (Largest Contentful Paint): Performanse učitavanja
+- **FID** (First Input Delay): Interaktivnost
+- **CLS** (Cumulative Layout Shift): Vizuelna stabilnost
+
+**Optimizacija Brzine** (€200-800):
+- Kompresija i optimizacija slika
+- Minifikacija koda
+- Browser caching
+- CDN integracija
+- Optimizacija baze podataka
+
+1-sekundno kašnjenje u vremenu učitavanja stranice može smanjiti konverzije za 7%. Optimizacija brzine direktno utiče na prihod.
+
+### Google Analytics i tracking setup
+
+Razumijevanje performansi vašeg web sajta je ključno za rast.
+
+**Analytics Setup** (€100-300):
+- Google Analytics 4 instalacija
+- Praćenje konverzija
+- Setup event tracking-a
+- Kreiranje custom dashboard-a
+- Google Search Console integracija
+- Heat mapping alati (opciono)
+
+Pravilno praćenje omogućava data-driven odluke o poboljšanjima web sajta i marketing strategijama.
+
+![SEO i faktori performansi](/blog/cijena-izrade-web-sajta-2025/seo-performance-factors.avif)
+
+## Kako odabrati pravog web developera u BiH, HR ili SR?
+
+Odabir pravog web rješenja za vaše preduzeće je vitalan. Prvo razmotrite vaše specifične ciljeve i ciljnu publiku.
+
+### Kriteriji za izbor web agencije
+
+Evaluirajte funkcije i ekspertizu koje trebate. Jednostavan prezentacijski sajt može biti dovoljan, ili vam može trebati puna web aplikacija.
+
+**Ključni Kriteriji**:
+- Godine iskustva u industriji
+- Tehnička ekspertiza u potrebnim tehnologijama
+- Veličina tima i dostupnost
+- Stil komunikacije i jezičke sposobnosti
+- Metodologija upravljanja projektom
+- Ponude podrške nakon lansiranja
+
+### Pitanja koja trebate postaviti
+
+Prije nego što se obavežete web developeru ili agenciji, postavite ova bitna pitanja:
+
+1. **Koja je vaša tipična vremenska linija projekta?**
+2. **Možete li pružiti reference od sličnih projekata?**
+3. **Šta je uključeno u vašim paketima održavanja?**
+4. **Kako rukujete sa promjenama projekta i revizijama?**
+5. **Koji je vaš proces za testiranje i osiguranje kvaliteta?**
+6. **Nudite li obuku za upravljanje sadržajem?**
+7. **Šta se dešava ako se pojave problemi nakon lansiranja?**
+8. **Možete li pomoći sa kontinuiranim digital marketingom?**
+
+### Portfolio i reference projekata
+
+Uvijek pažljivo pregledajte portfolio agencije:
+
+**Portfolio Review Checklist**:
+- Slično iskustvo u industriji
+- Stil dizajna odgovara vašim preferencijama
+- Kompleksnost funkcionalnosti
+- Performanse live web sajta
+- Mobilna responzivnost
+- Brzine učitavanja
+
+Zatražite 2-3 klijentske reference i zapravo ih kontaktirajte. Pitajte o njihovom iskustvu, komunikaciji, pridržavanju vremenske linije i podršci nakon lansiranja.
+
+### Podrška nakon lansiranja sajta
+
+Podrška nakon lansiranja je često zanemarena ali ključna:
+
+**Podrška Treba Uključivati**:
+- Inicijalna ispravka bug-ova (30-90 dana)
+- Sesije obuke za upravljanje sadržajem
+- Tehnički support kontakt
+- Dostupnost hitne podrške
+- Opcije ažuriranja i održavanja
+- Praćenje performansi
+
+Razjasnite uslove podrške prije potpisivanja ugovora. Razumijte šta je uključeno i šta izaziva dodatne troškove.
+
+## Najčešća pitanja i odgovori o cijeni izrade sajta
+
+Rješavanje uobičajenih briga pomaže vam da donesete informirane odluke o investiciji u web sajt.
+
+### Koliko traje izrada web sajta?
+
+Vremenska linija varira na osnovu kompleksnosti:
+
+- **Osnovni web sajt**: 2-4 sedmice
+- **Poslovni web sajt sa CMS-om**: 4-8 sedmica
+- **E-commerce sajt**: 8-16 sedmica
+- **Custom web aplikacija**: 3-12 mjeseci
+
+Faktori koji utiču na vremensku liniju uključuju:
+- Dostupnost sadržaja
+- Broj revizija
+- Integracije trećih strana
+- Brzina feedback-a klijenta
+- Promjene opsega
+
+### Da li mogu sam ažurirati sadržaj?
+
+Sa CMS web sajtovima, da! Možete ažurirati:
+- Tekstualni sadržaj
+- Slike i video
+- Blog postove
+- Informacije o proizvodima
+- Kontakt detalje
+
+Većina agencija pruža sesije obuke. Upravljanje sadržajem ne zahtijeva tehničke vještine sa modernim CMS platformama.
+
+### Šta je najbolje rješenje za moj biznis?
+
+Zavisi od vaših specifičnih potreba:
+
+**Izaberite Osnovni Web Sajt ako**:
+- Trebate jednostavno online prisustvo
+- Budžet je ograničen (ispod €1500)
+- Promjene sadržaja su rijetke
+- Vi ste lokalni servis biznis
+
+**Izaberite CMS Web Sajt ako**:
+- Želite upravljati svojim sadržajem
+- Planirate redovno blogovati
+- Trebate fleksibilnost za rast
+- Imate €1500-3500 budžet
+
+**Izaberite E-commerce ako**:
+- Prodajete proizvode online
+- Trebate upravljanje inventarom
+- Procesiranje plaćanja je potrebno
+- Budžet dozvoljava €3000-8000
+
+**Izaberite Custom Aplikaciju ako**:
+- Trebate jedinstvenu funkcionalnost
+- Standardna rješenja ne odgovaraju
+- Imate specifične zahtjeve workflow-a
+- Budžet prelazi €8000
+
+### Koliko košta redizajn postojećeg sajta?
+
+Troškovi redizajna variraju na osnovu opsega:
+
+**Vizuelno Osvježavanje** (€800-2000):
+- Ažurirane boje i fontovi
+- Nove slike
+- Poboljšanja layout-a
+- Zadržan postojeći sadržaj
+
+**Kompletan Redizajn** (€2000-5000):
+- Novi dizajn od nule
+- Restrukturirana navigacija
+- Ažuriran sadržaj
+- Nova funkcionalnost
+
+**Migracija Platforme** (€3000-8000+):
+- Prelazak na novi CMS
+- Kompletna rekonstrukcija
+- Migracija podataka
+- Očuvanje SEO-a
+
+Redizajni tipično koštaju 60-80% od novog web sajta.
+
+## Zaključak: ROI investicije u kvalitetan web sajt
+
+Investiranje u profesionalan web sajt može značajno poboljšati online prisustvo vašeg preduzeća. Kvalitetan sajt ne samo da privlači posjetioce - konvertuje ih u kupce.
+
+Sa dobrim dizajnom i optimizacijom, vaš web sajt može:
+- Povećati povjerenje i kredibilitet kupaca
+- Generisati leadove 24/7
+- Smanjiti troškove korisničke usluge
+- Pružiti mjerljiv marketing ROI
+- Skalirati doseg vašeg biznisa
+
+Studije pokazuju da preduzeća sa profesionalnim web sajtovima generišu 2-3x više prihoda od onih bez. Vaš web sajt je investicija u dugoročni uspjeh.
+
+**Prosječna ROI Vremenska Linija**:
+- Mjesec 1-3: Inicijalni saobraćaj i vidljivost brenda
+- Mjesec 4-6: Generisanje leadova počinje
+- Mjesec 7-12: Postignut pozitivan ROI
+- Godina 2+: Složeni povrati od SEO-a i reputacije
+
+Dobro dizajniran web sajt tipično se isplati unutar 6-12 mjeseci kroz povećane poslovne prilike. Izaberite kvalitet preko ušteda na troškovima - vaše online prisustvo je previše važno da bi se kompromitovalo.`
+    },
+    date: "2025-12-01",
+    readTime: {
+      en: "12 min read",
+      bs: "12 min čitanja"
+    },
+    coverImage: "/blog/cijena-izrade-web-sajta-2025/website-development-cost-hero.avif",
+    category: {
+      en: "Web Development",
+      bs: "Web Razvoj"
+    }
+  },
+  {
     id: "5",
     slug: "aws-saas-factory-2025",
     title: {
@@ -792,56 +2066,6 @@ Dok AI SaaS nastavljaju da napreduju, ključno je da organizacije budu otvorene 
     category: {
       en: "AI",
       bs: "AI"
-    }
-  },
-  {
-    id: "1",
-    slug: "custom-vs-wordpress",
-    title: {
-      en: "Why Custom React, Not WordPress?",
-      bs: "Zašto Custom React, a ne WordPress?"
-    },
-    excerpt: {
-      en: "Discover why modern businesses choose custom React solutions over WordPress for better performance, security, and scalability.",
-      bs: "Otkrijte zašto moderni biznisi biraju custom React rješenja umjesto WordPressa za bolje performanse, sigurnost i skalabilnost."
-    },
-    content: {
-      en: `
-## The WordPress Problem
-
-WordPress powers 40% of the web, but that comes with baggage. Plugin bloat, security vulnerabilities, and slow load times hurt your business.
-
-## Why React Wins
-
-Custom React applications offer **blazing-fast performance**, complete **design freedom**, and **enterprise-grade security**. No plugins, no bloat, just clean code.
-
-## The Bottom Line
-
-For businesses serious about growth, custom development isn't an expense—it's an investment. Better UX means higher conversions.
-      `,
-      bs: `
-## Problem sa WordPressom
-
-WordPress pokreće 40% weba, ali to dolazi sa problemima. Pretrpanost pluginima, sigurnosne ranjivosti i sporo učitavanje štete vašem biznisu.
-
-## Zašto React Pobjeđuje
-
-Custom React aplikacije nude **munjevite performanse**, potpunu **slobodu dizajna** i **sigurnost na enterprise nivou**. Bez plugina, bez nepotrebnog koda.
-
-## Zaključak
-
-Za biznise ozbiljne po pitanju rasta, custom razvoj nije trošak—to je investicija. Bolje korisničko iskustvo znači veće konverzije.
-      `
-    },
-    date: "2025-11-28",
-    readTime: {
-      en: "3 min read",
-      bs: "3 min čitanja"
-    },
-    coverImage: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&h=400&fit=crop",
-    category: {
-      en: "Web Development",
-      bs: "Web Razvoj"
     }
   },
 ];
