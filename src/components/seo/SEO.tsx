@@ -37,7 +37,7 @@ export const SEO: React.FC<SEOProps> = ({
       <meta name="title" content={seoTitle} />
       <meta name="description" content={seoDescription} />
       <meta name="keywords" content={seoKeywords} />
-      <meta name="author" content="Duško Ličanin" />
+      <meta name="author" content="Dusko Licanin" />
 
       {/* Open Graph / Facebook */}
       <meta property="og:type" content={type} />
@@ -46,7 +46,7 @@ export const SEO: React.FC<SEOProps> = ({
       <meta property="og:description" content={seoDescription} />
       <meta property="og:image" content={fullImageUrl} />
       <meta property="og:locale" content={currentLang === "bs" ? "bs_BA" : "en_US"} />
-      <meta property="og:site_name" content="Duško Ličanin - Full-Stack Developer" />
+      <meta property="og:site_name" content="Dusko Licanin - Full-Stack Developer" />
 
       {/* Twitter */}
       <meta property="twitter:card" content="summary_large_image" />

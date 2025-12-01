@@ -580,17 +580,22 @@ export interface ProjectData {
 ## Hero Section Optimizacije (Completed - 2025-11-30)
 
 ### HeroAvatar.tsx
-1. **Touch Support** za 3D tilt effect:
+1. **Glass Panel Behind Avatar** (2025-12-01):
+   - Dodat glass efekt iza avatara sa 25% opacity
+   - Responsive sizing: `-inset-6` (mobile) → `-inset-10` (desktop)
+   - Blur: 12px, border: `rgba(255, 255, 255, 0.08)`
+   - Box shadow: `0 8px 32px rgba(0, 0, 0, 0.2)`
+2. **Touch Support** za 3D tilt effect:
    - Dodati `onTouchMove`, `onTouchStart`, `onTouchEnd` handlers
    - Touch tracking prati finger position i aplicira tilt
-2. **Reduced Glow Intensity:**
+3. **Reduced Glow Intensity:**
    - Smanjeno sa `rgba(59, 201, 255, 0.4)` na `rgba(59, 201, 255, 0.2)`
    - Subtilniji efekat koji ne overwhelms
-3. **Hover Animation:**
+4. **Hover Animation:**
    - Scale: 1.02 na hover
    - Glow intensification: box-shadow pojačan sa 0.2 → 0.35
    - Spring transition (stiffness: 400, damping: 30)
-4. **Removed:** Shimmer effect (previše distraction-a)
+5. **Removed:** Shimmer effect (previše distraction-a)
 
 ### Hero.tsx
 1. **Reflection Enhancement:**

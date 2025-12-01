@@ -22,6 +22,19 @@ export const HeroAvatar = ({
 }: HeroAvatarProps) => {
   return (
     <div className="relative w-[160px] h-[160px] sm:w-[200px] sm:h-[200px] md:w-[240px] md:h-[240px] lg:w-[280px] lg:h-[280px]">
+      {/* Glass panel behind avatar - same size as image, 25% opacity */}
+      <div
+        className="absolute inset-0 rounded-[32px] md:rounded-[40px] pointer-events-none -z-10"
+        style={{
+          background: 'rgba(255, 255, 255, 0.03)',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          border: '1px solid rgba(255, 255, 255, 0.08)',
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)',
+          opacity: 0.25,
+        }}
+      />
+
       {/* Outer glow layer - soft ambient light */}
       <div
         className="absolute -inset-4 rounded-[40px] md:rounded-[48px] blur-2xl opacity-60 pointer-events-none"

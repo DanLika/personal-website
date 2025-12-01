@@ -151,9 +151,10 @@ export const Hero = () => {
               className="absolute inset-0 rounded-[28px] sm:rounded-[36px] md:rounded-[44px] lg:rounded-[48px] overflow-hidden pointer-events-none flex items-center justify-center"
               style={{ zIndex: 0 }}
             >
-              {/* Inner container - responsive sizing aligned with avatar - increased size */}
+              {/* Inner container - responsive sizing aligned with avatar - increased size, moved up 20px */}
               <div
-                className="relative w-[260px] h-[325px] sm:w-[330px] sm:h-[415px] md:w-[400px] md:h-[500px] lg:w-[470px] lg:h-[590px]"
+                className="relative w-[310px] h-[325px] sm:w-[380px] sm:h-[415px] md:w-[450px] md:h-[500px] lg:w-[520px] lg:h-[590px]"
+                style={{ marginTop: '-40px' }}
               >
                 {/* The blurred image layer */}
                 <div

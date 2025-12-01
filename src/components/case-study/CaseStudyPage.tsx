@@ -113,7 +113,7 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
     <div ref={sectionRef} className="relative min-h-screen bg-[#0A0A0A]">
       {/* Dynamic SEO for Case Study */}
       <SEO
-        title={`${projectTitle} | Duško Ličanin`}
+        title={`${projectTitle} | Dusko Licanin`}
         description={projectTagline}
         url={`https://licanin.com/case-study/${currentProject.id}`}
         image={currentProject.galleryImages[0]}
