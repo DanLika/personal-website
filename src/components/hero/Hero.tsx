@@ -48,12 +48,10 @@ const itemVariants: Variants = {
   hidden: {
     opacity: 0,
     y: 30,
-    filter: `blur(${GLASS_CONFIG.blurAmount}px)`
   },
   visible: {
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
     transition: {
       duration: ANIMATION_CONFIG.itemDuration,
       ease: ANIMATION_CONFIG.itemEase
@@ -63,19 +61,16 @@ const itemVariants: Variants = {
 
 /**
  * Glass card animation for the main container
+ * NOTE: Only animate opacity, let children handle transforms to avoid competing animations
  */
 const glassCardVariants: Variants = {
   hidden: {
     opacity: 0,
-    scale: 0.92,
-    y: 40,
   },
   visible: {
     opacity: 1,
-    scale: 1,
-    y: 0,
     transition: {
-      duration: 1,
+      duration: 0.8,
       ease: [0.22, 0.61, 0.36, 1],
     },
   },
@@ -236,7 +231,6 @@ export const Hero = () => {
                   imageSrc="/hero-me.avif"
                   imageAlt="Portrait"
                   glowColor="#3BC9FF"
-                  enablePulsingGlow={true}
                 />
               </motion.div>
 

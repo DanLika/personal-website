@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -21,37 +21,45 @@ export const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [isAtTop, setIsAtTop] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
+  const lastScrollYRef = useRef(0);
 
   // Handle scroll behavior - hide on scroll down, show on scroll up
   const handleScroll = useCallback(() => {
     const currentScrollY = window.scrollY;
-    const scrollThreshold = 50; // Minimum scroll before hiding
+    const scrollThreshold = 50;
 
-    // Check if at top of page
-    setIsAtTop(currentScrollY < 10);
+    // Batch state updates
+    const newIsAtTop = currentScrollY < 10;
+    let newIsVisible = isVisible;
 
-    // Determine visibility based on scroll direction
     if (currentScrollY < scrollThreshold) {
-      // Always show at top
-      setIsVisible(true);
-    } else if (currentScrollY > lastScrollY && currentScrollY > scrollThreshold) {
-      // Scrolling down - hide navbar
-      setIsVisible(false);
-      // Also close mobile menu when hiding
-      if (mobileMenuOpen) setMobileMenuOpen(false);
-    } else if (currentScrollY < lastScrollY) {
-      // Scrolling up - show navbar
-      setIsVisible(true);
+      newIsVisible = true;
+    } else if (currentScrollY > lastScrollYRef.current && currentScrollY > scrollThreshold) {
+      newIsVisible = false;
+    } else if (currentScrollY < lastScrollYRef.current) {
+      newIsVisible = true;
     }
 
-    setLastScrollY(currentScrollY);
-  }, [lastScrollY, mobileMenuOpen]);
+    lastScrollYRef.current = currentScrollY; // Update ref, no re-render
+
+    // Batch state updates to single re-render
+    if (newIsAtTop !== isAtTop || newIsVisible !== isVisible) {
+      setIsAtTop(newIsAtTop);
+      setIsVisible(newIsVisible);
+    }
+  }, [isVisible, isAtTop]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
+
+  // Separate useEffect for mobile menu close logic
+  useEffect(() => {
+    if (!isVisible && mobileMenuOpen) {
+      setMobileMenuOpen(false);
+    }
+  }, [isVisible, mobileMenuOpen]);
 
   // Close mobile menu on escape key
   useEffect(() => {
@@ -111,27 +119,28 @@ export const Navbar = () => {
     { key: "contact", label: t("nav.links.contact"), sectionId: "contact" },
   ];
 
-  // Animation variants for navbar visibility
-  const navbarVariants = {
+  // Animation variants for navbar visibility - memoized to prevent recreation
+  // Using tween instead of spring to prevent bouncy/glitchy appearance
+  const navbarVariants = useMemo(() => ({
     visible: {
       y: 0,
       opacity: 1,
       transition: {
-        type: "spring",
-        stiffness: 400,
-        damping: 30,
+        type: "tween" as const,
+        duration: 0.3,
+        ease: "easeOut" as const,
       },
     },
     hidden: {
       y: -100,
       opacity: 0,
       transition: {
-        type: "spring",
-        stiffness: 400,
-        damping: 30,
+        type: "tween" as const,
+        duration: 0.25,
+        ease: "easeIn" as const,
       },
     },
-  } as const;
+  }), []);
 
   // Glass morphism styles - shared between desktop and mobile
   const glassStyles = {
@@ -155,18 +164,23 @@ export const Navbar = () => {
       >
         <div className="flex justify-center">
           <div
-            className="rounded-full px-8 py-3 flex items-center gap-8 transition-shadow duration-300"
-            style={glassStyles}
+            className="rounded-full px-8 py-3 flex items-center gap-8"
+            style={{
+              ...glassStyles,
+              transition: "box-shadow 0.3s ease-in-out"
+            }}
           >
             {/* Logo */}
             <motion.div
-              className="text-xl font-bold text-neon cursor-pointer"
+              className="text-xl md:text-2xl lg:text-3xl font-bold text-neon cursor-pointer"
               style={{
                 textShadow: "0 0 10px rgba(59, 201, 255, 0.6)",
               }}
+              initial={{ textShadow: "0 0 10px rgba(59, 201, 255, 0.6)" }}
               whileHover={{
                 textShadow: "0 0 20px rgba(59, 201, 255, 0.9)",
               }}
+              transition={{ duration: 0.2 }}
               onClick={() => smoothScrollTo("home")}
             >
               licanin
@@ -185,12 +199,13 @@ export const Navbar = () => {
                       className="relative"
                     >
                       <motion.span
+                        initial={{ scale: 1, color: "rgba(255, 255, 255, 0.8)" }}
                         whileHover={{
                           scale: 1.05,
                           color: "#3BC9FF",
                         }}
-                        transition={{ duration: 0.2 }}
-                        className="block hover:text-neon transition-all duration-300 cursor-pointer"
+                        transition={{ duration: 0.2, ease: "easeOut" }}
+                        className="block cursor-pointer"
                       >
                         {link.label}
                       </motion.span>
@@ -213,8 +228,10 @@ export const Navbar = () => {
               <motion.button
                 onClick={toggleLang}
                 className="w-10 h-10 flex items-center justify-center rounded-full border border-white/15 bg-white/5 hover:bg-white/10 transition-all duration-300 p-[1px]"
+                initial={{ scale: 1, rotate: 0 }}
                 whileHover={{ scale: 1.1, rotate: 10 }}
                 whileTap={{ scale: 0.95 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
                 title={i18n.language === "en" ? "Switch to Bosnian" : "Switch to English"}
               >
                 <img
@@ -237,11 +254,14 @@ export const Navbar = () => {
       >
         <div
           className="rounded-full px-4 py-2.5 flex items-center justify-between"
-          style={glassStyles}
+          style={{
+            ...glassStyles,
+            transition: "box-shadow 0.3s ease-in-out"
+          }}
         >
           {/* Logo */}
           <motion.div
-            className="text-base font-bold text-neon cursor-pointer"
+            className="text-lg sm:text-xl font-bold text-neon cursor-pointer"
             style={{
               textShadow: "0 0 10px rgba(59, 201, 255, 0.6)",
             }}
@@ -301,13 +321,13 @@ export const Navbar = () => {
 
             {/* Menu Panel - Glass morphism effect */}
             <motion.div
-              initial={{ opacity: 0, y: -20, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -20, scale: 0.95 }}
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
               transition={{
-                type: "spring",
-                stiffness: 400,
-                damping: 30
+                type: "tween",
+                duration: 0.2,
+                ease: "easeOut"
               }}
               className="md:hidden fixed top-20 left-4 right-4 z-50 rounded-[24px] p-6 overflow-hidden"
               style={{
@@ -320,33 +340,22 @@ export const Navbar = () => {
             >
               {/* Navigation Links */}
               <div className="flex flex-col space-y-1">
-                {navLinks.map((link, index) => (
-                  <motion.button
+                {navLinks.map((link) => (
+                  <button
                     key={link.key}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05 }}
                     onClick={() => {
                       smoothScrollTo(link.sectionId);
                       setMobileMenuOpen(false);
                     }}
                     className="text-left group"
                   >
-                    <motion.div
-                      whileHover={{ x: 8 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="flex items-center justify-between text-white/70 hover:text-white transition-colors duration-300 py-3 px-2 rounded-xl hover:bg-white/5"
-                    >
+                    <div className="flex items-center justify-between text-white/70 hover:text-white transition-colors duration-200 py-3 px-2 rounded-xl hover:bg-white/5">
                       <span className="text-base">{link.label}</span>
-                      <motion.span
-                        initial={{ opacity: 0, x: -10 }}
-                        whileHover={{ opacity: 1, x: 0 }}
-                        className="text-neon"
-                      >
+                      <span className="text-neon opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                         →
-                      </motion.span>
-                    </motion.div>
-                  </motion.button>
+                      </span>
+                    </div>
+                  </button>
                 ))}
               </div>
 
@@ -354,14 +363,9 @@ export const Navbar = () => {
               <div className="my-4 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
               {/* Mobile Language Toggle */}
-              <motion.button
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
+              <button
                 onClick={toggleLang}
-                className="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                className="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 active:scale-[0.98] transition-all duration-200"
               >
                 <img
                   src="/globe.avif"
@@ -371,7 +375,7 @@ export const Navbar = () => {
                 <span className="text-white/70 text-sm">
                   {i18n.language === "en" ? "English" : "Bosanski"}
                 </span>
-              </motion.button>
+              </button>
             </motion.div>
           </>
         )}

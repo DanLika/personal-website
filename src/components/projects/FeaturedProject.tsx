@@ -1,15 +1,24 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 import { MagnetButton } from "../ui/MagnetButton";
-import { TiltedCard } from "../ui/TiltedCard";
+import { useSpotlight } from "../../hooks/useSpotlight";
 
 interface TechIconProps {
   name: string;
   className?: string;
 }
 
+// Icons that need brightness boost (dark icons) - different levels
+const DARK_ICONS_HIGH = ['resend', 'webflow', 'seo']; // Need more brightness
+const DARK_ICONS_LOW = ['figma', 'tailwind']; // Need less brightness
+
 const TechIcon: React.FC<TechIconProps> = ({ name, className = "" }) => {
+  const nameLower = name.toLowerCase();
+  const isHighBrightness = DARK_ICONS_HIGH.includes(nameLower);
+  const isLowBrightness = DARK_ICONS_LOW.includes(nameLower);
+
   return (
     <MagnetButton
       magnetStrength={8}
@@ -22,7 +31,7 @@ const TechIcon: React.FC<TechIconProps> = ({ name, className = "" }) => {
         <img
           src={`/${name.toLowerCase()}.avif`}
           alt={name}
-          className="w-8 h-8 object-contain filter drop-shadow-[0_0_8px_rgba(6,182,212,0.6)]"
+          className={`w-8 h-8 object-contain filter drop-shadow-[0_0_8px_rgba(6,182,212,0.6)] ${isHighBrightness ? 'brightness-[1.8] contrast-[1.1]' : ''} ${isLowBrightness ? 'brightness-[1.3]' : ''}`}
           onError={(e) => {
             // Fallback to text if image not found
             const target = e.target as HTMLImageElement;
@@ -40,8 +49,13 @@ const TechIcon: React.FC<TechIconProps> = ({ name, className = "" }) => {
 
 export const FeaturedProject = () => {
   const { t } = useTranslation();
+  const { handleMouseMove, handleTouchMove, cleanup } = useSpotlight();
 
-  const techStack = ["Flutter", "Firebase", "Stripe", "iCal Integration"];
+  useEffect(() => {
+    return cleanup;
+  }, [cleanup]);
+
+  const techStack = ["Flutter", "Firebase", "Stripe", "Resend"];
 
   return (
     <section className="relative w-full py-24 px-6 md:px-12 lg:px-24 overflow-hidden bg-transparent">
@@ -63,30 +77,16 @@ export const FeaturedProject = () => {
             <motion.div
               initial={{ opacity: 0, y: 60 }}
               whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.8, ease: [0.22, 0.61, 0.36, 1] }}
-              className="relative bg-black/40 backdrop-blur-xl rounded-[40px] border border-white/10 overflow-hidden transition-all duration-500 cursor-pointer"
+              className="relative backdrop-blur-xl rounded-[40px] border border-white/10 overflow-hidden transition-all duration-500 cursor-pointer"
               style={{
+                background: 'linear-gradient(to bottom right, rgba(6,182,212,0.05), transparent, rgba(59,130,246,0.05)), rgba(0,0,0,0.5)',
                 boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.1), 0 0 40px rgba(59, 201, 255, 0.1)'
               }}
-              onMouseMove={(e) => {
-                const rect = e.currentTarget.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-
-                // Update CSS custom properties for spotlight
-                e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
-                e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
-
-                // Update parent div for outer glow
-                const parent = e.currentTarget.parentElement;
-                if (parent) {
-                  parent.querySelector('div')?.style.setProperty('--mouse-x', `${x}px`);
-                  parent.querySelector('div')?.style.setProperty('--mouse-y', `${y}px`);
-                }
-              }}
+              onMouseMove={handleMouseMove}
+              onTouchMove={handleTouchMove}
             >
-              {/* Inner Glow */}
-              <div className="absolute inset-0 rounded-[40px] bg-gradient-to-br from-cyan-500/5 via-transparent to-blue-500/5 pointer-events-none" />
 
               {/* Content Container */}
               <div className="relative z-10 grid md:grid-cols-2 gap-8 md:gap-12 p-6 md:p-12 lg:p-16">
@@ -95,6 +95,7 @@ export const FeaturedProject = () => {
                 <motion.div
                   initial={{ opacity: 0, x: -40 }}
                   whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.2 }}
                   className="space-y-6 md:space-y-8"
                 >
@@ -128,6 +129,7 @@ export const FeaturedProject = () => {
                           key={tech}
                           initial={{ opacity: 0, y: 20 }}
                           whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
                           transition={{ duration: 0.4, delay: 0.1 + index * 0.05 }}
                           whileHover={{ y: -4, scale: 1.1 }}
                           className="cursor-pointer"
@@ -143,69 +145,23 @@ export const FeaturedProject = () => {
                 <motion.div
                   initial={{ opacity: 0, x: 40 }}
                   whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.4 }}
                   className="relative flex items-center justify-center"
                 >
-                  {/* 3D Tilted Mockup Image */}
+                  {/* Mockup Image */}
                   <div className="relative z-10 w-full flex justify-center">
-                    <TiltedCard
-                      rotateAmplitude={15}
-                      scaleOnHover={1.05}
-                      showMobileWarning={false}
-                      showTooltip={false}
-                      displayOverlayContent={false}
-                      containerHeight="auto"
-                      containerWidth="100%"
-                      className="w-full max-w-md md:max-w-[56rem]"
-                    >
-                      <motion.img
-                        src="/ironlife-mockup.avif"
-                        alt="SyncBooking SaaS Mockup"
-                        className="w-full h-auto object-cover rounded-2xl aspect-[4/3] drop-shadow-2xl"
-                        initial={{
-                          opacity: 0,
-                          scale: 0.9,
-                          filter: 'brightness(1) drop-shadow(0 25px 50px rgba(0, 0, 0, 0.5))'
-                        }}
-                        whileInView={{
-                          opacity: 1,
-                          scale: 1,
-                          filter: 'brightness(1) drop-shadow(0 25px 50px rgba(0, 0, 0, 0.5))'
-                        }}
-                        whileHover={{
-                          filter: 'brightness(1.1) drop-shadow(0 30px 60px rgba(59, 201, 255, 0.3))',
-                        }}
-                        transition={{ duration: 0.4 }}
-                        loading="lazy"
-                      />
-                    </TiltedCard>
+                    <img
+                      src="/ironlife-mockup.avif"
+                      alt="SyncBooking SaaS Mockup"
+                      className="w-full max-w-md md:max-w-[56rem] h-auto object-cover rounded-2xl aspect-[4/3] drop-shadow-2xl"
+                      loading="lazy"
+                    />
                   </div>
 
-                  {/* Floating Orbs */}
-                  <motion.div
-                    animate={{
-                      y: [0, -20, 0],
-                      rotate: [0, 180, 360],
-                    }}
-                    transition={{
-                      duration: 8,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                    className="absolute top-1/4 left-1/4 w-32 h-32 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full blur-2xl -translate-y-1/2"
-                  />
-                  <motion.div
-                    animate={{
-                      y: [0, 20, 0],
-                      rotate: [360, 180, 0],
-                    }}
-                    transition={{
-                      duration: 10,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                    className="absolute top-1/2 right-0 md:right-10 w-64 h-64 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full blur-3xl -translate-y-1/2"
-                  />
+                  {/* Static Background Orbs - removed infinite animations for performance */}
+                  <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full blur-2xl -translate-y-1/2" />
+                  <div className="absolute top-1/2 right-0 md:right-10 w-64 h-64 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full blur-3xl -translate-y-1/2" />
                 </motion.div>
               </div>
 

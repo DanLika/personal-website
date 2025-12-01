@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Mail, Github, Linkedin } from "lucide-react";
+import { useSpotlight } from "../../hooks/useSpotlight";
 
 interface FormData {
   name: string;
@@ -11,12 +12,17 @@ interface FormData {
 
 export const Contact = () => {
   const { t } = useTranslation();
+  const { handleMouseMove, handleTouchMove, cleanup } = useSpotlight();
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
     message: ''
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  useEffect(() => {
+    return cleanup;
+  }, [cleanup]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -78,30 +84,16 @@ export const Contact = () => {
           <motion.div
             initial={{ opacity: 0, y: 60 }}
             whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.22, 0.61, 0.36, 1] }}
-            className="relative bg-black/40 backdrop-blur-xl rounded-[40px] border border-white/10 overflow-hidden transition-all duration-500"
+            className="relative backdrop-blur-xl rounded-[40px] border border-white/10 overflow-hidden transition-all duration-500"
             style={{
+              background: 'linear-gradient(to bottom right, rgba(6,182,212,0.05), transparent, rgba(59,130,246,0.05)), rgba(0,0,0,0.4)',
               boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.1), 0 0 40px rgba(59, 201, 255, 0.1)'
             }}
-            onMouseMove={(e) => {
-              const rect = e.currentTarget.getBoundingClientRect();
-              const x = e.clientX - rect.left;
-              const y = e.clientY - rect.top;
-
-              // Update CSS custom properties for spotlight
-              e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
-              e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
-
-              // Update parent div for outer glow
-              const parent = e.currentTarget.parentElement;
-              if (parent) {
-                parent.querySelector('div')?.style.setProperty('--mouse-x', `${x}px`);
-                parent.querySelector('div')?.style.setProperty('--mouse-y', `${y}px`);
-              }
-            }}
+            onMouseMove={handleMouseMove}
+            onTouchMove={handleTouchMove}
           >
-          {/* Inner Glow */}
-          <div className="absolute inset-0 rounded-[40px] bg-gradient-to-br from-cyan-500/5 via-transparent to-blue-500/5 pointer-events-none" />
 
           {/* Content Grid */}
           <div className="relative z-10 grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 p-6 md:p-12 lg:p-16">
@@ -110,6 +102,7 @@ export const Contact = () => {
             <motion.div
               initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
               className="space-y-8"
             >
@@ -117,6 +110,7 @@ export const Contact = () => {
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="text-3xl md:text-4xl lg:text-5xl font-bold font-space text-white leading-tight line-clamp-2"
               >
@@ -127,6 +121,7 @@ export const Contact = () => {
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.4 }}
                 className="text-sm md:text-base lg:text-lg text-white/70 leading-relaxed"
               >
@@ -137,6 +132,7 @@ export const Contact = () => {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.5 }}
                 className="space-y-4"
               >
@@ -154,6 +150,7 @@ export const Contact = () => {
                         rel="noopener noreferrer"
                         initial={{ opacity: 0, scale: 0.8 }}
                         whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
                         transition={{
                           duration: 0.4,
                           delay: 0.6 + index * 0.1,
@@ -177,6 +174,7 @@ export const Contact = () => {
             <motion.div
               initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -184,6 +182,7 @@ export const Contact = () => {
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.6 }}
                 >
                   <label htmlFor="name" className="block text-white/60 text-sm font-medium mb-2">
@@ -205,6 +204,7 @@ export const Contact = () => {
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.7 }}
                 >
                   <label htmlFor="email" className="block text-white/60 text-sm font-medium mb-2">
@@ -226,6 +226,7 @@ export const Contact = () => {
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.8 }}
                 >
                   <label htmlFor="message" className="block text-white/60 text-sm font-medium mb-2">
@@ -247,6 +248,7 @@ export const Contact = () => {
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.9 }}
                 >
                   <motion.button

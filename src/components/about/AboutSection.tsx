@@ -1,13 +1,15 @@
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 import { MagnetButton } from "../ui/MagnetButton";
+import { useSpotlight } from "../../hooks/useSpotlight";
 
 const TECH_STACK = [
-  "React",
   "Flutter",
   "FlutterFlow",
+  "React",
+  "Tailwind",
   "Supabase",
-  "Firebase",
-  "Stripe"
+  "Firebase"
 ];
 
 interface TechIconProps {
@@ -15,11 +17,20 @@ interface TechIconProps {
   index: number;
 }
 
+// Icons that need brightness boost (dark icons) - different levels
+const DARK_ICONS_HIGH = ['resend', 'webflow', 'seo']; // Need more brightness
+const DARK_ICONS_LOW = ['figma', 'tailwind']; // Need less brightness
+
 const TechIcon: React.FC<TechIconProps> = ({ tech, index }) => {
+  const techLower = tech.toLowerCase();
+  const isHighBrightness = DARK_ICONS_HIGH.includes(techLower);
+  const isLowBrightness = DARK_ICONS_LOW.includes(techLower);
+
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.8 }}
       whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true }}
       transition={{
         duration: 0.4,
         delay: 0.8 + index * 0.1,
@@ -41,7 +52,7 @@ const TechIcon: React.FC<TechIconProps> = ({ tech, index }) => {
             <img
               src={`/${tech.toLowerCase()}.avif`}
               alt={tech}
-              className="w-10 h-10 object-contain filter drop-shadow-[0_0_8px_rgba(6,182,212,0.6)]"
+              className={`w-10 h-10 object-contain filter drop-shadow-[0_0_8px_rgba(6,182,212,0.6)] ${isHighBrightness ? 'brightness-[1.8] contrast-[1.1]' : ''} ${isLowBrightness ? 'brightness-[1.3]' : ''}`}
               onError={(e) => {
                 // Fallback to text if image not found
                 const target = e.target as HTMLImageElement;
@@ -64,6 +75,12 @@ const TechIcon: React.FC<TechIconProps> = ({ tech, index }) => {
 };
 
 export const AboutSection = () => {
+  const { handleMouseMove, handleTouchMove, cleanup } = useSpotlight();
+
+  useEffect(() => {
+    return cleanup;
+  }, [cleanup]);
+
   return (
     <section id="about" className="relative w-full py-24 px-6 md:px-12 lg:px-24 bg-transparent overflow-hidden">
 
@@ -84,47 +101,16 @@ export const AboutSection = () => {
           <motion.div
             initial={{ opacity: 0, y: 60 }}
             whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.22, 0.61, 0.36, 1] }}
-            className="relative bg-black/40 backdrop-blur-xl rounded-[40px] border border-white/10 overflow-hidden transition-all duration-500"
+            className="relative backdrop-blur-xl rounded-[40px] border border-white/10 overflow-hidden transition-all duration-500"
             style={{
+              background: 'linear-gradient(to bottom right, rgba(6,182,212,0.05), transparent, rgba(59,130,246,0.05)), rgba(0,0,0,0.4)',
               boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.1), 0 0 40px rgba(59, 201, 255, 0.1)'
             }}
-            onMouseMove={(e) => {
-              const rect = e.currentTarget.getBoundingClientRect();
-              const x = e.clientX - rect.left;
-              const y = e.clientY - rect.top;
-
-              // Update CSS custom properties for spotlight
-              e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
-              e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
-
-              // Update parent div for outer glow
-              const parent = e.currentTarget.parentElement;
-              if (parent) {
-                parent.querySelector('div')?.style.setProperty('--mouse-x', `${x}px`);
-                parent.querySelector('div')?.style.setProperty('--mouse-y', `${y}px`);
-              }
-            }}
-            onTouchMove={(e) => {
-              const rect = e.currentTarget.getBoundingClientRect();
-              const touch = e.touches[0];
-              const x = touch.clientX - rect.left;
-              const y = touch.clientY - rect.top;
-
-              // Update CSS custom properties for spotlight (touch)
-              e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
-              e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
-
-              // Update parent div for outer glow
-              const parent = e.currentTarget.parentElement;
-              if (parent) {
-                parent.querySelector('div')?.style.setProperty('--mouse-x', `${x}px`);
-                parent.querySelector('div')?.style.setProperty('--mouse-y', `${y}px`);
-              }
-            }}
+            onMouseMove={handleMouseMove}
+            onTouchMove={handleTouchMove}
           >
-          {/* Inner Glow */}
-          <div className="absolute inset-0 rounded-[40px] bg-gradient-to-br from-cyan-500/5 via-transparent to-blue-500/5 pointer-events-none" />
 
           {/* Content - Centered Vertical Layout */}
           <div className="relative z-10 flex flex-col items-center text-center p-8 md:p-12 lg:p-16 space-y-8">
@@ -133,6 +119,7 @@ export const AboutSection = () => {
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
               whileHover={{ scale: 1.02 }}
               className="relative"
@@ -158,6 +145,7 @@ export const AboutSection = () => {
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
               className="text-3xl md:text-4xl lg:text-5xl font-bold font-space text-white leading-tight line-clamp-2"
             >
@@ -168,6 +156,7 @@ export const AboutSection = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
               <div className="px-4 py-2 rounded-full bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-400/30 backdrop-blur-sm">
@@ -181,6 +170,7 @@ export const AboutSection = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.5 }}
               className="max-w-2xl space-y-5"
             >
@@ -199,6 +189,7 @@ export const AboutSection = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.6 }}
               className="w-full space-y-6 pt-4"
             >

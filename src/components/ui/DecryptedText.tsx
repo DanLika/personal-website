@@ -47,15 +47,29 @@ export const DecryptedText = ({
   ...props
 }: DecryptedTextProps) => {
   const [displayText, setDisplayText] = useState<string>(text);
-  const [isHovering, setIsHovering] = useState<boolean>(false);
-  const [revealedIndices, setRevealedIndices] = useState<Set<number>>(new Set());
-  const [hasAnimated, setHasAnimated] = useState<boolean>(false);
+  const isHoveringRef = useRef<boolean>(false);
+  const revealedIndicesRef = useRef<Set<number>>(new Set());
+  const hasAnimatedRef = useRef<boolean>(false);
   const containerRef = useRef<HTMLSpanElement>(null);
   const isScramblingRef = useRef<boolean>(false);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
-    let interval: ReturnType<typeof setInterval>;
+    // Clear existing interval first
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+
+    if (!isHoveringRef.current) {
+      setDisplayText(text);
+      revealedIndicesRef.current = new Set();
+      isScramblingRef.current = false;
+      return;
+    }
+
     let currentIteration = 0;
+    isScramblingRef.current = true;
 
     const getNextIndex = (revealedSet: Set<number>): number => {
       const textLength = text.length;
@@ -123,53 +137,51 @@ export const DecryptedText = ({
       }
     };
 
-    if (isHovering) {
-      isScramblingRef.current = true;
-      interval = setInterval(() => {
-        setRevealedIndices((prevRevealed) => {
-          if (sequential) {
-            if (prevRevealed.size < text.length) {
-              const nextIndex = getNextIndex(prevRevealed);
-              const newRevealed = new Set(prevRevealed);
-              newRevealed.add(nextIndex);
-              setDisplayText(shuffleText(text, newRevealed));
-              return newRevealed;
-            } else {
-              clearInterval(interval);
-              isScramblingRef.current = false;
-              return prevRevealed;
-            }
-          } else {
-            setDisplayText(shuffleText(text, prevRevealed));
-            currentIteration++;
-            if (currentIteration >= maxIterations) {
-              clearInterval(interval);
-              isScramblingRef.current = false;
-              setDisplayText(text);
-            }
-            return prevRevealed;
-          }
-        });
-      }, speed);
-    } else {
-      setDisplayText(text);
-      setRevealedIndices(new Set());
-      isScramblingRef.current = false;
-    }
+    intervalRef.current = setInterval(() => {
+      const newRevealed = new Set(revealedIndicesRef.current);
+
+      if (sequential) {
+        if (newRevealed.size < text.length) {
+          const nextIndex = getNextIndex(newRevealed);
+          newRevealed.add(nextIndex);
+          revealedIndicesRef.current = newRevealed;
+          setDisplayText(shuffleText(text, newRevealed));
+        } else {
+          if (intervalRef.current) clearInterval(intervalRef.current);
+          intervalRef.current = null;
+          isScramblingRef.current = false;
+        }
+      } else {
+        setDisplayText(shuffleText(text, newRevealed));
+        currentIteration++;
+        if (currentIteration >= maxIterations) {
+          if (intervalRef.current) clearInterval(intervalRef.current);
+          intervalRef.current = null;
+          isScramblingRef.current = false;
+          setDisplayText(text);
+        }
+      }
+    }, speed);
 
     return () => {
-      if (interval) clearInterval(interval);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
     };
-  }, [isHovering, text, speed, maxIterations, sequential, revealDirection, characters, useOriginalCharsOnly]);
+  }, [text, speed, maxIterations, sequential, revealDirection, characters, useOriginalCharsOnly]);
 
   useEffect(() => {
     if (animateOn !== "view" && animateOn !== "both") return;
+    if (hasAnimatedRef.current) return; // Early exit if already animated
 
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting && !hasAnimated) {
-          setIsHovering(true);
-          setHasAnimated(true);
+        if (entry.isIntersecting && !hasAnimatedRef.current && !isScramblingRef.current) {
+          isHoveringRef.current = true;
+          hasAnimatedRef.current = true;
+          // Trigger re-render to start animation
+          setDisplayText((prev) => prev);
         }
       });
     };
@@ -191,13 +203,19 @@ export const DecryptedText = ({
         observer.unobserve(currentRef);
       }
     };
-  }, [animateOn, hasAnimated]);
+  }, [animateOn]);
 
   const hoverProps =
     animateOn === "hover" || animateOn === "both"
       ? {
-          onMouseEnter: () => setIsHovering(true),
-          onMouseLeave: () => setIsHovering(false),
+          onMouseEnter: () => {
+            isHoveringRef.current = true;
+            setDisplayText((prev) => prev); // Trigger re-render
+          },
+          onMouseLeave: () => {
+            isHoveringRef.current = false;
+            setDisplayText((prev) => prev); // Trigger re-render
+          },
         }
       : {};
 
@@ -207,7 +225,7 @@ export const DecryptedText = ({
 
       <span aria-hidden="true">
         {displayText.split("").map((char, index) => {
-          const isRevealedOrDone = revealedIndices.has(index) || !isScramblingRef.current || !isHovering;
+          const isRevealedOrDone = revealedIndicesRef.current.has(index) || !isScramblingRef.current || !isHoveringRef.current;
 
           return (
             <span key={index} className={isRevealedOrDone ? className : encryptedClassName}>

@@ -37,7 +37,7 @@ export const projectsData: Record<string, ProjectData> = {
       'Provides embeddable widgets for direct website bookings',
       'Real-time availability updates and calendar synchronization'
     ],
-    techStack: ['Flutter', 'Firebase', 'Stripe', 'iCal Integration'],
+    techStack: ['Flutter', 'Firebase', 'Stripe', 'Resend'],
     galleryImages: [
       '/SyncBooking/SyncBooking.avif',
       '/SyncBooking/SyncBooking 2.avif',
@@ -67,7 +67,7 @@ export const projectsData: Record<string, ProjectData> = {
   },
   ironlife: {
     id: 'ironlife',
-    title: 'IronLife.org',
+    title: 'IronLife',
     category: 'WEBFLOW CMS',
     description: 'A high-performance fitness and nutrition brand website built natively on Webflow.',
     overview: [
@@ -76,7 +76,7 @@ export const projectsData: Record<string, ProjectData> = {
       'Optimized for speed, accessibility, and search engine visibility',
       'Allows client to publish articles, recipes, and training guides without code'
     ],
-    techStack: ['Webflow', 'CMS', 'SEO', 'Figma'],
+    techStack: ['Webflow', 'SEO', 'Figma'],
     galleryImages: [
       '/IronLife/IronLife.avif',
       '/IronLife/IronLife 2.avif',
@@ -120,7 +120,6 @@ export const projectsData: Record<string, ProjectData> = {
       '/Pizzeria_Bestek/pizzeria-1.avif',
       '/Pizzeria_Bestek/pizzeria-2.avif',
       '/Pizzeria_Bestek/pizzeria-3.avif',
-      '/Pizzeria_Bestek/pizzeria-4.avif',
       '/Pizzeria_Bestek/pizzeria-5.avif'
     ],
     challenges: [
@@ -190,11 +189,7 @@ export const projectsData: Record<string, ProjectData> = {
         },
         galleryImages: [
           '/DreamHome_Template/DreamHome Booking App Template 1.avif',
-          '/DreamHome_Template/DreamHome Booking App Template 2.avif',
-          '/DreamHome_Template/DreamHome Booking App Template 8.avif',
-          '/DreamHome_Template/DreamHome Booking App Template 9.avif',
-          '/DreamHome_Template/DreamHome Booking App Template 10.avif',
-          '/DreamHome_Template/DreamHome Booking App Template 12.avif'
+          '/DreamHome_Template/DreamHome Booking App Template 2.avif'
         ]
       },
       {
@@ -209,11 +204,7 @@ export const projectsData: Record<string, ProjectData> = {
         },
         galleryImages: [
           '/Schedule_template/Calendar Template - Tasks and Google events.avif',
-          '/Schedule_template/Calendar Template - Tasks and Google events 2.avif',
-          '/Schedule_template/Calendar Template - Tasks and Google events 4.avif',
-          '/Schedule_template/Calendar Template - Tasks and Google events 5.avif',
-          '/Schedule_template/Calendar Template - Tasks and Google events 6.avif',
-          '/Schedule_template/Calendar Template - Tasks and Google events 7.avif'
+          '/Schedule_template/Calendar Template - Tasks and Google events 2.avif'
         ]
       },
       {
@@ -230,7 +221,6 @@ export const projectsData: Record<string, ProjectData> = {
           '/PDF_widget/PDF Viewer Widgets for Mobile & Web 1.avif',
           '/PDF_widget/PDF Viewer Widgets for Mobile & Web 2.avif',
           '/PDF_widget/PDF Viewer Widgets for Mobile & Web 3.avif',
-          '/PDF_widget/PDF Viewer Widgets for Mobile & Web 4.avif',
           '/PDF_widget/PDF Viewer Widgets for Mobile & Web 5.avif'
         ]
       }

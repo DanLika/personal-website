@@ -851,8 +851,128 @@ onClick={() => {
 
 **Rezultat:** Route je sada `http://localhost:5174/#home` umjesto `/#hero`. Sva navigacija funkcioniše konzistentno.
 
+## Tech Stack Updates & Icon Brightness System (2025-12-01)
+
+### Project Tech Stack Changes
+**SyncBooking SaaS:**
+- Zamijenjeno "iCal Integration" sa "Resend"
+- Final tech stack: `['Flutter', 'Firebase', 'Stripe', 'Resend']`
+
+**IronLife:**
+- Preimenovano iz "IronLife.org" u "IronLife"
+- Tech stack ažuriran na: `['Webflow', 'SEO', 'Figma']`
+
+**About Me Section:**
+- Zamijenjeno "Stripe" sa "Tailwind"
+- Final tech stack: `['Flutter', 'FlutterFlow', 'React', 'Tailwind', 'Supabase', 'Firebase']`
+
+### Icon Brightness System
+**Problem:** Tamne ikone (Resend, Webflow, SEO, Figma, Tailwind) bile su slabo vidljive na dark background-u.
+
+**Rješenje:** Two-tier brightness system:
+
+```tsx
+// Icons that need brightness boost (dark icons) - different levels
+const DARK_ICONS_HIGH = ['resend', 'webflow', 'seo']; // Need more brightness (1.8x)
+const DARK_ICONS_LOW = ['figma', 'tailwind']; // Need less brightness (1.3x)
+
+// Usage in TechIcon component
+className={`... ${isHighBrightness ? 'brightness-[1.8] contrast-[1.1]' : ''} ${isLowBrightness ? 'brightness-[1.3]' : ''}`}
+```
+
+**Implementirano u:**
+- `FeaturedProject.tsx`
+- `ProjectList.tsx`
+- `AboutSection.tsx`
+- `CaseStudyPage.tsx`
+
+### New Tech Icon Files
+Dodane nove ikone u `/public`:
+- `resend.avif`
+- `webflow.avif`
+- `seo.avif`
+- `figma.avif`
+- `tailwind.avif`
+
+### Gallery Image Cleanup
+Uklonjene placeholder slike iz `projects.ts`:
+- DreamHome: ostale samo 2 slike
+- Calendar: ostale samo 2 slike
+- PDF Widget: ostale samo 4 slike
+- Pizzeria Bestek: uklonjen `pizzeria-4.avif`
+
+## Navbar Animation Fixes (2025-12-01)
+
+### Problem
+Navbar je imao "blink/glitch" efekat prilikom pojavljivanja na scroll, posebno kada se korisnik nalazio na dnu stranice.
+
+### Root Causes & Solutions
+
+**1. Spring Animation Bouncing**
+- **Problem:** `type: "spring"` sa `stiffness: 400, damping: 30` bio previše "bouncy"
+- **Fix:** Zamijenjen sa `type: "tween"` i `ease: "easeOut"`/`ease: "easeIn"`
+
+```tsx
+const navbarVariants = useMemo(() => ({
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      type: "tween" as const,
+      duration: 0.3,
+      ease: "easeOut" as const,
+    },
+  },
+  hidden: {
+    y: -100,
+    opacity: 0,
+    transition: {
+      type: "tween" as const,
+      duration: 0.25,
+      ease: "easeIn" as const,
+    },
+  },
+}), []);
+```
+
+**2. Missing Initial Props**
+- **Problem:** `whileHover` animacije bez `initial` prop uzrokovale nepredvidivo ponašanje
+- **Fix:** Dodani `initial` props za sve hover animacije:
+
+```tsx
+// Logo
+initial={{ textShadow: "0 0 10px rgba(59, 201, 255, 0.6)" }}
+
+// Nav links
+initial={{ scale: 1, color: "rgba(255, 255, 255, 0.8)" }}
+
+// Globe button
+initial={{ scale: 1, rotate: 0 }}
+```
+
+**3. BoxShadow Transition**
+- **Problem:** Kondicionalni `boxShadow` (isAtTop) mijenjao se instant bez tranzicije
+- **Fix:** Dodana CSS transition na glass container:
+
+```tsx
+style={{
+  ...glassStyles,
+  transition: "box-shadow 0.3s ease-in-out"
+}}
+```
+
+**4. Mobile Menu Over-Animation**
+- **Problem:** Previše concurrent Framer Motion animacija na mobile menu
+- **Fix:** Pojednostavljene animacije:
+  - Panel: `scale` uklonjen, `y` offset smanjen (-20 → -10)
+  - Nav linkovi: Konvertirani u CSS transitions umjesto Framer Motion
+  - Language toggle: Konvertiran u obični button sa CSS `active:scale-[0.98]`
+
+### useSpotlight Hook
+Kreiran novi reusable hook u `src/hooks/useSpotlight.ts` za spotlight effect handling sa RAF batching.
+
 ---
 
 **Održavaj ovaj dokument ažurnim sa svakom značajnom promjenom u projektu.**
 
-**Last Updated:** 2025-11-30 - Hero section route rename from #hero to #home
+**Last Updated:** 2025-12-01 - Navbar animation fixes, tech stack updates, icon brightness system

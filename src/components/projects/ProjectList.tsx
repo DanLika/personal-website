@@ -1,10 +1,11 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 import { MagnetButton } from "../ui/MagnetButton";
-import { TiltedCard } from "../ui/TiltedCard";
 import React from "react";
 import { projectsData } from "../../data/projects";
+import { useSpotlight } from "../../hooks/useSpotlight";
 
 // Map project IDs to mockup images
 const MOCKUP_IMAGES: Record<string, string> = {
@@ -29,7 +30,15 @@ const PROJECTS = Object.values(projectsData)
     mockupImage: MOCKUP_IMAGES[project.id] || '/pizzeria-mockup.avif'
   }));
 
+// Icons that need brightness boost (dark icons) - different levels
+const DARK_ICONS_HIGH = ['resend', 'webflow', 'seo']; // Need more brightness
+const DARK_ICONS_LOW = ['figma', 'tailwind']; // Need less brightness
+
 const TechIcon: React.FC<{ tech: string }> = ({ tech }) => {
+  const techLower = tech.toLowerCase();
+  const isHighBrightness = DARK_ICONS_HIGH.includes(techLower);
+  const isLowBrightness = DARK_ICONS_LOW.includes(techLower);
+
   return (
     <MagnetButton
       magnetStrength={6}
@@ -42,7 +51,7 @@ const TechIcon: React.FC<{ tech: string }> = ({ tech }) => {
         <img
           src={`/${tech.toLowerCase()}.avif`}
           alt={tech}
-          className="w-8 h-8 object-contain filter drop-shadow-[0_0_8px_rgba(6,182,212,0.6)]"
+          className={`w-8 h-8 object-contain filter drop-shadow-[0_0_8px_rgba(6,182,212,0.6)] ${isHighBrightness ? 'brightness-[1.8] contrast-[1.1]' : ''} ${isLowBrightness ? 'brightness-[1.3]' : ''}`}
           onError={(e) => {
             // Fallback to text abbreviation if image fails to load
             const target = e.target as HTMLImageElement;
@@ -62,6 +71,11 @@ const TechIcon: React.FC<{ tech: string }> = ({ tech }) => {
 
 export const ProjectList = () => {
   const { t } = useTranslation();
+  const { handleMouseMove, handleTouchMove, cleanup } = useSpotlight();
+
+  useEffect(() => {
+    return cleanup;
+  }, [cleanup]);
 
   return (
     <section id="projects" className="relative w-full py-20 px-6 md:px-12 lg:px-24 bg-transparent overflow-hidden">
@@ -71,6 +85,7 @@ export const ProjectList = () => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
@@ -89,6 +104,7 @@ export const ProjectList = () => {
               key={project.id}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
               transition={{
                 duration: 0.6,
                 delay: index * 0.1,
@@ -110,29 +126,14 @@ export const ProjectList = () => {
 
                   {/* Card */}
                   <motion.div
-                    className="relative bg-black/40 backdrop-blur-xl rounded-[30px] border border-white/10 overflow-visible transition-all duration-500 cursor-pointer"
+                    className="relative backdrop-blur-xl rounded-[30px] border border-white/10 overflow-visible transition-all duration-500 cursor-pointer"
                     style={{
+                      background: 'linear-gradient(to bottom right, rgba(6,182,212,0.05), transparent, rgba(59,130,246,0.05)), rgba(0,0,0,0.4)',
                       boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.1), 0 0 40px rgba(59, 201, 255, 0.1)'
                     }}
-                    onMouseMove={(e) => {
-                      const rect = e.currentTarget.getBoundingClientRect();
-                      const x = e.clientX - rect.left;
-                      const y = e.clientY - rect.top;
-
-                      // Update CSS custom properties for spotlight
-                      e.currentTarget.style.setProperty('--mouse-x', `${x}px`);
-                      e.currentTarget.style.setProperty('--mouse-y', `${y}px`);
-
-                      // Update parent div for outer glow
-                      const parent = e.currentTarget.parentElement;
-                      if (parent) {
-                        parent.querySelector('div')?.style.setProperty('--mouse-x', `${x}px`);
-                        parent.querySelector('div')?.style.setProperty('--mouse-y', `${y}px`);
-                      }
-                    }}
+                    onMouseMove={handleMouseMove}
+                    onTouchMove={handleTouchMove}
                   >
-                    {/* Inner Glow */}
-                    <div className="absolute inset-0 rounded-[30px] bg-gradient-to-br from-cyan-500/5 via-transparent to-blue-500/5 pointer-events-none" />
 
                     {/* Content Container */}
                     <div className="relative z-10 grid md:grid-cols-5 gap-8 p-8 overflow-visible">
@@ -168,37 +169,12 @@ export const ProjectList = () => {
 
                       {/* Right Side - Mockup (40% on desktop) */}
                       <div className="md:col-span-2 flex items-center justify-center relative overflow-visible">
-                        <TiltedCard
-                          rotateAmplitude={15}
-                          scaleOnHover={1.05}
-                          showMobileWarning={false}
-                          showTooltip={false}
-                          displayOverlayContent={false}
-                          containerHeight="auto"
-                          containerWidth="100%"
-                          className="w-full max-w-md md:max-w-[56rem]"
-                        >
-                          <motion.img
-                            src={project.mockupImage}
-                            alt={`${project.title} Mockup`}
-                            className="w-full h-auto object-cover rounded-2xl aspect-[4/3] drop-shadow-2xl"
-                            initial={{
-                              opacity: 0,
-                              scale: 0.9,
-                              filter: 'brightness(1) drop-shadow(0 25px 50px rgba(0, 0, 0, 0.5))'
-                            }}
-                            whileInView={{
-                              opacity: 1,
-                              scale: 1,
-                              filter: 'brightness(1) drop-shadow(0 25px 50px rgba(0, 0, 0, 0.5))'
-                            }}
-                            whileHover={{
-                              filter: 'brightness(1.1) drop-shadow(0 30px 60px rgba(59, 201, 255, 0.3))',
-                            }}
-                            transition={{ duration: 0.4 }}
-                            loading="lazy"
-                          />
-                        </TiltedCard>
+                        <img
+                          src={project.mockupImage}
+                          alt={`${project.title} Mockup`}
+                          className="w-full max-w-md md:max-w-[56rem] h-auto object-cover rounded-2xl aspect-[4/3] drop-shadow-2xl"
+                          loading="lazy"
+                        />
                       </div>
                     </div>
                   </motion.div>

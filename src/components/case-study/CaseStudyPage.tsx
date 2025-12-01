@@ -13,7 +13,15 @@ interface CaseStudyPageProps {
   project?: ProjectData;
 }
 
+// Icons that need brightness boost (dark icons) - different levels
+const DARK_ICONS_HIGH = ['resend', 'webflow', 'seo']; // Need more brightness
+const DARK_ICONS_LOW = ['figma', 'tailwind']; // Need less brightness
+
 const TechIcon: React.FC<{ tech: string; index: number }> = ({ tech, index }) => {
+  const techLower = tech.toLowerCase();
+  const isHighBrightness = DARK_ICONS_HIGH.includes(techLower);
+  const isLowBrightness = DARK_ICONS_LOW.includes(techLower);
+
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.8 }}
@@ -33,7 +41,7 @@ const TechIcon: React.FC<{ tech: string; index: number }> = ({ tech, index }) =>
           <img
             src={`/${tech.toLowerCase()}.avif`}
             alt={tech}
-            className="w-10 h-10 object-contain filter drop-shadow-[0_0_8px_rgba(6,182,212,0.6)]"
+            className={`w-10 h-10 object-contain filter drop-shadow-[0_0_8px_rgba(6,182,212,0.6)] ${isHighBrightness ? 'brightness-[1.8] contrast-[1.1]' : ''} ${isLowBrightness ? 'brightness-[1.3]' : ''}`}
             onError={(e) => {
               // Fallback to text if image not found
               const target = e.target as HTMLImageElement;
@@ -211,13 +219,12 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="relative bg-black/40 backdrop-blur-xl rounded-[40px] border border-white/10 overflow-hidden"
+            className="relative backdrop-blur-xl rounded-[40px] border border-white/10 overflow-hidden"
             style={{
+              background: 'linear-gradient(to bottom right, rgba(6,182,212,0.05), transparent, rgba(59,130,246,0.05)), rgba(0,0,0,0.4)',
               boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.1), 0 0 40px rgba(59, 201, 255, 0.1)'
             }}
           >
-            {/* Inner Glow */}
-            <div className="absolute inset-0 rounded-[40px] bg-gradient-to-br from-cyan-500/5 via-transparent to-blue-500/5 pointer-events-none" />
 
             <div className="relative z-10 p-8 md:p-12 lg:p-16 space-y-8">
 
@@ -225,6 +232,7 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="text-3xl md:text-4xl lg:text-5xl font-bold font-space text-white text-center leading-tight line-clamp-2"
               >
@@ -296,14 +304,14 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="relative bg-black/40 backdrop-blur-xl rounded-[40px] border border-white/10 overflow-hidden"
+            className="relative backdrop-blur-xl rounded-[40px] border border-white/10 overflow-hidden"
             style={{
+              background: 'linear-gradient(to bottom right, rgba(6,182,212,0.05), transparent, rgba(59,130,246,0.05)), rgba(0,0,0,0.4)',
               boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.1), 0 0 40px rgba(59, 201, 255, 0.1)'
             }}
           >
-            {/* Inner Glow */}
-            <div className="absolute inset-0 rounded-[40px] bg-gradient-to-br from-cyan-500/5 via-transparent to-blue-500/5 pointer-events-none" />
 
             <div className="relative z-10 p-8 md:p-12 lg:p-16 space-y-8">
 
@@ -311,6 +319,7 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="text-3xl md:text-4xl lg:text-5xl font-bold font-space text-white text-center leading-tight line-clamp-2"
               >
@@ -360,14 +369,14 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="relative bg-black/40 backdrop-blur-xl rounded-[30px] border border-white/20 overflow-hidden"
+            className="relative backdrop-blur-xl rounded-[30px] border border-white/20 overflow-hidden"
             style={{
+              background: 'linear-gradient(to bottom right, rgba(6,182,212,0.05), transparent, rgba(59,130,246,0.05)), rgba(0,0,0,0.4)',
               boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.1), 0 0 40px rgba(59, 201, 255, 0.1)'
             }}
           >
-            {/* Inner Glow */}
-            <div className="absolute inset-0 rounded-[30px] bg-gradient-to-br from-cyan-500/5 via-transparent to-blue-500/5 pointer-events-none" />
 
             <div className="relative z-10 p-8 md:p-12 lg:p-16 space-y-8">
 
@@ -375,6 +384,7 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
               <motion.h3
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="text-2xl md:text-3xl lg:text-4xl font-bold font-space text-white text-center leading-tight line-clamp-2"
               >
@@ -434,13 +444,12 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
             >
               <motion.div
                 whileHover={{ scale: 1.02 }}
-                className="relative bg-black/40 backdrop-blur-xl rounded-[30px] border border-white/20 overflow-hidden cursor-pointer transition-all duration-300 group-hover:border-white/20"
+                className="relative backdrop-blur-xl rounded-[30px] border border-white/20 overflow-hidden cursor-pointer transition-all duration-300 group-hover:border-white/20"
                 style={{
+                  background: 'linear-gradient(to bottom right, rgba(6,182,212,0.03), transparent, rgba(59,130,246,0.03)), rgba(0,0,0,0.4)',
                   boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.1), 0 0 40px rgba(59, 201, 255, 0.05)'
                 }}
               >
-                {/* Inner Glow */}
-                <div className="absolute inset-0 rounded-[30px] bg-gradient-to-br from-cyan-500/3 via-transparent to-blue-500/3 pointer-events-none" />
 
                 <div className="relative z-10 p-6 md:p-8 flex items-center justify-between gap-4">
                   <div className="flex items-center gap-3 md:gap-4 min-w-0 flex-1">
