@@ -10,10 +10,12 @@
     "projects": "Projects",
     "about": "About",
     "contact": "Contact",
+    "blog": "Blog",
     "links": {
       "home": "Home",
       "projects": "Projects",
       "about": "About Me",
+      "blog": "Blog",
       "contact": "Contact"
     }
   },
@@ -59,5 +61,23 @@
   "footer": {
     "rights": "© 2025 Licanin. All rights reserved.",
     "builtWith": "Built with React, Tailwind & AI"
+  },
+  "blog": {
+    "section": {
+      "badge": "INSIGHTS",
+      "title": "Latest Articles",
+      "subtitle": "Thoughts on web development, SaaS, and AI-assisted programming.",
+      "cta": "See All Articles"
+    },
+    "page": {
+      "badge": "BLOG",
+      "title": "Writing about Tech, SaaS & AI",
+      "subtitle": "Insights and guides for developers and founders."
+    },
+    "post": {
+      "backToBlog": "Back to Blog",
+      "nextArticle": "Next Article",
+      "readTime": "min read"
+    }
   }
 }

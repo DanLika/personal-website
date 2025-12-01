@@ -34,6 +34,7 @@ export const Footer = () => {
     { name: t("nav.links.home"), sectionId: "home" },
     { name: t("nav.links.projects"), sectionId: "projects" },
     { name: t("nav.links.about"), sectionId: "about" },
+    { name: t("nav.links.blog"), route: "/blog" },
     { name: t("nav.links.contact"), sectionId: "contact" }
   ];
 
@@ -99,7 +100,13 @@ export const Footer = () => {
                   className="relative"
                 >
                   <button
-                    onClick={() => smoothScrollTo(link.sectionId)}
+                    onClick={() => {
+                      if ('route' in link && link.route) {
+                        navigate(link.route);
+                      } else if ('sectionId' in link && link.sectionId) {
+                        smoothScrollTo(link.sectionId);
+                      }
+                    }}
                     className="text-white/50 text-sm font-light hover:text-cyan-400 transition-colors duration-300"
                   >
                     {link.name}
@@ -156,7 +163,13 @@ export const Footer = () => {
                   className="relative"
                 >
                   <button
-                    onClick={() => smoothScrollTo(link.sectionId)}
+                    onClick={() => {
+                      if ('route' in link && link.route) {
+                        navigate(link.route);
+                      } else if ('sectionId' in link && link.sectionId) {
+                        smoothScrollTo(link.sectionId);
+                      }
+                    }}
                     className="text-white/50 text-sm font-light hover:text-cyan-400 transition-colors duration-300"
                   >
                     {link.name}

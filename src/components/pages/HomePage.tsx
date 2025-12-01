@@ -3,6 +3,7 @@ import { Hero } from "../hero/Hero";
 import { FeaturedProject } from "../projects/FeaturedProject";
 import { ProjectList } from "../projects/ProjectList";
 import { AboutSection } from "../about/AboutSection";
+import { BlogSection } from "../blog/BlogSection";
 import { Contact } from "../contact/Contact";
 import { Footer } from "../layout/Footer";
 import { Particles } from "../ui/ParticleBg";
@@ -78,6 +79,7 @@ export const HomePage = () => {
                 <FeaturedProject />
                 <ProjectList />
                 <AboutSection />
+                <BlogSection />
                 <Contact />
                 <Footer />
             </div>

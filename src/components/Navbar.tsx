@@ -116,6 +116,7 @@ export const Navbar = () => {
     { key: "home", label: t("nav.links.home"), sectionId: "home" },
     { key: "projects", label: t("nav.links.projects"), sectionId: "projects" },
     { key: "about", label: t("nav.links.about"), sectionId: "about" },
+    { key: "blog", label: t("nav.links.blog"), route: "/blog" },
     { key: "contact", label: t("nav.links.contact"), sectionId: "contact" },
   ];
 
@@ -190,7 +191,13 @@ export const Navbar = () => {
             <div className="flex items-center gap-6 text-sm text-white/80">
               {navLinks.map((link, index) => (
                 <React.Fragment key={link.key}>
-                  <button onClick={() => smoothScrollTo(link.sectionId)}>
+                  <button onClick={() => {
+                    if ('route' in link && link.route) {
+                      navigate(link.route);
+                    } else if ('sectionId' in link && link.sectionId) {
+                      smoothScrollTo(link.sectionId);
+                    }
+                  }}>
                     <MagnetButton
                       magnetStrength={8}
                       padding={60}
@@ -344,7 +351,11 @@ export const Navbar = () => {
                   <button
                     key={link.key}
                     onClick={() => {
-                      smoothScrollTo(link.sectionId);
+                      if ('route' in link && link.route) {
+                        navigate(link.route);
+                      } else if ('sectionId' in link && link.sectionId) {
+                        smoothScrollTo(link.sectionId);
+                      }
                       setMobileMenuOpen(false);
                     }}
                     className="text-left group"

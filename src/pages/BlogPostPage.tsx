@@ -1,0 +1,258 @@
+import { useEffect, useRef } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet-async";
+import ReactMarkdown from "react-markdown";
+import { ArrowLeft, Calendar, Clock, ArrowRight } from "lucide-react";
+import { getBlogBySlug, getNextBlog } from "../data/blogs";
+import { Particles } from "../components/ui/ParticleBg";
+import { Footer } from "../components/layout/Footer";
+
+export const BlogPostPage = () => {
+  const { slug } = useParams<{ slug: string }>();
+  const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language as "en" | "bs";
+
+  const post = slug ? getBlogBySlug(slug) : undefined;
+  const nextPost = slug ? getNextBlog(slug) : null;
+
+  const pageRef = useRef<HTMLDivElement>(null);
+  const mouseRef = useRef<{ x: number; y: number } | null>(null);
+
+  // Scroll to top on mount or slug change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [slug]);
+
+  // Mouse tracking for particles
+  useEffect(() => {
+    const page = pageRef.current;
+    if (!page) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = page.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      const y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
+      mouseRef.current = { x, y };
+    };
+
+    const handleMouseLeave = () => {
+      mouseRef.current = null;
+    };
+
+    page.addEventListener("mousemove", handleMouseMove);
+    page.addEventListener("mouseleave", handleMouseLeave);
+
+    return () => {
+      page.removeEventListener("mousemove", handleMouseMove);
+      page.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, []);
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString(lang === "bs" ? "bs-BA" : "en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
+
+  // 404 State
+  if (!post) {
+    return (
+      <div className="min-h-screen bg-[#0A0A0A] flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-4xl font-bold text-white mb-4">404</h1>
+          <p className="text-white/60 mb-8">
+            {lang === "bs"
+              ? "Članak nije pronađen."
+              : "Article not found."}
+          </p>
+          <Link
+            to="/blog"
+            className="text-cyan-400 hover:text-cyan-300 transition-colors"
+          >
+            {t("blog.post.backToBlog")}
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <Helmet>
+        <title>{post.title[lang]} | Licanin Blog</title>
+        <meta name="description" content={post.excerpt[lang]} />
+        <meta property="og:title" content={post.title[lang]} />
+        <meta property="og:description" content={post.excerpt[lang]} />
+        <meta property="og:image" content={post.coverImage} />
+        <meta property="og:type" content="article" />
+      </Helmet>
+
+      <div ref={pageRef} className="relative min-h-screen bg-[#0A0A0A]">
+        {/* Particle Background */}
+        <div className="fixed inset-0 z-0">
+          <Particles
+            particleCount={150}
+            particleSpread={10}
+            speed={0.1}
+            particleColors={["#ffffff", "#3BC9FF", "#5DD9FF", "#a0e7ff"]}
+            moveParticlesOnHover={true}
+            particleHoverFactor={1}
+            alphaParticles={true}
+            particleBaseSize={80}
+            sizeRandomness={1}
+            cameraDistance={20}
+            disableRotation={false}
+            externalMouseRef={mouseRef}
+          />
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10">
+          <main className="pt-24 sm:pt-32 pb-20">
+            <article className="max-w-3xl mx-auto px-6 md:px-12">
+              {/* Back Button */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.4 }}
+                className="mb-8"
+              >
+                <button
+                  onClick={() => navigate("/blog")}
+                  className="group flex items-center gap-2 text-white/60 hover:text-cyan-400 transition-colors duration-300"
+                >
+                  <ArrowLeft className="w-4 h-4 transition-transform duration-300 group-hover:-translate-x-1" />
+                  <span className="text-sm">{t("blog.post.backToBlog")}</span>
+                </button>
+              </motion.div>
+
+              {/* Hero Image */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="relative mb-8 rounded-[24px] overflow-hidden"
+                style={{
+                  boxShadow:
+                    "0 0 60px rgba(59, 201, 255, 0.1), inset 0 1px 0 0 rgba(255,255,255,0.1)",
+                }}
+              >
+                {/* Glass Frame */}
+                <div className="absolute inset-0 border border-white/10 rounded-[24px] pointer-events-none z-10" />
+                <img
+                  src={post.coverImage}
+                  alt={post.title[lang]}
+                  className="w-full aspect-[2/1] object-cover"
+                />
+                {/* Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+              </motion.div>
+
+              {/* Category Badge */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.1 }}
+                className="mb-4"
+              >
+                <span
+                  className="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-400/30"
+                  style={{
+                    textShadow: "0 0 10px rgba(59, 201, 255, 0.5)",
+                  }}
+                >
+                  {post.category[lang]}
+                </span>
+              </motion.div>
+
+              {/* Title */}
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mb-6 leading-tight"
+              >
+                {post.title[lang]}
+              </motion.h1>
+
+              {/* Meta Info */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.3 }}
+                className="flex items-center gap-6 text-sm text-white/50 mb-10 pb-10 border-b border-white/10"
+              >
+                <div className="flex items-center gap-2">
+                  <Calendar className="w-4 h-4" />
+                  <span>{formatDate(post.date)}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Clock className="w-4 h-4" />
+                  <span>{post.readTime[lang]}</span>
+                </div>
+              </motion.div>
+
+              {/* Content */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="prose prose-invert prose-lg max-w-none
+                  prose-headings:font-bold prose-headings:text-white
+                  prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
+                  prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
+                  prose-p:text-white/70 prose-p:leading-relaxed prose-p:mb-6
+                  prose-strong:text-cyan-400 prose-strong:font-semibold
+                  prose-a:text-cyan-400 prose-a:no-underline hover:prose-a:underline
+                  prose-ul:text-white/70 prose-ol:text-white/70
+                  prose-li:mb-2
+                  prose-code:text-cyan-400 prose-code:bg-white/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
+                  prose-pre:bg-black/50 prose-pre:border prose-pre:border-white/10 prose-pre:rounded-xl"
+              >
+                <ReactMarkdown>{post.content[lang]}</ReactMarkdown>
+              </motion.div>
+
+              {/* Next Post Navigation */}
+              {nextPost && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.5 }}
+                  className="mt-16 pt-10 border-t border-white/10"
+                >
+                  <p className="text-white/40 text-sm mb-4 uppercase tracking-wider">
+                    {t("blog.post.nextArticle")}
+                  </p>
+                  <Link
+                    to={`/blog/${nextPost.slug}`}
+                    className="group block"
+                  >
+                    <div className="flex items-center justify-between gap-4 p-6 rounded-[20px] bg-white/5 border border-white/10 hover:border-cyan-400/40 transition-all duration-300">
+                      <div>
+                        <h3 className="text-lg font-bold text-white group-hover:text-cyan-400 transition-colors duration-300 mb-1">
+                          {nextPost.title[lang]}
+                        </h3>
+                        <p className="text-sm text-white/50">
+                          {nextPost.category[lang]}
+                        </p>
+                      </div>
+                      <ArrowRight className="w-5 h-5 text-white/40 group-hover:text-cyan-400 transition-all duration-300 group-hover:translate-x-1" />
+                    </div>
+                  </Link>
+                </motion.div>
+              )}
+            </article>
+          </main>
+
+          <Footer />
+        </div>
+      </div>
+    </>
+  );
+};

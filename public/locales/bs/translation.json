@@ -10,10 +10,12 @@
     "projects": "Projekti",
     "about": "O meni",
     "contact": "Kontakt",
+    "blog": "Blog",
     "links": {
       "home": "Početna",
       "projects": "Projekti",
       "about": "O meni",
+      "blog": "Blog",
       "contact": "Kontakt"
     }
   },
@@ -59,5 +61,23 @@
   "footer": {
     "rights": "© 2025 Licanin. Sva prava zadržana.",
     "builtWith": "Napravljeno sa React, Tailwind & AI"
+  },
+  "blog": {
+    "section": {
+      "badge": "ČLANCI",
+      "title": "Najnoviji Članci",
+      "subtitle": "Razmišljanja o web razvoju, SaaS-u i AI-potpomognutom programiranju.",
+      "cta": "Pogledaj Sve Članke"
+    },
+    "page": {
+      "badge": "BLOG",
+      "title": "Pišem o Tehnologiji, SaaS-u i AI-u",
+      "subtitle": "Uvidi i vodiči za developere i osnivače."
+    },
+    "post": {
+      "backToBlog": "Nazad na Blog",
+      "nextArticle": "Sljedeći Članak",
+      "readTime": "min čitanja"
+    }
   }
 }
