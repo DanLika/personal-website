@@ -81,7 +81,7 @@ export const ProjectList = () => {
   });
 
   return (
-    <section id="projects" className="relative w-full py-20 px-6 md:px-12 lg:px-24 bg-transparent overflow-hidden">
+    <section id="projects" className="relative w-full py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-12 lg:px-16 bg-transparent overflow-hidden">
 
       <div className="max-w-4xl mx-auto space-y-8 relative z-10">
         {/* Section Header */}

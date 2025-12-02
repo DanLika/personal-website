@@ -139,7 +139,7 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
       </div>
 
       {/* HERO SECTION */}
-      <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden pt-20 sm:pt-24 pb-12 px-6 md:px-12 lg:px-16 z-10">
+      <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden pt-20 sm:pt-24 pb-8 px-4 sm:px-6 md:px-12 lg:px-16 z-10">
 
         <div className="relative z-10 text-center space-y-8 max-w-6xl mx-auto">
 
@@ -225,7 +225,7 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
       </section>
 
       {/* CHALLENGE SECTION */}
-      <section className="relative w-full py-16 md:py-24 px-6 md:px-12 lg:px-16">
+      <section className="relative w-full py-10 sm:py-12 md:py-16 px-4 sm:px-6 md:px-12 lg:px-16">
         <div className="max-w-6xl mx-auto">
 
           {/* Glass Container */}
@@ -270,7 +270,7 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
       </section>
 
       {/* SOLUTION SECTION */}
-      <section className="relative w-full py-16 md:py-24 px-6 md:px-12 lg:px-16">
+      <section className="relative w-full py-10 sm:py-12 md:py-16 px-4 sm:px-6 md:px-12 lg:px-16">
         <div className="max-w-6xl mx-auto">
 
           {/* Glass Container */}
@@ -316,16 +316,16 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
 
       {/* SUB-PROJECTS SECTION (Conditional - only for FlutterFlow Templates) */}
       {currentProject.subProjects && currentProject.subProjects.length > 0 && (
-        <section className="relative w-full py-16 md:py-24 px-6 md:px-12 lg:px-16">
+        <section className="relative w-full py-10 sm:py-12 md:py-16 px-4 sm:px-6 md:px-12 lg:px-16">
           <div className="max-w-7xl mx-auto">
             {/* Section Title */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="text-center mb-16"
+              className="text-center mb-12 sm:mb-16"
             >
-              <h2 className="text-4xl md:text-5xl font-bold font-space text-white mb-4">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-space text-white mb-4">
                 {t("projects.flutterflow.collection.title", "Template Collection")}
               </h2>
               <p className="text-white/60 text-lg">
@@ -348,7 +348,7 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
       )}
 
       {/* TECH STACK SECTION */}
-      <section className="relative w-full py-16 md:py-24 px-6 md:px-12 lg:px-16">
+      <section className="relative w-full py-10 sm:py-12 md:py-16 px-4 sm:px-6 md:px-12 lg:px-16">
         <div className="max-w-6xl mx-auto">
 
           {/* Glass Container */}
@@ -392,7 +392,7 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
 
       {/* GALLERY SECTION - Hidden for FlutterFlow Templates (has subProjects with own galleries) */}
       {currentProject.id !== 'flutterflow-templates' && (
-        <section className="relative w-full py-16 md:py-24 px-6 md:px-12 lg:px-16">
+        <section className="relative w-full py-10 sm:py-12 md:py-16 px-4 sm:px-6 md:px-12 lg:px-16">
           <div className="max-w-6xl mx-auto">
             {/* Gallery Section */}
             <motion.div
@@ -413,7 +413,7 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
       )}
 
       {/* RESULTS SECTION */}
-      <section className="relative w-full py-16 md:py-24 px-6 md:px-12 lg:px-16">
+      <section className="relative w-full py-10 sm:py-12 md:py-16 px-4 sm:px-6 md:px-12 lg:px-16">
         <div className="max-w-6xl mx-auto">
 
           {/* Glass Container */}
@@ -499,7 +499,7 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="relative w-full py-16 md:py-20 px-6 md:px-12 lg:px-16"
+          className="relative w-full py-10 sm:py-12 md:py-16 px-4 sm:px-6 md:px-12 lg:px-16"
         >
           <div className="max-w-4xl mx-auto">
             <Link

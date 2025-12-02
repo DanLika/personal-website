@@ -64,7 +64,7 @@ export const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="relative w-full py-24 px-6 md:px-12 lg:px-24 overflow-hidden bg-transparent">
+    <section id="contact" className="relative w-full py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-12 lg:px-16 overflow-hidden bg-transparent">
 
       {/* Main Container */}
       <div className="relative z-10 max-w-5xl mx-auto group">

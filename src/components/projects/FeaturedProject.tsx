@@ -58,7 +58,7 @@ export const FeaturedProject = () => {
   const techStack = ["Flutter", "Firebase", "Stripe", "Resend"];
 
   return (
-    <section className="relative w-full py-24 px-6 md:px-12 lg:px-24 overflow-hidden bg-transparent">
+    <section className="relative w-full py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-12 lg:px-16 overflow-hidden bg-transparent">
 
       {/* Main Content */}
       <div className="relative z-10 max-w-6xl mx-auto">

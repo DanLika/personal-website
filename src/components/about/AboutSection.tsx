@@ -84,7 +84,7 @@ export const AboutSection = () => {
   }, [cleanup]);
 
   return (
-    <section id="about" className="relative w-full py-24 px-6 md:px-12 lg:px-24 bg-transparent overflow-hidden">
+    <section id="about" className="relative w-full py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-12 lg:px-16 bg-transparent overflow-hidden">
 
       {/* Main Container */}
       <div className="relative z-10 max-w-4xl mx-auto group">
@@ -115,7 +115,7 @@ export const AboutSection = () => {
           >
 
           {/* Content - Centered Vertical Layout */}
-          <div className="relative z-10 flex flex-col items-center text-center p-8 md:p-12 lg:p-16 space-y-8">
+          <div className="relative z-10 flex flex-col items-center text-center p-6 sm:p-8 md:p-10 lg:p-12 space-y-6 sm:space-y-8">
 
             {/* Photo */}
             <motion.div

@@ -153,7 +153,7 @@ export const Hero = () => {
             >
               {/* Inner container - responsive sizing aligned with avatar - increased size, moved up 20px */}
               <div
-                className="relative w-[310px] h-[325px] sm:w-[380px] sm:h-[415px] md:w-[450px] md:h-[500px] lg:w-[520px] lg:h-[590px]"
+                className="relative w-[340px] h-[360px] sm:w-[420px] sm:h-[460px] md:w-[500px] md:h-[560px] lg:w-[580px] lg:h-[660px]"
                 style={{ marginTop: '-40px' }}
               >
                 {/* The blurred image layer */}
@@ -219,7 +219,7 @@ export const Hero = () => {
               {/* Title - single line on desktop, max 2 lines on mobile */}
               <motion.h1
                 variants={itemVariants}
-                className="font-extrabold font-space text-white leading-tight text-4xl md:text-6xl lg:text-7xl px-1 sm:px-2 max-w-full"
+                className="font-extrabold font-space text-white leading-tight text-2xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl px-1 sm:px-2 max-w-full"
               >
                 {/* Mobile: allow wrapping, max 2 lines */}
                 <span className="md:hidden block line-clamp-2 text-center">

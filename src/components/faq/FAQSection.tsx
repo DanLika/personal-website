@@ -22,9 +22,9 @@ export const FAQSection = () => {
   return (
     <section
       id="faq"
-      className="relative w-full py-20 md:py-32 bg-transparent overflow-hidden"
+      className="relative w-full py-12 sm:py-16 md:py-20 bg-transparent overflow-hidden"
     >
-      <div className="max-w-3xl mx-auto px-6 md:px-12">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 md:px-12">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}

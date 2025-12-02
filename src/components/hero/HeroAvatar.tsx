@@ -21,7 +21,7 @@ export const HeroAvatar = ({
   glowColor = "#3BC9FF",
 }: HeroAvatarProps) => {
   return (
-    <div className="relative w-[160px] h-[160px] sm:w-[200px] sm:h-[200px] md:w-[240px] md:h-[240px] lg:w-[280px] lg:h-[280px]">
+    <div className="relative w-[180px] h-[180px] sm:w-[220px] sm:h-[220px] md:w-[260px] md:h-[260px] lg:w-[300px] lg:h-[300px]">
       {/* Glass panel behind avatar - same size as image, 25% opacity */}
       <div
         className="absolute inset-0 rounded-[32px] md:rounded-[40px] pointer-events-none -z-10"
