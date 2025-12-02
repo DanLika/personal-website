@@ -164,6 +164,12 @@ export const Navbar = () => {
         initial="visible"
         animate={isVisible ? "visible" : "hidden"}
         className="hidden md:block fixed top-6 left-0 right-0 z-50"
+        style={{
+          willChange: 'transform, opacity',
+          transform: 'translateZ(0)',
+          backfaceVisibility: 'hidden',
+          WebkitBackfaceVisibility: 'hidden'
+        }}
       >
         <div className="flex justify-center">
           <div
@@ -260,6 +266,12 @@ export const Navbar = () => {
         initial="visible"
         animate={isVisible ? "visible" : "hidden"}
         className="md:hidden fixed top-4 left-4 right-4 z-50"
+        style={{
+          willChange: 'transform, opacity',
+          transform: 'translateZ(0)',
+          backfaceVisibility: 'hidden',
+          WebkitBackfaceVisibility: 'hidden'
+        }}
       >
         <div
           className="rounded-full px-4 py-2.5 flex items-center justify-between"

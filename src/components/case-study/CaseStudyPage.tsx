@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ArrowRight, ExternalLink } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -68,6 +68,15 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
   const { t } = useTranslation();
   const sectionRef = useRef<HTMLDivElement>(null);
   const mouseRef = useRef<{ x: number; y: number } | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile for particle optimization
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Scroll to top when project changes
   useEffect(() => {
@@ -123,18 +132,18 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
       {/* Single Particle Background for entire page */}
       <div className="fixed inset-0 z-0">
         <Particles
-          particleCount={150}
+          particleCount={isMobile ? 80 : 150}
           particleSpread={10}
-          speed={0.1}
+          speed={isMobile ? 0.05 : 0.1}
           particleColors={["#ffffff", "#3BC9FF", "#5DD9FF", "#a0e7ff"]}
-          moveParticlesOnHover={true}
+          moveParticlesOnHover={!isMobile}
           particleHoverFactor={1}
           alphaParticles={true}
-          particleBaseSize={80}
+          particleBaseSize={isMobile ? 60 : 80}
           sizeRandomness={1}
           cameraDistance={20}
-          disableRotation={false}
-          externalMouseRef={mouseRef}
+          disableRotation={isMobile}
+          externalMouseRef={isMobile ? undefined : mouseRef}
         />
       </div>
 
