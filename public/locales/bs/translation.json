@@ -43,19 +43,22 @@
   "projects": {
     "featured": {
       "tag": "ISTAKNUTI SAAS",
-      "title": "SyncBooking SaaS",
+      "title": "BookBed SaaS",
       "desc": "Moćna multi-tenant platforma koja omogućava vlasnicima nekretnina sinhronizaciju rezervacija putem iCal-a i ugradnju widgeta direktno na njihove sajtove."
     },
     "list": {
       "title": "Ostali Projekti",
       "subtitle": "Nedavni radovi i marketplace doprinosi"
     },
+    "viewProject": "Pogledaj Projekat",
+    "viewCaseStudy": "Pogledaj Studiju",
     "flutterflow": {
       "results": {
         "deployment": "Brza Implementacija",
         "monetizable": "Monetizacija",
         "lowcode": "Čist Low-Code"
       },
+      "viewOnMarketplace": "Pogledaj na Marketplace",
       "collection": {
         "title": "Kolekcija Templejta",
         "subtitle": "Istražite premium FlutterFlow templejte"
@@ -135,8 +138,14 @@
     "next_project": "Sljedeći Projekat",
     "view_case_study": "Pogledaj Studiju",
     "view_live_site": "Pogledaj Sajt",
-    "syncbooking-saas": {
-      "title": "SyncBooking SaaS",
+    "impact": {
+      "challenge": "Problem",
+      "solution": "Rješenje",
+      "result": "Ključni Rezultat",
+      "result_desc": "Mjerljiv poslovni uticaj."
+    },
+    "bookbed-saas": {
+      "title": "BookBed SaaS",
       "category": "SaaS Platforma",
       "tagline": "Centralizovani sistem za rezervacije i booking koji sinhronizuje sve kanale prodaje u realnom vremenu.",
       "challenge_title": "Problem",

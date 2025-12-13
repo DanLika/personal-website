@@ -111,7 +111,7 @@ export const Contact = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="text-3xl md:text-4xl lg:text-5xl font-bold font-space text-white leading-tight line-clamp-2"
+                className="text-2xl sm:text-[28px] md:text-[32px] lg:text-4xl xl:text-[40px] 2xl:text-[44px] font-bold font-space text-white leading-tight line-clamp-2"
               >
                 {t("contact.title")}
               </motion.h2>
@@ -147,6 +147,7 @@ export const Contact = () => {
                         href={social.url}
                         target="_blank"
                         rel="noopener noreferrer"
+                        aria-label={`Visit ${social.name}${social.name === 'Email' ? '' : ' profile'}`}
                         initial={{ opacity: 0, scale: 0.8 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
@@ -161,7 +162,7 @@ export const Contact = () => {
                         }}
                         className="w-14 h-14 rounded-xl border border-cyan-400/30 bg-cyan-500/10 flex items-center justify-center transition-all duration-300 hover:border-cyan-400/60 hover:bg-cyan-500/20 hover:shadow-[0_0_20px_rgba(59,201,255,0.5)] group"
                       >
-                        <Icon className="w-6 h-6 text-cyan-400 group-hover:text-cyan-300 transition-colors" />
+                        <Icon className="w-6 h-6 text-cyan-400 group-hover:text-cyan-300 transition-colors" aria-hidden="true" />
                       </motion.a>
                     );
                   })}
@@ -252,6 +253,7 @@ export const Contact = () => {
                 >
                   <motion.button
                     type="submit"
+                    initial={{ scale: 1 }}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     className={`w-full px-6 py-3 rounded-full transition-all duration-300 ${isSubmitted
@@ -261,7 +263,7 @@ export const Contact = () => {
                   >
                     {isSubmitted ? (
                       <>
-                        <svg className="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
                         <span className="text-green-400 text-sm font-semibold">Message Sent!</span>

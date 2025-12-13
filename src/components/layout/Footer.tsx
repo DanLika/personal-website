@@ -43,7 +43,7 @@ export const Footer = () => {
       {/* Subtle Glow */}
       <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/3 via-transparent to-blue-500/3 pointer-events-none" />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-12 lg:px-24 py-6">
+      <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-12 lg:px-16 py-6">
         {/* Desktop Layout */}
         <div className="hidden md:flex items-center justify-between">
 
@@ -52,7 +52,7 @@ export const Footer = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-white/40 text-sm font-light"
+            className="text-white/60 text-sm font-light"
           >
             <p>{t("footer.rights")}</p>
           </motion.div>
@@ -184,7 +184,7 @@ export const Footer = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.7 }}
-            className="text-white/40 text-xs font-light"
+            className="text-white/60 text-xs font-light"
           >
             <p>{t("footer.rights")}</p>
           </motion.div>

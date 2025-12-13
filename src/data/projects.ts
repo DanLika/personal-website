@@ -4,7 +4,8 @@ export interface SubProject {
   description: { en: string; bs: string };
   galleryImages: string[]; // Horizontal images
   galleryImagesVertical?: string[]; // Optional vertical images
-  features?: string[];
+  features?: { en: string; bs: string }[]; // Bilingual feature badges
+  marketplaceUrl?: string; // Optional marketplace link
 }
 
 export interface ProjectData {
@@ -26,9 +27,9 @@ export interface ProjectData {
 }
 
 export const projectsData: Record<string, ProjectData> = {
-  'syncbooking-saas': {
-    id: 'syncbooking-saas',
-    title: 'SyncBooking SaaS',
+  'bookbed-saas': {
+    id: 'bookbed-saas',
+    title: 'BookBed SaaS',
     category: 'SAAS PLATFORM',
     description: 'A multi-tenant booking platform offering real-time availability widgets and iCal synchronization for property managers.',
     overview: [
@@ -39,10 +40,10 @@ export const projectsData: Record<string, ProjectData> = {
     ],
     techStack: ['Flutter', 'Firebase', 'Stripe', 'Resend'],
     galleryImages: [
-      '/SyncBooking/SyncBooking.avif',
-      '/SyncBooking/SyncBooking 2.avif',
-      '/SyncBooking/SyncBooking 3.avif',
-      '/SyncBooking/SyncBooking 4.avif'
+      '/BookBed/BookBed.avif',
+      '/BookBed/BookBed 2.avif',
+      '/BookBed/BookBed 3.avif',
+      '/BookBed/BookBed 4.avif'
     ],
     challenges: [
       'Real-time synchronization between multiple booking platforms',
@@ -61,7 +62,7 @@ export const projectsData: Record<string, ProjectData> = {
       'Multi-tenant architecture',
       'Real-time widget availability'
     ],
-    client: 'SyncBooking Ltd.',
+    client: 'BookBed',
     duration: '6 months',
     role: 'Lead Full-Stack Developer'
   },
@@ -153,7 +154,7 @@ export const projectsData: Record<string, ProjectData> = {
       'A collection of premium, high-performance templates built for the FlutterFlow Marketplace. These solutions provide developers with robust foundations for booking systems, productivity tools, and document management.',
       'Each template is designed with modularity in mind, featuring comprehensive documentation, cross-platform compatibility, and extensive customization options to accelerate development workflows.'
     ],
-    techStack: ['FlutterFlow', 'Firebase'],
+    techStack: ['FlutterFlow', 'Firebase', 'Stripe'],
     galleryImages: ['/flutterflow-mockup.avif'],
     challenges: [
       'Creating reusable components adaptable to different use cases',
@@ -190,7 +191,13 @@ export const projectsData: Record<string, ProjectData> = {
         galleryImages: [
           '/DreamHome_Template/DreamHome Booking App Template 1.avif',
           '/DreamHome_Template/DreamHome Booking App Template 2.avif'
-        ]
+        ],
+        features: [
+          { en: 'Night Mode', bs: 'Noćni Režim' },
+          { en: 'Cloud Functions', bs: 'Cloud Funkcije' },
+          { en: 'Stripe Payments', bs: 'Stripe Plaćanja' }
+        ],
+        marketplaceUrl: 'https://marketplace.flutterflow.io/item/dMCTLGxAqIpJ4HKv7mXI'
       },
       {
         id: 'calendar-tasks',
@@ -205,7 +212,13 @@ export const projectsData: Record<string, ProjectData> = {
         galleryImages: [
           '/Schedule_template/Calendar Template - Tasks and Google events.avif',
           '/Schedule_template/Calendar Template - Tasks and Google events 2.avif'
-        ]
+        ],
+        features: [
+          { en: 'Google Sync', bs: 'Google Sinhronizacija' },
+          { en: 'Real-time', bs: 'Real-time' },
+          { en: 'Firestore', bs: 'Firestore' }
+        ],
+        marketplaceUrl: 'https://marketplace.flutterflow.io/item/L4hgO6NrRMXqAIQp3uBD'
       },
       {
         id: 'pdf-viewer',
@@ -219,10 +232,15 @@ export const projectsData: Record<string, ProjectData> = {
         },
         galleryImages: [
           '/PDF_widget/PDF Viewer Widgets for Mobile & Web 1.avif',
-          '/PDF_widget/PDF Viewer Widgets for Mobile & Web 2.avif',
           '/PDF_widget/PDF Viewer Widgets for Mobile & Web 3.avif',
           '/PDF_widget/PDF Viewer Widgets for Mobile & Web 5.avif'
-        ]
+        ],
+        features: [
+          { en: 'Web + Mobile', bs: 'Web + Mobilni' },
+          { en: 'Page Snapping', bs: 'Brzo Listanje' },
+          { en: 'Firebase Storage', bs: 'Firebase Storage' }
+        ],
+        marketplaceUrl: 'https://marketplace.flutterflow.io/item/VtMN9fBXhPgGSNWgctQI'
       }
     ]
   }

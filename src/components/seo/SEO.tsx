@@ -18,12 +18,13 @@ export const SEO: React.FC<SEOProps> = ({
   url = "https://licanin.com",
   type = "website",
 }) => {
-  const { t, i18n } = useTranslation();
+  const { t, i18n, ready } = useTranslation();
 
   // Use props or fallback to i18n translations
-  const seoTitle = title || t("meta.title");
-  const seoDescription = description || t("meta.description");
-  const seoKeywords = keywords || t("meta.keywords");
+  // Check if translations are ready to avoid showing keys
+  const seoTitle = title || (ready ? t("meta.title") : "Dusko Licanin - Full-Stack Developer");
+  const seoDescription = description || (ready ? t("meta.description") : "Full-Stack Development Enhanced with AI");
+  const seoKeywords = keywords || (ready ? t("meta.keywords") : "full-stack developer, react, flutter");
   const currentLang = i18n.language;
 
   // Construct full image URL

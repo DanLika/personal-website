@@ -21,6 +21,7 @@ export const BlogPostPage = () => {
   const pageRef = useRef<HTMLDivElement>(null);
   const mouseRef = useRef<{ x: number; y: number } | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [particleKey, setParticleKey] = useState(0);
 
   // Detect mobile for particle optimization
   useEffect(() => {
@@ -35,28 +36,85 @@ export const BlogPostPage = () => {
     window.scrollTo(0, 0);
   }, [slug]);
 
-  // Mouse tracking for particles
+  // Handle page visibility - reinitialize particles when tab becomes visible again
   useEffect(() => {
-    const page = pageRef.current;
-    if (!page) return;
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        // Tab became visible, reinitialize particles to fix any WebGL context issues
+        setParticleKey(prev => prev + 1);
+      }
+    };
+
+    const handleContextLost = () => {
+      // WebGL context was lost, reinitialize particles
+      setParticleKey(prev => prev + 1);
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('particles-context-lost', handleContextLost);
+    
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('particles-context-lost', handleContextLost);
+    };
+  }, []);
+
+  // Window-level mouse/touch tracking for particles with RAF throttling
+  useEffect(() => {
+    let rafId: number | null = null;
+    let lastUpdate = 0;
+    const THROTTLE_MS = 16;
+    let pendingX = 0;
+    let pendingY = 0;
+
+    const updatePosition = () => {
+      rafId = null;
+      lastUpdate = performance.now();
+      mouseRef.current = { x: pendingX, y: pendingY };
+    };
 
     const handleMouseMove = (e: MouseEvent) => {
-      const rect = page.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-      const y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
-      mouseRef.current = { x, y };
+      pendingX = (e.clientX / window.innerWidth) * 2 - 1;
+      pendingY = -((e.clientY / window.innerHeight) * 2 - 1);
+      const now = performance.now();
+      if (now - lastUpdate < THROTTLE_MS) {
+        if (!rafId) rafId = requestAnimationFrame(updatePosition);
+        return;
+      }
+      lastUpdate = now;
+      mouseRef.current = { x: pendingX, y: pendingY };
     };
 
-    const handleMouseLeave = () => {
-      mouseRef.current = null;
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        const touch = e.touches[0];
+        pendingX = (touch.clientX / window.innerWidth) * 2 - 1;
+        pendingY = -((touch.clientY / window.innerHeight) * 2 - 1);
+        const now = performance.now();
+        if (now - lastUpdate < THROTTLE_MS) {
+          if (!rafId) rafId = requestAnimationFrame(updatePosition);
+          return;
+        }
+        lastUpdate = now;
+        mouseRef.current = { x: pendingX, y: pendingY };
+      }
     };
 
-    page.addEventListener("mousemove", handleMouseMove);
-    page.addEventListener("mouseleave", handleMouseLeave);
+    const handleEnd = () => {
+      mouseRef.current = { x: 0, y: 0 };
+    };
+
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    document.addEventListener('mouseleave', handleEnd);
+    window.addEventListener('touchend', handleEnd, { passive: true });
 
     return () => {
-      page.removeEventListener("mousemove", handleMouseMove);
-      page.removeEventListener("mouseleave", handleMouseLeave);
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchmove', handleTouchMove);
+      document.removeEventListener('mouseleave', handleEnd);
+      window.removeEventListener('touchend', handleEnd);
+      if (rafId) cancelAnimationFrame(rafId);
     };
   }, []);
 
@@ -104,20 +162,31 @@ export const BlogPostPage = () => {
 
       <div ref={pageRef} className="relative min-h-screen bg-[#0A0A0A]">
         {/* Particle Background */}
-        <div className="fixed inset-0 z-0">
+        {/* Fallback gradient background in case Particles fail */}
+        <div className="fixed inset-0 z-0 bg-[#0A0A0A]">
+          <div 
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `
+                radial-gradient(circle at 50% 0%, rgba(59, 201, 255, 0.08) 0%, transparent 50%),
+                linear-gradient(to bottom, #0A0A0A, #0A0A0A)
+              `
+            }}
+          />
           <Particles
-            particleCount={isMobile ? 80 : 150}
+            key={particleKey}
+            particleCount={isMobile ? 80 : 100}
             particleSpread={10}
-            speed={isMobile ? 0.05 : 0.1}
+            speed={isMobile ? 0.15 : 0.3}
             particleColors={["#ffffff", "#3BC9FF", "#5DD9FF", "#a0e7ff"]}
-            moveParticlesOnHover={!isMobile}
-            particleHoverFactor={1}
+            moveParticlesOnHover={true}
+            particleHoverFactor={2}
             alphaParticles={true}
             particleBaseSize={isMobile ? 60 : 80}
             sizeRandomness={1}
             cameraDistance={20}
             disableRotation={isMobile}
-            externalMouseRef={isMobile ? undefined : mouseRef}
+            externalMouseRef={mouseRef}
           />
         </div>
 
@@ -238,7 +307,7 @@ export const BlogPostPage = () => {
                   transition={{ duration: 0.5, delay: 0.5 }}
                   className="mt-16 pt-10 border-t border-white/10"
                 >
-                  <p className="text-white/40 text-sm mb-4 uppercase tracking-wider">
+                  <p className="text-white/60 text-sm mb-4 uppercase tracking-wider">
                     {t("blog.post.nextArticle")}
                   </p>
                   <Link

@@ -24,7 +24,7 @@ export default {
         },
       },
       fontFamily: {
-        space: ["'Space Grotesk'", "sans-serif"],
+        space: ["'Space Grotesk'", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
       },
       boxShadow: {
         neon: "0 0 20px -5px rgba(59, 201, 255, 0.6)",

@@ -23,6 +23,9 @@ export const Navbar = () => {
   const [isAtTop, setIsAtTop] = useState(true);
   const lastScrollYRef = useRef(0);
 
+  // Track previous visibility to detect changes
+  const prevIsVisibleRef = useRef(true);
+
   // Handle scroll behavior - hide on scroll down, show on scroll up
   const handleScroll = useCallback(() => {
     const currentScrollY = window.scrollY;
@@ -30,7 +33,7 @@ export const Navbar = () => {
 
     // Batch state updates
     const newIsAtTop = currentScrollY < 10;
-    let newIsVisible = isVisible;
+    let newIsVisible = prevIsVisibleRef.current;
 
     if (currentScrollY < scrollThreshold) {
       newIsVisible = true;
@@ -40,26 +43,26 @@ export const Navbar = () => {
       newIsVisible = true;
     }
 
-    lastScrollYRef.current = currentScrollY; // Update ref, no re-render
+    lastScrollYRef.current = currentScrollY;
+
+    // Close mobile menu when navbar hides (integrated into scroll handler)
+    if (!newIsVisible && prevIsVisibleRef.current && mobileMenuOpen) {
+      setMobileMenuOpen(false);
+    }
+
+    prevIsVisibleRef.current = newIsVisible;
 
     // Batch state updates to single re-render
     if (newIsAtTop !== isAtTop || newIsVisible !== isVisible) {
       setIsAtTop(newIsAtTop);
       setIsVisible(newIsVisible);
     }
-  }, [isVisible, isAtTop]);
+  }, [isVisible, isAtTop, mobileMenuOpen]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
-
-  // Separate useEffect for mobile menu close logic
-  useEffect(() => {
-    if (!isVisible && mobileMenuOpen) {
-      setMobileMenuOpen(false);
-    }
-  }, [isVisible, mobileMenuOpen]);
 
   // Close mobile menu on escape key
   useEffect(() => {
@@ -146,18 +149,29 @@ export const Navbar = () => {
   }), []);
 
   // Glass morphism styles - shared between desktop and mobile
+  // Using dark semi-transparent background to ensure readability over light content
   const glassStyles = {
-    background: "rgba(255, 255, 255, 0.03)",
-    backdropFilter: "blur(20px)",
-    WebkitBackdropFilter: "blur(20px)",
-    border: "1px solid rgba(255, 255, 255, 0.08)",
+    background: isAtTop
+      ? "rgba(10, 10, 15, 0.6)"  // More transparent at top (hero is dark)
+      : "rgba(10, 10, 15, 0.85)", // More opaque when scrolled (content may be light)
+    backdropFilter: "blur(16px)",
+    WebkitBackdropFilter: "blur(16px)",
+    border: "1px solid rgba(255, 255, 255, 0.1)",
     boxShadow: isAtTop
-      ? "0 8px 32px 0 rgba(0, 0, 0, 0.3)"
-      : "0 8px 32px 0 rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05)",
+      ? "0 4px 20px 0 rgba(0, 0, 0, 0.2)"
+      : "0 8px 32px 0 rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05)",
   };
 
   return (
     <>
+      {/* Skip to main content link for keyboard users */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-cyan-500 focus:text-white focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400"
+      >
+        Skip to main content
+      </a>
+
       {/* Desktop Navbar - Floating Pill Style */}
       <motion.nav
         variants={navbarVariants}
@@ -176,7 +190,7 @@ export const Navbar = () => {
             className="rounded-full px-8 py-3 flex items-center gap-8"
             style={{
               ...glassStyles,
-              transition: "box-shadow 0.3s ease-in-out"
+              transition: "background 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border 0.3s ease-in-out"
             }}
           >
             {/* Logo */}
@@ -247,11 +261,13 @@ export const Navbar = () => {
                 whileHover={{ scale: 1.1, rotate: 10 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ duration: 0.2, ease: "easeOut" }}
+                aria-label={i18n.language === "en" ? "Switch to Bosnian language" : "Switch to English language"}
                 title={i18n.language === "en" ? "Switch to Bosnian" : "Switch to English"}
               >
                 <img
                   src="/globe.avif"
-                  alt="Change Language"
+                  alt=""
+                  aria-hidden="true"
                   className="w-8 h-8 object-contain opacity-80"
                 />
               </motion.button>
@@ -265,19 +281,20 @@ export const Navbar = () => {
         variants={navbarVariants}
         initial="visible"
         animate={isVisible ? "visible" : "hidden"}
-        className="md:hidden fixed top-4 left-4 right-4 z-50"
+        className="md:hidden fixed top-4 left-4 right-4 z-[60] pointer-events-auto"
         style={{
           willChange: 'transform, opacity',
           transform: 'translateZ(0)',
           backfaceVisibility: 'hidden',
-          WebkitBackfaceVisibility: 'hidden'
+          WebkitBackfaceVisibility: 'hidden',
+          pointerEvents: 'auto'
         }}
       >
         <div
-          className="rounded-full px-4 py-2.5 flex items-center justify-between"
+          className="rounded-full px-4 py-2.5 flex items-center justify-between pointer-events-auto"
           style={{
             ...glassStyles,
-            transition: "box-shadow 0.3s ease-in-out"
+            transition: "background 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border 0.3s ease-in-out"
           }}
         >
           {/* Logo */}
@@ -296,15 +313,23 @@ export const Navbar = () => {
 
           {/* Hamburger Menu Button */}
           <button
-            onClick={toggleMobileMenu}
-            className="w-10 h-10 flex items-center justify-center text-white/80 hover:text-neon transition-colors"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              toggleMobileMenu();
+            }}
+            className="w-10 h-10 flex items-center justify-center text-white/80 hover:text-neon transition-colors relative z-[70] pointer-events-auto"
             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-menu"
+            type="button"
           >
             <svg
               className="w-6 h-6"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
+              aria-hidden="true"
             >
               {mobileMenuOpen ? (
                 <path
@@ -336,12 +361,15 @@ export const Navbar = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="md:hidden fixed inset-0 z-40 bg-black/60 backdrop-blur-sm"
+              className="md:hidden fixed inset-0 z-[55] bg-black/60 backdrop-blur-sm"
               onClick={() => setMobileMenuOpen(false)}
             />
 
             {/* Menu Panel - Glass morphism effect */}
-            <motion.div
+            <motion.nav
+              id="mobile-menu"
+              role="navigation"
+              aria-label="Mobile navigation menu"
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
@@ -350,7 +378,7 @@ export const Navbar = () => {
                 duration: 0.2,
                 ease: "easeOut"
               }}
-              className="md:hidden fixed top-20 left-4 right-4 z-50 rounded-[24px] p-6 overflow-hidden"
+              className="md:hidden fixed top-20 left-4 right-4 z-[60] rounded-[24px] p-6 overflow-hidden"
               style={{
                 background: "rgba(15, 15, 20, 0.7)",
                 backdropFilter: "blur(24px)",
@@ -391,17 +419,19 @@ export const Navbar = () => {
               <button
                 onClick={toggleLang}
                 className="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 active:scale-[0.98] transition-all duration-200"
+                aria-label={i18n.language === "en" ? "Switch to Bosnian language" : "Switch to English language"}
               >
                 <img
                   src="/globe.avif"
-                  alt="Change Language"
+                  alt=""
+                  aria-hidden="true"
                   className="w-8 h-8 object-contain opacity-80"
                 />
                 <span className="text-white/70 text-sm">
                   {i18n.language === "en" ? "English" : "Bosanski"}
                 </span>
               </button>
-            </motion.div>
+            </motion.nav>
           </>
         )}
       </AnimatePresence>

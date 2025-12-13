@@ -49,3 +49,35 @@
   display: block;
 }
 
+/* Mobile tap feedback - instant :active states */
+.featured-card:active,
+.project-card:active {
+  transform: scale(0.995);
+  transition: transform 0.1s ease-out;
+}
+
+/* Button instant tap feedback */
+.featured-card a:active,
+.project-card a:active {
+  transform: scale(0.95);
+  transition: transform 0.05s ease-out;
+}
+
+/* Reduced motion preference - disable animations for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Disable particle animations */
+  .particles-canvas,
+  .squares-canvas {
+    display: none !important;
+  }
+}
+

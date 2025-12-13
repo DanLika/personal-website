@@ -135,6 +135,9 @@ export const AboutSection = () => {
                   src="/about_me.avif"
                   alt="Developer Photo"
                   className="w-full h-full object-cover"
+                  width={160}
+                  height={160}
+                  loading="eager"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.src = "data:image/svg+xml,%3Csvg width='160' height='160' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='160' height='160' fill='%230A0A0A'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%233BC9FF' font-family='Arial' font-size='14'%3EPhoto%3C/text%3E%3C/svg%3E";
@@ -149,7 +152,7 @@ export const AboutSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="text-3xl md:text-4xl lg:text-5xl font-bold font-space text-white leading-tight line-clamp-2"
+              className="text-2xl sm:text-[28px] md:text-[32px] lg:text-4xl xl:text-[40px] 2xl:text-[44px] font-bold font-space text-white leading-tight line-clamp-2"
             >
               {t("about.title")}
             </motion.h2>

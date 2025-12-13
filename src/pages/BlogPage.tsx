@@ -29,28 +29,62 @@ export const BlogPage = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  // Mouse tracking for particles
+  // Window-level mouse/touch tracking for particles with RAF throttling
   useEffect(() => {
-    const page = pageRef.current;
-    if (!page) return;
+    let rafId: number | null = null;
+    let lastUpdate = 0;
+    const THROTTLE_MS = 16;
+    let pendingX = 0;
+    let pendingY = 0;
+
+    const updatePosition = () => {
+      rafId = null;
+      lastUpdate = performance.now();
+      mouseRef.current = { x: pendingX, y: pendingY };
+    };
 
     const handleMouseMove = (e: MouseEvent) => {
-      const rect = page.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-      const y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
-      mouseRef.current = { x, y };
+      pendingX = (e.clientX / window.innerWidth) * 2 - 1;
+      pendingY = -((e.clientY / window.innerHeight) * 2 - 1);
+      const now = performance.now();
+      if (now - lastUpdate < THROTTLE_MS) {
+        if (!rafId) rafId = requestAnimationFrame(updatePosition);
+        return;
+      }
+      lastUpdate = now;
+      mouseRef.current = { x: pendingX, y: pendingY };
     };
 
-    const handleMouseLeave = () => {
-      mouseRef.current = null;
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        const touch = e.touches[0];
+        pendingX = (touch.clientX / window.innerWidth) * 2 - 1;
+        pendingY = -((touch.clientY / window.innerHeight) * 2 - 1);
+        const now = performance.now();
+        if (now - lastUpdate < THROTTLE_MS) {
+          if (!rafId) rafId = requestAnimationFrame(updatePosition);
+          return;
+        }
+        lastUpdate = now;
+        mouseRef.current = { x: pendingX, y: pendingY };
+      }
     };
 
-    page.addEventListener("mousemove", handleMouseMove);
-    page.addEventListener("mouseleave", handleMouseLeave);
+    const handleEnd = () => {
+      mouseRef.current = { x: 0, y: 0 };
+    };
+
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    document.addEventListener('mouseleave', handleEnd);
+    window.addEventListener('touchend', handleEnd, { passive: true });
 
     return () => {
-      page.removeEventListener("mousemove", handleMouseMove);
-      page.removeEventListener("mouseleave", handleMouseLeave);
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchmove', handleTouchMove);
+      document.removeEventListener('mouseleave', handleEnd);
+      window.removeEventListener('touchend', handleEnd);
+      if (rafId) cancelAnimationFrame(rafId);
     };
   }, []);
 
@@ -76,18 +110,18 @@ export const BlogPage = () => {
         {/* Particle Background */}
         <div className="fixed inset-0 z-0">
           <Particles
-            particleCount={isMobile ? 80 : 150}
+            particleCount={isMobile ? 80 : 100}
             particleSpread={10}
-            speed={isMobile ? 0.05 : 0.1}
+            speed={isMobile ? 0.15 : 0.3}
             particleColors={["#ffffff", "#3BC9FF", "#5DD9FF", "#a0e7ff"]}
-            moveParticlesOnHover={!isMobile}
-            particleHoverFactor={1}
+            moveParticlesOnHover={true}
+            particleHoverFactor={2}
             alphaParticles={true}
             particleBaseSize={isMobile ? 60 : 80}
             sizeRandomness={1}
             cameraDistance={20}
             disableRotation={isMobile}
-            externalMouseRef={isMobile ? undefined : mouseRef}
+            externalMouseRef={mouseRef}
           />
         </div>
 
@@ -140,7 +174,7 @@ export const BlogPage = () => {
                   animate={{ opacity: 1 }}
                   className="text-center py-20"
                 >
-                  <p className="text-white/40 text-lg">
+                  <p className="text-white/60 text-lg">
                     {lang === "bs"
                       ? "Nema dostupnih članaka."
                       : "No articles available."}

@@ -12,8 +12,16 @@ interface HeroAvatarProps {
  *
  * Features:
  * - Static neon border glow
- * - Responsive sizing
+ * - Responsive sizing (220px mobile → 380px 2xl desktop)
  * - No 3D tilt or complex animations
+ *
+ * Responsive sizes:
+ * - xs (360px): 220x220px
+ * - sm (640px): 260x260px
+ * - md (768px): 300x300px
+ * - lg (1024px): 340x340px
+ * - xl (1280px): 360x360px
+ * - 2xl (1536px): 380x380px
  */
 export const HeroAvatar = ({
   imageSrc = "/hero-me.avif",
@@ -21,23 +29,22 @@ export const HeroAvatar = ({
   glowColor = "#3BC9FF",
 }: HeroAvatarProps) => {
   return (
-    <div className="relative w-[180px] h-[180px] sm:w-[220px] sm:h-[220px] md:w-[260px] md:h-[260px] lg:w-[300px] lg:h-[300px]">
-      {/* Glass panel behind avatar - same size as image, 25% opacity */}
+    <div className="relative w-[220px] h-[220px] sm:w-[260px] sm:h-[260px] md:w-[300px] md:h-[300px] lg:w-[340px] lg:h-[340px] xl:w-[360px] xl:h-[360px] 2xl:w-[380px] 2xl:h-[380px]">
+      {/* Glass panel behind avatar - same size as avatar */}
       <div
-        className="absolute inset-0 rounded-[32px] md:rounded-[40px] pointer-events-none -z-10"
+        className="absolute inset-0 rounded-[32px] sm:rounded-[36px] md:rounded-[40px] lg:rounded-[44px] pointer-events-none"
         style={{
-          background: 'rgba(255, 255, 255, 0.03)',
-          backdropFilter: 'blur(12px)',
-          WebkitBackdropFilter: 'blur(12px)',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
-          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)',
-          opacity: 0.25,
+          background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(59, 130, 246, 0.05) 100%)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          border: '1px solid rgba(255, 255, 255, 0.15)',
+          boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.1), 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 40px rgba(59, 201, 255, 0.1)',
         }}
       />
 
       {/* Outer glow layer - soft ambient light */}
       <div
-        className="absolute -inset-4 rounded-[40px] md:rounded-[48px] blur-2xl opacity-60 pointer-events-none"
+        className="absolute -inset-4 sm:-inset-5 md:-inset-6 rounded-[40px] sm:rounded-[44px] md:rounded-[48px] lg:rounded-[52px] blur-2xl opacity-60 pointer-events-none"
         style={{
           background: `radial-gradient(ellipse at center, rgba(59, 201, 255, 0.15) 0%, rgba(59, 201, 255, 0.08) 40%, transparent 70%)`,
         }}
@@ -45,7 +52,7 @@ export const HeroAvatar = ({
 
       {/* Main avatar container */}
       <div
-        className="relative w-full h-full rounded-[32px] md:rounded-[40px] overflow-hidden border-2"
+        className="relative w-full h-full rounded-[32px] sm:rounded-[36px] md:rounded-[40px] lg:rounded-[44px] overflow-hidden border-2"
         style={{
           borderColor: glowColor,
           boxShadow: `0 0 30px rgba(59, 201, 255, 0.2), 0 0 60px rgba(59, 201, 255, 0.1)`,
@@ -65,11 +72,12 @@ export const HeroAvatar = ({
           alt={imageAlt}
           className="w-full h-full object-cover relative z-10"
           loading="eager"
+          fetchPriority="high"
         />
 
         {/* Inner border glow accent */}
         <div
-          className="absolute inset-0 z-15 pointer-events-none rounded-[30px] md:rounded-[38px]"
+          className="absolute inset-0 z-15 pointer-events-none rounded-[30px] sm:rounded-[34px] md:rounded-[38px] lg:rounded-[42px]"
           style={{
             boxShadow: `inset 0 0 20px rgba(59, 201, 255, 0.19), inset 0 0 40px rgba(59, 201, 255, 0.08)`,
           }}

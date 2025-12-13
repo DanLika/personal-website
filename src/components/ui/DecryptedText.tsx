@@ -52,7 +52,8 @@ export const DecryptedText = ({
   const hasAnimatedRef = useRef<boolean>(false);
   const containerRef = useRef<HTMLSpanElement>(null);
   const isScramblingRef = useRef<boolean>(false);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const rafIdRef = useRef<number | null>(null);
+  const lastFrameTimeRef = useRef<number>(0);
   const previousTextRef = useRef<string>(text);
 
   // Reset when text changes (e.g., language switch)
@@ -67,10 +68,10 @@ export const DecryptedText = ({
   }, [text]);
 
   useEffect(() => {
-    // Clear existing interval first
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
+    // Clear existing RAF first
+    if (rafIdRef.current) {
+      cancelAnimationFrame(rafIdRef.current);
+      rafIdRef.current = null;
     }
 
     if (!isHoveringRef.current) {
@@ -82,6 +83,7 @@ export const DecryptedText = ({
 
     let currentIteration = 0;
     isScramblingRef.current = true;
+    lastFrameTimeRef.current = 0;
 
     const getNextIndex = (revealedSet: Set<number>): number => {
       const textLength = text.length;
@@ -149,7 +151,15 @@ export const DecryptedText = ({
       }
     };
 
-    intervalRef.current = setInterval(() => {
+    // Use requestAnimationFrame with speed-based throttling
+    const animate = (timestamp: number) => {
+      // Throttle based on speed parameter
+      if (timestamp - lastFrameTimeRef.current < speed) {
+        rafIdRef.current = requestAnimationFrame(animate);
+        return;
+      }
+      lastFrameTimeRef.current = timestamp;
+
       const newRevealed = new Set(revealedIndicesRef.current);
 
       if (sequential) {
@@ -158,27 +168,30 @@ export const DecryptedText = ({
           newRevealed.add(nextIndex);
           revealedIndicesRef.current = newRevealed;
           setDisplayText(shuffleText(text, newRevealed));
+          rafIdRef.current = requestAnimationFrame(animate);
         } else {
-          if (intervalRef.current) clearInterval(intervalRef.current);
-          intervalRef.current = null;
+          rafIdRef.current = null;
           isScramblingRef.current = false;
         }
       } else {
         setDisplayText(shuffleText(text, newRevealed));
         currentIteration++;
         if (currentIteration >= maxIterations) {
-          if (intervalRef.current) clearInterval(intervalRef.current);
-          intervalRef.current = null;
+          rafIdRef.current = null;
           isScramblingRef.current = false;
           setDisplayText(text);
+        } else {
+          rafIdRef.current = requestAnimationFrame(animate);
         }
       }
-    }, speed);
+    };
+
+    rafIdRef.current = requestAnimationFrame(animate);
 
     return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
+      if (rafIdRef.current) {
+        cancelAnimationFrame(rafIdRef.current);
+        rafIdRef.current = null;
       }
     };
   }, [text, speed, maxIterations, sequential, revealDirection, characters, useOriginalCharsOnly]);

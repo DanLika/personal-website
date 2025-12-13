@@ -102,16 +102,17 @@ const fragment = /* glsl */ `
  * - Hardware-accelerated WebGL rendering
  * - 3D particle movement with subtle rotation
  * - Mouse interaction (particles follow cursor)
+ * - Touch support for mobile devices
  * - Smooth alpha blending
  * - Customizable colors, size, and behavior
  */
 export const Particles = ({
-  particleCount = 150,
+  particleCount = 100,
   particleSpread = 10,
-  speed = 0.1,
+  speed = 0.3,
   particleColors = defaultColors,
   moveParticlesOnHover = true,
-  particleHoverFactor = 1,
+  particleHoverFactor = 2,
   alphaParticles = true,
   particleBaseSize = 80,
   sizeRandomness = 1,
@@ -125,6 +126,8 @@ export const Particles = ({
   const programRef = useRef<Program | null>(null);
   const particlesRef = useRef<Mesh | null>(null);
   const speedRef = useRef(speed);
+  const rendererRef = useRef<Renderer | null>(null);
+  const isVisibleRef = useRef(true);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -135,6 +138,7 @@ export const Particles = ({
 
     const renderer = new Renderer({ dpr: pixelRatio, depth: false, alpha: true });
     const gl = renderer.gl;
+    rendererRef.current = renderer;
     container.appendChild(gl.canvas);
     gl.clearColor(0, 0, 0, 0);
 
@@ -157,22 +161,60 @@ export const Particles = ({
     window.addEventListener('resize', resize, false);
     resize();
 
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = container.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-      const y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
+    // Cache container rect for performance (updated on resize)
+    let cachedRect = container.getBoundingClientRect();
+    let inputRafId: number | null = null;
+    let lastInputX = 0;
+    let lastInputY = 0;
+
+    // Update cached rect on resize
+    const updateCachedRect = () => {
+      cachedRect = container.getBoundingClientRect();
+    };
+    window.addEventListener('resize', updateCachedRect, { passive: true });
+
+    // Mouse and touch handlers with RAF batching
+    const processInput = () => {
+      inputRafId = null;
+      const x = ((lastInputX - cachedRect.left) / cachedRect.width) * 2 - 1;
+      const y = -(((lastInputY - cachedRect.top) / cachedRect.height) * 2 - 1);
       mouseRef.current = { x, y };
     };
 
+    const handleMouseMove = (e: MouseEvent) => {
+      lastInputX = e.clientX;
+      lastInputY = e.clientY;
+      if (!inputRafId) {
+        inputRafId = requestAnimationFrame(processInput);
+      }
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        const touch = e.touches[0];
+        lastInputX = touch.clientX;
+        lastInputY = touch.clientY;
+        if (!inputRafId) {
+          inputRafId = requestAnimationFrame(processInput);
+        }
+      }
+    };
+
     const handleMouseLeave = () => {
-      // Smoothly return to center
+      mouseRef.current = { x: 0, y: 0 };
+    };
+
+    const handleTouchEnd = () => {
+      // Smoothly return to center after touch ends
       mouseRef.current = { x: 0, y: 0 };
     };
 
     // If external mouse tracking provided, skip adding local listeners
     if (moveParticlesOnHover && !externalMouseRef) {
-      container.addEventListener('mousemove', handleMouseMove);
+      container.addEventListener('mousemove', handleMouseMove, { passive: true });
       container.addEventListener('mouseleave', handleMouseLeave);
+      container.addEventListener('touchmove', handleTouchMove, { passive: true });
+      container.addEventListener('touchend', handleTouchEnd, { passive: true });
     }
 
     // Create particle data
@@ -235,41 +277,106 @@ export const Particles = ({
     let smoothMouseX = 0;
     let smoothMouseY = 0;
 
+    // Frame skipping for better performance - render every 2nd frame (~30fps)
+    let frameSkip = 0;
+    const FRAME_SKIP_COUNT = 1; // Skip 1 frame, render 1 frame
+
     const update = (t: number) => {
+      // Always continue the animation loop
       animationFrameId = requestAnimationFrame(update);
+
+      // Only render if page is visible
+      if (!isVisibleRef.current) {
+        return;
+      }
+
+      // Frame skipping - skip frames to reduce CPU load
+      frameSkip++;
+      if (frameSkip <= FRAME_SKIP_COUNT) {
+        return;
+      }
+      frameSkip = 0;
+
       const delta = t - lastTime;
       lastTime = t;
       elapsed += delta * speedRef.current;
 
-      program.uniforms.uTime.value = elapsed * 0.001;
-
-      if (moveParticlesOnHover) {
-        // Use external mouse ref if provided, otherwise use local ref
-        const currentMouse = externalMouseRef?.current || mouseRef.current;
-
-        // Smooth interpolation for mouse movement
-        smoothMouseX += (currentMouse.x - smoothMouseX) * 0.05;
-        smoothMouseY += (currentMouse.y - smoothMouseY) * 0.05;
-        particles.position.x = -smoothMouseX * particleHoverFactor;
-        particles.position.y = -smoothMouseY * particleHoverFactor;
+      // Check if WebGL context is still valid
+      if (gl.isContextLost()) {
+        console.warn('WebGL context lost, will reinitialize on next visibility change');
+        window.dispatchEvent(new CustomEvent('particles-context-lost'));
+        return;
       }
 
-      if (!disableRotation) {
-        particles.rotation.x = Math.sin(elapsed * 0.0002) * 0.1;
-        particles.rotation.y = Math.cos(elapsed * 0.0005) * 0.15;
-        particles.rotation.z += 0.003 * speedRef.current;
-      }
+      try {
+        program.uniforms.uTime.value = elapsed * 0.001;
 
-      renderer.render({ scene: particles, camera });
+        if (moveParticlesOnHover) {
+          // Use external mouse ref if provided, otherwise use local ref
+          const currentMouse = externalMouseRef?.current || mouseRef.current;
+
+          if (currentMouse) {
+            // Smooth interpolation for mouse movement - increased interpolation speed for more responsive movement
+            smoothMouseX += (currentMouse.x - smoothMouseX) * 0.1;
+            smoothMouseY += (currentMouse.y - smoothMouseY) * 0.1;
+            particles.position.x = -smoothMouseX * particleHoverFactor;
+            particles.position.y = -smoothMouseY * particleHoverFactor;
+          } else {
+            // Smoothly return to center if no mouse data
+            smoothMouseX += (0 - smoothMouseX) * 0.05;
+            smoothMouseY += (0 - smoothMouseY) * 0.05;
+            particles.position.x = -smoothMouseX * particleHoverFactor;
+            particles.position.y = -smoothMouseY * particleHoverFactor;
+          }
+        }
+
+        if (!disableRotation) {
+          particles.rotation.x = Math.sin(elapsed * 0.0002) * 0.1;
+          particles.rotation.y = Math.cos(elapsed * 0.0005) * 0.15;
+          particles.rotation.z += 0.003 * speedRef.current;
+        }
+
+        renderer.render({ scene: particles, camera });
+      } catch (error) {
+        console.warn('Error rendering particles:', error);
+      }
     };
 
     animationFrameId = requestAnimationFrame(update);
 
+    // Handle page visibility changes
+    const handleVisibilityChange = () => {
+      const wasHidden = !isVisibleRef.current;
+      isVisibleRef.current = !document.hidden;
+      
+      // When tab becomes visible again, check if context is lost
+      if (!document.hidden && wasHidden) {
+        // Reset time to prevent large jumps
+        lastTime = performance.now();
+        
+        // Check if context is lost and trigger re-initialization if needed
+        if (gl.isContextLost()) {
+          window.dispatchEvent(new CustomEvent('particles-context-lost'));
+        }
+      }
+    };
+    
+    // Initialize visibility state
+    isVisibleRef.current = !document.hidden;
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
     return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('resize', resize);
+      window.removeEventListener('resize', updateCachedRect);
       if (moveParticlesOnHover && !externalMouseRef) {
         container.removeEventListener('mousemove', handleMouseMove);
         container.removeEventListener('mouseleave', handleMouseLeave);
+        container.removeEventListener('touchmove', handleTouchMove);
+        container.removeEventListener('touchend', handleTouchEnd);
+      }
+      if (inputRafId) {
+        cancelAnimationFrame(inputRafId);
       }
       cancelAnimationFrame(animationFrameId);
       if (container.contains(gl.canvas)) {
@@ -277,8 +384,10 @@ export const Particles = ({
       }
       programRef.current = null;
       particlesRef.current = null;
+      rendererRef.current = null;
     };
     // Only recreate WebGL context when particle count or colors change
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [particleCount, particleColors, moveParticlesOnHover, cameraDistance, disableRotation, externalMouseRef]);
 
   // Separate effect to update uniforms dynamically without recreating WebGL context
@@ -297,10 +406,11 @@ export const Particles = ({
     <div
       ref={containerRef}
       className={`absolute inset-0 w-full h-full ${className}`}
-      style={{ pointerEvents: 'auto' }}
+      style={{ pointerEvents: moveParticlesOnHover && !externalMouseRef ? 'auto' : 'none' }}
       aria-hidden="true"
     />
   );
 };
 
 export default Particles;
+

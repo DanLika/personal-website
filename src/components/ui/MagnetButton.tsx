@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 
 interface MagnetButtonProps {
@@ -27,36 +27,85 @@ export const MagnetButton = ({
   const [isActive, setIsActive] = useState<boolean>(false);
   const [position, setPosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const magnetRef = useRef<HTMLDivElement>(null);
+  const rafIdRef = useRef<number | null>(null);
+  const cachedRectRef = useRef<DOMRect | null>(null);
+  const lastMouseRef = useRef<{ x: number; y: number } | null>(null);
 
-  useEffect(() => {
-    if (disabled || !isActive) {
-      setPosition({ x: 0, y: 0 });
-      return;
+  // Cache rect on mount and resize
+  const updateCachedRect = useCallback(() => {
+    if (magnetRef.current) {
+      cachedRectRef.current = magnetRef.current.getBoundingClientRect();
     }
+  }, []);
 
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!magnetRef.current) return;
+  // Update cached rect on scroll and resize
+  useEffect(() => {
+    updateCachedRect();
 
-      const { left, top, width, height } = magnetRef.current.getBoundingClientRect();
-      const centerX = left + width / 2;
-      const centerY = top + height / 2;
-
-      const distX = Math.abs(centerX - e.clientX);
-      const distY = Math.abs(centerY - e.clientY);
-
-      if (distX < width / 2 + padding && distY < height / 2 + padding) {
-        const offsetX = (e.clientX - centerX) / magnetStrength;
-        const offsetY = (e.clientY - centerY) / magnetStrength;
-        setPosition({ x: offsetX, y: offsetY });
-      } else {
-        setIsActive(false);
-        setPosition({ x: 0, y: 0 });
+    const handleScrollOrResize = () => {
+      // Debounce rect updates
+      if (rafIdRef.current) {
+        cancelAnimationFrame(rafIdRef.current);
       }
+      rafIdRef.current = requestAnimationFrame(updateCachedRect);
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener('scroll', handleScrollOrResize, { passive: true });
+    window.addEventListener('resize', handleScrollOrResize, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScrollOrResize);
+      window.removeEventListener('resize', handleScrollOrResize);
+      if (rafIdRef.current) {
+        cancelAnimationFrame(rafIdRef.current);
+      }
+    };
+  }, [updateCachedRect]);
+
+  useEffect(() => {
+    // Only attach listener when active and not disabled
+    if (disabled || !isActive) return;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      lastMouseRef.current = { x: e.clientX, y: e.clientY };
+
+      // Use RAF for batching
+      if (rafIdRef.current) return; // Skip if RAF already pending
+
+      rafIdRef.current = requestAnimationFrame(() => {
+        rafIdRef.current = null;
+
+        const rect = cachedRectRef.current;
+        const mouse = lastMouseRef.current;
+        if (!rect || !mouse) return;
+
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        const distX = Math.abs(centerX - mouse.x);
+        const distY = Math.abs(centerY - mouse.y);
+
+        if (distX < rect.width / 2 + padding && distY < rect.height / 2 + padding) {
+          const offsetX = (mouse.x - centerX) / magnetStrength;
+          const offsetY = (mouse.y - centerY) / magnetStrength;
+          setPosition({ x: offsetX, y: offsetY });
+        } else {
+          // Reset position and deactivate when mouse leaves area
+          setPosition({ x: 0, y: 0 });
+          setIsActive(false);
+        }
+      });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
+      if (rafIdRef.current) {
+        cancelAnimationFrame(rafIdRef.current);
+        rafIdRef.current = null;
+      }
+      // Reset position when effect cleans up (disabled or deactivated)
+      setPosition({ x: 0, y: 0 });
     };
   }, [padding, disabled, magnetStrength, isActive]);
 
@@ -64,26 +113,45 @@ export const MagnetButton = ({
   useEffect(() => {
     if (disabled) return;
 
+    let enterRafId: number | null = null;
+
     const handleMouseEnter = (e: MouseEvent) => {
-      if (!magnetRef.current) return;
+      if (isActive) return; // Already active, skip
 
-      const { left, top, width, height } = magnetRef.current.getBoundingClientRect();
-      const centerX = left + width / 2;
-      const centerY = top + height / 2;
+      // Use RAF for batching
+      if (enterRafId) return;
 
-      const distX = Math.abs(centerX - e.clientX);
-      const distY = Math.abs(centerY - e.clientY);
+      enterRafId = requestAnimationFrame(() => {
+        enterRafId = null;
 
-      if (distX < width / 2 + padding && distY < height / 2 + padding) {
-        setIsActive(true);
-      }
+        // Update rect before checking (fresh read on potential activation)
+        if (magnetRef.current) {
+          cachedRectRef.current = magnetRef.current.getBoundingClientRect();
+        }
+
+        const rect = cachedRectRef.current;
+        if (!rect) return;
+
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        const distX = Math.abs(centerX - e.clientX);
+        const distY = Math.abs(centerY - e.clientY);
+
+        if (distX < rect.width / 2 + padding && distY < rect.height / 2 + padding) {
+          setIsActive(true);
+        }
+      });
     };
 
     window.addEventListener("mousemove", handleMouseEnter, { passive: true });
     return () => {
       window.removeEventListener("mousemove", handleMouseEnter);
+      if (enterRafId) {
+        cancelAnimationFrame(enterRafId);
+      }
     };
-  }, [padding, disabled]);
+  }, [padding, disabled, isActive]);
 
   const transitionStyle = isActive ? activeTransition : inactiveTransition;
 

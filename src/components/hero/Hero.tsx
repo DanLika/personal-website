@@ -78,19 +78,20 @@ const glassCardVariants: Variants = {
 
 /**
  * Hero - Main hero section component
- * 
+ *
  * Features:
- * - Interactive particle background (ReactBits style)
+ * - Content-based height (no viewport constraints)
  * - Glass morphism card container
  * - Animated avatar with neon glow and reflection effects
- * - Decrypted text animation for title
+ * - Decrypted text animation for title (desktop only)
+ * - AutoSizeText subtitle (max 2 lines, auto-shrinks to fit)
  * - Magnetic CTA button with neon styling
- * - Fully responsive layout
- * 
- * @example
- * ```tsx
- * <Hero />
- * ```
+ * - Fully responsive layout (360px → 2000px)
+ *
+ * Layout Strategy:
+ * - Hero sizes to content, allowing FeaturedProject to peek in on initial load
+ * - Top padding clears navbar (80px mobile → 96px desktop)
+ * - Bottom padding creates breathing room before next section
  */
 export const Hero = () => {
   const { t } = useTranslation();
@@ -109,37 +110,47 @@ export const Hero = () => {
     }
   };
 
-  // Get the title text directly - DecryptedText handles language changes internally
-  const heroTitle = t("hero.title");
+  // Get title and ensure "with AI" / "uz AI" stays together (non-breaking space)
+  // This prevents orphaned "AI" word on second line
+  const heroTitle = t("hero.title")
+    .replace(/ with AI$/, "\u00A0with\u00A0AI")  // EN: keep "with AI" together
+    .replace(/ uz AI$/, "\u00A0uz\u00A0AI");     // BS: keep "uz AI" together
 
   return (
     <section
       ref={sectionRef}
       id="home"
-      className="relative w-full min-h-[100svh] md:min-h-screen bg-transparent text-white overflow-hidden"
+      className="relative w-full bg-transparent text-white overflow-hidden"
       aria-label="Hero section"
     >
 
       {/* ===== MAIN CONTENT ===== */}
-      <div className="relative z-10 flex items-center justify-center min-h-[100svh] md:min-h-screen px-4 sm:px-6 md:px-8 lg:px-12 pt-20 sm:pt-24 pb-12 sm:pb-16 md:pb-20">
-        {/* Glass morphism card container - responsive width */}
+      {/*
+        Layout Strategy:
+        - Content-based height (no viewport constraints)
+        - Top padding clears navbar: 80px mobile, 88px sm, 96px md+
+        - Bottom padding creates space before FeaturedProject
+        - On tall devices, FeaturedProject peeks in at ~20-30%
+      */}
+      <div className="relative z-10 flex flex-col items-center px-4 sm:px-6 md:px-12 lg:px-16 pt-20 sm:pt-[88px] md:pt-24 pb-8 sm:pb-10 md:pb-12">
+        {/* Glass morphism card container - sizes to content, not viewport */}
         <motion.div
           variants={glassCardVariants}
           initial="hidden"
           animate="visible"
-          className="relative w-full max-w-[95%] sm:max-w-[90%] md:max-w-[900px] lg:max-w-[1100px] mx-auto"
+          className="relative w-full max-w-[95%] sm:max-w-[90%] md:max-w-[900px] lg:max-w-[1100px] xl:max-w-[1200px]"
         >
           {/* Outer subtle glow */}
           <div
-            className="absolute -inset-px rounded-[32px] sm:rounded-[40px] md:rounded-[48px] blur-xl opacity-20 -z-10"
+            className="absolute -inset-px rounded-[24px] sm:rounded-[32px] md:rounded-[40px] lg:rounded-[48px] blur-xl opacity-20 -z-10"
             style={{
               background: `linear-gradient(135deg, rgba(59, 201, 255, 0.2) 0%, rgba(59, 201, 255, 0.05) 50%, rgba(59, 201, 255, 0.15) 100%)`,
             }}
           />
 
-          {/* Glass card - very low opacity */}
+          {/* Glass card - content-sized with responsive padding */}
           <div
-            className="relative rounded-[28px] sm:rounded-[36px] md:rounded-[44px] lg:rounded-[48px] p-5 sm:p-6 md:p-8 lg:p-12 overflow-hidden"
+            className="relative rounded-[20px] sm:rounded-[28px] md:rounded-[36px] lg:rounded-[44px] xl:rounded-[48px] p-5 sm:p-6 md:p-8 lg:p-10 xl:p-12 2xl:p-14 overflow-hidden"
             style={{
               background: `rgba(255, 255, 255, ${GLASS_CONFIG.containerOpacity})`,
               border: `1px solid rgba(255, 255, 255, ${GLASS_CONFIG.borderOpacity})`,
@@ -148,13 +159,13 @@ export const Hero = () => {
           >
             {/* Blurred hero image as card background - creates reflection effect */}
             <div
-              className="absolute inset-0 rounded-[28px] sm:rounded-[36px] md:rounded-[44px] lg:rounded-[48px] overflow-hidden pointer-events-none flex items-center justify-center"
+              className="absolute inset-0 rounded-[20px] sm:rounded-[28px] md:rounded-[36px] lg:rounded-[44px] xl:rounded-[48px] overflow-hidden pointer-events-none flex items-center justify-center"
               style={{ zIndex: 0 }}
             >
-              {/* Inner container - responsive sizing aligned with avatar - increased size, moved up 20px */}
+              {/* Inner container - responsive sizing aligned with avatar */}
               <div
-                className="relative w-[340px] h-[360px] sm:w-[420px] sm:h-[460px] md:w-[500px] md:h-[560px] lg:w-[580px] lg:h-[660px]"
-                style={{ marginTop: '-40px' }}
+                className="relative w-[300px] h-[320px] sm:w-[380px] sm:h-[420px] md:w-[460px] md:h-[520px] lg:w-[540px] lg:h-[620px] xl:w-[580px] xl:h-[680px]"
+                style={{ marginTop: '-30px' }}
               >
                 {/* The blurred image layer */}
                 <div
@@ -181,10 +192,10 @@ export const Hero = () => {
 
             {/* Vertical glow reflection behind avatar */}
             <div
-              className="absolute w-[50%] h-[85%] blur-3xl pointer-events-none"
+              className="absolute w-[60%] sm:w-[55%] md:w-[50%] h-[90%] blur-3xl pointer-events-none"
               style={{
                 left: '50%',
-                top: 'calc(50% - 30px)',
+                top: 'calc(50% - 20px)',
                 transform: 'translate(-50%, -50%)',
                 zIndex: 1,
                 opacity: GLASS_CONFIG.glowReflectionOpacity,
@@ -205,7 +216,7 @@ export const Hero = () => {
               variants={containerVariants}
               initial="hidden"
               animate="visible"
-              className="flex flex-col items-center text-center gap-3 sm:gap-4 md:gap-5 lg:gap-6 relative z-10"
+              className="flex flex-col items-center text-center relative z-10 py-4 sm:py-6 md:py-8 lg:py-10"
             >
               {/* Avatar with all effects */}
               <motion.div variants={itemVariants}>
@@ -216,44 +227,42 @@ export const Hero = () => {
                 />
               </motion.div>
 
-              {/* Title - single line on desktop, max 2 lines on mobile */}
+              {/* Title - Responsive sizing: 34px → 72px (H1 must be largest on page) */}
               <motion.h1
                 variants={itemVariants}
-                className="font-extrabold font-space text-white leading-tight text-2xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl px-1 sm:px-2 max-w-full"
+                className="font-extrabold font-space text-white leading-tight mt-5 sm:mt-6 md:mt-8 lg:mt-10 text-[34px] sm:text-[38px] md:text-5xl lg:text-[56px] xl:text-[64px] 2xl:text-[72px] px-2 sm:px-4 max-w-full"
               >
-                {/* Mobile: allow wrapping, max 2 lines */}
-                <span className="md:hidden block line-clamp-2 text-center">
-                  {t("hero.title")}
+                {/* Mobile: balanced wrapping with non-breaking spaces to prevent orphaned words */}
+                <span className="md:hidden block text-center" style={{ textWrap: 'balance' }}>
+                  {heroTitle}
                 </span>
-                {/* Desktop: prefer single line with DecryptedText, but allow wrap on extreme zoom */}
+                {/* Desktop: DecryptedText animation */}
                 <span className="hidden md:block text-center break-words">
                   <DecryptedText
                     text={heroTitle}
                     animateOn="view"
                     revealDirection="start"
-                    speed={45}
-                    maxIterations={10}
+                    speed={50}
+                    maxIterations={15}
                     sequential={true}
+                    characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
                     className="text-white"
-                    encryptedClassName="text-white/50"
+                    encryptedClassName="text-white/40"
                     parentClassName="inline"
                   />
                 </span>
               </motion.h1>
 
-              {/* Subtitle */}
+              {/* Subtitle - Fixed smaller size */}
               <motion.p
                 variants={itemVariants}
-                className="text-sm md:text-base lg:text-lg text-white/60 max-w-[90%] sm:max-w-[500px] md:max-w-[600px] px-1 sm:px-2 leading-relaxed"
+                className="mt-4 sm:mt-5 md:mt-6 lg:mt-8 text-white/70 text-sm sm:text-base md:text-lg lg:text-xl max-w-[90%] sm:max-w-[480px] md:max-w-[560px] lg:max-w-[640px] px-2 text-center leading-relaxed"
               >
                 {t("hero.subtitle")}
               </motion.p>
 
               {/* CTA Button - Filled cyan style */}
-              <motion.div
-                variants={itemVariants}
-                className="mt-1 sm:mt-2"
-              >
+              <motion.div variants={itemVariants} className="mt-6 sm:mt-7 md:mt-8 lg:mt-10">
                 <CTAButton onClick={handleCtaClick}>
                   <span>{t("hero.cta")}</span>
                   <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />

@@ -43,19 +43,22 @@
   "projects": {
     "featured": {
       "tag": "FEATURED SAAS",
-      "title": "SyncBooking SaaS",
+      "title": "BookBed SaaS",
       "desc": "A powerful multi-tenant platform enabling property owners to sync reservations via iCal and embed booking widgets directly into their websites."
     },
     "list": {
       "title": "More Projects",
       "subtitle": "Recent work and marketplace contributions"
     },
+    "viewProject": "View Project",
+    "viewCaseStudy": "View Case Study",
     "flutterflow": {
       "results": {
         "deployment": "Rapid Deployment",
         "monetizable": "Monetizable Assets",
         "lowcode": "Clean Low-Code"
       },
+      "viewOnMarketplace": "View on Marketplace",
       "collection": {
         "title": "Template Collection",
         "subtitle": "Explore the premium FlutterFlow templates"
@@ -131,12 +134,18 @@
   "caseStudies": {
     "results_title": "Project Results",
     "gallery_title": "Project Gallery",
-    "tech_stack_title": "Technology Stack",
+    "tech_stack_title": "Built With",
     "next_project": "Next Project",
     "view_case_study": "View Case Study",
     "view_live_site": "View Live Site",
-    "syncbooking-saas": {
-      "title": "SyncBooking SaaS",
+    "impact": {
+      "challenge": "The Challenge",
+      "solution": "The Solution",
+      "result": "Key Result",
+      "result_desc": "Measurable business impact delivered."
+    },
+    "bookbed-saas": {
+      "title": "BookBed SaaS",
       "category": "SaaS Platform",
       "tagline": "A centralized reservation management engine that syncs global booking channels in real-time.",
       "challenge_title": "The Challenge",

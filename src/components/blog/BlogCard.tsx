@@ -92,7 +92,7 @@ export const BlogCard = ({ post, index = 0 }: BlogCardProps) => {
             </p>
 
             {/* Meta Info */}
-            <div className="flex items-center gap-4 text-xs text-white/40">
+            <div className="flex items-center gap-4 text-xs text-white/60">
               <div className="flex items-center gap-1.5">
                 <Calendar className="w-3.5 h-3.5" />
                 <span>{formatDate(post.date)}</span>

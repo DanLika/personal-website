@@ -36,8 +36,8 @@ export const BlogSection = () => {
             {t("blog.section.badge")}
           </motion.span>
 
-          {/* Title */}
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mb-4">
+          {/* Title - H2 sizing: 24px → 44px (smaller than H1) */}
+          <h2 className="text-2xl sm:text-[28px] md:text-[32px] lg:text-4xl xl:text-[40px] 2xl:text-[44px] font-extrabold text-white mb-4">
             {t("blog.section.title")}
           </h2>
 
