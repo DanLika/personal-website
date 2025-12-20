@@ -40,10 +40,9 @@ export const projectsData: Record<string, ProjectData> = {
     ],
     techStack: ['Flutter', 'Firebase', 'Stripe', 'Resend'],
     galleryImages: [
-      '/BookBed/BookBed.avif',
-      '/BookBed/BookBed 2.avif',
-      '/BookBed/BookBed 3.avif',
-      '/BookBed/BookBed 4.avif'
+      '/BookBed/bookbed-dashboard.png',
+      '/BookBed/bookbed-calendar.png',
+      '/BookBed/bookbed-widget.png'
     ],
     challenges: [
       'Real-time synchronization between multiple booking platforms',
@@ -64,7 +63,8 @@ export const projectsData: Record<string, ProjectData> = {
     ],
     client: 'BookBed',
     duration: '6 months',
-    role: 'Lead Full-Stack Developer'
+    role: 'Lead Full-Stack Developer',
+    liveUrl: 'https://bookbed.io'
   },
   ironlife: {
     id: 'ironlife',

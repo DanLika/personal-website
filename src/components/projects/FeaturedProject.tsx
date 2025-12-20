@@ -165,7 +165,7 @@ export const FeaturedProject = () => {
                 {/* Mockup Image */}
                 <div className="relative z-10 w-full flex justify-center">
                   <img
-                    src="/ironlife-mockup.avif"
+                    src="/BookBed/bookbed-mockup.avif"
                     alt="BookBed SaaS Mockup"
                     className="w-full max-w-full h-auto object-cover rounded-2xl aspect-[4/3] drop-shadow-2xl transition-transform duration-300 group-hover:scale-[1.02]"
                     width={578}
