@@ -42,6 +42,10 @@ const TechIcon: React.FC<{ tech: string }> = ({ tech }) => {
         <img
           src={`/${tech.toLowerCase()}.avif`}
           alt={tech}
+          title={tech}
+          width={32}
+          height={32}
+          loading="lazy"
           className={`w-8 h-8 object-contain filter drop-shadow-[0_0_8px_rgba(6,182,212,0.6)] ${isHighBrightness ? 'brightness-[1.8] contrast-[1.1]' : ''} ${isLowBrightness ? 'brightness-[1.3]' : ''}`}
           onError={(e) => {
             // Fallback to text abbreviation if image fails to load
@@ -188,6 +192,7 @@ export const ProjectList = () => {
                       <img
                         src={project.mockupImage}
                         alt={`${project.title} Mockup`}
+                        title={project.title}
                         className="w-full max-w-full h-auto object-cover rounded-2xl aspect-[4/3] drop-shadow-2xl transition-transform duration-300 group-hover:scale-[1.02]"
                         width={550}
                         height={412}

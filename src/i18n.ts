@@ -2,7 +2,7 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import HttpBackend from "i18next-http-backend";
 
-// Get saved language or default to Bosnian
+// Get saved language or default to Bosnian (primary SEO language)
 const getSavedLanguage = (): string => {
   if (typeof window !== "undefined") {
     return localStorage.getItem("i18nextLng") || "bs";
@@ -16,7 +16,7 @@ i18n
   .init({
     lng: getSavedLanguage(),
     fallbackLng: "bs",
-    supportedLngs: ["en", "bs"],
+    supportedLngs: ["bs", "en"],
     debug: false,
     backend: {
       loadPath: "/locales/{{lng}}/translation.json",

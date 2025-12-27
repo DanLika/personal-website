@@ -120,6 +120,9 @@ export const SubProjectCard: React.FC<SubProjectCardProps> = ({ subProject, inde
                 <img
                   src={heroImage}
                   alt={subProject.title[currentLang]}
+                  title={subProject.title[currentLang]}
+                  width={800}
+                  height={500}
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
@@ -141,6 +144,9 @@ export const SubProjectCard: React.FC<SubProjectCardProps> = ({ subProject, inde
                     <img
                       src={img}
                       alt={`${subProject.title[currentLang]} ${idx + 2}`}
+                      title={`${subProject.title[currentLang]} - Image ${idx + 2}`}
+                      width={400}
+                      height={300}
                       className="w-full h-full object-cover"
                       loading="lazy"
                     />

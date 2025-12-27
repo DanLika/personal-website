@@ -14,15 +14,6 @@ const BlogPage = lazy(() =>
 const BlogPostPage = lazy(() =>
   import("../pages/BlogPostPage").then(m => ({ default: m.BlogPostPage }))
 );
-const Apartman1Page = lazy(() =>
-  import("../pages/ApartmanPage").then(m => ({ default: m.Apartman1Page }))
-);
-const Apartman2Page = lazy(() =>
-  import("../pages/ApartmanPage").then(m => ({ default: m.Apartman2Page }))
-);
-const Apartman3Page = lazy(() =>
-  import("../pages/ApartmanPage").then(m => ({ default: m.Apartman3Page }))
-);
 const NotFoundPage = lazy(() =>
   import("../pages/NotFoundPage").then(m => ({ default: m.NotFoundPage }))
 );
@@ -40,9 +31,6 @@ export const AppRoutes = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/case-study/:projectId" element={<CaseStudyPage />} />
-        <Route path="/apartman-1" element={<Apartman1Page />} />
-        <Route path="/apartman-2" element={<Apartman2Page />} />
-        <Route path="/apartman-3" element={<Apartman3Page />} />
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/blog/:slug" element={<BlogPostPage />} />
         <Route path="*" element={<NotFoundPage />} />

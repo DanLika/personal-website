@@ -1,34 +1,63 @@
 <!doctype html>
-<html lang="en" style="background-color: #0A0A0A;">
+<html lang="bs" style="background-color: #0A0A0A;">
   <head>
     <meta charset="UTF-8" />
-    <!-- Favicons for all browsers and devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dusko Licanin - Full-Stack Developer</title>
+    <meta name="description" content="Full-Stack Development Enhanced with AI - Helping businesses build modern web & mobile apps faster." />
+    <meta name="keywords" content="web razvoj, izrada web stranica, SaaS razvoj, Flutter aplikacije, React programer, full-stack developer, Banja Luka, Bosna i Hercegovina, web development, website design" />
+    <meta name="theme-color" content="#0A0A0A" />
+    <meta name="msapplication-navbutton-color" content="#0A0A0A" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <!-- DNS Prefetch & Preconnect for external resources -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+
+    <!-- Preload critical resources -->
+    <link rel="preload" as="image" href="/hero-me.avif" fetchpriority="high" />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/SpaceGrotesk-400.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/SpaceGrotesk-700.woff2" crossorigin />
+    <link rel="preload" as="fetch" href="/locales/bs/translation.json" crossorigin />
+    <!-- Favicons -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Prevent white flash on load -->
+    <!-- Self-hosted fonts + prevent white flash -->
     <style>
+      @font-face {
+        font-family: 'Space Grotesk';
+        font-style: normal;
+        font-weight: 300;
+        font-display: swap;
+        src: url('/fonts/SpaceGrotesk-300.woff2') format('woff2');
+      }
+      @font-face {
+        font-family: 'Space Grotesk';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url('/fonts/SpaceGrotesk-400.woff2') format('woff2');
+      }
+      @font-face {
+        font-family: 'Space Grotesk';
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url('/fonts/SpaceGrotesk-500.woff2') format('woff2');
+      }
+      @font-face {
+        font-family: 'Space Grotesk';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url('/fonts/SpaceGrotesk-700.woff2') format('woff2');
+      }
       html, body, #root {
         background-color: #0A0A0A;
         min-height: 100vh;
       }
     </style>
-    <!-- Theme color for mobile browser chrome -->
-    <meta name="theme-color" content="#0A0A0A" />
-    <meta name="msapplication-navbutton-color" content="#0A0A0A" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <!-- Preload LCP image with high priority -->
-    <link rel="preload" as="image" href="/hero-me.avif" fetchpriority="high" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=optional"
-      rel="stylesheet"
-    />
-    <title>Dusko Licanin - Full-Stack Developer</title>
-    <meta name="description" content="Full-Stack Development Enhanced with AI - Helping businesses build modern web & mobile apps faster." />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -46,7 +75,10 @@
 
     <!-- Additional SEO -->
     <meta name="author" content="Dusko Licanin" />
-    <meta name="keywords" content="saas mvp development, ai saas solutions, saas website design, development outsourcing, flutter developer, react developer, banja luka, full-stack developer, web development, mobile development" />
+    <meta name="publisher" content="Dusko Licanin" />
+    <meta name="robots" content="index, follow" />
+    <!-- Canonical URL - static fallback for non-JS crawlers, overridden by Helmet for subpages -->
+    <link rel="canonical" href="https://duskolicanin.com" />
 
     <!-- Schema.org Structured Data -->
     <script type="application/ld+json">

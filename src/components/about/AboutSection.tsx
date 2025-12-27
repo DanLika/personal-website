@@ -53,6 +53,10 @@ const TechIcon: React.FC<TechIconProps> = ({ tech, index }) => {
             <img
               src={`/${tech.toLowerCase()}.avif`}
               alt={tech}
+              title={tech}
+              width={40}
+              height={40}
+              loading="lazy"
               className={`w-10 h-10 object-contain filter drop-shadow-[0_0_8px_rgba(6,182,212,0.6)] ${isHighBrightness ? 'brightness-[1.8] contrast-[1.1]' : ''} ${isLowBrightness ? 'brightness-[1.3]' : ''}`}
               onError={(e) => {
                 // Fallback to text if image not found
@@ -134,6 +138,7 @@ export const AboutSection = () => {
                 <img
                   src="/about_me.avif"
                   alt="Developer Photo"
+                  title="Dusko Licanin"
                   className="w-full h-full object-cover"
                   width={160}
                   height={160}

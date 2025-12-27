@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { ArrowRight, ExternalLink, Home, Target, Lightbulb, TrendingUp } from "lucide-react";
+import { ArrowRight, ExternalLink, Target, Lightbulb, TrendingUp } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { projectsData, getNextProject, type ProjectData } from "../../data/projects";
 import SimpleGallery from "../ui/SimpleGallery";
@@ -17,6 +17,14 @@ interface CaseStudyPageProps {
 // Icons that need brightness boost (dark icons) - different levels
 const DARK_ICONS_HIGH = ['resend', 'webflow', 'seo']; // Need more brightness
 const DARK_ICONS_LOW = ['figma', 'tailwind']; // Need less brightness
+
+// Project-specific SEO keywords (Bosnian primary)
+const PROJECT_KEYWORDS: Record<string, string> = {
+  'bookbed-saas': 'BookBed, SaaS platforma, booking sistem, Flutter aplikacija, Firebase, rezervacije smještaja, iCal sinhronizacija, Stripe plaćanja, Banja Luka',
+  'ironlife': 'IronLife, fitness web stranica, Webflow razvoj, SEO optimizacija, Figma dizajn, nutricionizam, zdrav život, Banja Luka',
+  'pizzeria-bestek': 'Pizzeria Bestek, naručivanje hrane online, React aplikacija, Supabase, restoran web stranica, admin dashboard, Banja Luka',
+  'flutterflow-templates': 'FlutterFlow templates, marketplace, booking app, kalendar sinhronizacija, PDF viewer, Firebase, Stripe, low-code development'
+};
 
 const TechIcon: React.FC<{ tech: string; index: number }> = ({ tech, index }) => {
   const techLower = tech.toLowerCase();
@@ -42,6 +50,10 @@ const TechIcon: React.FC<{ tech: string; index: number }> = ({ tech, index }) =>
           <img
             src={`/${tech.toLowerCase()}.avif`}
             alt={tech}
+            title={tech}
+            width={40}
+            height={40}
+            loading="lazy"
             className={`w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 object-contain filter drop-shadow-[0_0_8px_rgba(6,182,212,0.6)] ${isHighBrightness ? 'brightness-[1.8] contrast-[1.1]' : ''} ${isLowBrightness ? 'brightness-[1.3]' : ''}`}
             onError={(e) => {
               // Fallback to text if image not found
@@ -123,6 +135,7 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
   const mouseRef = useRef<{ x: number; y: number } | null>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [particleKey, setParticleKey] = useState(0);
+  const [particlesReady, setParticlesReady] = useState(false);
 
   // Detect mobile for particle optimization
   useEffect(() => {
@@ -130,6 +143,18 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Defer particles initialization to reduce main thread blocking
+  useEffect(() => {
+    const initParticles = () => setParticlesReady(true);
+    if ('requestIdleCallback' in window) {
+      const id = (window as Window & { requestIdleCallback: (cb: () => void, opts?: { timeout: number }) => number }).requestIdleCallback(initParticles, { timeout: 1000 });
+      return () => (window as Window & { cancelIdleCallback: (id: number) => void }).cancelIdleCallback(id);
+    } else {
+      const id = setTimeout(initParticles, 500);
+      return () => clearTimeout(id);
+    }
   }, []);
 
   // Scroll to top when project changes
@@ -242,7 +267,8 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
       <SEO
         title={`${projectTitle} | Dusko Licanin`}
         description={projectTagline}
-        url={`https://licanin.com/case-study/${currentProject.id}`}
+        keywords={PROJECT_KEYWORDS[currentProject.id]}
+        url={`https://duskolicanin.com/case-study/${currentProject.id}`}
         image={currentProject.galleryImages[0]}
         type="article"
       />
@@ -259,21 +285,23 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
             `
           }}
         />
-        <Particles
-          key={particleKey}
-          particleCount={isMobile ? 80 : 100}
-          particleSpread={10}
-          speed={isMobile ? 0.15 : 0.3}
-          particleColors={["#ffffff", "#3BC9FF", "#5DD9FF", "#a0e7ff"]}
-          moveParticlesOnHover={true}
-          particleHoverFactor={2}
-          alphaParticles={true}
-          particleBaseSize={isMobile ? 60 : 80}
-          sizeRandomness={1}
-          cameraDistance={20}
-          disableRotation={isMobile}
-          externalMouseRef={mouseRef}
-        />
+        {particlesReady && (
+          <Particles
+            key={particleKey}
+            particleCount={isMobile ? 50 : 70}
+            particleSpread={10}
+            speed={isMobile ? 0.15 : 0.3}
+            particleColors={["#ffffff", "#3BC9FF", "#5DD9FF", "#a0e7ff"]}
+            moveParticlesOnHover={true}
+            particleHoverFactor={2}
+            alphaParticles={true}
+            particleBaseSize={isMobile ? 60 : 80}
+            sizeRandomness={1}
+            cameraDistance={20}
+            disableRotation={isMobile}
+            externalMouseRef={mouseRef}
+          />
+        )}
       </div>
 
       {/* HERO SECTION */}
@@ -326,47 +354,6 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
             </motion.div>
           )}
 
-          {/* Apartman Buttons - Only for BookBed */}
-          {currentProject.id === 'bookbed-saas' && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="flex flex-wrap justify-center gap-2 sm:gap-3"
-            >
-              <Link to="/apartman-1">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-4 sm:px-6 py-2.5 sm:py-3 rounded-full transition-all duration-300 bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-400/40 backdrop-blur-sm hover:from-purple-500/30 hover:to-pink-500/30 hover:border-purple-400/60 flex items-center gap-2"
-                >
-                  <Home className="w-4 h-4 text-purple-400" />
-                  <span className="text-purple-400 text-xs sm:text-sm font-semibold">Apartman 1</span>
-                </motion.button>
-              </Link>
-              <Link to="/apartman-2">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-4 sm:px-6 py-2.5 sm:py-3 rounded-full transition-all duration-300 bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-400/40 backdrop-blur-sm hover:from-purple-500/30 hover:to-pink-500/30 hover:border-purple-400/60 flex items-center gap-2"
-                >
-                  <Home className="w-4 h-4 text-purple-400" />
-                  <span className="text-purple-400 text-xs sm:text-sm font-semibold">Apartman 2</span>
-                </motion.button>
-              </Link>
-              <Link to="/apartman-3">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-4 sm:px-6 py-2.5 sm:py-3 rounded-full transition-all duration-300 bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-400/40 backdrop-blur-sm hover:from-purple-500/30 hover:to-pink-500/30 hover:border-purple-400/60 flex items-center gap-2"
-                >
-                  <Home className="w-4 h-4 text-purple-400" />
-                  <span className="text-purple-400 text-xs sm:text-sm font-semibold">Apartman 3</span>
-                </motion.button>
-              </Link>
-            </motion.div>
-          )}
-
           {/* Main Visual Mockup */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -392,6 +379,10 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
                   <img
                     src={currentProject.galleryImages[0]}
                     alt={currentProject.title}
+                    title={currentProject.title}
+                    width={1200}
+                    height={900}
+                    loading="eager"
                     className="w-full h-auto object-cover rounded-xl sm:rounded-2xl"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;

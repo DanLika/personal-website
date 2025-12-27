@@ -124,13 +124,15 @@ export const MagnetButton = ({
       enterRafId = requestAnimationFrame(() => {
         enterRafId = null;
 
-        // Update rect before checking (fresh read on potential activation)
-        if (magnetRef.current) {
-          cachedRectRef.current = magnetRef.current.getBoundingClientRect();
-        }
-
+        // Use cached rect to avoid forced reflow
         const rect = cachedRectRef.current;
-        if (!rect) return;
+        if (!rect) {
+          // Only get fresh rect if not cached yet
+          if (magnetRef.current) {
+            cachedRectRef.current = magnetRef.current.getBoundingClientRect();
+          }
+          return;
+        }
 
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;

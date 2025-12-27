@@ -226,6 +226,10 @@ export const BlogPostPage = () => {
                 <img
                   src={post.coverImage}
                   alt={post.title[lang]}
+                  title={post.title[lang]}
+                  width={1200}
+                  height={600}
+                  loading="eager"
                   className="w-full aspect-[2/1] object-cover"
                 />
                 {/* Gradient Overlay */}

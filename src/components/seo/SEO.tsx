@@ -10,22 +10,28 @@ interface SEOProps {
   type?: string;
 }
 
+// Default keywords for SEO
+const DEFAULT_KEYWORDS_BS = "web razvoj, izrada web stranica, SaaS razvoj, Flutter aplikacije, React programer, full-stack developer, Banja Luka, Bosna i Hercegovina";
+const DEFAULT_KEYWORDS_EN = "web development, website design, SaaS development, Flutter apps, React developer, full-stack developer, Banja Luka, Bosnia";
+
 export const SEO: React.FC<SEOProps> = ({
   title,
   description,
   keywords,
   image = "/hero-me.avif",
-  url = "https://licanin.com",
+  url = "https://duskolicanin.com",
   type = "website",
 }) => {
   const { t, i18n, ready } = useTranslation();
+
+  // Get current language with fallback to Bosnian (primary SEO language)
+  const currentLang = i18n.language || "bs";
 
   // Use props or fallback to i18n translations
   // Check if translations are ready to avoid showing keys
   const seoTitle = title || (ready ? t("meta.title") : "Dusko Licanin - Full-Stack Developer");
   const seoDescription = description || (ready ? t("meta.description") : "Full-Stack Development Enhanced with AI");
-  const seoKeywords = keywords || (ready ? t("meta.keywords") : "full-stack developer, react, flutter");
-  const currentLang = i18n.language;
+  const seoKeywords = keywords || (currentLang === "bs" ? DEFAULT_KEYWORDS_BS : DEFAULT_KEYWORDS_EN);
 
   // Construct full image URL
   const fullImageUrl = image.startsWith("http") ? image : `${url}${image}`;

@@ -70,6 +70,9 @@ export const HeroAvatar = ({
         <img
           src={imageSrc}
           alt={imageAlt}
+          title="Dusko Licanin - Full-Stack Developer"
+          width={380}
+          height={380}
           className="w-full h-full object-cover relative z-10"
           loading="eager"
           fetchPriority="high"

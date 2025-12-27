@@ -60,6 +60,9 @@ export const BlogCard = ({ post, index = 0 }: BlogCardProps) => {
             <img
               src={post.coverImage}
               alt={post.title[lang]}
+              title={post.title[lang]}
+              width={800}
+              height={450}
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               loading="lazy"
             />

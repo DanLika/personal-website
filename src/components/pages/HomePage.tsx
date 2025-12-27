@@ -15,6 +15,7 @@ export const HomePage = () => {
     const mouseRef = useRef<{ x: number; y: number } | null>(null);
     const [isMobile, setIsMobile] = useState(false);
     const [particleKey, setParticleKey] = useState(0);
+    const [particlesReady, setParticlesReady] = useState(false);
 
     // Detect mobile for particle optimization
     useEffect(() => {
@@ -22,6 +23,20 @@ export const HomePage = () => {
         checkMobile();
         window.addEventListener('resize', checkMobile);
         return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
+    // Defer particles initialization to reduce main thread blocking during initial load
+    useEffect(() => {
+        // Use requestIdleCallback if available, otherwise setTimeout
+        const initParticles = () => setParticlesReady(true);
+
+        if ('requestIdleCallback' in window) {
+            const id = (window as Window & { requestIdleCallback: (cb: () => void, opts?: { timeout: number }) => number }).requestIdleCallback(initParticles, { timeout: 1000 });
+            return () => (window as Window & { cancelIdleCallback: (id: number) => void }).cancelIdleCallback(id);
+        } else {
+            const id = setTimeout(initParticles, 500);
+            return () => clearTimeout(id);
+        }
     }, []);
 
     useEffect(() => {
@@ -154,7 +169,7 @@ export const HomePage = () => {
 
     // Memoize particle config to prevent unnecessary re-renders
     const particleConfig = useMemo(() => ({
-        particleCount: isMobile ? 80 : 100, // Reduced from 150 to 100 for better TBT
+        particleCount: isMobile ? 50 : 70, // Reduced for better main thread performance
         particleSpread: 10,
         speed: isMobile ? 0.15 : 0.3,
         particleColors: ["#ffffff", "#3BC9FF", "#5DD9FF", "#a0e7ff"],
@@ -184,11 +199,13 @@ export const HomePage = () => {
                         `
                     }}
                 />
-                <Particles
-                    key={particleKey}
-                    {...particleConfig}
-                    externalMouseRef={mouseRef}
-                />
+                {particlesReady && (
+                    <Particles
+                        key={particleKey}
+                        {...particleConfig}
+                        externalMouseRef={mouseRef}
+                    />
+                )}
             </div>
 
             {/* All sections with transparent backgrounds */}

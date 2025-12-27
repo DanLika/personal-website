@@ -91,6 +91,10 @@ const SimpleGallery: React.FC<SimpleGalleryProps> = ({ images, title }) => {
                         <img
                             src={src}
                             alt={`${title || 'Gallery'} - ${index + 1}`}
+                            title={`${title || 'Gallery'} - Image ${index + 1}`}
+                            width={400}
+                            height={300}
+                            loading="lazy"
                             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                         />
                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
@@ -123,7 +127,7 @@ const SimpleGallery: React.FC<SimpleGalleryProps> = ({ images, title }) => {
                         {/* Close button */}
                         <button
                             onClick={handleClose}
-                            className="absolute top-4 right-4 md:top-8 md:right-8 text-white/70 hover:text-white p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors duration-200 z-10"
+                            className="absolute top-4 right-4 md:top-8 md:right-8 text-white/70 hover:text-white p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors duration-200 z-20"
                             style={{ transform: 'translate3d(0, 0, 0)' }}
                         >
                             <X size={24} />
@@ -132,7 +136,7 @@ const SimpleGallery: React.FC<SimpleGalleryProps> = ({ images, title }) => {
                         {/* Navigation buttons */}
                         <button
                             onClick={handlePrev}
-                            className="absolute left-4 md:left-8 text-white/70 hover:text-white p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors duration-200 z-10"
+                            className="absolute left-4 md:left-8 text-white/70 hover:text-white p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors duration-200 z-20"
                             style={{ transform: 'translate3d(0, 0, 0)' }}
                         >
                             <ChevronLeft size={32} />
@@ -140,7 +144,7 @@ const SimpleGallery: React.FC<SimpleGalleryProps> = ({ images, title }) => {
 
                         <button
                             onClick={handleNext}
-                            className="absolute right-4 md:right-8 text-white/70 hover:text-white p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors duration-200 z-10"
+                            className="absolute right-4 md:right-8 text-white/70 hover:text-white p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors duration-200 z-20"
                             style={{ transform: 'translate3d(0, 0, 0)' }}
                         >
                             <ChevronRight size={32} />
@@ -161,6 +165,10 @@ const SimpleGallery: React.FC<SimpleGalleryProps> = ({ images, title }) => {
                                 <img
                                     src={images[selectedImageIndex]}
                                     alt={`${title || 'Gallery'} - ${selectedImageIndex + 1}`}
+                                    title={`${title || 'Gallery'} - Image ${selectedImageIndex + 1}`}
+                                    width={1200}
+                                    height={900}
+                                    loading="eager"
                                     className="w-auto h-auto max-w-full max-h-full object-contain rounded-lg shadow-2xl"
                                     style={{ transform: 'translate3d(0, 0, 0)' }}
                                 />

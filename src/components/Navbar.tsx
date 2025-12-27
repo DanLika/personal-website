@@ -266,8 +266,11 @@ export const Navbar = () => {
               >
                 <img
                   src="/globe.avif"
-                  alt=""
-                  aria-hidden="true"
+                  alt="Promijeni jezik"
+                  title="Promijeni jezik"
+                  width={32}
+                  height={32}
+                  loading="eager"
                   className="w-8 h-8 object-contain opacity-80"
                 />
               </motion.button>
@@ -423,8 +426,11 @@ export const Navbar = () => {
               >
                 <img
                   src="/globe.avif"
-                  alt=""
-                  aria-hidden="true"
+                  alt="Promijeni jezik"
+                  title="Promijeni jezik"
+                  width={32}
+                  height={32}
+                  loading="eager"
                   className="w-8 h-8 object-contain opacity-80"
                 />
                 <span className="text-white/70 text-sm">

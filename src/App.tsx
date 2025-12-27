@@ -12,7 +12,7 @@ function App() {
   const checkTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const fallbackTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const checkAttemptsRef = useRef(0);
-  const MAX_CHECK_ATTEMPTS = 50; // Maximum 5 seconds (50 * 100ms)
+  const MAX_CHECK_ATTEMPTS = 20; // Maximum 2 seconds (20 * 100ms)
 
   // Main effect: Setup loader logic on mount and route changes
   useEffect(() => {
@@ -119,11 +119,11 @@ function App() {
       setupHeroObserver();
     }, 50);
 
-    // Fallback: Hide loader after maximum 5 seconds even if hero doesn't become visible
+    // Fallback: Hide loader after maximum 2 seconds even if hero doesn't become visible
     fallbackTimeoutRef.current = setTimeout(() => {
       console.warn("Fallback timeout reached, hiding loader");
       setIsLoading(false);
-    }, 5000);
+    }, 2000);
 
     return () => {
       clearTimeout(initialDelay);
