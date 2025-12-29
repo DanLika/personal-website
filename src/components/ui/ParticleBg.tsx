@@ -106,7 +106,9 @@ const fragment = /* glsl */ `
  * - Smooth alpha blending
  * - Customizable colors, size, and behavior
  */
-export const Particles = ({
+import { memo } from 'react';
+
+export const Particles = memo(({
   particleCount = 100,
   particleSpread = 10,
   speed = 0.3,
@@ -410,7 +412,7 @@ export const Particles = ({
       aria-hidden="true"
     />
   );
-};
+});
 
 export default Particles;
 
