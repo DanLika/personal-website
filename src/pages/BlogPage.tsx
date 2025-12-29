@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { Helmet } from "react-helmet-async";
@@ -10,7 +10,7 @@ import { Footer } from "../components/layout/Footer";
 export const BlogPage = () => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language as "en" | "bs";
-  const allPosts = getAllBlogs();
+  const allPosts = useMemo(() => getAllBlogs(), []);
 
   const pageRef = useRef<HTMLDivElement>(null);
   const mouseRef = useRef<{ x: number; y: number } | null>(null);
