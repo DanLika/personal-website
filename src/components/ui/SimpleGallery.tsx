@@ -90,7 +90,7 @@ const SimpleGallery: React.FC<SimpleGalleryProps> = ({ images, title }) => {
                     >
                         <img
                             src={src}
-                            alt={`${title || 'Gallery'} - ${index + 1}`}
+                            alt={`${title || 'Gallery'} screenshot ${index + 1}`}
                             title={`${title || 'Gallery'} - Image ${index + 1}`}
                             width={400}
                             height={300}
@@ -164,7 +164,7 @@ const SimpleGallery: React.FC<SimpleGalleryProps> = ({ images, title }) => {
                             {selectedImageIndex !== null && (
                                 <img
                                     src={images[selectedImageIndex]}
-                                    alt={`${title || 'Gallery'} - ${selectedImageIndex + 1}`}
+                                    alt={`${title || 'Gallery'} screenshot ${selectedImageIndex + 1}`}
                                     title={`${title || 'Gallery'} - Image ${selectedImageIndex + 1}`}
                                     width={1200}
                                     height={900}

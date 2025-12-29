@@ -25,7 +25,7 @@ interface HeroAvatarProps {
  */
 export const HeroAvatar = ({
   imageSrc = "/hero-me.avif",
-  imageAlt = "Portrait",
+  imageAlt = "Dusko Licanin - Full-Stack Developer",
   glowColor = "#3BC9FF",
 }: HeroAvatarProps) => {
   return (
@@ -75,7 +75,8 @@ export const HeroAvatar = ({
           height={380}
           className="w-full h-full object-cover relative z-10"
           loading="eager"
-          fetchPriority="high"
+          // @ts-expect-error - React 18 expects `fetchpriority` to be lowercase, but TS types expect camelCase.
+          fetchpriority="high"
         />
 
         {/* Inner border glow accent */}

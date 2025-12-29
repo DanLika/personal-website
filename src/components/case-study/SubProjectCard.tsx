@@ -143,7 +143,7 @@ export const SubProjectCard: React.FC<SubProjectCardProps> = ({ subProject, inde
                   >
                     <img
                       src={img}
-                      alt={`${subProject.title[currentLang]} ${idx + 2}`}
+                      alt={`${subProject.title[currentLang]} screenshot ${idx + 2}`}
                       title={`${subProject.title[currentLang]} - Image ${idx + 2}`}
                       width={400}
                       height={300}

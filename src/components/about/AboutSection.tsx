@@ -137,7 +137,7 @@ export const AboutSection = () => {
               <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-2 border-cyan-400/30 shadow-[0_0_30px_rgba(59,201,255,0.3)]">
                 <img
                   src="/about_me.avif"
-                  alt="Developer Photo"
+                  alt="Dusko Licanin"
                   title="Dusko Licanin"
                   className="w-full h-full object-cover"
                   width={160}

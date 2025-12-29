@@ -266,8 +266,8 @@ export const Navbar = () => {
               >
                 <img
                   src="/globe.avif"
-                  alt="Promijeni jezik"
-                  title="Promijeni jezik"
+                  alt={t('nav.language_toggle_alt', 'Change language')}
+                  title={t('nav.language_toggle_alt', 'Change language')}
                   width={32}
                   height={32}
                   loading="eager"
@@ -426,8 +426,8 @@ export const Navbar = () => {
               >
                 <img
                   src="/globe.avif"
-                  alt="Promijeni jezik"
-                  title="Promijeni jezik"
+                  alt={t('nav.language_toggle_alt', 'Change language')}
+                  title={t('nav.language_toggle_alt', 'Change language')}
                   width={32}
                   height={32}
                   loading="eager"
