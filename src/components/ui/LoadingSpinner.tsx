@@ -22,7 +22,7 @@ export const LoadingSpinner = ({ isLoading }: LoadingSpinnerProps) => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="fixed inset-0 z-[9999] flex items-center justify-center bg-obsidian"
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#0A0A0A]"
           style={{
             backgroundImage: `
               radial-gradient(circle at 50% 0%, rgba(59, 201, 255, 0.08) 0%, transparent 50%),

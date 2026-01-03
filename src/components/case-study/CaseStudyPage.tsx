@@ -268,8 +268,8 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
         title={`${projectTitle} | Dusko Licanin`}
         description={projectTagline}
         keywords={PROJECT_KEYWORDS[currentProject.id]}
-        url={`https://duskolicanin.com/case-study/${currentProject.id}`}
-        image={currentProject.galleryImages[0]}
+        url={`https://licanin.dev/case-study/${currentProject.id}`}
+        image={`https://licanin.dev${currentProject.galleryImages[0]}`}
         type="article"
       />
 

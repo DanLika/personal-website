@@ -96,6 +96,10 @@ const SimpleGallery: React.FC<SimpleGalleryProps> = ({ images, title }) => {
                             height={300}
                             loading="lazy"
                             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                            onError={(e) => {
+                                const target = e.target as HTMLImageElement;
+                                target.src = "data:image/svg+xml,%3Csvg width='400' height='300' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='400' height='300' fill='%231A1A1A'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%233BC9FF' font-family='Arial' font-size='14'%3EImage%3C/text%3E%3C/svg%3E";
+                            }}
                         />
                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
                     </motion.div>
@@ -171,6 +175,10 @@ const SimpleGallery: React.FC<SimpleGalleryProps> = ({ images, title }) => {
                                     loading="eager"
                                     className="w-auto h-auto max-w-full max-h-full object-contain rounded-lg shadow-2xl"
                                     style={{ transform: 'translate3d(0, 0, 0)' }}
+                                    onError={(e) => {
+                                        const target = e.target as HTMLImageElement;
+                                        target.src = "data:image/svg+xml,%3Csvg width='800' height='600' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='800' height='600' fill='%231A1A1A'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%233BC9FF' font-family='Arial' font-size='20'%3EImage not found%3C/text%3E%3C/svg%3E";
+                                    }}
                                 />
                             )}
                             <p

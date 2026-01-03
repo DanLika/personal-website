@@ -2,13 +2,19 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Home, ArrowLeft } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet-async";
 
 export const NotFoundPage = () => {
   const { i18n } = useTranslation();
   const lang = i18n.language as "en" | "bs";
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] flex items-center justify-center px-4">
+    <>
+      <Helmet>
+        <title>{lang === "bs" ? "404 - Stranica nije pronađena" : "404 - Page Not Found"}</title>
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
+      <div className="min-h-screen bg-[#0A0A0A] flex items-center justify-center px-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -66,5 +72,6 @@ export const NotFoundPage = () => {
         </div>
       </motion.div>
     </div>
+    </>
   );
 };

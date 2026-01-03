@@ -209,7 +209,7 @@ export const HomePage = () => {
             </div>
 
             {/* All sections with transparent backgrounds */}
-            <main id="main-content" className="relative z-10">
+            <div className="relative z-10">
                 <Hero />
                 <FeaturedProject />
                 <ProjectList />
@@ -218,7 +218,7 @@ export const HomePage = () => {
                 <FAQSection />
                 <Contact />
                 <Footer />
-            </main>
+            </div>
         </div>
     );
 };

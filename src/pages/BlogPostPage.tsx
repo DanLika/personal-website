@@ -152,11 +152,13 @@ export const BlogPostPage = () => {
   return (
     <>
       <Helmet>
-        <title>{post.title[lang]} | Licanin Blog</title>
+        <title>{post.title[lang].length > 50 ? `${post.title[lang].substring(0, 50)}...` : post.title[lang]} | Licanin</title>
         <meta name="description" content={post.excerpt[lang]} />
+        <link rel="canonical" href={`https://licanin.dev/blog/${slug}`} />
+        <meta property="og:url" content={`https://licanin.dev/blog/${slug}`} />
         <meta property="og:title" content={post.title[lang]} />
         <meta property="og:description" content={post.excerpt[lang]} />
-        <meta property="og:image" content={post.coverImage} />
+        <meta property="og:image" content={`https://licanin.dev${post.coverImage}`} />
         <meta property="og:type" content="article" />
       </Helmet>
 
@@ -300,7 +302,28 @@ export const BlogPostPage = () => {
                   prose-code:text-cyan-400 prose-code:bg-white/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
                   prose-pre:bg-black/50 prose-pre:border prose-pre:border-white/10 prose-pre:rounded-xl"
               >
-                <ReactMarkdown>{post.content[lang]}</ReactMarkdown>
+                <ReactMarkdown
+                  components={{
+                    img: ({ src, alt }) => {
+                      // Ensure src starts with / for absolute path from public folder
+                      const imageSrc = src?.startsWith('/') ? src : `/${src}`;
+                      return (
+                        <img
+                          src={imageSrc}
+                          alt={alt || ''}
+                          title={alt || ''}
+                          width={800}
+                          height={450}
+                          loading="lazy"
+                          decoding="async"
+                          className="w-full rounded-2xl border border-white/10 shadow-2xl my-10"
+                        />
+                      );
+                    }
+                  }}
+                >
+                  {post.content[lang]}
+                </ReactMarkdown>
               </motion.div>
 
               {/* Next Post Navigation */}

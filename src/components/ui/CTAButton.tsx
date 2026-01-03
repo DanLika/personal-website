@@ -60,7 +60,7 @@ export const CTAButton = ({
           background: "linear-gradient(105deg, transparent 20%, rgba(255, 255, 255, 0.4) 45%, rgba(255, 255, 255, 0.6) 50%, rgba(255, 255, 255, 0.4) 55%, transparent 80%)",
         }}
         initial={{ x: "-100%" }}
-        animate={{ x: ["−100%", "100%"] }}
+        animate={{ x: ["-100%", "100%"] }}
         transition={{
           duration: 2,
           repeat: Infinity,

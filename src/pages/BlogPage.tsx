@@ -104,6 +104,8 @@ export const BlogPage = () => {
               : "Read the latest articles about web development, SaaS, mobile apps, and AI-assisted programming."
           }
         />
+        <link rel="canonical" href="https://licanin.dev/blog" />
+        <meta property="og:url" content="https://licanin.dev/blog" />
       </Helmet>
 
       <div ref={pageRef} className="relative min-h-screen bg-[#0A0A0A]">
