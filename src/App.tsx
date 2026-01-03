@@ -1,5 +1,6 @@
 import { useState, useLayoutEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Navbar } from "./components/Navbar";
 import { AppRoutes } from "./components/Routes";
 import { ErrorBoundary } from "./components/ErrorBoundary";
@@ -7,7 +8,13 @@ import { LoadingSpinner } from "./components/ui/LoadingSpinner";
 
 function App() {
   const location = useLocation();
+  const { i18n } = useTranslation();
   const [isLoading, setIsLoading] = useState(location.pathname === "/");
+
+  // Update document lang attribute when language changes
+  useLayoutEffect(() => {
+    document.documentElement.lang = i18n.language;
+  }, [i18n.language]);
 
   useLayoutEffect(() => {
     if (location.pathname === "/") {
