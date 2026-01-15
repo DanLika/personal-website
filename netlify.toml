@@ -51,12 +51,6 @@
     prettyURLs = true
     trailingSlash = false
 
-[[plugins]]
-  package = "netlify-plugin-lighthouse"
-  [plugins.inputs]
-    # Run Lighthouse on deploy
-    output_path = "lighthouse/report.html"
-
 # Prerender hint for Netlify (if Prerender Extension is enabled in UI)
 # This ensures bots get server-rendered content
 [build.environment]
