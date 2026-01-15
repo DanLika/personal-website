@@ -48,10 +48,10 @@ export const BlogCard = ({ post, index = 0 }: BlogCardProps) => {
 
         {/* Glass Card - Same pattern as FeaturedProject/CaseStudy */}
         <div
-          className="relative h-full overflow-hidden rounded-[24px] backdrop-blur-xl border border-white/10 transition-all duration-500 group-hover:border-cyan-400/40"
+          className="relative h-full overflow-hidden rounded-[24px] border border-white/10 transition-all duration-500 group-hover:border-cyan-400/40"
           style={{
-            background: 'linear-gradient(to bottom right, rgba(6,182,212,0.05), transparent, rgba(59,130,246,0.05)), rgba(0,0,0,0.5)',
-            boxShadow: "inset 0 1px 0 0 rgba(255,255,255,0.1), 0 0 40px rgba(59, 201, 255, 0.1)",
+            background: 'linear-gradient(135deg, #0A0A0A 0%, #13151A 40%, #0f1114 70%, #0A0A0A 100%)',
+            boxShadow: "inset 0 1px 0 0 rgba(255,255,255,0.05), 0 0 40px rgba(59, 201, 255, 0.08)",
           }}
         >
 

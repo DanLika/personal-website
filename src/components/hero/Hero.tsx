@@ -5,7 +5,6 @@ import { useRef } from "react";
 
 // Components
 import { HeroAvatar } from "./HeroAvatar";
-import { DecryptedText } from "../ui/DecryptedText";
 import { CTAButton } from "../ui/CTAButton";
 
 /**
@@ -228,29 +227,12 @@ export const Hero = () => {
               </motion.div>
 
               {/* Title - Responsive sizing: 34px → 72px (H1 must be largest on page) */}
-              {/* Single H1 text for SEO - DecryptedText is purely visual animation */}
               <motion.h1
                 variants={itemVariants}
                 className="font-extrabold font-space text-white leading-tight mt-5 sm:mt-6 md:mt-8 lg:mt-10 text-[34px] sm:text-[38px] md:text-5xl lg:text-[56px] xl:text-[64px] 2xl:text-[72px] px-2 sm:px-4 max-w-full text-center break-words"
                 style={{ textWrap: 'balance' }}
               >
-                {/* Mobile: plain text */}
-                <span className="md:hidden">{heroTitle}</span>
-                {/* Desktop: animated text effect */}
-                <span className="hidden md:inline">
-                  <DecryptedText
-                    text={heroTitle}
-                    animateOn="view"
-                    revealDirection="start"
-                    speed={50}
-                    maxIterations={15}
-                    sequential={true}
-                    characters="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-                    className="text-white"
-                    encryptedClassName="text-white/40"
-                    parentClassName="inline"
-                  />
-                </span>
+                {heroTitle}
               </motion.h1>
 
               {/* Subtitle - Fixed smaller size */}

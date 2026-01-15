@@ -38,6 +38,7 @@ export const FAQSection = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.4, delay: 0.1 }}
+            viewport={{ once: true }}
             className="inline-block px-4 py-1.5 mb-4 text-xs font-semibold uppercase tracking-wider rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-400/20"
             style={{
               textShadow: "0 0 10px rgba(59, 201, 255, 0.5)",
@@ -68,14 +69,13 @@ export const FAQSection = () => {
               viewport={{ once: true, margin: "-50px" }}
             >
               <div
-                className="relative rounded-2xl overflow-hidden backdrop-blur-xl border border-white/10 transition-all duration-300 hover:border-cyan-400/30"
+                className="relative rounded-2xl overflow-hidden border border-white/10 transition-all duration-300 hover:border-cyan-400/30"
                 style={{
-                  background:
-                    "linear-gradient(to bottom right, rgba(6,182,212,0.03), transparent, rgba(59,130,246,0.03)), rgba(0,0,0,0.4)",
+                  background: 'linear-gradient(135deg, #0A0A0A 0%, #13151A 40%, #0f1114 70%, #0A0A0A 100%)',
                   boxShadow:
                     openIndex === index
-                      ? "inset 0 1px 0 0 rgba(255,255,255,0.1), 0 0 30px rgba(59, 201, 255, 0.1)"
-                      : "inset 0 1px 0 0 rgba(255,255,255,0.05)",
+                      ? "inset 0 1px 0 0 rgba(255,255,255,0.05), 0 0 30px rgba(59, 201, 255, 0.1)"
+                      : "inset 0 1px 0 0 rgba(255,255,255,0.03)",
                 }}
               >
                 {/* Question Button */}

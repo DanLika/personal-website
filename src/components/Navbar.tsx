@@ -247,7 +247,7 @@ export const Navbar = () => {
               ))}
             </div>
 
-            {/* Language Toggle with Globe Icon */}
+            {/* Language Toggle with Flag Emoji */}
             <MagnetButton
               magnetStrength={4}
               padding={50}
@@ -256,23 +256,17 @@ export const Navbar = () => {
             >
               <motion.button
                 onClick={toggleLang}
-                className="w-10 h-10 flex items-center justify-center rounded-full border border-white/15 bg-white/5 hover:bg-white/10 transition-all duration-300 p-[1px]"
-                initial={{ scale: 1, rotate: 0 }}
-                whileHover={{ scale: 1.1, rotate: 10 }}
+                className="w-10 h-10 flex items-center justify-center rounded-full border border-white/15 bg-white/5 hover:bg-white/10 transition-all duration-300 text-2xl"
+                initial={{ scale: 1 }}
+                whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ duration: 0.2, ease: "easeOut" }}
                 aria-label={i18n.language === "en" ? "Switch to Bosnian language" : "Switch to English language"}
                 title={i18n.language === "en" ? "Switch to Bosnian" : "Switch to English"}
               >
-                <img
-                  src="/globe.avif"
-                  alt={t('nav.language_toggle_alt', 'Change language')}
-                  title={t('nav.language_toggle_alt', 'Change language')}
-                  width={32}
-                  height={32}
-                  loading="eager"
-                  className="w-8 h-8 object-contain opacity-80"
-                />
+                <span role="img" aria-hidden="true">
+                  {i18n.language === "en" ? "🇺🇸" : "🇧🇦"}
+                </span>
               </motion.button>
             </MagnetButton>
           </div>
@@ -314,43 +308,58 @@ export const Navbar = () => {
             licanin
           </motion.div>
 
-          {/* Hamburger Menu Button */}
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              toggleMobileMenu();
-            }}
-            className="w-10 h-10 flex items-center justify-center text-white/80 hover:text-neon transition-colors relative z-[70] pointer-events-auto"
-            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={mobileMenuOpen}
-            aria-controls="mobile-menu"
-            type="button"
-          >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
+          {/* Right side buttons */}
+          <div className="flex items-center gap-2">
+            {/* Language Toggle */}
+            <motion.button
+              onClick={toggleLang}
+              className="w-10 h-10 flex items-center justify-center rounded-full border border-white/15 bg-white/5 hover:bg-white/10 transition-all duration-300 text-xl"
+              whileTap={{ scale: 0.95 }}
+              aria-label={i18n.language === "en" ? "Switch to Bosnian language" : "Switch to English language"}
             >
-              {mobileMenuOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              )}
-            </svg>
-          </button>
+              <span role="img" aria-hidden="true">
+                {i18n.language === "en" ? "🇺🇸" : "🇧🇦"}
+              </span>
+            </motion.button>
+
+            {/* Hamburger Menu Button */}
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                toggleMobileMenu();
+              }}
+              className="w-10 h-10 flex items-center justify-center text-white/80 hover:text-neon transition-colors relative z-[70] pointer-events-auto"
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-menu"
+              type="button"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                {mobileMenuOpen ? (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                ) : (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                )}
+              </svg>
+            </button>
+          </div>
         </div>
       </motion.nav>
 
@@ -424,15 +433,9 @@ export const Navbar = () => {
                 className="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 active:scale-[0.98] transition-all duration-200"
                 aria-label={i18n.language === "en" ? "Switch to Bosnian language" : "Switch to English language"}
               >
-                <img
-                  src="/globe.avif"
-                  alt={t('nav.language_toggle_alt', 'Change language')}
-                  title={t('nav.language_toggle_alt', 'Change language')}
-                  width={32}
-                  height={32}
-                  loading="eager"
-                  className="w-8 h-8 object-contain opacity-80"
-                />
+                <span role="img" aria-hidden="true" className="text-2xl">
+                  {i18n.language === "en" ? "🇺🇸" : "🇧🇦"}
+                </span>
                 <span className="text-white/70 text-sm">
                   {i18n.language === "en" ? "English" : "Bosanski"}
                 </span>

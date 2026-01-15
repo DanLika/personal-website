@@ -56,3 +56,9 @@
   [plugins.inputs]
     # Run Lighthouse on deploy
     output_path = "lighthouse/report.html"
+
+# Prerender hint for Netlify (if Prerender Extension is enabled in UI)
+# This ensures bots get server-rendered content
+[build.environment]
+  # Enable better bot detection
+  NETLIFY_USE_PRERENDER = "true"

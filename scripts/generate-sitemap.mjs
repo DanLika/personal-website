@@ -2,7 +2,7 @@
 import { readdir, writeFile, readFile } from 'fs/promises';
 import path from 'path';
 
-const BASE_URL = 'https://licanin.dev';
+const BASE_URL = 'https://duskolicanin.com';
 const SITEMAP_PATH = path.join(process.cwd(), 'public', 'sitemap.xml');
 const BLOG_PATH = path.join(process.cwd(), 'public', 'blog');
 const PROJECTS_DATA_PATH = path.join(process.cwd(), 'src', 'data', 'projects.ts');

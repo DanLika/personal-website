@@ -133,13 +133,11 @@ export const ProjectList = () => {
 
                 {/* Card with tap feedback */}
                 <motion.div
-                  className="project-card relative backdrop-blur-xl rounded-[30px] border border-white/10 overflow-visible transition-all duration-300"
+                  className="project-card relative rounded-[30px] border border-white/10 overflow-visible transition-all duration-300"
                   style={{
-                    background: 'linear-gradient(to bottom right, rgba(6,182,212,0.05), transparent, rgba(59,130,246,0.05)), rgba(0,0,0,0.4)',
-                    boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.1), 0 0 40px rgba(59, 201, 255, 0.1)'
+                    background: 'linear-gradient(135deg, #0A0A0A 0%, #13151A 40%, #0f1114 70%, #0A0A0A 100%)',
+                    boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,0.05), 0 0 40px rgba(59, 201, 255, 0.08)'
                   }}
-                  whileHover={{ scale: 1.01 }}
-                  whileTap={{ scale: 0.99 }}
                   onMouseMove={handleMouseMove}
                   onTouchMove={handleTouchMove}
                 >
