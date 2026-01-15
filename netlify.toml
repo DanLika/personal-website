@@ -41,3 +41,18 @@
   for = "/*.webp"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+# Netlify Plugins
+[[plugins]]
+  package = "@netlify/plugin-sitemap"
+  [plugins.inputs]
+    buildDir = "dist"
+    exclude = ["404.html"]
+    prettyURLs = true
+    trailingSlash = false
+
+[[plugins]]
+  package = "netlify-plugin-lighthouse"
+  [plugins.inputs]
+    # Run Lighthouse on deploy
+    output_path = "lighthouse/report.html"
