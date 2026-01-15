@@ -9,50 +9,17 @@
     <meta name="theme-color" content="#0A0A0A" />
     <meta name="msapplication-navbutton-color" content="#0A0A0A" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <!-- DNS Prefetch & Preconnect for external resources -->
-    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
 
     <!-- Preload critical resources -->
     <link rel="preload" as="image" href="/hero-me.avif" fetchpriority="high" />
-    <link rel="preload" as="font" type="font/woff2" href="/fonts/SpaceGrotesk-400.woff2" crossorigin />
-    <link rel="preload" as="font" type="font/woff2" href="/fonts/SpaceGrotesk-700.woff2" crossorigin />
     <link rel="preload" as="fetch" href="/locales/bs/translation.json" crossorigin />
     <!-- Favicons -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <!-- Self-hosted fonts + prevent white flash -->
+    <!-- Prevent white flash -->
     <style>
-      @font-face {
-        font-family: 'Space Grotesk';
-        font-style: normal;
-        font-weight: 300;
-        font-display: swap;
-        src: url('/fonts/SpaceGrotesk-300.woff2') format('woff2');
-      }
-      @font-face {
-        font-family: 'Space Grotesk';
-        font-style: normal;
-        font-weight: 400;
-        font-display: swap;
-        src: url('/fonts/SpaceGrotesk-400.woff2') format('woff2');
-      }
-      @font-face {
-        font-family: 'Space Grotesk';
-        font-style: normal;
-        font-weight: 500;
-        font-display: swap;
-        src: url('/fonts/SpaceGrotesk-500.woff2') format('woff2');
-      }
-      @font-face {
-        font-family: 'Space Grotesk';
-        font-style: normal;
-        font-weight: 700;
-        font-display: swap;
-        src: url('/fonts/SpaceGrotesk-700.woff2') format('woff2');
-      }
       html, body, #root {
         background-color: #0A0A0A;
         min-height: 100vh;
