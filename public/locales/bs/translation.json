@@ -52,6 +52,7 @@
     },
     "viewProject": "Pogledaj Projekat",
     "viewCaseStudy": "Pogledaj Studiju",
+    "viewWebsite": "Pogledaj Website",
     "flutterflow": {
       "results": {
         "deployment": "Brza Implementacija",
@@ -198,6 +199,20 @@
         { "title": "Brži izlazak na tržište", "desc": "Developeri preskaču sedmice kodiranja uz gotovu logiku." },
         { "title": "Modularnost", "desc": "Komponente se lako integrišu u postojeće projekte." },
         { "title": "Cross-Platform", "desc": "Identične performanse na iOS i Android uređajima." }
+      ]
+    },
+    "apartment-templates": {
+      "title": "Apartment Showcase Templates",
+      "category": "Web Templejti",
+      "tagline": "Premium HTML + Tailwind templejti za vlasnike apartmana koji žele profesionalno predstaviti svoje nekretnine.",
+      "challenge_title": "Problem",
+      "challenge_text": "Vlasnici apartmana za iznajmljivanje često se bore sa skupim ili prekompleksnim web rješenjima. Trebaju jednostavne, brze stranice koje lijepo prikazuju njihove nekretnine bez stalnih troškova održavanja.",
+      "solution_title": "Rješenje",
+      "solution_text": "Kreirao sam tri različita templejta koristeći čisti HTML i Tailwind CSS - bez frameworka, bez zavisnosti. Svaki templejt nudi jedinstveni stil (luksuzno zlato, moderni real estate, mediteranski teal) sa višejezičnom podrškom i dark/light modovima.",
+      "results": [
+        { "title": "100/100 Lighthouse", "desc": "Savršeni rezultati performansi bez JavaScript zavisnosti." },
+        { "title": "Višejezična Podrška", "desc": "Ugrađena podrška za EN, HR, DE i IT jezike." },
+        { "title": "Nula Održavanja", "desc": "Statičke datoteke koje se mogu hostati bilo gdje besplatno." }
       ]
     }
   }

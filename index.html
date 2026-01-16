@@ -267,36 +267,74 @@
   </head>
   <body>
     <div id="root">
-      <!-- Fallback content for bots that don't execute JavaScript -->
-      <noscript>
-        <div style="font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; background: #fff; color: #333;">
-          <h1>Dusko Licanin - Full-Stack Developer</h1>
-          <p><strong>Specialization:</strong> FlutterFlow, React, AI-Assisted Development</p>
-          <p><strong>Location:</strong> Kostajnica, Bosnia and Herzegovina</p>
-          <p><strong>Email:</strong> duskolicanin1234@gmail.com</p>
-          <p><strong>Phone:</strong> +385 95 540 2041</p>
+      <!-- Static fallback content for ALL crawlers (SEO + AI bots) -->
+      <!-- React will replace this entire div's content when JavaScript loads -->
+      <div id="static-fallback" style="font-family: 'Space Grotesk', Arial, sans-serif; max-width: 900px; margin: 0 auto; padding: 40px 20px; background: #0A0A0A; color: #fff;">
+        <header style="text-align: center; margin-bottom: 60px;">
+          <h1 style="font-size: 2.5rem; margin-bottom: 16px; background: linear-gradient(135deg, #fff 0%, #3BC9FF 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Dusko Licanin - Full-Stack Developer</h1>
+          <p style="font-size: 1.25rem; color: #9CA3AF;">Full-Stack Development Enhanced with AI - Helping businesses build modern web & mobile apps faster.</p>
+        </header>
 
-          <h2>About Me</h2>
-          <p>Full-Stack Developer specializing in rapid SaaS MVP development and AI-powered web applications. I build scalable web & mobile apps 2x faster using AI-augmented workflows.</p>
+        <section style="margin-bottom: 48px;">
+          <h2 style="font-size: 1.5rem; color: #3BC9FF; margin-bottom: 16px; border-bottom: 1px solid rgba(59,201,255,0.2); padding-bottom: 8px;">About Me</h2>
+          <p style="line-height: 1.7; color: #D1D5DB; margin-bottom: 16px;">I'm a Full-Stack Developer specializing in rapid SaaS MVP development and AI-powered web applications. Based in Bosnia and Herzegovina, I build scalable web & mobile apps 2x faster using AI-augmented workflows with React, Flutter, FlutterFlow, Firebase, and Supabase.</p>
+          <p style="color: #9CA3AF;"><strong style="color: #fff;">Tech Stack:</strong> React, Flutter, FlutterFlow, Firebase, Supabase, Stripe, Tailwind CSS, TypeScript</p>
+        </section>
 
-          <h2>Featured Projects</h2>
-          <ul>
-            <li><strong>BookBed.io</strong> - Accommodation booking SaaS platform with iCal sync and Stripe integration</li>
-            <li><strong>Pizzeria Beštek</strong> - Food ordering system (<a href="https://pizzeriabestek.com">pizzeriabestek.com</a>)</li>
-            <li><strong>FlutterFlow Templates</strong> - 3 published marketplace templates (Booking SaaS, Calendar Sync, PDF Viewer)</li>
+        <section style="margin-bottom: 48px;">
+          <h2 style="font-size: 1.5rem; color: #3BC9FF; margin-bottom: 24px; border-bottom: 1px solid rgba(59,201,255,0.2); padding-bottom: 8px;">Featured Projects</h2>
+
+          <article style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 24px; margin-bottom: 20px;">
+            <h3 style="font-size: 1.25rem; color: #fff; margin-bottom: 8px;">BookBed.io - SaaS Booking Platform</h3>
+            <p style="color: #9CA3AF; margin-bottom: 12px;">Multi-tenant accommodation booking platform with iCal synchronization, Stripe payments, and embeddable widgets. Built with Flutter, Firebase, and modern cloud architecture.</p>
+            <p style="color: #6B7280; font-size: 0.875rem;"><strong>Tech:</strong> Flutter, Firebase, Stripe, iCal Integration</p>
+          </article>
+
+          <article style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 24px; margin-bottom: 20px;">
+            <h3 style="font-size: 1.25rem; color: #fff; margin-bottom: 8px;">Pizzeria Beštek - Food Ordering System</h3>
+            <p style="color: #9CA3AF; margin-bottom: 12px;">Full-featured food ordering web application with admin dashboard, real-time order management, and email notifications. Achieved 100+ orders in first week.</p>
+            <p style="color: #6B7280; font-size: 0.875rem;"><strong>Tech:</strong> React, Tailwind CSS, Supabase, Resend | <a href="https://pizzeriabestek.com" style="color: #3BC9FF;">Live Site →</a></p>
+          </article>
+
+          <article style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 24px; margin-bottom: 20px;">
+            <h3 style="font-size: 1.25rem; color: #fff; margin-bottom: 8px;">FlutterFlow Marketplace Templates</h3>
+            <p style="color: #9CA3AF; margin-bottom: 12px;">Premium template suite with 500+ purchases and 4.9★ rating. Includes Booking SaaS, Calendar Sync, and PDF Viewer templates optimized for production use.</p>
+            <p style="color: #6B7280; font-size: 0.875rem;"><strong>Tech:</strong> FlutterFlow, Firebase, Stripe, Google Calendar API | <a href="https://marketplace.flutterflow.io/creator/65d766a45ade49b3d5dfe437e8a52f87f5b9599e" style="color: #3BC9FF;">View Templates →</a></p>
+          </article>
+        </section>
+
+        <section style="margin-bottom: 48px;">
+          <h2 style="font-size: 1.5rem; color: #3BC9FF; margin-bottom: 16px; border-bottom: 1px solid rgba(59,201,255,0.2); padding-bottom: 8px;">Services</h2>
+          <ul style="list-style: none; padding: 0; color: #D1D5DB; line-height: 2;">
+            <li>✓ Rapid SaaS MVP Development - Launch your startup in weeks</li>
+            <li>✓ Custom Web & Mobile App Development - React, Flutter, FlutterFlow</li>
+            <li>✓ AI-Augmented Development - Faster delivery with premium quality</li>
+            <li>✓ FlutterFlow Development - 3 published marketplace templates</li>
+            <li>✓ Full-Stack Solutions - Firebase, Supabase, Stripe integration</li>
           </ul>
+        </section>
 
-          <h2>Skills</h2>
-          <p>React, Flutter, FlutterFlow, Firebase, Supabase, Stripe, AI Development, SaaS Development, Mobile App Development</p>
+        <section style="margin-bottom: 48px;">
+          <h2 style="font-size: 1.5rem; color: #3BC9FF; margin-bottom: 16px; border-bottom: 1px solid rgba(59,201,255,0.2); padding-bottom: 8px;">Contact</h2>
+          <p style="color: #D1D5DB; line-height: 2;">
+            <strong style="color: #fff;">Email:</strong> <a href="mailto:duskolicanin1234@gmail.com" style="color: #3BC9FF;">duskolicanin1234@gmail.com</a><br>
+            <strong style="color: #fff;">Phone:</strong> <a href="tel:+385955402041" style="color: #3BC9FF;">+385 95 540 2041</a><br>
+            <strong style="color: #fff;">GitHub:</strong> <a href="https://github.com/DanLika" style="color: #3BC9FF;">github.com/DanLika</a><br>
+            <strong style="color: #fff;">LinkedIn:</strong> <a href="https://www.linkedin.com/in/dusko-licanin-7b2705254/" style="color: #3BC9FF;">linkedin.com/in/dusko-licanin</a><br>
+            <strong style="color: #fff;">Location:</strong> Kostajnica, Bosnia and Herzegovina (Remote Worldwide)
+          </p>
+        </section>
 
-          <h2>Contact</h2>
-          <p>GitHub: <a href="https://github.com/DanLika">github.com/DanLika</a></p>
-          <p>LinkedIn: <a href="https://www.linkedin.com/in/dusko-licanin-7b2705254/">linkedin.com/in/dusko-licanin</a></p>
-          <p>Email: <a href="mailto:duskolicanin1234@gmail.com">duskolicanin1234@gmail.com</a></p>
-          <p>Phone: <a href="tel:+385955402041">+385 95 540 2041</a></p>
+        <footer style="text-align: center; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.1); color: #6B7280;">
+          <p>© 2025 Dusko Licanin. All rights reserved.</p>
+          <p style="font-size: 0.875rem; margin-top: 8px;">Built with React, Tailwind CSS & AI</p>
+        </footer>
+      </div>
 
-          <p><em>This website requires JavaScript. Please enable JavaScript for the full experience.</em></p>
-        </div>
+      <!-- Noscript fallback for browsers with JS disabled (shows same content with different styling) -->
+      <noscript>
+        <style>#static-fallback { display: block !important; }</style>
+        <p style="text-align: center; padding: 20px; color: #9CA3AF;">JavaScript is disabled. You're viewing the static version of this site.</p>
       </noscript>
     </div>
     <script type="module" src="/src/main.tsx"></script>

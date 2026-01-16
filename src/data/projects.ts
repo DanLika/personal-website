@@ -243,6 +243,95 @@ export const projectsData: Record<string, ProjectData> = {
         marketplaceUrl: 'https://marketplace.flutterflow.io/item/VtMN9fBXhPgGSNWgctQI'
       }
     ]
+  },
+  'apartment-templates': {
+    id: 'apartment-templates',
+    title: 'Apartment Showcase Templates',
+    category: 'WEB TEMPLATES',
+    description: 'A collection of premium HTML + Tailwind CSS templates for vacation rental owners to showcase their properties.',
+    overview: [
+      'Three beautifully designed static website templates specifically crafted for vacation rental owners and property managers.',
+      'Each template offers a unique visual style - from luxury Mediterranean villas to modern real estate - all built with semantic HTML and Tailwind CSS for maximum performance and customization.',
+      'Perfect for hosts who want a professional web presence without the complexity of a CMS or backend system.'
+    ],
+    techStack: ['Tailwind'],
+    galleryImages: ['/Apartment Showcase Templates.avif'],
+    challenges: [
+      'Creating visually distinct templates that appeal to different property styles',
+      'Ensuring fast load times with image-heavy content',
+      'Building responsive layouts that work on all devices',
+      'Implementing dark/light mode with CSS-only solutions'
+    ],
+    solutions: [
+      'Developed three unique design systems with distinct color palettes and typography',
+      'Optimized images and implemented lazy loading for performance',
+      'Used Tailwind responsive utilities for mobile-first design',
+      'Created CSS custom properties for theme switching without JavaScript'
+    ],
+    results: [
+      '100/100 Lighthouse Score',
+      'Multi-language Support',
+      'Zero Dependencies'
+    ],
+    client: 'Template Collection',
+    duration: '2 months',
+    role: 'Frontend Developer & Designer',
+    subProjects: [
+      {
+        id: 'cliffside-haven',
+        title: {
+          en: 'Cliffside Haven',
+          bs: 'Cliffside Haven'
+        },
+        description: {
+          en: 'A luxury villa template featuring a champagne gold color scheme, dark/light mode toggle, image gallery carousel, and Google Maps integration. Perfect for high-end Amalfi Coast style properties.',
+          bs: 'Luksuzni villa template sa šampanjac zlatnom bojom, dark/light mode opcijom, galerijom slika i Google Maps integracijom. Savršen za luksuzne nekretnine u stilu Amalfi obale.'
+        },
+        galleryImages: ['/apartmenttemplate3-2.avif'],
+        features: [
+          { en: 'Dark/Light Mode', bs: 'Tamni/Svijetli Režim' },
+          { en: 'Multi-language', bs: 'Višejezično' },
+          { en: 'Gallery Carousel', bs: 'Galerija Karusel' }
+        ],
+        marketplaceUrl: 'https://apartmenttemplate1.netlify.app'
+      },
+      {
+        id: 'rich-land',
+        title: {
+          en: 'Rich Land',
+          bs: 'Rich Land'
+        },
+        description: {
+          en: 'A sophisticated luxury real estate template with modern typography, elegant animations, and a professional layout designed for premium property showcasing.',
+          bs: 'Sofisticirani luksuzni real estate template sa modernom tipografijom, elegantnim animacijama i profesionalnim layoutom dizajniranim za prezentaciju premium nekretnina.'
+        },
+        galleryImages: ['/apartmenttemplate2.avif'],
+        features: [
+          { en: 'Elegant Design', bs: 'Elegantan Dizajn' },
+          { en: 'Property Listings', bs: 'Lista Nekretnina' },
+          { en: 'Contact Forms', bs: 'Kontakt Forme' }
+        ],
+        marketplaceUrl: 'https://apartmenttemplate2.netlify.app'
+      },
+      {
+        id: 'villa-serena',
+        title: {
+          en: 'Villa Serena',
+          bs: 'Villa Serena'
+        },
+        description: {
+          en: 'A Mediterranean-inspired template featuring a calming teal color palette, accommodation unit showcase, guest testimonials, and Superhost badges. Ideal for established rental properties.',
+          bs: 'Template inspirisan Mediteranom sa umirujućom teal paletom boja, prikazom smještajnih jedinica, recenzijama gostiju i Superhost oznakama. Idealan za etablirane objekte za iznajmljivanje.'
+        },
+        galleryImages: ['/apartmenttemplate3.avif'],
+        features: [
+          { en: 'Teal Theme', bs: 'Teal Tema' },
+          { en: 'Guest Reviews', bs: 'Recenzije Gostiju' },
+          { en: 'Unit Showcase', bs: 'Prikaz Jedinica' }
+        ],
+        marketplaceUrl: 'https://apartmenttemplate3.netlify.app'
+      }
+    ]
   }
 };
 

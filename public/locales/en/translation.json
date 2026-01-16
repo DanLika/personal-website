@@ -52,6 +52,7 @@
     },
     "viewProject": "View Project",
     "viewCaseStudy": "View Case Study",
+    "viewWebsite": "View Website",
     "flutterflow": {
       "results": {
         "deployment": "Rapid Deployment",
@@ -198,6 +199,20 @@
         { "title": "Faster Speed to Market", "desc": "Developers skip weeks of backend coding." },
         { "title": "Modular Design", "desc": "Components can be dropped into any project easily." },
         { "title": "Cross-Platform", "desc": "Flutter engine ensures parity across iOS and Android." }
+      ]
+    },
+    "apartment-templates": {
+      "title": "Apartment Showcase Templates",
+      "category": "Web Templates",
+      "tagline": "Premium HTML + Tailwind templates for vacation rental owners to showcase their properties professionally.",
+      "challenge_title": "The Challenge",
+      "challenge_text": "Vacation rental owners often struggle with expensive or overly complex website solutions. They need simple, fast-loading sites that showcase their properties beautifully without ongoing maintenance costs.",
+      "solution_title": "The Solution",
+      "solution_text": "I created three distinct templates using pure HTML and Tailwind CSS - no frameworks, no dependencies. Each template offers unique styling (luxury gold, modern real estate, Mediterranean teal) with multi-language support and dark/light modes.",
+      "results": [
+        { "title": "100/100 Lighthouse", "desc": "Perfect performance scores with zero JavaScript dependencies." },
+        { "title": "Multi-language Ready", "desc": "Built-in support for EN, HR, DE, and IT languages." },
+        { "title": "Zero Maintenance", "desc": "Static files that can be hosted anywhere for free." }
       ]
     }
   }

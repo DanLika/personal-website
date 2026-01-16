@@ -439,8 +439,8 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
         </div>
       </section>
 
-      {/* GALLERY SECTION - Moved up, more prominent */}
-      {currentProject.id !== 'flutterflow-templates' && (
+      {/* GALLERY SECTION - Moved up, more prominent (hidden for projects with subProjects) */}
+      {currentProject.id !== 'flutterflow-templates' && currentProject.id !== 'apartment-templates' && (
         <section className="relative w-full py-8 sm:py-10 md:py-14 px-4 sm:px-6 md:px-12 lg:px-16 z-10">
           <div className="max-w-6xl mx-auto">
             <motion.div
@@ -478,8 +478,8 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
               </p>
             </motion.div>
 
-            {/* Sub-Projects List */}
-            <div className="space-y-8 sm:space-y-10 md:space-y-12">
+            {/* Sub-Projects Grid - 2 columns on desktop */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
               {currentProject.subProjects.map((subProject, index) => (
                 <SubProjectCard
                   key={subProject.id}

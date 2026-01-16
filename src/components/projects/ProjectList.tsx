@@ -13,7 +13,8 @@ const MOCKUP_IMAGES: Record<string, string> = {
   'bookbed-saas': '/bookbed-mockup.avif',             // BookBed SaaS platform
   'ironlife': '/ironlife-mockup.avif',                // IronLife Webflow site
   'pizzeria-bestek': '/pizzeria-mockup.avif',         // Pizzeria ordering system
-  'flutterflow-templates': '/flutterflow-mockup.avif' // FlutterFlow templates
+  'flutterflow-templates': '/flutterflow-mockup.avif', // FlutterFlow templates
+  'apartment-templates': '/Apartment Showcase Templates.avif' // Apartment showcase templates
 };
 
 // Get project IDs excluding BookBed (which is featured separately)

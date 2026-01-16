@@ -49,15 +49,8 @@ export const SubProjectCard: React.FC<SubProjectCardProps> = ({ subProject, inde
   // Get accent color based on index
   const accent = ACCENT_COLORS[index % ACCENT_COLORS.length];
 
-  // Get all images (combine horizontal and vertical)
-  const allImages = [
-    ...(subProject.galleryImages || []),
-    ...(subProject.galleryImagesVertical || [])
-  ];
-
-  // First image is hero, rest are thumbnails
-  const heroImage = allImages[0];
-  const thumbnailImages = allImages.slice(1, 4); // Max 3 thumbnails
+  // Get first image for display
+  const heroImage = subProject.galleryImages?.[0];
 
   return (
     <motion.div
@@ -108,61 +101,30 @@ export const SubProjectCard: React.FC<SubProjectCardProps> = ({ subProject, inde
             {subProject.description[currentLang]}
           </p>
 
-          {/* Images Grid: Hero + Thumbnails */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-            {/* Hero Image - Full width on mobile, 2 cols on desktop */}
-            {heroImage && (
-              <motion.div
-                className="sm:col-span-2 relative rounded-xl sm:rounded-2xl overflow-hidden aspect-video sm:aspect-[16/10] cursor-pointer"
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.3 }}
-              >
-                <img
-                  src={heroImage}
-                  alt={subProject.title[currentLang]}
-                  title={subProject.title[currentLang]}
-                  width={800}
-                  height={500}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.src = "data:image/svg+xml,%3Csvg width='800' height='500' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='800' height='500' fill='%231A1A1A'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%233BC9FF' font-family='Arial' font-size='20'%3EImage%3C/text%3E%3C/svg%3E";
-                  }}
-                />
-                {/* Overlay gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </motion.div>
-            )}
-
-            {/* Thumbnail Stack - 1 col on desktop */}
-            {thumbnailImages.length > 0 && (
-              <div className="grid grid-cols-3 sm:grid-cols-1 gap-2 sm:gap-3">
-                {thumbnailImages.map((img, idx) => (
-                  <motion.div
-                    key={idx}
-                    className="relative rounded-lg sm:rounded-xl overflow-hidden aspect-video sm:aspect-[4/3] cursor-pointer"
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <img
-                      src={img}
-                      alt={`${subProject.title[currentLang]} screenshot ${idx + 2}`}
-                      title={`${subProject.title[currentLang]} - Image ${idx + 2}`}
-                      width={400}
-                      height={300}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.src = "data:image/svg+xml,%3Csvg width='400' height='300' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='400' height='300' fill='%231A1A1A'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%233BC9FF' font-family='Arial' font-size='14'%3EImage%3C/text%3E%3C/svg%3E";
-                      }}
-                    />
-                  </motion.div>
-                ))}
-              </div>
-            )}
-          </div>
+          {/* Single Image - Full width within card */}
+          {heroImage && (
+            <motion.div
+              className="relative rounded-xl sm:rounded-2xl overflow-hidden aspect-video w-full cursor-pointer"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3 }}
+            >
+              <img
+                src={heroImage}
+                alt={subProject.title[currentLang]}
+                title={subProject.title[currentLang]}
+                width={384}
+                height={216}
+                className="w-full h-full object-cover"
+                loading="lazy"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = "data:image/svg+xml,%3Csvg width='384' height='216' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='384' height='216' fill='%231A1A1A'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' fill='%233BC9FF' font-family='Arial' font-size='16'%3EImage%3C/text%3E%3C/svg%3E";
+                }}
+              />
+              {/* Overlay gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </motion.div>
+          )}
 
           {/* Marketplace Link (if available) */}
           {subProject.marketplaceUrl && (
@@ -179,7 +141,7 @@ export const SubProjectCard: React.FC<SubProjectCardProps> = ({ subProject, inde
                 className={`inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border ${accent.badge} text-xs sm:text-sm font-medium transition-all duration-300 hover:scale-105 active:scale-95`}
               >
                 <ExternalLink className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                <span>{t("projects.flutterflow.viewOnMarketplace", "View on Marketplace")}</span>
+                <span>{subProject.marketplaceUrl?.includes('marketplace') ? t("projects.flutterflow.viewOnMarketplace", "View on Marketplace") : t("projects.viewWebsite", "View Website")}</span>
               </a>
             </motion.div>
           )}
