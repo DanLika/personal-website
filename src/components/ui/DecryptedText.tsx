@@ -117,37 +117,48 @@ export const DecryptedText = ({
 
     const shuffleText = (originalText: string, currentRevealed: Set<number>): string => {
       if (useOriginalCharsOnly) {
-        const positions = originalText.split("").map((char, i) => ({
-          char,
-          isSpace: char === " ",
-          index: i,
-          isRevealed: currentRevealed.has(i),
-        }));
-
-        const nonSpaceChars = positions.filter((p) => !p.isSpace && !p.isRevealed).map((p) => p.char);
-
-        for (let i = nonSpaceChars.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [nonSpaceChars[i], nonSpaceChars[j]] = [nonSpaceChars[j], nonSpaceChars[i]];
+        // Collect unrevealed, non-space characters
+        const nonSpaceChars: string[] = [];
+        for (let i = 0; i < originalText.length; i++) {
+          if (originalText[i] !== " " && !currentRevealed.has(i)) {
+            nonSpaceChars.push(originalText[i]);
+          }
         }
 
+        // Shuffle the collected characters
+        for (let i = nonSpaceChars.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          const temp = nonSpaceChars[i];
+          nonSpaceChars[i] = nonSpaceChars[j];
+          nonSpaceChars[j] = temp;
+        }
+
+        // Pre-allocate result array and populate
+        const result = new Array(originalText.length);
         let charIndex = 0;
-        return positions
-          .map((p) => {
-            if (p.isSpace) return " ";
-            if (p.isRevealed) return originalText[p.index];
-            return nonSpaceChars[charIndex++];
-          })
-          .join("");
+        for (let i = 0; i < originalText.length; i++) {
+          if (originalText[i] === " ") {
+            result[i] = " ";
+          } else if (currentRevealed.has(i)) {
+            result[i] = originalText[i];
+          } else {
+            result[i] = nonSpaceChars[charIndex++];
+          }
+        }
+        return result.join("");
       } else {
-        return originalText
-          .split("")
-          .map((char, i) => {
-            if (char === " ") return " ";
-            if (currentRevealed.has(i)) return originalText[i];
-            return availableChars[Math.floor(Math.random() * availableChars.length)];
-          })
-          .join("");
+        // Pre-allocate result array and populate with random chars
+        const result = new Array(originalText.length);
+        for (let i = 0; i < originalText.length; i++) {
+          if (originalText[i] === " ") {
+            result[i] = " ";
+          } else if (currentRevealed.has(i)) {
+            result[i] = originalText[i];
+          } else {
+            result[i] = availableChars[Math.floor(Math.random() * availableChars.length)];
+          }
+        }
+        return result.join("");
       }
     };
 
