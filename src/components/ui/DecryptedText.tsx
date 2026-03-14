@@ -249,15 +249,22 @@ export const DecryptedText = ({
       <span style={styles.srOnly}>{displayText}</span>
 
       <span aria-hidden="true">
-        {displayText.split("").map((char, index) => {
-          const isRevealedOrDone = revealedIndicesRef.current.has(index) || !isScramblingRef.current || !isHoveringRef.current;
+        {(() => {
+          const len = displayText.length;
+          const chars = new Array(len);
+          const isRevealedBase = !isScramblingRef.current || !isHoveringRef.current;
 
-          return (
-            <span key={index} className={isRevealedOrDone ? className : encryptedClassName}>
-              {char}
-            </span>
-          );
-        })}
+          for (let i = 0; i < len; i++) {
+            const isRevealedOrDone = isRevealedBase || revealedIndicesRef.current.has(i);
+
+            chars[i] = (
+              <span key={i} className={isRevealedOrDone ? className : encryptedClassName}>
+                {displayText[i]}
+              </span>
+            );
+          }
+          return chars;
+        })()}
       </span>
     </motion.span>
   );
