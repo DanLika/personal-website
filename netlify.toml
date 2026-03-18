@@ -47,6 +47,7 @@
   package = "@netlify/plugin-sitemap"
   [plugins.inputs]
     buildDir = "dist"
+    baseUrl = "https://danlika.com"
     exclude = ["404.html"]
     prettyURLs = true
     trailingSlash = false
