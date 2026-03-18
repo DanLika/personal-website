@@ -1,6 +1,6 @@
 import { describe, test } from "node:test";
-import assert from "node:assert";
-import { getNextProject, projectsData } from "./projects.ts";
+import * as assert from "node:assert";
+import { getNextProject, projectsData } from "./projects";
 
 describe("getNextProject", () => {
   test("returns the second project when given the first project ID", () => {
