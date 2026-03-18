@@ -63,21 +63,28 @@ export const MagnetButton = ({
   }, [updateCachedRect]);
 
   useEffect(() => {
-    // Only attach listener when active and not disabled
-    if (disabled || !isActive) return;
+    if (disabled) return;
 
     const handleMouseMove = (e: MouseEvent) => {
       lastMouseRef.current = { x: e.clientX, y: e.clientY };
 
-      // Use RAF for batching
-      if (rafIdRef.current) return; // Skip if RAF already pending
+      if (rafIdRef.current) return;
 
       rafIdRef.current = requestAnimationFrame(() => {
         rafIdRef.current = null;
 
-        const rect = cachedRectRef.current;
+        let rect = cachedRectRef.current;
+        if (!rect) {
+          if (magnetRef.current) {
+            cachedRectRef.current = magnetRef.current.getBoundingClientRect();
+            rect = cachedRectRef.current;
+          } else {
+            return;
+          }
+        }
+
         const mouse = lastMouseRef.current;
-        if (!rect || !mouse) return;
+        if (!mouse) return;
 
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
@@ -85,15 +92,21 @@ export const MagnetButton = ({
         const distX = Math.abs(centerX - mouse.x);
         const distY = Math.abs(centerY - mouse.y);
 
-        if (distX < rect.width / 2 + padding && distY < rect.height / 2 + padding) {
-          const offsetX = (mouse.x - centerX) / magnetStrength;
-          const offsetY = (mouse.y - centerY) / magnetStrength;
-          setPosition({ x: offsetX, y: offsetY });
-        } else {
-          // Reset position and deactivate when mouse leaves area
-          setPosition({ x: 0, y: 0 });
-          setIsActive(false);
-        }
+        const isInside = distX < rect.width / 2 + padding && distY < rect.height / 2 + padding;
+
+        setIsActive((prevIsActive) => {
+          if (isInside) {
+            const offsetX = (mouse.x - centerX) / magnetStrength;
+            const offsetY = (mouse.y - centerY) / magnetStrength;
+            setPosition({ x: offsetX, y: offsetY });
+            return true;
+          } else {
+            if (prevIsActive) {
+              setPosition({ x: 0, y: 0 });
+            }
+            return false;
+          }
+        });
       });
     };
 
@@ -104,56 +117,10 @@ export const MagnetButton = ({
         cancelAnimationFrame(rafIdRef.current);
         rafIdRef.current = null;
       }
-      // Reset position when effect cleans up (disabled or deactivated)
       setPosition({ x: 0, y: 0 });
+      setIsActive(false);
     };
-  }, [padding, disabled, magnetStrength, isActive]);
-
-  // Separate effect to detect when mouse enters the proximity
-  useEffect(() => {
-    if (disabled) return;
-
-    let enterRafId: number | null = null;
-
-    const handleMouseEnter = (e: MouseEvent) => {
-      if (isActive) return; // Already active, skip
-
-      // Use RAF for batching
-      if (enterRafId) return;
-
-      enterRafId = requestAnimationFrame(() => {
-        enterRafId = null;
-
-        // Use cached rect to avoid forced reflow
-        const rect = cachedRectRef.current;
-        if (!rect) {
-          // Only get fresh rect if not cached yet
-          if (magnetRef.current) {
-            cachedRectRef.current = magnetRef.current.getBoundingClientRect();
-          }
-          return;
-        }
-
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-
-        const distX = Math.abs(centerX - e.clientX);
-        const distY = Math.abs(centerY - e.clientY);
-
-        if (distX < rect.width / 2 + padding && distY < rect.height / 2 + padding) {
-          setIsActive(true);
-        }
-      });
-    };
-
-    window.addEventListener("mousemove", handleMouseEnter, { passive: true });
-    return () => {
-      window.removeEventListener("mousemove", handleMouseEnter);
-      if (enterRafId) {
-        cancelAnimationFrame(enterRafId);
-      }
-    };
-  }, [padding, disabled, isActive]);
+  }, [padding, disabled, magnetStrength]);
 
   const transitionStyle = isActive ? activeTransition : inactiveTransition;
 
