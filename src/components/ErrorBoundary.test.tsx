@@ -1,6 +1,7 @@
 import { test, describe, mock, afterEach } from "node:test";
 import * as assert from "node:assert";
 import React from "react";
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 (globalThis as any).React = React; // Important for TSX in Node
 
 import TestRenderer from "react-test-renderer";
@@ -31,8 +32,10 @@ describe("ErrorBoundary", () => {
     };
 
     // We need to provide a mock for window.location for the button click
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const originalWindow = (globalThis as any).window;
-    (globalThis as any).window = { location: { reload: mock.fn() } } as any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (globalThis as any).window = { location: { reload: mock.fn() } };
 
     try {
       const renderer = TestRenderer.create(
@@ -60,6 +63,7 @@ describe("ErrorBoundary", () => {
       // Verify the reload button
       const button = root.findByType("button");
       button.props.onClick();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       assert.strictEqual(((globalThis as any).window.location.reload as any).mock.calls.length, 1);
 
       // Verify the Go Home link
@@ -67,6 +71,7 @@ describe("ErrorBoundary", () => {
       assert.strictEqual(link.props.to, "/");
 
     } finally {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (globalThis as any).window = originalWindow;
     }
   });
