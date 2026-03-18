@@ -25,7 +25,7 @@ export interface BlogPost {
   };
 }
 
-export const blogsData: BlogPost[] = [
+const blogsData: BlogPost[] = [
   {
     id: "11",
     slug: "savjeti-za-uspjesnu-izradu-web-stranica-2025",
