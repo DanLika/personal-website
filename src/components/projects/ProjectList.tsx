@@ -54,7 +54,10 @@ const TechIcon: React.FC<{ tech: string }> = ({ tech }) => {
             target.style.display = 'none';
             const parent = target.parentElement;
             if (parent) {
-              parent.innerHTML = `<span class="text-cyan-400 text-xs font-bold">${tech.slice(0, 2).toUpperCase()}</span>`;
+              const fallbackSpan = document.createElement('span');
+              fallbackSpan.className = 'text-cyan-400 text-xs font-bold';
+              fallbackSpan.textContent = tech.slice(0, 2).toUpperCase();
+              parent.appendChild(fallbackSpan);
             }
           }}
         />
