@@ -1,7 +1,7 @@
-import { useRef, useEffect, useState, type ReactNode } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
 interface AutoSizeTextProps {
-  children: ReactNode;
+  children: React.ReactNode;
   /** Minimum font size in pixels */
   minFontSize?: number;
   /** Maximum font size in pixels */
