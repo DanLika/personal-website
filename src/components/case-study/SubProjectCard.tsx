@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { type SubProject } from "../../data/projects";
+import type { SubProject } from "../../data/projects";
 import { ExternalLink } from "lucide-react";
 
 interface SubProjectCardProps {
