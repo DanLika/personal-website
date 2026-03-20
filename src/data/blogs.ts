@@ -4396,20 +4396,27 @@ Dok AI SaaS nastavljaju da napreduju, ključno je da organizacije budu otvorene 
   },
 ];
 
+const sortedBlogs = [...blogsData].sort((a, b) =>
+  new Date(b.date).getTime() - new Date(a.date).getTime()
+);
+
+const slugToIndex = new Map<string, number>();
+sortedBlogs.forEach((post, index) => {
+  slugToIndex.set(post.slug, index);
+});
+
 /**
  * Get all blog posts sorted by date (newest first)
  */
 export const getAllBlogs = (): BlogPost[] => {
-  return [...blogsData].sort((a, b) =>
-    new Date(b.date).getTime() - new Date(a.date).getTime()
-  );
+  return sortedBlogs;
 };
 
 /**
  * Get latest N blog posts
  */
 export const getLatestBlogs = (count: number = 3): BlogPost[] => {
-  return getAllBlogs().slice(0, count);
+  return sortedBlogs.slice(0, count);
 };
 
 /**
@@ -4423,22 +4430,23 @@ export const getBlogBySlug = (slug: string): BlogPost | undefined => {
  * Get next blog post for navigation
  */
 export const getNextBlog = (currentSlug: string): BlogPost | null => {
-  const blogs = getAllBlogs();
-  const currentIndex = blogs.findIndex(post => post.slug === currentSlug);
-  if (currentIndex === -1 || currentIndex === blogs.length - 1) {
-    return blogs[0]; // Loop back to first post
+  const currentIndex = slugToIndex.get(currentSlug);
+  if (currentIndex === undefined) {
+    return sortedBlogs[0]; // Loop back to first post if not found
   }
-  return blogs[currentIndex + 1];
+  if (currentIndex === sortedBlogs.length - 1) {
+    return sortedBlogs[0]; // Loop back to first post
+  }
+  return sortedBlogs[currentIndex + 1];
 };
 
 /**
  * Get previous blog post for navigation
  */
 export const getPreviousBlog = (currentSlug: string): BlogPost | null => {
-  const blogs = getAllBlogs();
-  const currentIndex = blogs.findIndex(post => post.slug === currentSlug);
-  if (currentIndex === -1 || currentIndex === 0) {
-    return blogs[blogs.length - 1]; // Loop back to last post
+  const currentIndex = slugToIndex.get(currentSlug);
+  if (currentIndex === undefined || currentIndex === 0) {
+    return sortedBlogs[sortedBlogs.length - 1]; // Loop back to last post
   }
-  return blogs[currentIndex - 1];
+  return sortedBlogs[currentIndex - 1];
 };
