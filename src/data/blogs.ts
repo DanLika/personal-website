@@ -4394,15 +4394,15 @@ Dok AI SaaS nastavljaju da napreduju, ključno je da organizacije budu otvorene 
       bs: "AI"
     }
   },
-];
+].sort((a, b) =>
+  new Date(b.date).getTime() - new Date(a.date).getTime()
+);
 
 /**
  * Get all blog posts sorted by date (newest first)
  */
 export const getAllBlogs = (): BlogPost[] => {
-  return [...blogsData].sort((a, b) =>
-    new Date(b.date).getTime() - new Date(a.date).getTime()
-  );
+  return blogsData;
 };
 
 /**
