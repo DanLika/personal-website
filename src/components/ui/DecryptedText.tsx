@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
-import { motion, type HTMLMotionProps } from "framer-motion";
+import { motion } from "framer-motion";
+import type { ComponentProps } from "react";
 
 const styles = {
   wrapper: {
@@ -18,7 +19,7 @@ const styles = {
   },
 };
 
-interface DecryptedTextProps extends HTMLMotionProps<"span"> {
+interface DecryptedTextProps extends ComponentProps<typeof motion.span> {
   text: string;
   speed?: number;
   maxIterations?: number;
