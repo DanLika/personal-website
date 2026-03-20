@@ -95,85 +95,29 @@ const fragment = /* glsl */ `
   }
 `;
 
-/**
- * Particles - WebGL particle background using OGL (ReactBits style)
- * 
- * Features:
- * - Hardware-accelerated WebGL rendering
- * - 3D particle movement with subtle rotation
- * - Mouse interaction (particles follow cursor)
- * - Touch support for mobile devices
- * - Smooth alpha blending
- * - Customizable colors, size, and behavior
- */
-export const Particles = ({
-  particleCount = 100,
-  particleSpread = 10,
-  speed = 0.3,
-  particleColors = defaultColors,
-  moveParticlesOnHover = true,
-  particleHoverFactor = 2,
-  alphaParticles = true,
-  particleBaseSize = 80,
-  sizeRandomness = 1,
-  cameraDistance = 20,
-  disableRotation = false,
-  className = '',
-  externalMouseRef
-}: ParticlesProps) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const mouseRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
-  const programRef = useRef<Program | null>(null);
-  const particlesRef = useRef<Mesh | null>(null);
-  const speedRef = useRef(speed);
-  const rendererRef = useRef<Renderer | null>(null);
-  const isVisibleRef = useRef(true);
 
+// --- Extracted Hooks --- //
+
+const useParticlesInput = (
+  containerRef: React.RefObject<HTMLDivElement | null>,
+  mouseRef: React.MutableRefObject<{ x: number; y: number }>,
+  moveParticlesOnHover: boolean,
+  externalMouseRef?: React.MutableRefObject<{ x: number; y: number } | null>
+) => {
   useEffect(() => {
     const container = containerRef.current;
-    if (!container) return;
+    if (!container || (moveParticlesOnHover && externalMouseRef)) return;
 
-    // Get device pixel ratio for crisp rendering
-    const pixelRatio = Math.min(window.devicePixelRatio, 2);
-
-    const renderer = new Renderer({ dpr: pixelRatio, depth: false, alpha: true });
-    const gl = renderer.gl;
-    rendererRef.current = renderer;
-    container.appendChild(gl.canvas);
-    gl.clearColor(0, 0, 0, 0);
-
-    // Style the canvas
-    const canvas = gl.canvas as HTMLCanvasElement;
-    canvas.style.position = 'absolute';
-    canvas.style.inset = '0';
-    canvas.style.width = '100%';
-    canvas.style.height = '100%';
-
-    const camera = new Camera(gl, { fov: 15 });
-    camera.position.set(0, 0, cameraDistance);
-
-    const resize = () => {
-      const width = container.clientWidth;
-      const height = container.clientHeight;
-      renderer.setSize(width, height);
-      camera.perspective({ aspect: gl.canvas.width / gl.canvas.height });
-    };
-    window.addEventListener('resize', resize, false);
-    resize();
-
-    // Cache container rect for performance (updated on resize)
     let cachedRect = container.getBoundingClientRect();
     let inputRafId: number | null = null;
     let lastInputX = 0;
     let lastInputY = 0;
 
-    // Update cached rect on resize
     const updateCachedRect = () => {
       cachedRect = container.getBoundingClientRect();
     };
     window.addEventListener('resize', updateCachedRect, { passive: true });
 
-    // Mouse and touch handlers with RAF batching
     const processInput = () => {
       inputRafId = null;
       const x = ((lastInputX - cachedRect.left) / cachedRect.width) * 2 - 1;
@@ -205,11 +149,9 @@ export const Particles = ({
     };
 
     const handleTouchEnd = () => {
-      // Smoothly return to center after touch ends
       mouseRef.current = { x: 0, y: 0 };
     };
 
-    // If external mouse tracking provided, skip adding local listeners
     if (moveParticlesOnHover && !externalMouseRef) {
       container.addEventListener('mousemove', handleMouseMove, { passive: true });
       container.addEventListener('mouseleave', handleMouseLeave);
@@ -217,7 +159,96 @@ export const Particles = ({
       container.addEventListener('touchend', handleTouchEnd, { passive: true });
     }
 
-    // Create particle data
+    return () => {
+      window.removeEventListener('resize', updateCachedRect);
+      if (moveParticlesOnHover && !externalMouseRef) {
+        container.removeEventListener('mousemove', handleMouseMove);
+        container.removeEventListener('mouseleave', handleMouseLeave);
+        container.removeEventListener('touchmove', handleTouchMove);
+        container.removeEventListener('touchend', handleTouchEnd);
+      }
+      if (inputRafId) {
+        cancelAnimationFrame(inputRafId);
+      }
+    };
+  }, [containerRef, moveParticlesOnHover, externalMouseRef, mouseRef]);
+};
+
+const useParticlesVisibility = (
+  isVisibleRef: React.MutableRefObject<boolean>,
+  glRef: React.MutableRefObject<WebGLRenderingContext | WebGL2RenderingContext | null>,
+  lastTimeRef: React.MutableRefObject<number>
+) => {
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      const wasHidden = !isVisibleRef.current;
+      isVisibleRef.current = !document.hidden;
+
+      if (!document.hidden && wasHidden) {
+        lastTimeRef.current = performance.now();
+
+        if (glRef.current && glRef.current.isContextLost()) {
+          window.dispatchEvent(new CustomEvent('particles-context-lost'));
+        }
+      }
+    };
+
+    isVisibleRef.current = !document.hidden;
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [isVisibleRef, glRef, lastTimeRef]);
+};
+
+const useParticlesWebGL = (
+  containerRef: React.RefObject<HTMLDivElement | null>,
+  particleCount: number,
+  particleColors: string[],
+  cameraDistance: number,
+  particleSpread: number,
+  particleBaseSize: number,
+  sizeRandomness: number,
+  alphaParticles: boolean,
+  programRef: React.MutableRefObject<Program | null>,
+  particlesRef: React.MutableRefObject<Mesh | null>,
+  rendererRef: React.MutableRefObject<Renderer | null>,
+  glRef: React.MutableRefObject<WebGLRenderingContext | WebGL2RenderingContext | null>,
+  cameraRef: React.MutableRefObject<Camera | null>
+) => {
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const pixelRatio = Math.min(window.devicePixelRatio, 2);
+
+    const renderer = new Renderer({ dpr: pixelRatio, depth: false, alpha: true });
+    const gl = renderer.gl;
+    rendererRef.current = renderer;
+    glRef.current = gl;
+    container.appendChild(gl.canvas);
+    gl.clearColor(0, 0, 0, 0);
+
+    const canvas = gl.canvas as HTMLCanvasElement;
+    canvas.style.position = 'absolute';
+    canvas.style.inset = '0';
+    canvas.style.width = '100%';
+    canvas.style.height = '100%';
+
+    const camera = new Camera(gl, { fov: 15 });
+    camera.position.set(0, 0, cameraDistance);
+    cameraRef.current = camera;
+
+    const resize = () => {
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+      renderer.setSize(width, height);
+      camera.perspective({ aspect: gl.canvas.width / gl.canvas.height });
+    };
+    window.addEventListener('resize', resize, false);
+    resize();
+
     const count = particleCount;
     const positions = new Float32Array(count * 3);
     const randoms = new Float32Array(count * 4);
@@ -225,7 +256,6 @@ export const Particles = ({
     const palette = particleColors.length > 0 ? particleColors : defaultColors;
 
     for (let i = 0; i < count; i++) {
-      // Distribute particles in a sphere
       let x: number, y: number, z: number, len: number;
       do {
         x = Math.random() * 2 - 1;
@@ -264,44 +294,77 @@ export const Particles = ({
 
     const particles = new Mesh(gl, { mode: gl.POINTS, geometry, program });
 
-    // Store refs for dynamic updates
     programRef.current = program;
     particlesRef.current = particles;
-    speedRef.current = speed;
 
+    return () => {
+      window.removeEventListener('resize', resize);
+      if (container.contains(gl.canvas)) {
+        container.removeChild(gl.canvas);
+      }
+      programRef.current = null;
+      particlesRef.current = null;
+      rendererRef.current = null;
+      glRef.current = null;
+      cameraRef.current = null;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    containerRef, particleCount, particleColors, cameraDistance,
+    programRef, particlesRef, rendererRef, glRef, cameraRef
+  ]); // intentionally omitting spread, size, randomness, alpha to prevent webgl context recreation
+};
+
+const useParticlesRenderLoop = (
+  programRef: React.MutableRefObject<Program | null>,
+  particlesRef: React.MutableRefObject<Mesh | null>,
+  rendererRef: React.MutableRefObject<Renderer | null>,
+  glRef: React.MutableRefObject<WebGLRenderingContext | WebGL2RenderingContext | null>,
+  cameraRef: React.MutableRefObject<Camera | null>,
+  isVisibleRef: React.MutableRefObject<boolean>,
+  lastTimeRef: React.MutableRefObject<number>,
+  speedRef: React.MutableRefObject<number>,
+  moveParticlesOnHover: boolean,
+  particleHoverFactor: number,
+  disableRotation: boolean,
+  externalMouseRef: React.MutableRefObject<{ x: number; y: number } | null> | undefined,
+  mouseRef: React.MutableRefObject<{ x: number; y: number }>
+) => {
+  useEffect(() => {
     let animationFrameId: number;
-    let lastTime = performance.now();
     let elapsed = 0;
-
-    // Smooth mouse position for fluid movement
     let smoothMouseX = 0;
     let smoothMouseY = 0;
-
-    // Frame skipping for better performance - render every 2nd frame (~30fps)
     let frameSkip = 0;
-    const FRAME_SKIP_COUNT = 1; // Skip 1 frame, render 1 frame
+    const FRAME_SKIP_COUNT = 1;
+
+    lastTimeRef.current = performance.now();
 
     const update = (t: number) => {
-      // Always continue the animation loop
       animationFrameId = requestAnimationFrame(update);
 
-      // Only render if page is visible
       if (!isVisibleRef.current) {
         return;
       }
 
-      // Frame skipping - skip frames to reduce CPU load
       frameSkip++;
       if (frameSkip <= FRAME_SKIP_COUNT) {
         return;
       }
       frameSkip = 0;
 
-      const delta = t - lastTime;
-      lastTime = t;
+      const delta = t - lastTimeRef.current;
+      lastTimeRef.current = t;
       elapsed += delta * speedRef.current;
 
-      // Check if WebGL context is still valid
+      const gl = glRef.current;
+      const program = programRef.current;
+      const particles = particlesRef.current;
+      const renderer = rendererRef.current;
+      const camera = cameraRef.current;
+
+      if (!gl || !program || !particles || !renderer || !camera) return;
+
       if (gl.isContextLost()) {
         console.warn('WebGL context lost, will reinitialize on next visibility change');
         window.dispatchEvent(new CustomEvent('particles-context-lost'));
@@ -312,17 +375,14 @@ export const Particles = ({
         program.uniforms.uTime.value = elapsed * 0.001;
 
         if (moveParticlesOnHover) {
-          // Use external mouse ref if provided, otherwise use local ref
           const currentMouse = externalMouseRef?.current || mouseRef.current;
 
           if (currentMouse) {
-            // Smooth interpolation for mouse movement - increased interpolation speed for more responsive movement
             smoothMouseX += (currentMouse.x - smoothMouseX) * 0.1;
             smoothMouseY += (currentMouse.y - smoothMouseY) * 0.1;
             particles.position.x = -smoothMouseX * particleHoverFactor;
             particles.position.y = -smoothMouseY * particleHoverFactor;
           } else {
-            // Smoothly return to center if no mouse data
             smoothMouseX += (0 - smoothMouseX) * 0.05;
             smoothMouseY += (0 - smoothMouseY) * 0.05;
             particles.position.x = -smoothMouseX * particleHoverFactor;
@@ -344,53 +404,69 @@ export const Particles = ({
 
     animationFrameId = requestAnimationFrame(update);
 
-    // Handle page visibility changes
-    const handleVisibilityChange = () => {
-      const wasHidden = !isVisibleRef.current;
-      isVisibleRef.current = !document.hidden;
-      
-      // When tab becomes visible again, check if context is lost
-      if (!document.hidden && wasHidden) {
-        // Reset time to prevent large jumps
-        lastTime = performance.now();
-        
-        // Check if context is lost and trigger re-initialization if needed
-        if (gl.isContextLost()) {
-          window.dispatchEvent(new CustomEvent('particles-context-lost'));
-        }
-      }
-    };
-    
-    // Initialize visibility state
-    isVisibleRef.current = !document.hidden;
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-
     return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-      window.removeEventListener('resize', resize);
-      window.removeEventListener('resize', updateCachedRect);
-      if (moveParticlesOnHover && !externalMouseRef) {
-        container.removeEventListener('mousemove', handleMouseMove);
-        container.removeEventListener('mouseleave', handleMouseLeave);
-        container.removeEventListener('touchmove', handleTouchMove);
-        container.removeEventListener('touchend', handleTouchEnd);
-      }
-      if (inputRafId) {
-        cancelAnimationFrame(inputRafId);
-      }
       cancelAnimationFrame(animationFrameId);
-      if (container.contains(gl.canvas)) {
-        container.removeChild(gl.canvas);
-      }
-      programRef.current = null;
-      particlesRef.current = null;
-      rendererRef.current = null;
     };
-    // Only recreate WebGL context when particle count or colors change
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [particleCount, particleColors, moveParticlesOnHover, cameraDistance, disableRotation, externalMouseRef]);
+  }, [
+    programRef, particlesRef, rendererRef, glRef, cameraRef,
+    isVisibleRef, lastTimeRef, speedRef, moveParticlesOnHover,
+    particleHoverFactor, disableRotation, externalMouseRef, mouseRef
+  ]);
+};
 
-  // Separate effect to update uniforms dynamically without recreating WebGL context
+/**
+ * Particles - WebGL particle background using OGL (ReactBits style)
+ *
+ * Features:
+ * - Hardware-accelerated WebGL rendering
+ * - 3D particle movement with subtle rotation
+ * - Mouse interaction (particles follow cursor)
+ * - Touch support for mobile devices
+ * - Smooth alpha blending
+ * - Customizable colors, size, and behavior
+ */
+export const Particles = ({
+  particleCount = 100,
+  particleSpread = 10,
+  speed = 0.3,
+  particleColors = defaultColors,
+  moveParticlesOnHover = true,
+  particleHoverFactor = 2,
+  alphaParticles = true,
+  particleBaseSize = 80,
+  sizeRandomness = 1,
+  cameraDistance = 20,
+  disableRotation = false,
+  className = '',
+  externalMouseRef
+}: ParticlesProps) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const mouseRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const programRef = useRef<Program | null>(null);
+  const particlesRef = useRef<Mesh | null>(null);
+  const rendererRef = useRef<Renderer | null>(null);
+  const glRef = useRef<WebGLRenderingContext | WebGL2RenderingContext | null>(null);
+  const cameraRef = useRef<Camera | null>(null);
+  const isVisibleRef = useRef(true);
+  const speedRef = useRef(speed);
+  const lastTimeRef = useRef(0);
+  useEffect(() => {
+    lastTimeRef.current = performance.now();
+  }, []);
+
+  useParticlesInput(containerRef, mouseRef, moveParticlesOnHover, externalMouseRef);
+  useParticlesVisibility(isVisibleRef, glRef, lastTimeRef);
+  useParticlesWebGL(
+    containerRef, particleCount, particleColors, cameraDistance,
+    particleSpread, particleBaseSize, sizeRandomness, alphaParticles,
+    programRef, particlesRef, rendererRef, glRef, cameraRef
+  );
+  useParticlesRenderLoop(
+    programRef, particlesRef, rendererRef, glRef, cameraRef,
+    isVisibleRef, lastTimeRef, speedRef, moveParticlesOnHover,
+    particleHoverFactor, disableRotation, externalMouseRef, mouseRef
+  );
+
   useEffect(() => {
     if (programRef.current) {
       const pixelRatio = Math.min(window.devicePixelRatio, 2);
@@ -413,4 +489,3 @@ export const Particles = ({
 };
 
 export default Particles;
-
