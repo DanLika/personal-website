@@ -1,4 +1,4 @@
-import { motion, type Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { ArrowRight } from "lucide-react";
 import { useRef } from "react";
@@ -31,7 +31,7 @@ const ANIMATION_CONFIG = {
 /**
  * Animation variants for staggered content reveal
  */
-const containerVariants: Variants = {
+const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -43,7 +43,7 @@ const containerVariants: Variants = {
   },
 };
 
-const itemVariants: Variants = {
+const itemVariants = {
   hidden: {
     opacity: 0,
     y: 30,
@@ -62,7 +62,7 @@ const itemVariants: Variants = {
  * Glass card animation for the main container
  * NOTE: Only animate opacity, let children handle transforms to avoid competing animations
  */
-const glassCardVariants: Variants = {
+const glassCardVariants = {
   hidden: {
     opacity: 0,
   },
@@ -70,7 +70,7 @@ const glassCardVariants: Variants = {
     opacity: 1,
     transition: {
       duration: 0.8,
-      ease: [0.22, 0.61, 0.36, 1],
+      ease: [0.22, 0.61, 0.36, 1] as const,
     },
   },
 };
