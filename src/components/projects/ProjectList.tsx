@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { MagnetButton } from "../ui/MagnetButton";
 import React from "react";
 import { projectsData } from "../../data/projects";
@@ -71,7 +71,7 @@ export const ProjectList = () => {
   }, [cleanup]);
 
   // Build projects array with i18n translations (inside component so it updates on language change)
-  const projects = PROJECT_IDS.map(projectId => {
+  const projects = useMemo(() => PROJECT_IDS.map(projectId => {
     const projectData = projectsData[projectId];
     return {
       id: projectId,
@@ -81,7 +81,7 @@ export const ProjectList = () => {
       tech: projectData.techStack,
       mockupImage: MOCKUP_IMAGES[projectId] || '/pizzeria-mockup.avif'
     };
-  });
+  }), [t]);
 
   return (
     <section id="projects" className="relative w-full py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-12 lg:px-16 bg-transparent overflow-hidden">
