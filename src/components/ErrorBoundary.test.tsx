@@ -7,6 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 import React from "react";
 
 // Required to use JSX/React with tsx and node:test correctly
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 (globalThis as any).React = React;
 
 const ThrowError = () => {
