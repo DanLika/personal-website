@@ -242,7 +242,7 @@ export const AIChatModal = ({ isOpen, onClose }: AIChatModalProps) => {
                 </div>
               </div>
             ) : (
-              <>
+              <div aria-live="polite" aria-relevant="additions">
                 {messages.map((message, index) => (
                   <div
                     key={index}
@@ -270,7 +270,7 @@ export const AIChatModal = ({ isOpen, onClose }: AIChatModalProps) => {
                     </div>
                   </div>
                 )}
-              </>
+              </div>
             )}
             <div ref={messagesEndRef} />
           </div>
@@ -289,7 +289,7 @@ export const AIChatModal = ({ isOpen, onClose }: AIChatModalProps) => {
                     t("chat.placeholder")
                   }
                   disabled={isLoading}
-                  className="flex-1 bg-white/5 border border-white/10 rounded-full px-4 py-3 text-sm text-white placeholder-white/40 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/30 transition-all disabled:opacity-50"
+                  className="flex-1 bg-white/5 border border-white/10 rounded-full px-4 py-3 text-sm text-white placeholder-white/50 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/30 transition-all disabled:opacity-50"
                 />
                 <button
                   onClick={() => handleSendMessage(inputValue)}
@@ -300,7 +300,7 @@ export const AIChatModal = ({ isOpen, onClose }: AIChatModalProps) => {
                   <Send className="w-5 h-5" />
                 </button>
               </div>
-              <p className="text-white/30 text-[10px] text-center mt-2">
+              <p className="text-white/70 text-[10px] text-center mt-2">
                 {t("chat.disclaimer")}
               </p>
             </div>

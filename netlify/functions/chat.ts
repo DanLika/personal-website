@@ -97,37 +97,34 @@ export default async (req: Request): Promise<Response> => {
       );
     }
 
-    const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-exp" });
+    const languageInstruction =
+      language === "bs"
+        ? "\n\nOdgovori na bosanskom jeziku."
+        : "\n\nRespond in English.";
 
-    // Build conversation history
-    const history = messages.map((msg) => ({
-      role: msg.role === "user" ? "user" : ("model" as const),
-      parts: [{ text: msg.content }],
-    }));
+    const genAI = new GoogleGenerativeAI(apiKey);
+    const model = genAI.getGenerativeModel({
+      model: "gemini-2.0-flash-exp",
+      systemInstruction: `${AI_SYSTEM_PROMPT}${languageInstruction}`,
+    });
+
+    // Build conversation history — sanitize client-provided roles and content
+    const sanitized = messages
+      .filter((msg) => msg.role === "user" || msg.role === "assistant")
+      .map((msg) => ({
+        role: (msg.role === "user" ? "user" : "model") as "user" | "model",
+        parts: [{ text: String(msg.content).slice(0, 2000) }],
+      }));
 
     const chat = model.startChat({
-      history: history as Array<{
-        role: "user" | "model";
-        parts: Array<{ text: string }>;
-      }>,
+      history: sanitized,
       generationConfig: {
         maxOutputTokens: 1000,
         temperature: 0.7,
       },
     });
 
-    const languageInstruction =
-      language === "bs"
-        ? "\n\nOdgovori na bosanskom jeziku."
-        : "\n\nRespond in English.";
-
-    const fullMessage =
-      messages.length === 0
-        ? `${AI_SYSTEM_PROMPT}${languageInstruction}\n\nUser question: ${userMessage}`
-        : userMessage;
-
-    const result = await chat.sendMessage(fullMessage);
+    const result = await chat.sendMessage(userMessage);
     const responseText = result.response.text();
 
     return new Response(

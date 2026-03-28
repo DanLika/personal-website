@@ -196,7 +196,7 @@ export const Navbar = () => {
                         smoothScrollTo(link.sectionId);
                       }
                     }}
-                    className="text-white/80 hover:text-neon hover:scale-105 transition-all duration-200 cursor-pointer"
+                    className="text-white/80 hover:text-neon hover:scale-105 transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-cyan-400/60 focus:rounded-md"
                   >
                     {link.label}
                   </button>
@@ -210,7 +210,7 @@ export const Navbar = () => {
             {/* Language Toggle with Flag Emoji */}
             <button
               onClick={toggleLang}
-              className="w-10 h-10 flex items-center justify-center rounded-full border border-white/15 bg-white/5 hover:bg-white/10 hover:scale-110 active:scale-95 transition-all duration-200 text-2xl"
+              className="w-11 h-11 flex items-center justify-center rounded-full border border-white/15 bg-white/5 hover:bg-white/10 hover:scale-110 active:scale-95 transition-all duration-200 text-2xl focus:outline-none focus:ring-2 focus:ring-cyan-400/60"
               aria-label={i18n.language === "en" ? "Switch to Bosnian language" : "Switch to English language"}
               title={i18n.language === "en" ? "Switch to Bosnian" : "Switch to English"}
             >
@@ -255,7 +255,7 @@ export const Navbar = () => {
             {/* Language Toggle */}
             <button
               onClick={toggleLang}
-              className="w-10 h-10 flex items-center justify-center rounded-full border border-white/15 bg-white/5 hover:bg-white/10 active:scale-95 transition-all duration-200 text-xl"
+              className="w-11 h-11 flex items-center justify-center rounded-full border border-white/15 bg-white/5 hover:bg-white/10 active:scale-95 transition-all duration-200 text-xl focus:outline-none focus:ring-2 focus:ring-cyan-400/60"
               aria-label={i18n.language === "en" ? "Switch to Bosnian language" : "Switch to English language"}
             >
               <span role="img" aria-hidden="true">
@@ -271,7 +271,7 @@ export const Navbar = () => {
                 e.stopPropagation();
                 toggleMobileMenu();
               }}
-              className="w-10 h-10 flex items-center justify-center text-white/80 hover:text-neon transition-colors relative z-[70] pointer-events-auto"
+              className="w-11 h-11 flex items-center justify-center text-white/80 hover:text-neon transition-colors relative z-[70] pointer-events-auto focus:outline-none focus:ring-2 focus:ring-cyan-400/60 rounded-full"
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileMenuOpen}
               aria-controls="mobile-menu"
