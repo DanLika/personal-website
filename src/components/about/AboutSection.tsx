@@ -64,7 +64,10 @@ const TechIcon: React.FC<TechIconProps> = ({ tech, index }) => {
                 target.style.display = 'none';
                 const parent = target.parentElement;
                 if (parent) {
-                  parent.innerHTML = `<span class="text-cyan-400 text-xs font-bold">${tech.slice(0, 3).toUpperCase()}</span>`;
+                  const span = document.createElement('span');
+                  span.className = 'text-cyan-400 text-xs font-bold';
+                  span.textContent = tech.slice(0, 3).toUpperCase();
+                  parent.appendChild(span);
                 }
               }}
             />
