@@ -23,13 +23,13 @@ const PROJECT_IDS = Object.values(projectsData)
   .map(project => project.id);
 
 // Icons that need brightness boost (dark icons) - different levels
-const DARK_ICONS_HIGH = ['resend', 'webflow', 'seo']; // Need more brightness
-const DARK_ICONS_LOW = ['figma', 'tailwind']; // Need less brightness
+const DARK_ICONS_HIGH = new Set(['resend', 'webflow', 'seo']); // Need more brightness
+const DARK_ICONS_LOW = new Set(['figma', 'tailwind']); // Need less brightness
 
 const TechIcon: React.FC<{ tech: string }> = ({ tech }) => {
   const techLower = tech.toLowerCase();
-  const isHighBrightness = DARK_ICONS_HIGH.includes(techLower);
-  const isLowBrightness = DARK_ICONS_LOW.includes(techLower);
+  const isHighBrightness = DARK_ICONS_HIGH.has(techLower);
+  const isLowBrightness = DARK_ICONS_LOW.has(techLower);
 
   return (
     <MagnetButton
