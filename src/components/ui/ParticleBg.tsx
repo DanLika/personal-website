@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { Renderer, Camera, Geometry, Program, Mesh } from 'ogl';
+import type { OGLRenderingContext } from 'ogl';
 
 interface ParticlesProps {
   particleCount?: number;
@@ -137,7 +138,7 @@ export const Particles = ({
     const state = {
       renderer: null as Renderer | null,
       camera: null as Camera | null,
-      gl: null as WebGLRenderingContext | WebGL2RenderingContext | null,
+      gl: null as OGLRenderingContext | null,
       particles: null as Mesh | null,
       program: null as Program | null,
       animationFrameId: 0 as number,
@@ -176,6 +177,7 @@ export const Particles = ({
 
     const initParticles = () => {
       const { gl } = state;
+      if (!gl) return;
       const count = particleCount;
       const positions = new Float32Array(count * 3);
       const randoms = new Float32Array(count * 4);
@@ -396,8 +398,8 @@ export const Particles = ({
       if (state.inputRafId) cancelAnimationFrame(state.inputRafId);
       if (state.animationFrameId) cancelAnimationFrame(state.animationFrameId);
 
-      if (state.gl && container.contains(state.gl.canvas)) {
-        container.removeChild(state.gl.canvas);
+      if (state.gl && container.contains(state.gl.canvas as Node)) {
+        container.removeChild(state.gl.canvas as Node);
       }
 
       programRef.current = null;
