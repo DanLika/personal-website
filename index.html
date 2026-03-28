@@ -287,6 +287,14 @@
     </script>
   </head>
   <body>
+    <!-- Hidden form for Netlify Forms detection (bot parses this at build time) -->
+    <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+      <input name="bot-field" />
+      <input name="name" />
+      <input name="email" />
+      <input name="message" />
+    </form>
+
     <div id="root">
       <!-- Static fallback content for ALL crawlers (SEO + AI bots) -->
       <!-- React will replace this entire div's content when JavaScript loads -->

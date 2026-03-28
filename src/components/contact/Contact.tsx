@@ -41,10 +41,16 @@ export const Contact = () => {
     setSubmitError('');
 
     try {
-      const res = await fetch('/.netlify/functions/contact', {
+      const body = new URLSearchParams();
+      body.append('form-name', 'contact');
+      body.append('name', formData.name);
+      body.append('email', formData.email);
+      body.append('message', formData.message);
+
+      const res = await fetch('/', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body.toString(),
       });
 
       if (res.ok) {
@@ -54,8 +60,7 @@ export const Contact = () => {
           setIsSubmitted(false);
         }, 3000);
       } else {
-        const data = await res.json();
-        setSubmitError(data.error || t("contact.form.error"));
+        setSubmitError(t("contact.form.error"));
       }
     } catch {
       setSubmitError(t("contact.form.error"));
