@@ -56,3 +56,5 @@
 [build.environment]
   # Enable better bot detection
   NETLIFY_USE_PRERENDER = "true"
+  # Override legacy peer deps flag for pipeline tests/builds
+  NPM_FLAGS = "--legacy-peer-deps"
