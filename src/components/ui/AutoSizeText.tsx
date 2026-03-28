@@ -1,4 +1,5 @@
 import { useRef, useEffect, useState, type ReactNode } from 'react';
+import { calculateOptimalFontSize } from './AutoSizeText.utils';
 
 interface AutoSizeTextProps {
   children: ReactNode;
@@ -59,49 +60,25 @@ export const AutoSizeText = ({
         // Get computed line height once
         const computedStyle = window.getComputedStyle(text);
         const baseLineHeight = parseFloat(computedStyle.lineHeight) || maxFontSize * 1.5;
-        const lineHeightRatio = baseLineHeight / maxFontSize;
 
-        // Binary search for optimal font size (reduces reflows from N to log(N))
-        let low = minFontSize;
-        let high = maxFontSize;
-        let optimalSize = minFontSize;
-
-        // Batch all measurements in a single frame
-        while (low <= high) {
-          const mid = Math.floor((low + high) / step) * step;
-          const testSize = Math.max(mid, minFontSize);
-
-          // Apply size
+        // Measure callback to evaluate size in the DOM
+        const measureScrollHeight = (testSize: number) => {
           text.style.fontSize = `${testSize}px`;
+          return text.scrollHeight;
+        };
 
-          // Calculate max height for this font size
-          const currentLineHeight = testSize * lineHeightRatio;
-          const maxHeight = currentLineHeight * maxLines;
-
-          // Read scrollHeight once per iteration
-          const fits = text.scrollHeight <= maxHeight;
-
-          if (fits) {
-            optimalSize = testSize;
-            low = mid + step;
-          } else {
-            high = mid - step;
-          }
-
-          // Break if we've converged
-          if (high - low < step) break;
-        }
-
-        // Final verification pass
-        text.style.fontSize = `${optimalSize}px`;
-        const finalLineHeight = optimalSize * lineHeightRatio;
-        const finalMaxHeight = finalLineHeight * maxLines;
-
-        if (text.scrollHeight > finalMaxHeight && optimalSize > minFontSize) {
-          optimalSize = Math.max(optimalSize - step, minFontSize);
-        }
+        const optimalSize = calculateOptimalFontSize(
+          minFontSize,
+          maxFontSize,
+          maxLines,
+          step,
+          baseLineHeight,
+          measureScrollHeight
+        );
 
         setFontSize(optimalSize);
+        // Ensure the final state is applied in the DOM to avoid visual lag before React updates state
+        text.style.fontSize = `${optimalSize}px`;
       });
     };
 
