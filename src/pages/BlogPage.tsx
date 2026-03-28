@@ -33,27 +33,20 @@ export const BlogPage = () => {
   // Window-level mouse/touch tracking for particles with RAF throttling
   useEffect(() => {
     let rafId: number | null = null;
-    let lastUpdate = 0;
-    const THROTTLE_MS = 16;
     let pendingX = 0;
     let pendingY = 0;
 
     const updatePosition = () => {
-      rafId = null;
-      lastUpdate = performance.now();
       mouseRef.current = { x: pendingX, y: pendingY };
+      rafId = null;
     };
 
     const handleMouseMove = (e: MouseEvent) => {
       pendingX = (e.clientX / window.innerWidth) * 2 - 1;
       pendingY = -((e.clientY / window.innerHeight) * 2 - 1);
-      const now = performance.now();
-      if (now - lastUpdate < THROTTLE_MS) {
-        if (!rafId) rafId = requestAnimationFrame(updatePosition);
-        return;
+      if (!rafId) {
+        rafId = requestAnimationFrame(updatePosition);
       }
-      lastUpdate = now;
-      mouseRef.current = { x: pendingX, y: pendingY };
     };
 
     const handleTouchMove = (e: TouchEvent) => {
@@ -61,13 +54,9 @@ export const BlogPage = () => {
         const touch = e.touches[0];
         pendingX = (touch.clientX / window.innerWidth) * 2 - 1;
         pendingY = -((touch.clientY / window.innerHeight) * 2 - 1);
-        const now = performance.now();
-        if (now - lastUpdate < THROTTLE_MS) {
-          if (!rafId) rafId = requestAnimationFrame(updatePosition);
-          return;
+        if (!rafId) {
+          rafId = requestAnimationFrame(updatePosition);
         }
-        lastUpdate = now;
-        mouseRef.current = { x: pendingX, y: pendingY };
       }
     };
 

@@ -118,13 +118,10 @@ export const DecryptedText = ({
 
     const shuffleText = (originalText: string, currentRevealed: Set<number>): string => {
       if (useOriginalCharsOnly) {
-        const originalLength = originalText.length;
         const nonSpaceChars: string[] = [];
-
-        for (let i = 0; i < originalLength; i++) {
-          const char = originalText[i];
-          if (char !== " " && !currentRevealed.has(i)) {
-            nonSpaceChars.push(char);
+        for (let i = 0; i < originalText.length; i++) {
+          if (originalText[i] !== " " && !currentRevealed.has(i)) {
+            nonSpaceChars.push(originalText[i]);
           }
         }
 
@@ -135,34 +132,30 @@ export const DecryptedText = ({
           nonSpaceChars[j] = temp;
         }
 
-        let result = "";
+        const result = new Array(originalText.length);
         let charIndex = 0;
-        for (let i = 0; i < originalLength; i++) {
-          const char = originalText[i];
-          if (char === " ") {
-            result += " ";
+        for (let i = 0; i < originalText.length; i++) {
+          if (originalText[i] === " ") {
+            result[i] = " ";
           } else if (currentRevealed.has(i)) {
-            result += char;
+            result[i] = originalText[i];
           } else {
-            result += nonSpaceChars[charIndex++];
+            result[i] = nonSpaceChars[charIndex++];
           }
         }
-        return result;
+        return result.join("");
       } else {
-        let result = "";
-        const originalLength = originalText.length;
-        const availableLength = availableChars.length;
-        for (let i = 0; i < originalLength; i++) {
-          const char = originalText[i];
-          if (char === " ") {
-            result += " ";
+        const result = new Array(originalText.length);
+        for (let i = 0; i < originalText.length; i++) {
+          if (originalText[i] === " ") {
+            result[i] = " ";
           } else if (currentRevealed.has(i)) {
-            result += char;
+            result[i] = originalText[i];
           } else {
-            result += availableChars[Math.floor(Math.random() * availableLength)];
+            result[i] = availableChars[Math.floor(Math.random() * availableChars.length)];
           }
         }
-        return result;
+        return result.join("");
       }
     };
 

@@ -63,34 +63,21 @@ export const HomePage = () => {
      */
     useEffect(() => {
         let rafId: number | null = null;
-        let lastUpdate = 0;
-        const THROTTLE_MS = 16; // ~60fps throttle
         let pendingX = 0;
         let pendingY = 0;
 
         const updateMousePosition = () => {
-            rafId = null;
-            lastUpdate = performance.now();
             mouseRef.current = { x: pendingX, y: pendingY };
+            rafId = null;
         };
 
         const handleMouseMove = (e: MouseEvent) => {
-            // Store latest position
             pendingX = (e.clientX / window.innerWidth) * 2 - 1;
             pendingY = -((e.clientY / window.innerHeight) * 2 - 1);
 
-            const now = performance.now();
-            if (now - lastUpdate < THROTTLE_MS) {
-                // Schedule update if not already scheduled
-                if (!rafId) {
-                    rafId = requestAnimationFrame(updateMousePosition);
-                }
-                return;
+            if (!rafId) {
+                rafId = requestAnimationFrame(updateMousePosition);
             }
-
-            // Immediate update
-            lastUpdate = now;
-            mouseRef.current = { x: pendingX, y: pendingY };
         };
 
         const handleTouchStart = (e: TouchEvent) => {
@@ -108,16 +95,9 @@ export const HomePage = () => {
                 pendingX = (touch.clientX / window.innerWidth) * 2 - 1;
                 pendingY = -((touch.clientY / window.innerHeight) * 2 - 1);
 
-                const now = performance.now();
-                if (now - lastUpdate < THROTTLE_MS) {
-                    if (!rafId) {
-                        rafId = requestAnimationFrame(updateMousePosition);
-                    }
-                    return;
+                if (!rafId) {
+                    rafId = requestAnimationFrame(updateMousePosition);
                 }
-
-                lastUpdate = now;
-                mouseRef.current = { x: pendingX, y: pendingY };
             }
         };
 
