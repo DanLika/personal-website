@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { MagnetButton } from "../ui/MagnetButton";
 import { useSpotlight } from "../../hooks/useSpotlight";
 import { ArrowRight } from "lucide-react";
@@ -16,6 +16,7 @@ const DARK_ICONS_HIGH = ['resend', 'webflow', 'seo']; // Need more brightness
 const DARK_ICONS_LOW = ['figma', 'tailwind']; // Need less brightness
 
 const TechIcon: React.FC<TechIconProps> = ({ name, className = "" }) => {
+  const [hasError, setHasError] = useState(false);
   const nameLower = name.toLowerCase();
   const isHighBrightness = DARK_ICONS_HIGH.includes(nameLower);
   const isLowBrightness = DARK_ICONS_LOW.includes(nameLower);
@@ -29,24 +30,20 @@ const TechIcon: React.FC<TechIconProps> = ({ name, className = "" }) => {
       className={`relative group ${className}`}
     >
       <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border border-cyan-400/30 flex items-center justify-center shadow-[0_0_20px_rgba(6,182,212,0.3)] group-hover:shadow-[0_0_30px_rgba(6,182,212,0.5)] transition-all duration-300">
-        <img
-          src={`/${name.toLowerCase()}.avif`}
-          alt={name}
-          title={name}
-          width={32}
-          height={32}
-          loading="lazy"
-          className={`w-8 h-8 object-contain filter drop-shadow-[0_0_8px_rgba(6,182,212,0.6)] ${isHighBrightness ? 'brightness-[1.8] contrast-[1.1]' : ''} ${isLowBrightness ? 'brightness-[1.3]' : ''}`}
-          onError={(e) => {
-            // Fallback to text if image not found
-            const target = e.target as HTMLImageElement;
-            target.style.display = 'none';
-            const parent = target.parentElement;
-            if (parent) {
-              parent.innerHTML = `<span class="text-cyan-400 text-xs font-bold">${name.slice(0, 3).toUpperCase()}</span>`;
-            }
-          }}
-        />
+        {hasError ? (
+          <span className="text-cyan-400 text-xs font-bold">{name.slice(0, 3).toUpperCase()}</span>
+        ) : (
+          <img
+            src={`/${name.toLowerCase()}.avif`}
+            alt={name}
+            title={name}
+            width={32}
+            height={32}
+            loading="lazy"
+            className={`w-8 h-8 object-contain filter drop-shadow-[0_0_8px_rgba(6,182,212,0.6)] ${isHighBrightness ? 'brightness-[1.8] contrast-[1.1]' : ''} ${isLowBrightness ? 'brightness-[1.3]' : ''}`}
+            onError={() => setHasError(true)}
+          />
+        )}
       </div>
     </MagnetButton>
   );
