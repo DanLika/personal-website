@@ -4409,7 +4409,7 @@ export const getAllBlogs = (): BlogPost[] => {
  * Get latest N blog posts
  */
 export const getLatestBlogs = (count: number = 3): BlogPost[] => {
-  return getAllBlogs().slice(0, count);
+  return getAllBlogs().slice(0, Math.max(0, count));
 };
 
 /**
