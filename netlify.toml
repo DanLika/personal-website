@@ -58,3 +58,4 @@
   NETLIFY_USE_PRERENDER = "true"
   # Override legacy peer deps flag for pipeline tests/builds
   NPM_FLAGS = "--legacy-peer-deps"
+  NODE_VERSION = "20"
