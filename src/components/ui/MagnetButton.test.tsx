@@ -6,6 +6,7 @@ import "global-jsdom/register";
 import { MagnetButton } from "./MagnetButton.tsx";
 
 // Polyfill globalThis.React to fix React test render error in tsx
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ;(globalThis as any).React = React;
 
 describe("MagnetButton Component", () => {
