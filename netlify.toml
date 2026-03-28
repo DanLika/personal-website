@@ -56,3 +56,4 @@
 [build.environment]
   # Enable better bot detection
   NETLIFY_USE_PRERENDER = "true"
+  NODE_VERSION = "20"
