@@ -3,7 +3,7 @@ import React from "react";
 import * as assert from "node:assert";
 import { test, describe, beforeEach, afterEach, mock } from "node:test";
 import { render, screen, act, fireEvent } from "@testing-library/react";
-import { DecryptedText } from "./DecryptedText.tsx";
+import { DecryptedText } from "./DecryptedText";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
