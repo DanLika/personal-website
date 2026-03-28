@@ -68,7 +68,7 @@ export const AutoSizeText = ({
 
         // Batch all measurements in a single frame
         while (low <= high) {
-          const mid = Math.floor((low + high) / step) * step;
+          const mid = Math.floor((low + high) / 2 / step) * step;
           const testSize = Math.max(mid, minFontSize);
 
           // Apply size
@@ -87,9 +87,6 @@ export const AutoSizeText = ({
           } else {
             high = mid - step;
           }
-
-          // Break if we've converged
-          if (high - low < step) break;
         }
 
         // Final verification pass
