@@ -64,11 +64,13 @@ describe("useSpotlight", () => {
     // Trigger mouse move to schedule RAF
     result.current.handleMouseMove(event);
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     assert.strictEqual((globalThis.requestAnimationFrame as any).mock.callCount(), 1);
 
     // Call cleanup manually
     result.current.cleanup();
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     assert.strictEqual((globalThis.cancelAnimationFrame as any).mock.callCount(), 1);
   });
 
@@ -201,6 +203,7 @@ describe("useSpotlight", () => {
     result.current.handleMouseMove(event2);
 
     // RAF should only be scheduled once
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     assert.strictEqual((globalThis.requestAnimationFrame as any).mock.callCount(), 1);
 
     triggerRAF();
