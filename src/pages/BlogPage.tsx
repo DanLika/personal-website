@@ -6,6 +6,7 @@ import { BlogCard } from "../components/blog/BlogCard";
 import { getAllBlogs } from "../data/blogs";
 import { Particles } from "../components/ui/ParticleBg";
 import { Footer } from "../components/layout/Footer";
+import { layout } from "../utils/layout";
 
 export const BlogPage = () => {
   const { t, i18n } = useTranslation();
@@ -128,9 +129,9 @@ export const BlogPage = () => {
         </div>
 
         {/* Content */}
-        <div className="relative z-10">
-          <main className="pt-24 sm:pt-32 pb-20">
-            <div className="max-w-6xl mx-auto px-6 md:px-12 lg:px-24">
+        <div className={`relative z-10 flex flex-col min-h-screen ${layout.pageMaxWidth}`}>
+          <main className="pt-24 sm:pt-28 pb-12">
+            <div className={layout.container}>
               {/* Page Header */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -152,7 +153,7 @@ export const BlogPage = () => {
                 </motion.span>
 
                 {/* Title */}
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mb-4">
+                <h1 className="text-3xl sm:text-4xl md:text-[40px] lg:text-5xl xl:text-[56px] 2xl:text-6xl font-extrabold text-white mb-4 leading-tight">
                   {t("blog.page.title")}
                 </h1>
 

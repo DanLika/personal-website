@@ -19,7 +19,7 @@ export const SEO: React.FC<SEOProps> = ({
   description,
   keywords,
   image = "/hero-me.avif",
-  url = "https://licanin.dev",
+  url = "https://duskolicanin.com",
   type = "website",
 }) => {
   const { t, i18n, ready } = useTranslation();

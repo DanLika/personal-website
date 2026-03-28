@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { MagnetButton } from "../ui/MagnetButton";
 import { useSpotlight } from "../../hooks/useSpotlight";
 import { ArrowRight } from "lucide-react";
+import { layout } from "../../utils/layout";
 
 interface TechIconProps {
   name: string;
@@ -60,10 +61,10 @@ export const FeaturedProject = () => {
   const techStack = ["Flutter", "Firebase", "Stripe", "Resend"];
 
   return (
-    <section className="relative w-full py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-12 lg:px-16 overflow-hidden bg-transparent">
+    <section className="relative w-full py-12 sm:py-16 md:py-20 overflow-hidden bg-transparent">
 
       {/* Main Content */}
-      <div className="relative z-10 max-w-[1252px] mx-auto group">
+      <div className={`relative z-10 ${layout.container} group`}>
         {/* Spotlight Effect Container - No full-card link for better mobile tap feedback */}
         <div className="relative">
           {/* Outer spotlight glow that follows mouse */}

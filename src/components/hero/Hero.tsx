@@ -1,11 +1,14 @@
-import { motion, type Variants } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import { ArrowRight } from "lucide-react";
-import { useRef } from "react";
+import { ArrowRight, MessageCircle } from "lucide-react";
+import { useRef, useState, lazy, Suspense } from "react";
 
 // Components
 import { HeroAvatar } from "./HeroAvatar";
 import { CTAButton } from "../ui/CTAButton";
+import { layout } from "../../utils/layout";
+
+// Lazy load AI Chat modal
+const AIChatModal = lazy(() => import("../chat/AIChatModal"));
 
 /**
  * Glass morphism configuration constants
@@ -19,71 +22,13 @@ const GLASS_CONFIG = {
 } as const;
 
 /**
- * Animation configuration constants
- */
-const ANIMATION_CONFIG = {
-  staggerChildren: 0.15,
-  delayChildren: 0.2,
-  itemDuration: 0.7,
-  itemEase: [0.22, 0.61, 0.36, 1] as const,
-} as const;
-
-/**
- * Animation variants for staggered content reveal
- */
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      when: "beforeChildren",
-      staggerChildren: ANIMATION_CONFIG.staggerChildren,
-      delayChildren: ANIMATION_CONFIG.delayChildren,
-    },
-  },
-};
-
-const itemVariants: Variants = {
-  hidden: {
-    opacity: 0,
-    y: 30,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: ANIMATION_CONFIG.itemDuration,
-      ease: ANIMATION_CONFIG.itemEase
-    },
-  },
-};
-
-/**
- * Glass card animation for the main container
- * NOTE: Only animate opacity, let children handle transforms to avoid competing animations
- */
-const glassCardVariants: Variants = {
-  hidden: {
-    opacity: 0,
-  },
-  visible: {
-    opacity: 1,
-    transition: {
-      duration: 0.8,
-      ease: [0.22, 0.61, 0.36, 1],
-    },
-  },
-};
-
-/**
  * Hero - Main hero section component
  *
  * Features:
  * - Content-based height (no viewport constraints)
  * - Glass morphism card container
  * - Animated avatar with neon glow and reflection effects
- * - Decrypted text animation for title (desktop only)
- * - AutoSizeText subtitle (max 2 lines, auto-shrinks to fit)
+ * - CSS-based staggered fade-in animations (no Framer Motion for faster load)
  * - Magnetic CTA button with neon styling
  * - Fully responsive layout (360px → 2000px)
  *
@@ -95,6 +40,7 @@ const glassCardVariants: Variants = {
 export const Hero = () => {
   const { t } = useTranslation();
   const sectionRef = useRef<HTMLElement>(null);
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   /**
    * Smooth scroll to contact section
@@ -131,13 +77,10 @@ export const Hero = () => {
         - Bottom padding creates space before FeaturedProject
         - On tall devices, FeaturedProject peeks in at ~20-30%
       */}
-      <div className="relative z-10 flex flex-col items-center px-4 sm:px-6 md:px-12 lg:px-16 pt-20 sm:pt-[88px] md:pt-24 pb-8 sm:pb-10 md:pb-12">
+      <div className={`relative z-10 flex flex-col items-center ${layout.container} pt-20 sm:pt-[88px] md:pt-24 pb-8 sm:pb-10 md:pb-12`}>
         {/* Glass morphism card container - sizes to content, not viewport */}
-        <motion.div
-          variants={glassCardVariants}
-          initial="hidden"
-          animate="visible"
-          className="relative w-full max-w-[95%] sm:max-w-[90%] md:max-w-[900px] lg:max-w-[1100px] xl:max-w-[1200px]"
+        <div
+          className="relative w-full max-w-[95%] sm:max-w-[90%] md:max-w-[900px] lg:max-w-[1100px] xl:max-w-[1200px] opacity-0 animate-fade-in"
         >
           {/* Outer subtle glow */}
           <div
@@ -210,50 +153,58 @@ export const Hero = () => {
               }}
             />
 
-            {/* Content container with staggered animations */}
-            <motion.div
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
-              className="flex flex-col items-center text-center relative z-10 py-4 sm:py-6 md:py-8 lg:py-10"
-            >
-              {/* Avatar with all effects */}
-              <motion.div variants={itemVariants}>
+            {/* Content container with CSS staggered animations */}
+            <div className="flex flex-col items-center text-center relative z-10 py-4 sm:py-6 md:py-8 lg:py-10">
+              {/* Avatar with all effects - delay 200ms */}
+              <div className="opacity-0 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
                 <HeroAvatar
                   imageSrc="/hero-me.avif"
                   imageAlt="Portrait"
                   glowColor="#3BC9FF"
                 />
-              </motion.div>
+              </div>
 
-              {/* Title - Responsive sizing: 34px → 72px (H1 must be largest on page) */}
-              <motion.h1
-                variants={itemVariants}
-                className="font-extrabold font-space text-white leading-tight mt-5 sm:mt-6 md:mt-8 lg:mt-10 text-[34px] sm:text-[38px] md:text-5xl lg:text-[56px] xl:text-[64px] 2xl:text-[72px] px-2 sm:px-4 max-w-full text-center break-words"
-                style={{ textWrap: 'balance' }}
+              {/* Title - Responsive sizing: 34px → 72px (H1 must be largest on page) - delay 350ms */}
+              <h1
+                className="font-extrabold font-space text-white leading-tight mt-5 sm:mt-6 md:mt-8 lg:mt-10 text-[34px] sm:text-[38px] md:text-5xl lg:text-[56px] xl:text-[64px] 2xl:text-[72px] px-2 sm:px-4 max-w-full text-center break-words opacity-0 animate-fade-in-up"
+                style={{ textWrap: 'balance', animationDelay: '0.35s' }}
               >
                 {heroTitle}
-              </motion.h1>
+              </h1>
 
-              {/* Subtitle - Fixed smaller size */}
-              <motion.p
-                variants={itemVariants}
-                className="mt-4 sm:mt-5 md:mt-6 lg:mt-8 text-white/70 text-sm sm:text-base md:text-lg lg:text-xl max-w-[90%] sm:max-w-[480px] md:max-w-[560px] lg:max-w-[640px] px-2 text-center leading-relaxed"
+              {/* Subtitle - Fixed smaller size - delay 500ms */}
+              <p
+                className="mt-4 sm:mt-5 md:mt-6 lg:mt-8 text-white/70 text-sm sm:text-base md:text-lg lg:text-xl max-w-[90%] sm:max-w-[480px] md:max-w-[560px] lg:max-w-[640px] px-2 text-center leading-relaxed opacity-0 animate-fade-in-up"
+                style={{ animationDelay: '0.5s' }}
               >
                 {t("hero.subtitle")}
-              </motion.p>
+              </p>
 
-              {/* CTA Button - Filled cyan style */}
-              <motion.div variants={itemVariants} className="mt-6 sm:mt-7 md:mt-8 lg:mt-10">
+              {/* CTA Buttons - delay 650ms */}
+              <div className="mt-6 sm:mt-7 md:mt-8 lg:mt-10 flex flex-col sm:flex-row items-center gap-3 sm:gap-4 opacity-0 animate-fade-in-up" style={{ animationDelay: '0.65s' }}>
                 <CTAButton onClick={handleCtaClick}>
                   <span>{t("hero.cta")}</span>
                   <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
                 </CTAButton>
-              </motion.div>
-            </motion.div>
+
+                {/* Ask AI Button - Secondary style */}
+                <button
+                  onClick={() => setIsChatOpen(true)}
+                  className="px-6 sm:px-8 md:px-10 py-3 sm:py-3.5 md:py-4 text-sm sm:text-base font-semibold rounded-full border border-cyan-500/30 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 hover:border-cyan-500/50 transition-all duration-300 flex items-center justify-center gap-1.5 sm:gap-2"
+                >
+                  <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <span>{t("hero.askAi")}</span>
+                </button>
+              </div>
+            </div>
           </div>
-        </motion.div>
+        </div>
       </div>
+
+      {/* AI Chat Modal */}
+      <Suspense fallback={null}>
+        <AIChatModal isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
+      </Suspense>
     </section>
   );
 };

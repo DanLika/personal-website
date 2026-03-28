@@ -8,6 +8,7 @@ import { ArrowLeft, Calendar, Clock, ArrowRight } from "lucide-react";
 import { getBlogBySlug, getNextBlog } from "../data/blogs";
 import { Particles } from "../components/ui/ParticleBg";
 import { Footer } from "../components/layout/Footer";
+import { layout } from "../utils/layout";
 
 export const BlogPostPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -193,9 +194,9 @@ export const BlogPostPage = () => {
         </div>
 
         {/* Content */}
-        <div className="relative z-10">
-          <main className="pt-24 sm:pt-32 pb-20">
-            <article className="max-w-3xl mx-auto px-6 md:px-12">
+        <div className={`relative z-10 flex flex-col min-h-screen ${layout.pageMaxWidth}`}>
+          <main className="pt-24 sm:pt-28 pb-12">
+            <article className={layout.container}>
               {/* Back Button */}
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
@@ -260,7 +261,7 @@ export const BlogPostPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mb-6 leading-tight"
+                className="text-3xl sm:text-4xl md:text-[40px] lg:text-5xl xl:text-[56px] 2xl:text-6xl font-extrabold text-white mb-6 leading-tight"
               >
                 {post.title[lang]}
               </motion.h1>

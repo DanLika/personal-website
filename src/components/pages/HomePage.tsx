@@ -1,14 +1,17 @@
-import { useEffect, useRef, useState, useMemo } from "react";
+import { useEffect, useRef, useState, useMemo, lazy, Suspense } from "react";
 import { Hero } from "../hero/Hero";
-import { FeaturedProject } from "../projects/FeaturedProject";
-import { ProjectList } from "../projects/ProjectList";
-import { AboutSection } from "../about/AboutSection";
-import { BlogSection } from "../blog/BlogSection";
-import { FAQSection } from "../faq/FAQSection";
-import { Contact } from "../contact/Contact";
-import { Footer } from "../layout/Footer";
-import { Particles } from "../ui/ParticleBg";
 import { SEO } from "../seo/SEO";
+import { layout } from "../../utils/layout";
+
+// Lazy load below-fold sections to reduce initial bundle size
+const FeaturedProject = lazy(() => import("../projects/FeaturedProject").then(m => ({ default: m.FeaturedProject })));
+const ProjectList = lazy(() => import("../projects/ProjectList").then(m => ({ default: m.ProjectList })));
+const AboutSection = lazy(() => import("../about/AboutSection").then(m => ({ default: m.AboutSection })));
+const BlogSection = lazy(() => import("../blog/BlogSection").then(m => ({ default: m.BlogSection })));
+const FAQSection = lazy(() => import("../faq/FAQSection").then(m => ({ default: m.FAQSection })));
+const Contact = lazy(() => import("../contact/Contact").then(m => ({ default: m.Contact })));
+const Footer = lazy(() => import("../layout/Footer").then(m => ({ default: m.Footer })));
+const Particles = lazy(() => import("../ui/ParticleBg").then(m => ({ default: m.Particles })));
 
 export const HomePage = () => {
     const pageRef = useRef<HTMLDivElement>(null);
@@ -200,24 +203,31 @@ export const HomePage = () => {
                     }}
                 />
                 {particlesReady && (
-                    <Particles
-                        key={particleKey}
-                        {...particleConfig}
-                        externalMouseRef={mouseRef}
-                    />
+                    <Suspense fallback={null}>
+                        <Particles
+                            key={particleKey}
+                            {...particleConfig}
+                            externalMouseRef={mouseRef}
+                        />
+                    </Suspense>
                 )}
             </div>
 
             {/* All sections with transparent backgrounds */}
-            <div className="relative z-10">
+            <div className={`relative z-10 flex flex-col min-h-screen ${layout.pageMaxWidth}`}>
+                {/* Hero loads eagerly - first thing users see */}
                 <Hero />
-                <FeaturedProject />
-                <ProjectList />
-                <AboutSection />
-                <BlogSection />
-                <FAQSection />
-                <Contact />
-                <Footer />
+
+                {/* Below-fold sections lazy loaded for better initial load */}
+                <Suspense fallback={null}>
+                    <FeaturedProject />
+                    <ProjectList />
+                    <AboutSection />
+                    <BlogSection />
+                    <FAQSection />
+                    <Contact />
+                    <Footer />
+                </Suspense>
             </div>
         </div>
     );

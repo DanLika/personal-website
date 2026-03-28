@@ -9,6 +9,7 @@ import { SubProjectCard } from "./SubProjectCard";
 import { Particles } from "../ui/ParticleBg";
 import { Footer } from "../layout/Footer";
 import { SEO } from "../seo/SEO";
+import { layout } from "../../utils/layout";
 
 interface CaseStudyPageProps {
   project?: ProjectData;
@@ -301,10 +302,13 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
         )}
       </div>
 
-      {/* HERO SECTION */}
-      <section className="relative w-full min-h-[85vh] sm:min-h-screen flex items-center justify-center overflow-hidden pt-20 sm:pt-24 pb-6 sm:pb-8 px-4 sm:px-6 md:px-12 lg:px-16 z-10">
+      {/* Content wrapper with safety cap */}
+      <div className={`relative z-10 flex flex-col min-h-screen ${layout.pageMaxWidth}`}>
 
-        <div className="relative z-10 text-center space-y-6 sm:space-y-8 max-w-6xl mx-auto">
+      {/* HERO SECTION */}
+      <section className="relative w-full overflow-hidden pt-24 sm:pt-32 pb-8 sm:pb-12">
+
+        <div className={`relative z-10 text-center space-y-6 sm:space-y-8 ${layout.container}`}>
 
           {/* Title */}
           <motion.h1
@@ -403,8 +407,8 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
       </section>
 
       {/* QUICK IMPACT STRIP - 3 Cards: Challenge | Solution | Key Result */}
-      <section className="relative w-full py-6 sm:py-8 md:py-12 px-4 sm:px-6 md:px-12 lg:px-16 z-10">
-        <div className="max-w-6xl mx-auto">
+      <section className="relative w-full py-6 sm:py-8 md:py-12">
+        <div className={layout.container}>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
             {/* Challenge Card */}
             <ImpactCard
@@ -438,8 +442,8 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
 
       {/* GALLERY SECTION - Moved up, more prominent (hidden for projects with subProjects) */}
       {currentProject.id !== 'flutterflow-templates' && currentProject.id !== 'apartment-templates' && (
-        <section className="relative w-full py-8 sm:py-10 md:py-14 px-4 sm:px-6 md:px-12 lg:px-16 z-10">
-          <div className="max-w-6xl mx-auto">
+        <section className="relative w-full py-8 sm:py-10 md:py-14">
+          <div className={layout.container}>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -458,8 +462,8 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
 
       {/* SUB-PROJECTS SECTION (Conditional - only for FlutterFlow Templates) */}
       {currentProject.subProjects && currentProject.subProjects.length > 0 && (
-        <section className="relative w-full py-8 sm:py-10 md:py-14 px-4 sm:px-6 md:px-12 lg:px-16 z-10">
-          <div className="max-w-7xl mx-auto">
+        <section className="relative w-full py-8 sm:py-10 md:py-14">
+          <div className={layout.container}>
             {/* Section Title */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -490,8 +494,8 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
       )}
 
       {/* RESULTS SECTION - More prominent with better cards */}
-      <section className="relative w-full py-8 sm:py-10 md:py-14 px-4 sm:px-6 md:px-12 lg:px-16 z-10">
-        <div className="max-w-6xl mx-auto">
+      <section className="relative w-full py-8 sm:py-10 md:py-14">
+        <div className={layout.container}>
 
           {/* Section Title */}
           <motion.h2
@@ -547,8 +551,8 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
       </section>
 
       {/* TECH STACK SECTION - Simplified, moved to bottom */}
-      <section className="relative w-full py-8 sm:py-10 md:py-14 px-4 sm:px-6 md:px-12 lg:px-16 z-10">
-        <div className="max-w-4xl mx-auto">
+      <section className="relative w-full py-8 sm:py-10 md:py-14">
+        <div className={layout.container}>
           {/* Section Title */}
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -575,9 +579,9 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="relative w-full py-8 sm:py-10 md:py-14 px-4 sm:px-6 md:px-12 lg:px-16 z-10"
+          className="relative w-full py-8 sm:py-10 md:py-14"
         >
-          <div className="max-w-4xl mx-auto">
+          <div className={layout.container}>
             <Link
               to={`/case-study/${nextProject.id}`}
               className="group block"
@@ -617,6 +621,8 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
 
       {/* Footer */}
       <Footer />
+
+      </div>{/* end pageMaxWidth wrapper */}
     </div>
   );
 };

@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { useState, useEffect } from "react";
-import { Mail, Github, Linkedin } from "lucide-react";
+import { Mail, Github, Linkedin, Calendar } from "lucide-react";
 import { useSpotlight } from "../../hooks/useSpotlight";
+import { layout } from "../../utils/layout";
 
 interface FormData {
   name: string;
@@ -47,6 +48,11 @@ export const Contact = () => {
 
   const socialLinks = [
     {
+      name: 'Calendly',
+      icon: Calendar,
+      url: 'https://calendly.com/duskolicanin'
+    },
+    {
       name: 'GitHub',
       icon: Github,
       url: 'https://github.com/DanLika'
@@ -64,10 +70,10 @@ export const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="relative w-full py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-12 lg:px-16 overflow-hidden bg-transparent">
+    <section id="contact" className="relative w-full py-12 sm:py-16 md:py-20 overflow-hidden bg-transparent">
 
       {/* Main Container */}
-      <div className="relative z-10 max-w-5xl mx-auto group">
+      <div className={`relative z-10 ${layout.container} group`}>
         {/* Spotlight Effect Container */}
         <div className="relative">
           {/* Outer spotlight glow that follows mouse */}

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { Plus, X } from "lucide-react";
+import { layout } from "../../utils/layout";
 
 interface FAQItem {
   q: string;
@@ -24,7 +25,7 @@ export const FAQSection = () => {
       id="faq"
       className="relative w-full py-12 sm:py-16 md:py-20 bg-transparent overflow-hidden"
     >
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 md:px-12">
+      <div className={layout.containerNarrow}>
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}

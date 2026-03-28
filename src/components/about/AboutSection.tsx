@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { MagnetButton } from "../ui/MagnetButton";
 import { useSpotlight } from "../../hooks/useSpotlight";
+import { layout } from "../../utils/layout";
 
 const TECH_STACK = [
   "Flutter",
@@ -85,10 +86,10 @@ export const AboutSection = () => {
   }, [cleanup]);
 
   return (
-    <section id="about" className="relative w-full py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-12 lg:px-16 bg-transparent overflow-hidden">
+    <section id="about" className="relative w-full py-12 sm:py-16 md:py-20 bg-transparent overflow-hidden">
 
       {/* Main Container */}
-      <div className="relative z-10 max-w-4xl mx-auto group">
+      <div className={`relative z-10 ${layout.container} group`}>
         {/* Spotlight Effect Container */}
         <div className="relative">
           {/* Outer spotlight glow that follows mouse/touch */}

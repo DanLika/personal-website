@@ -1,18 +1,17 @@
-import React, { useState, useEffect, useCallback, useRef, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useLocation } from "react-router-dom";
-import { MagnetButton } from "./ui/MagnetButton";
 
 /**
  * Navbar - Floating pill-style navigation with hide/show on scroll
- * 
+ *
  * Features:
  * - Hides on scroll down, shows on scroll up
  * - Always visible at top of page
  * - Glass morphism styling
  * - Responsive with mobile hamburger menu
  * - Smooth scroll to sections
+ * - CSS-only animations (no Framer Motion for faster initial load)
  */
 export const Navbar = () => {
   const { t, i18n } = useTranslation();
@@ -125,29 +124,6 @@ export const Navbar = () => {
     { key: "contact", label: t("nav.links.contact"), sectionId: "contact" },
   ];
 
-  // Animation variants for navbar visibility - memoized to prevent recreation
-  // Using tween instead of spring to prevent bouncy/glitchy appearance
-  const navbarVariants = useMemo(() => ({
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: "tween" as const,
-        duration: 0.3,
-        ease: "easeOut" as const,
-      },
-    },
-    hidden: {
-      y: -100,
-      opacity: 0,
-      transition: {
-        type: "tween" as const,
-        duration: 0.25,
-        ease: "easeIn" as const,
-      },
-    },
-  }), []);
-
   // Glass morphism styles - shared between desktop and mobile
   // Using dark semi-transparent background to ensure readability over light content
   const glassStyles = {
@@ -173,72 +149,45 @@ export const Navbar = () => {
       </a>
 
       {/* Desktop Navbar - Floating Pill Style */}
-      <motion.nav
-        variants={navbarVariants}
-        initial="visible"
-        animate={isVisible ? "visible" : "hidden"}
-        className="hidden md:block fixed top-6 left-0 right-0 z-50"
+      <nav
+        className={`hidden md:block fixed top-6 left-0 right-0 z-50 transition-all duration-300 ease-out ${
+          isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
+        }`}
         style={{
           willChange: 'transform, opacity',
-          transform: 'translateZ(0)',
-          backfaceVisibility: 'hidden',
-          WebkitBackfaceVisibility: 'hidden'
         }}
       >
         <div className="flex justify-center">
           <div
-            className="rounded-full px-8 py-3 flex items-center gap-8"
-            style={{
-              ...glassStyles,
-              transition: "background 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border 0.3s ease-in-out"
-            }}
+            className="rounded-full px-8 py-3 flex items-center gap-8 transition-all duration-300"
+            style={glassStyles}
           >
             {/* Logo */}
-            <motion.div
-              className="text-xl md:text-2xl lg:text-3xl font-bold text-neon cursor-pointer"
+            <div
+              className="text-xl md:text-2xl lg:text-3xl font-bold text-neon cursor-pointer transition-all duration-200 hover:drop-shadow-[0_0_20px_rgba(59,201,255,0.9)]"
               style={{
                 textShadow: "0 0 10px rgba(59, 201, 255, 0.6)",
               }}
-              initial={{ textShadow: "0 0 10px rgba(59, 201, 255, 0.6)" }}
-              whileHover={{
-                textShadow: "0 0 20px rgba(59, 201, 255, 0.9)",
-              }}
-              transition={{ duration: 0.2 }}
               onClick={() => smoothScrollTo("home")}
             >
               licanin
-            </motion.div>
+            </div>
 
             {/* Navigation Links */}
             <div className="flex items-center gap-6 text-sm text-white/80">
               {navLinks.map((link, index) => (
                 <React.Fragment key={link.key}>
-                  <button onClick={() => {
-                    if ('route' in link && link.route) {
-                      navigate(link.route);
-                    } else if ('sectionId' in link && link.sectionId) {
-                      smoothScrollTo(link.sectionId);
-                    }
-                  }}>
-                    <MagnetButton
-                      magnetStrength={8}
-                      padding={60}
-                      activeTransition="transform 0.2s ease-out"
-                      inactiveTransition="transform 0.4s ease-in-out"
-                      className="relative"
-                    >
-                      <motion.span
-                        initial={{ scale: 1, color: "rgba(255, 255, 255, 0.8)" }}
-                        whileHover={{
-                          scale: 1.05,
-                          color: "#3BC9FF",
-                        }}
-                        transition={{ duration: 0.2, ease: "easeOut" }}
-                        className="block cursor-pointer"
-                      >
-                        {link.label}
-                      </motion.span>
-                    </MagnetButton>
+                  <button
+                    onClick={() => {
+                      if ('route' in link && link.route) {
+                        navigate(link.route);
+                      } else if ('sectionId' in link && link.sectionId) {
+                        smoothScrollTo(link.sectionId);
+                      }
+                    }}
+                    className="text-white/80 hover:text-neon hover:scale-105 transition-all duration-200 cursor-pointer"
+                  >
+                    {link.label}
                   </button>
                   {index < navLinks.length - 1 && (
                     <span className="text-white/20">|</span>
@@ -248,54 +197,35 @@ export const Navbar = () => {
             </div>
 
             {/* Language Toggle with Flag Emoji */}
-            <MagnetButton
-              magnetStrength={4}
-              padding={50}
-              activeTransition="transform 0.2s ease-out"
-              inactiveTransition="transform 0.4s ease-in-out"
+            <button
+              onClick={toggleLang}
+              className="w-10 h-10 flex items-center justify-center rounded-full border border-white/15 bg-white/5 hover:bg-white/10 hover:scale-110 active:scale-95 transition-all duration-200 text-2xl"
+              aria-label={i18n.language === "en" ? "Switch to Bosnian language" : "Switch to English language"}
+              title={i18n.language === "en" ? "Switch to Bosnian" : "Switch to English"}
             >
-              <motion.button
-                onClick={toggleLang}
-                className="w-10 h-10 flex items-center justify-center rounded-full border border-white/15 bg-white/5 hover:bg-white/10 transition-all duration-300 text-2xl"
-                initial={{ scale: 1 }}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ duration: 0.2, ease: "easeOut" }}
-                aria-label={i18n.language === "en" ? "Switch to Bosnian language" : "Switch to English language"}
-                title={i18n.language === "en" ? "Switch to Bosnian" : "Switch to English"}
-              >
-                <span role="img" aria-hidden="true">
-                  {i18n.language === "en" ? "🇺🇸" : "🇧🇦"}
-                </span>
-              </motion.button>
-            </MagnetButton>
+              <span role="img" aria-hidden="true">
+                {i18n.language === "en" ? "🇺🇸" : "🇧🇦"}
+              </span>
+            </button>
           </div>
         </div>
-      </motion.nav>
+      </nav>
 
       {/* Mobile Navbar - Floating Pill Style */}
-      <motion.nav
-        variants={navbarVariants}
-        initial="visible"
-        animate={isVisible ? "visible" : "hidden"}
-        className="md:hidden fixed top-4 left-4 right-4 z-[60] pointer-events-auto"
+      <nav
+        className={`md:hidden fixed top-4 left-4 right-4 z-[60] pointer-events-auto transition-all duration-300 ease-out ${
+          isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
+        }`}
         style={{
           willChange: 'transform, opacity',
-          transform: 'translateZ(0)',
-          backfaceVisibility: 'hidden',
-          WebkitBackfaceVisibility: 'hidden',
-          pointerEvents: 'auto'
         }}
       >
         <div
-          className="rounded-full px-4 py-2.5 flex items-center justify-between pointer-events-auto"
-          style={{
-            ...glassStyles,
-            transition: "background 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border 0.3s ease-in-out"
-          }}
+          className="rounded-full px-4 py-2.5 flex items-center justify-between pointer-events-auto transition-all duration-300"
+          style={glassStyles}
         >
           {/* Logo */}
-          <motion.div
+          <div
             className="text-lg sm:text-xl font-bold text-neon cursor-pointer"
             style={{
               textShadow: "0 0 10px rgba(59, 201, 255, 0.6)",
@@ -306,21 +236,20 @@ export const Navbar = () => {
             }}
           >
             licanin
-          </motion.div>
+          </div>
 
           {/* Right side buttons */}
           <div className="flex items-center gap-2">
             {/* Language Toggle */}
-            <motion.button
+            <button
               onClick={toggleLang}
-              className="w-10 h-10 flex items-center justify-center rounded-full border border-white/15 bg-white/5 hover:bg-white/10 transition-all duration-300 text-xl"
-              whileTap={{ scale: 0.95 }}
+              className="w-10 h-10 flex items-center justify-center rounded-full border border-white/15 bg-white/5 hover:bg-white/10 active:scale-95 transition-all duration-200 text-xl"
               aria-label={i18n.language === "en" ? "Switch to Bosnian language" : "Switch to English language"}
             >
               <span role="img" aria-hidden="true">
                 {i18n.language === "en" ? "🇺🇸" : "🇧🇦"}
               </span>
-            </motion.button>
+            </button>
 
             {/* Hamburger Menu Button */}
             <button
@@ -361,89 +290,75 @@ export const Navbar = () => {
             </button>
           </div>
         </div>
-      </motion.nav>
+      </nav>
 
       {/* Mobile Menu Overlay */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="md:hidden fixed inset-0 z-[55] bg-black/60 backdrop-blur-sm"
-              onClick={() => setMobileMenuOpen(false)}
-            />
+      {mobileMenuOpen && (
+        <>
+          {/* Backdrop */}
+          <div
+            className="md:hidden fixed inset-0 z-[55] bg-black/60 backdrop-blur-sm transition-opacity duration-200"
+            onClick={() => setMobileMenuOpen(false)}
+          />
 
-            {/* Menu Panel - Glass morphism effect */}
-            <motion.nav
-              id="mobile-menu"
-              role="navigation"
-              aria-label="Mobile navigation menu"
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{
-                type: "tween",
-                duration: 0.2,
-                ease: "easeOut"
-              }}
-              className="md:hidden fixed top-20 left-4 right-4 z-[60] rounded-[24px] p-6 overflow-hidden"
-              style={{
-                background: "rgba(15, 15, 20, 0.7)",
-                backdropFilter: "blur(24px)",
-                WebkitBackdropFilter: "blur(24px)",
-                border: "1px solid rgba(255, 255, 255, 0.1)",
-                boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.05)",
-              }}
+          {/* Menu Panel - Glass morphism effect */}
+          <nav
+            id="mobile-menu"
+            role="navigation"
+            aria-label="Mobile navigation menu"
+            className="md:hidden fixed top-20 left-4 right-4 z-[60] rounded-[24px] p-6 overflow-hidden animate-fade-in"
+            style={{
+              background: "rgba(15, 15, 20, 0.7)",
+              backdropFilter: "blur(24px)",
+              WebkitBackdropFilter: "blur(24px)",
+              border: "1px solid rgba(255, 255, 255, 0.1)",
+              boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.05)",
+            }}
+          >
+            {/* Navigation Links */}
+            <div className="flex flex-col space-y-1">
+              {navLinks.map((link) => (
+                <button
+                  key={link.key}
+                  onClick={() => {
+                    if ('route' in link && link.route) {
+                      navigate(link.route);
+                    } else if ('sectionId' in link && link.sectionId) {
+                      smoothScrollTo(link.sectionId);
+                    }
+                    setMobileMenuOpen(false);
+                  }}
+                  className="text-left group"
+                >
+                  <div className="flex items-center justify-between text-white/70 hover:text-white transition-colors duration-200 py-3 px-2 rounded-xl hover:bg-white/5">
+                    <span className="text-base">{link.label}</span>
+                    <span className="text-neon opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                      →
+                    </span>
+                  </div>
+                </button>
+              ))}
+            </div>
+
+            {/* Divider */}
+            <div className="my-4 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
+            {/* Mobile Language Toggle */}
+            <button
+              onClick={toggleLang}
+              className="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 active:scale-[0.98] transition-all duration-200"
+              aria-label={i18n.language === "en" ? "Switch to Bosnian language" : "Switch to English language"}
             >
-              {/* Navigation Links */}
-              <div className="flex flex-col space-y-1">
-                {navLinks.map((link) => (
-                  <button
-                    key={link.key}
-                    onClick={() => {
-                      if ('route' in link && link.route) {
-                        navigate(link.route);
-                      } else if ('sectionId' in link && link.sectionId) {
-                        smoothScrollTo(link.sectionId);
-                      }
-                      setMobileMenuOpen(false);
-                    }}
-                    className="text-left group"
-                  >
-                    <div className="flex items-center justify-between text-white/70 hover:text-white transition-colors duration-200 py-3 px-2 rounded-xl hover:bg-white/5">
-                      <span className="text-base">{link.label}</span>
-                      <span className="text-neon opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                        →
-                      </span>
-                    </div>
-                  </button>
-                ))}
-              </div>
-
-              {/* Divider */}
-              <div className="my-4 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-
-              {/* Mobile Language Toggle */}
-              <button
-                onClick={toggleLang}
-                className="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 active:scale-[0.98] transition-all duration-200"
-                aria-label={i18n.language === "en" ? "Switch to Bosnian language" : "Switch to English language"}
-              >
-                <span role="img" aria-hidden="true" className="text-2xl">
-                  {i18n.language === "en" ? "🇺🇸" : "🇧🇦"}
-                </span>
-                <span className="text-white/70 text-sm">
-                  {i18n.language === "en" ? "English" : "Bosanski"}
-                </span>
-              </button>
-            </motion.nav>
-          </>
-        )}
-      </AnimatePresence>
+              <span role="img" aria-hidden="true" className="text-2xl">
+                {i18n.language === "en" ? "🇺🇸" : "🇧🇦"}
+              </span>
+              <span className="text-white/70 text-sm">
+                {i18n.language === "en" ? "English" : "Bosanski"}
+              </span>
+            </button>
+          </nav>
+        </>
+      )}
     </>
   );
 };

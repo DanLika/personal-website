@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { ArrowRight } from "lucide-react";
 import { BlogCard } from "./BlogCard";
 import { getLatestBlogs } from "../../data/blogs";
+import { layout } from "../../utils/layout";
 
 export const BlogSection = () => {
   const { t } = useTranslation();
@@ -14,7 +15,7 @@ export const BlogSection = () => {
       id="blog"
       className="relative w-full py-12 sm:py-16 md:py-20 bg-transparent overflow-hidden"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-12 lg:px-16">
+      <div className={layout.container}>
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}

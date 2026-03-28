@@ -7,6 +7,7 @@ import React from "react";
 import { projectsData } from "../../data/projects";
 import { useSpotlight } from "../../hooks/useSpotlight";
 import { ArrowRight } from "lucide-react";
+import { layout } from "../../utils/layout";
 
 // Map project IDs to mockup images
 const MOCKUP_IMAGES: Record<string, string> = {
@@ -84,9 +85,9 @@ export const ProjectList = () => {
   }), [t]);
 
   return (
-    <section id="projects" className="relative w-full py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-12 lg:px-16 bg-transparent overflow-hidden">
+    <section id="projects" className="relative w-full py-12 sm:py-16 md:py-20 bg-transparent overflow-hidden">
 
-      <div className="max-w-[996px] mx-auto space-y-8 relative z-10">
+      <div className={`${layout.container} space-y-8 relative z-10`}>
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
