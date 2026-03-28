@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { MagnetButton } from "../ui/MagnetButton";
 import { useSpotlight } from "../../hooks/useSpotlight";
@@ -23,6 +23,7 @@ const DARK_ICONS_HIGH = ['resend', 'webflow', 'seo']; // Need more brightness
 const DARK_ICONS_LOW = ['figma', 'tailwind']; // Need less brightness
 
 const TechIcon: React.FC<TechIconProps> = ({ tech, index }) => {
+  const [hasError, setHasError] = useState(false);
   const techLower = tech.toLowerCase();
   const isHighBrightness = DARK_ICONS_HIGH.includes(techLower);
   const isLowBrightness = DARK_ICONS_LOW.includes(techLower);
@@ -50,24 +51,20 @@ const TechIcon: React.FC<TechIconProps> = ({ tech, index }) => {
         <div className="flex flex-col items-center space-y-2">
           {/* Icon Container */}
           <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border border-cyan-400/30 flex items-center justify-center transition-all duration-300 group-hover:bg-cyan-500/20 group-hover:border-cyan-400/50 group-hover:shadow-[0_0_20px_rgba(59,201,255,0.4)]">
-            <img
-              src={`/${tech.toLowerCase()}.avif`}
-              alt={tech}
-              title={tech}
-              width={40}
-              height={40}
-              loading="lazy"
-              className={`w-10 h-10 object-contain filter drop-shadow-[0_0_8px_rgba(6,182,212,0.6)] ${isHighBrightness ? 'brightness-[1.8] contrast-[1.1]' : ''} ${isLowBrightness ? 'brightness-[1.3]' : ''}`}
-              onError={(e) => {
-                // Fallback to text if image not found
-                const target = e.target as HTMLImageElement;
-                target.style.display = 'none';
-                const parent = target.parentElement;
-                if (parent) {
-                  parent.innerHTML = `<span class="text-cyan-400 text-xs font-bold">${tech.slice(0, 3).toUpperCase()}</span>`;
-                }
-              }}
-            />
+            {hasError ? (
+              <span className="text-cyan-400 text-xs font-bold">{tech.slice(0, 3).toUpperCase()}</span>
+            ) : (
+              <img
+                src={`/${tech.toLowerCase()}.avif`}
+                alt={tech}
+                title={tech}
+                width={40}
+                height={40}
+                loading="lazy"
+                className={`w-10 h-10 object-contain filter drop-shadow-[0_0_8px_rgba(6,182,212,0.6)] ${isHighBrightness ? 'brightness-[1.8] contrast-[1.1]' : ''} ${isLowBrightness ? 'brightness-[1.3]' : ''}`}
+                onError={() => setHasError(true)}
+              />
+            )}
           </div>
           {/* Tech Name */}
           <span className="text-white/70 text-xs font-medium text-center">
