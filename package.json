@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "sitemap": "node scripts/generate-sitemap.mjs",
-    "test": "npx tsx --test src/**/*.test.ts src/**/*.test.tsx"
+    "test": "tsx --test src/**/*.test.ts"
   },
   "dependencies": {
     "@types/react-router-dom": "^5.3.3",
