@@ -20,6 +20,8 @@ export const Contact = () => {
     message: ''
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   useEffect(() => {
     return cleanup;
@@ -33,17 +35,33 @@ export const Contact = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitError('');
 
-    // Show success state
-    setIsSubmitted(true);
+    try {
+      const res = await fetch('/.netlify/functions/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
 
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setFormData({ name: '', email: '', message: '' });
-      setIsSubmitted(false);
-    }, 3000);
+      if (res.ok) {
+        setIsSubmitted(true);
+        setTimeout(() => {
+          setFormData({ name: '', email: '', message: '' });
+          setIsSubmitted(false);
+        }, 3000);
+      } else {
+        const data = await res.json();
+        setSubmitError(data.error || t("contact.form.error"));
+      }
+    } catch {
+      setSubmitError(t("contact.form.error"));
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const socialLinks = [
@@ -259,15 +277,19 @@ export const Contact = () => {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.9 }}
                 >
+                  {submitError && (
+                    <p className="text-red-400 text-sm mb-2">{submitError}</p>
+                  )}
                   <motion.button
                     type="submit"
+                    disabled={isSubmitting}
                     initial={{ scale: 1 }}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     className={`w-full px-6 py-3 rounded-full transition-all duration-300 ${isSubmitted
                       ? 'bg-green-500/20 border-green-400/40 backdrop-blur-sm border'
                       : 'bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-400/40 backdrop-blur-sm hover:from-cyan-500/30 hover:to-blue-500/30 hover:border-cyan-400/60'
-                      } flex items-center justify-center gap-2`}
+                      } flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed`}
                   >
                     {isSubmitted ? (
                       <>
@@ -276,6 +298,8 @@ export const Contact = () => {
                         </svg>
                         <span className="text-green-400 text-sm font-semibold">{t("contact.form.sent")}</span>
                       </>
+                    ) : isSubmitting ? (
+                      <span className="text-cyan-400 text-sm font-semibold">{t("contact.form.sending") || "Sending..."}</span>
                     ) : (
                       <span className="text-cyan-400 text-sm font-semibold">{t("contact.form.send")}</span>
                     )}

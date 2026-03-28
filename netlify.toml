@@ -6,6 +6,9 @@
   # Build command
   command = "npm run build"
 
+  # Netlify Functions directory
+  functions = "netlify/functions"
+
 # Redirect rules for client-side routing (SPA fallback)
 [[redirects]]
   from = "/*"
