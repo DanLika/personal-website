@@ -20,7 +20,7 @@ const NotFoundPage = lazy(() =>
 
 // Loading fallback component
 const PageLoader = () => (
-  <div className="min-h-screen bg-[#0A0A0A] flex items-center justify-center">
+  <div className="min-h-screen bg-obsidian flex items-center justify-center">
     <div className="w-12 h-12 border-4 border-cyan-500/30 border-t-cyan-500 rounded-full animate-spin" />
   </div>
 );

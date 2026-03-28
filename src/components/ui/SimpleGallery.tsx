@@ -82,11 +82,20 @@ const SimpleGallery: React.FC<SimpleGalleryProps> = ({ images, title }) => {
                 {images.map((src, index) => (
                     <motion.div
                         key={`${title}-${index}`}
+                        role="button"
+                        tabIndex={0}
+                        aria-label={`View ${title || 'Gallery'} image ${index + 1}`}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.4, delay: index * 0.05 }}
                         className="relative aspect-[4/3] cursor-pointer overflow-hidden rounded-lg group"
                         onClick={() => setSelectedImageIndex(index)}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                setSelectedImageIndex(index);
+                            }
+                        }}
                     >
                         <img
                             src={src}

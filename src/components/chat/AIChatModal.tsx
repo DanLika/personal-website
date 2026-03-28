@@ -225,7 +225,7 @@ export const AIChatModal = ({ isOpen, onClose }: AIChatModalProps) => {
 
                 {/* Suggestion chips */}
                 <div className="space-y-2">
-                  <p className="text-white/40 text-xs uppercase tracking-wider">
+                  <p className="text-white/60 text-xs uppercase tracking-wider">
                     {t("chat.suggested")}
                   </p>
                   <div className="flex flex-wrap gap-2">

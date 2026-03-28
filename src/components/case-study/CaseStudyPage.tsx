@@ -65,7 +65,7 @@ const TechIcon: React.FC<{ tech: string; index: number }> = ({ tech, index }) =>
           )}
         </div>
         {/* Tech Label */}
-        <span className="text-white/60 text-[10px] sm:text-xs font-medium tracking-wide">
+        <span className="text-white/70 text-[10px] sm:text-xs font-medium tracking-wide">
           {tech}
         </span>
       </div>
@@ -249,7 +249,7 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
   const keyResultDesc = typeof firstResult === 'string' ? '' : firstResult?.desc || '';
 
   return (
-    <div ref={sectionRef} className="relative min-h-screen bg-[#0A0A0A]">
+    <div ref={sectionRef} className="relative min-h-screen bg-obsidian">
       {/* Dynamic SEO for Case Study */}
       <SEO
         title={`${projectTitle} | Dusko Licanin`}
@@ -262,7 +262,7 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
 
       {/* Single Particle Background for entire page */}
       {/* Fallback gradient background in case Particles fail */}
-      <div className="fixed inset-0 z-0 bg-[#0A0A0A]">
+      <div className="fixed inset-0 z-0 bg-obsidian">
         <div 
           className="absolute inset-0"
           style={{
@@ -591,7 +591,7 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
                       <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-cyan-400 group-hover:translate-x-1 transition-transform duration-300" />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className="text-white/60 text-[10px] sm:text-xs md:text-sm font-medium mb-0.5 sm:mb-1 line-clamp-1">{t("caseStudies.next_project", "Next Project")}</p>
+                      <p className="text-white/70 text-[10px] sm:text-xs md:text-sm font-medium mb-0.5 sm:mb-1 line-clamp-1">{t("caseStudies.next_project", "Next Project")}</p>
                       <h3 className="text-white text-base sm:text-lg md:text-xl font-bold line-clamp-1">{t(`caseStudies.${nextProject.id}.title`, nextProject.title)}</h3>
                     </div>
                   </div>

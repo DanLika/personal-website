@@ -1,6 +1,7 @@
 import { useState, useLayoutEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { MotionConfig } from "framer-motion";
 import { Navbar } from "./components/Navbar";
 import { AppRoutes } from "./components/Routes";
 import { ErrorBoundary } from "./components/ErrorBoundary";
@@ -31,13 +32,15 @@ function App() {
 
   return (
     <ErrorBoundary>
-      <LoadingSpinner isLoading={isLoading} />
-      <div className="min-h-screen bg-[#0A0A0A]">
-        <Navbar />
-        <main id="main-content">
-          <AppRoutes />
-        </main>
-      </div>
+      <MotionConfig reducedMotion="user">
+        <LoadingSpinner isLoading={isLoading} />
+        <div className="min-h-screen bg-obsidian">
+          <Navbar />
+          <main id="main-content">
+            <AppRoutes />
+          </main>
+        </div>
+      </MotionConfig>
     </ErrorBoundary>
   );
 }

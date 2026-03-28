@@ -159,7 +159,7 @@ export const Contact = () => {
                 transition={{ duration: 0.6, delay: 0.5 }}
                 className="space-y-4"
               >
-                <h3 className="text-white/50 text-sm font-medium tracking-wider uppercase">
+                <h3 className="text-white/60 text-sm font-medium tracking-wider uppercase">
                   {t("about.connect")}
                 </h3>
                 <div className="flex gap-4">
@@ -220,7 +220,7 @@ export const Contact = () => {
                     value={formData.name}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 bg-[#13151A] border border-white/10 rounded-xl text-white placeholder-white/40 transition-all duration-300 focus:border-[#3BC9FF] focus:shadow-[0_0_15px_rgba(59,201,255,0.3)] focus:outline-none"
+                    className="w-full px-4 py-3 bg-charcoal border border-white/10 rounded-xl text-white placeholder-white/50 transition-all duration-300 focus:border-neon focus:shadow-[0_0_15px_rgba(59,201,255,0.3)] focus:outline-none"
                     placeholder={t("contact.form.name")}
                   />
                 </motion.div>
@@ -243,7 +243,7 @@ export const Contact = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 bg-[#13151A] border border-white/10 rounded-xl text-white placeholder-white/40 transition-all duration-300 focus:border-[#3BC9FF] focus:shadow-[0_0_15px_rgba(59,201,255,0.3)] focus:outline-none"
+                    className="w-full px-4 py-3 bg-charcoal border border-white/10 rounded-xl text-white placeholder-white/50 transition-all duration-300 focus:border-neon focus:shadow-[0_0_15px_rgba(59,201,255,0.3)] focus:outline-none"
                     placeholder={t("contact.form.email")}
                   />
                 </motion.div>
@@ -265,7 +265,7 @@ export const Contact = () => {
                     onChange={handleInputChange}
                     required
                     rows={5}
-                    className="w-full px-4 py-3 bg-[#13151A] border border-white/10 rounded-xl text-white placeholder-white/40 transition-all duration-300 focus:border-[#3BC9FF] focus:shadow-[0_0_15px_rgba(59,201,255,0.3)] focus:outline-none resize-none"
+                    className="w-full px-4 py-3 bg-charcoal border border-white/10 rounded-xl text-white placeholder-white/50 transition-all duration-300 focus:border-neon focus:shadow-[0_0_15px_rgba(59,201,255,0.3)] focus:outline-none resize-none"
                     placeholder={t("contact.form.message")}
                   />
                 </motion.div>
@@ -277,9 +277,14 @@ export const Contact = () => {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.9 }}
                 >
-                  {submitError && (
-                    <p className="text-red-400 text-sm mb-2">{submitError}</p>
-                  )}
+                  <div aria-live="polite" aria-atomic="true">
+                    {submitError && (
+                      <p className="text-red-400 text-sm mb-2" role="alert">{submitError}</p>
+                    )}
+                    {isSubmitted && (
+                      <p className="sr-only">{t("contact.form.sent")}</p>
+                    )}
+                  </div>
                   <motion.button
                     type="submit"
                     disabled={isSubmitting}

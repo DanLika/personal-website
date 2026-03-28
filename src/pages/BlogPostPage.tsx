@@ -120,7 +120,7 @@ export const BlogPostPage = () => {
   // 404 State
   if (!post) {
     return (
-      <div className="min-h-screen bg-[#0A0A0A] flex items-center justify-center">
+      <div className="min-h-screen bg-obsidian flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-4xl font-bold text-white mb-4">404</h1>
           <p className="text-white/60 mb-8">
@@ -152,10 +152,10 @@ export const BlogPostPage = () => {
         <meta property="og:type" content="article" />
       </Helmet>
 
-      <div ref={pageRef} className="relative min-h-screen bg-[#0A0A0A]">
+      <div ref={pageRef} className="relative min-h-screen bg-obsidian">
         {/* Particle Background */}
         {/* Fallback gradient background in case Particles fail */}
-        <div className="fixed inset-0 z-0 bg-[#0A0A0A]">
+        <div className="fixed inset-0 z-0 bg-obsidian">
           <div 
             className="absolute inset-0"
             style={{
@@ -260,7 +260,7 @@ export const BlogPostPage = () => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.3 }}
-                className="flex items-center gap-6 text-sm text-white/50 mb-10 pb-10 border-b border-white/10"
+                className="flex items-center gap-6 text-sm text-white/60 mb-10 pb-10 border-b border-white/10"
               >
                 <div className="flex items-center gap-2">
                   <Calendar className="w-4 h-4" />
@@ -336,11 +336,11 @@ export const BlogPostPage = () => {
                         <h3 className="text-lg font-bold text-white group-hover:text-cyan-400 transition-colors duration-300 mb-1">
                           {nextPost.title[lang]}
                         </h3>
-                        <p className="text-sm text-white/50">
+                        <p className="text-sm text-white/60">
                           {nextPost.category[lang]}
                         </p>
                       </div>
-                      <ArrowRight className="w-5 h-5 text-white/40 group-hover:text-cyan-400 transition-all duration-300 group-hover:translate-x-1" />
+                      <ArrowRight className="w-5 h-5 text-white/60 group-hover:text-cyan-400 transition-all duration-300 group-hover:translate-x-1" />
                     </div>
                   </Link>
                 </motion.div>

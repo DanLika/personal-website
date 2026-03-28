@@ -21,6 +21,8 @@ export const Navbar = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [isAtTop, setIsAtTop] = useState(true);
   const lastScrollYRef = useRef(0);
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLElement>(null);
 
   // Track previous visibility to detect changes
   const prevIsVisibleRef = useRef(true);
@@ -63,15 +65,24 @@ export const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
-  // Close mobile menu on escape key
+  // Close mobile menu on escape key and return focus to hamburger
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape" && mobileMenuOpen) {
         setMobileMenuOpen(false);
+        hamburgerRef.current?.focus();
       }
     };
     window.addEventListener("keydown", handleEscape);
     return () => window.removeEventListener("keydown", handleEscape);
+  }, [mobileMenuOpen]);
+
+  // Focus first menu item when mobile menu opens
+  useEffect(() => {
+    if (mobileMenuOpen && menuRef.current) {
+      const firstButton = menuRef.current.querySelector<HTMLButtonElement>("button");
+      firstButton?.focus();
+    }
   }, [mobileMenuOpen]);
 
   // Prevent body scroll when mobile menu is open
@@ -254,6 +265,7 @@ export const Navbar = () => {
 
             {/* Hamburger Menu Button */}
             <button
+              ref={hamburgerRef}
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
@@ -304,6 +316,7 @@ export const Navbar = () => {
 
           {/* Menu Panel - Glass morphism effect */}
           <nav
+            ref={menuRef}
             id="mobile-menu"
             role="navigation"
             aria-label="Mobile navigation menu"

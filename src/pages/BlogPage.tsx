@@ -98,7 +98,7 @@ export const BlogPage = () => {
         <meta property="og:url" content="https://licanin.dev/blog" />
       </Helmet>
 
-      <div ref={pageRef} className="relative min-h-screen bg-[#0A0A0A]">
+      <div ref={pageRef} className="relative min-h-screen bg-obsidian">
         {/* Particle Background */}
         <div className="fixed inset-0 z-0">
           <Particles

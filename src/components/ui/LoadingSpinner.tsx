@@ -16,7 +16,10 @@ export const LoadingSpinner = ({ isLoading }: LoadingSpinnerProps) => {
 
   return (
     <div
-      className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#0A0A0A] animate-fade-in"
+      role="status"
+      aria-live="polite"
+      aria-label="Loading"
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-obsidian animate-fade-in"
       style={{
         backgroundImage: `
           radial-gradient(circle at 50% 0%, rgba(59, 201, 255, 0.08) 0%, transparent 50%),

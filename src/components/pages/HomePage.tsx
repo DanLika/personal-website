@@ -166,13 +166,13 @@ export const HomePage = () => {
     }), [isMobile]);
 
     return (
-        <div ref={pageRef} className="relative w-full bg-[#0A0A0A]">
+        <div ref={pageRef} className="relative w-full bg-obsidian">
             {/* Dynamic SEO Meta Tags */}
             <SEO />
 
             {/* Single Particle Background for entire page */}
             {/* Fallback gradient background in case Particles fail */}
-            <div className="fixed inset-0 z-0 bg-[#0A0A0A] pointer-events-none">
+            <div className="fixed inset-0 z-0 bg-obsidian pointer-events-none">
                 <div 
                     className="absolute inset-0 pointer-events-none"
                     style={{

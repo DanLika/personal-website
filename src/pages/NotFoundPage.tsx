@@ -14,7 +14,7 @@ export const NotFoundPage = () => {
         <title>{lang === "bs" ? "404 - Stranica nije pronađena" : "404 - Page Not Found"}</title>
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
-      <div className="min-h-screen bg-[#0A0A0A] flex items-center justify-center px-4">
+      <div className="min-h-screen bg-obsidian flex items-center justify-center px-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
