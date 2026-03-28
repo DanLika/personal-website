@@ -117,37 +117,48 @@ export const DecryptedText = ({
 
     const shuffleText = (originalText: string, currentRevealed: Set<number>): string => {
       if (useOriginalCharsOnly) {
-        const positions = originalText.split("").map((char, i) => ({
-          char,
-          isSpace: char === " ",
-          index: i,
-          isRevealed: currentRevealed.has(i),
-        }));
+        const length = originalText.length;
+        const nonSpaceChars: string[] = [];
 
-        const nonSpaceChars = positions.filter((p) => !p.isSpace && !p.isRevealed).map((p) => p.char);
+        for (let i = 0; i < length; i++) {
+          if (originalText[i] !== " " && !currentRevealed.has(i)) {
+            nonSpaceChars.push(originalText[i]);
+          }
+        }
 
         for (let i = nonSpaceChars.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
-          [nonSpaceChars[i], nonSpaceChars[j]] = [nonSpaceChars[j], nonSpaceChars[i]];
+          const temp = nonSpaceChars[i];
+          nonSpaceChars[i] = nonSpaceChars[j];
+          nonSpaceChars[j] = temp;
         }
 
+        let result = "";
         let charIndex = 0;
-        return positions
-          .map((p) => {
-            if (p.isSpace) return " ";
-            if (p.isRevealed) return originalText[p.index];
-            return nonSpaceChars[charIndex++];
-          })
-          .join("");
+        for (let i = 0; i < length; i++) {
+          if (originalText[i] === " ") {
+            result += " ";
+          } else if (currentRevealed.has(i)) {
+            result += originalText[i];
+          } else {
+            result += nonSpaceChars[charIndex++];
+          }
+        }
+        return result;
       } else {
-        return originalText
-          .split("")
-          .map((char, i) => {
-            if (char === " ") return " ";
-            if (currentRevealed.has(i)) return originalText[i];
-            return availableChars[Math.floor(Math.random() * availableChars.length)];
-          })
-          .join("");
+        let result = "";
+        const length = originalText.length;
+        const availableLength = availableChars.length;
+        for (let i = 0; i < length; i++) {
+          if (originalText[i] === " ") {
+            result += " ";
+          } else if (currentRevealed.has(i)) {
+            result += originalText[i];
+          } else {
+            result += availableChars[Math.floor(Math.random() * availableLength)];
+          }
+        }
+        return result;
       }
     };
 
