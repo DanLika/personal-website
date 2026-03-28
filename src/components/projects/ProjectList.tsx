@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { MagnetButton } from "../ui/MagnetButton";
 import React from "react";
 import { projectsData } from "../../data/projects";
@@ -30,6 +30,7 @@ const TechIcon: React.FC<{ tech: string }> = ({ tech }) => {
   const techLower = tech.toLowerCase();
   const isHighBrightness = DARK_ICONS_HIGH.includes(techLower);
   const isLowBrightness = DARK_ICONS_LOW.includes(techLower);
+  const [imgError, setImgError] = useState(false);
 
   return (
     <MagnetButton
@@ -40,24 +41,22 @@ const TechIcon: React.FC<{ tech: string }> = ({ tech }) => {
       className="relative group"
     >
       <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border border-cyan-400/30 flex items-center justify-center transition-all duration-300 group-hover:bg-cyan-500/20 group-hover:border-cyan-400/50 group-hover:shadow-[0_0_20px_rgba(59,201,255,0.4)]">
-        <img
-          src={`/${tech.toLowerCase()}.avif`}
-          alt={tech}
-          title={tech}
-          width={32}
-          height={32}
-          loading="lazy"
-          className={`w-8 h-8 object-contain filter drop-shadow-[0_0_8px_rgba(6,182,212,0.6)] ${isHighBrightness ? 'brightness-[1.8] contrast-[1.1]' : ''} ${isLowBrightness ? 'brightness-[1.3]' : ''}`}
-          onError={(e) => {
-            // Fallback to text abbreviation if image fails to load
-            const target = e.target as HTMLImageElement;
-            target.style.display = 'none';
-            const parent = target.parentElement;
-            if (parent) {
-              parent.innerHTML = `<span class="text-cyan-400 text-xs font-bold">${tech.slice(0, 2).toUpperCase()}</span>`;
-            }
-          }}
-        />
+        {!imgError ? (
+          <img
+            src={`/${tech.toLowerCase()}.avif`}
+            alt={tech}
+            title={tech}
+            width={32}
+            height={32}
+            loading="lazy"
+            className={`w-8 h-8 object-contain filter drop-shadow-[0_0_8px_rgba(6,182,212,0.6)] ${isHighBrightness ? 'brightness-[1.8] contrast-[1.1]' : ''} ${isLowBrightness ? 'brightness-[1.3]' : ''}`}
+            onError={() => {
+              setImgError(true);
+            }}
+          />
+        ) : (
+          <span className="text-cyan-400 text-xs font-bold">{tech.slice(0, 2).toUpperCase()}</span>
+        )}
       </div>
     </MagnetButton>
   );
