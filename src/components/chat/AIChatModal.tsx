@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { X, Send, MessageCircle, Loader2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import {
@@ -17,7 +17,7 @@ interface AIChatModalProps {
 }
 
 export const AIChatModal = ({ isOpen, onClose }: AIChatModalProps) => {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const currentLang = i18n.language === "bs" ? "bs" : "en";
 
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -26,6 +26,8 @@ export const AIChatModal = ({ isOpen, onClose }: AIChatModalProps) => {
   const [showInitial, setShowInitial] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
 
   // Scroll to bottom when messages change
   useEffect(() => {
@@ -60,6 +62,51 @@ export const AIChatModal = ({ isOpen, onClose }: AIChatModalProps) => {
     };
   }, [isOpen]);
 
+  // Save and restore focus when modal opens/closes
+  useEffect(() => {
+    if (isOpen) {
+      previousFocusRef.current = document.activeElement as HTMLElement;
+    } else if (previousFocusRef.current) {
+      previousFocusRef.current.focus();
+      previousFocusRef.current = null;
+    }
+  }, [isOpen]);
+
+  // Focus trap - keep Tab cycling within the modal
+  const handleFocusTrap = useCallback((e: KeyboardEvent) => {
+    if (e.key === "Escape") {
+      onClose();
+      return;
+    }
+    if (e.key !== "Tab" || !modalRef.current) return;
+
+    const focusable = modalRef.current.querySelectorAll<HTMLElement>(
+      'button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    );
+    if (focusable.length === 0) return;
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+
+    if (e.shiftKey) {
+      if (document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      }
+    } else {
+      if (document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  }, [onClose]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    document.addEventListener("keydown", handleFocusTrap);
+    return () => document.removeEventListener("keydown", handleFocusTrap);
+  }, [isOpen, handleFocusTrap]);
+
   const handleSendMessage = async (message: string) => {
     if (!message.trim() || isLoading) return;
 
@@ -83,10 +130,7 @@ export const AIChatModal = ({ isOpen, onClose }: AIChatModalProps) => {
     } catch {
       const errorMessage: ChatMessage = {
         role: "assistant",
-        content:
-          currentLang === "bs"
-            ? "Došlo je do greške. Molimo pokušajte ponovo."
-            : "An error occurred. Please try again.",
+        content: t("chat.error"),
       };
       setMessages((prev) => [...prev, errorMessage]);
     } finally {
@@ -123,7 +167,11 @@ export const AIChatModal = ({ isOpen, onClose }: AIChatModalProps) => {
         onClick={onClose}
       >
         <div
-          className="flex flex-col w-[90%] sm:w-[80%] md:w-[70%] max-w-[800px] h-[80vh] max-h-[700px] rounded-[24px] overflow-hidden animate-fade-in-up"
+          ref={modalRef}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="ai-chat-title"
+          className="flex flex-col w-[95%] sm:w-[80%] md:w-[70%] max-w-[800px] h-[80vh] max-h-[700px] rounded-[24px] overflow-hidden animate-fade-in-up"
           onClick={(e) => e.stopPropagation()}
           style={{
             background: "rgba(15, 15, 20, 0.95)",
@@ -141,11 +189,11 @@ export const AIChatModal = ({ isOpen, onClose }: AIChatModalProps) => {
                 <MessageCircle className="w-5 h-5 text-cyan-400" />
               </div>
               <div>
-                <h3 className="text-white font-semibold text-sm">
-                  {currentLang === "bs" ? "Pitaj AI o Dušku" : "Ask AI About Dusko"}
+                <h3 id="ai-chat-title" className="text-white font-semibold text-sm">
+                  {t("chat.title")}
                 </h3>
                 <p className="text-white/50 text-xs">
-                  {currentLang === "bs" ? "Gemini 2.0 Flash" : "Powered by Gemini"}
+                  {t("chat.subtitle")}
                 </p>
               </div>
             </div>
@@ -163,9 +211,7 @@ export const AIChatModal = ({ isOpen, onClose }: AIChatModalProps) => {
             {!isConfigured ? (
               <div className="flex items-center justify-center h-full">
                 <p className="text-white/50 text-center text-sm px-4">
-                  {currentLang === "bs"
-                    ? "AI chat nije konfigurisan. Molimo kontaktirajte me direktno."
-                    : "AI chat is not configured. Please contact me directly."}
+                  {t("chat.notConfigured")}
                 </p>
               </div>
             ) : showInitial ? (
@@ -180,7 +226,7 @@ export const AIChatModal = ({ isOpen, onClose }: AIChatModalProps) => {
                 {/* Suggestion chips */}
                 <div className="space-y-2">
                   <p className="text-white/40 text-xs uppercase tracking-wider">
-                    {currentLang === "bs" ? "Predložena pitanja" : "Suggested questions"}
+                    {t("chat.suggested")}
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {INITIAL_SUGGESTIONS[currentLang].map((suggestion, index) => (
@@ -240,9 +286,7 @@ export const AIChatModal = ({ isOpen, onClose }: AIChatModalProps) => {
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder={
-                    currentLang === "bs"
-                      ? "Postavite pitanje..."
-                      : "Ask a question..."
+                    t("chat.placeholder")
                   }
                   disabled={isLoading}
                   className="flex-1 bg-white/5 border border-white/10 rounded-full px-4 py-3 text-sm text-white placeholder-white/40 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/30 transition-all disabled:opacity-50"
@@ -257,9 +301,7 @@ export const AIChatModal = ({ isOpen, onClose }: AIChatModalProps) => {
                 </button>
               </div>
               <p className="text-white/30 text-[10px] text-center mt-2">
-                {currentLang === "bs"
-                  ? "AI može griješiti. Za važne odluke, kontaktirajte direktno."
-                  : "AI can make mistakes. For important decisions, contact directly."}
+                {t("chat.disclaimer")}
               </p>
             </div>
           )}

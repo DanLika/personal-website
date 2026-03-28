@@ -77,8 +77,12 @@
       "name": "Name",
       "email": "Email",
       "message": "Message",
-      "send": "Send Message"
+      "send": "Send Message",
+      "sent": "Message Sent!"
     }
+  },
+  "nav_a11y": {
+    "skipToContent": "Skip to main content"
   },
   "footer": {
     "rights": "© 2025 Licanin. All rights reserved.",
@@ -107,7 +111,17 @@
       "readTime": "min read"
     }
   },
+  "chat": {
+    "title": "Ask AI About Dusko",
+    "subtitle": "Powered by Gemini",
+    "suggested": "Suggested questions",
+    "error": "An error occurred. Please try again.",
+    "notConfigured": "AI chat is not configured. Please contact me directly.",
+    "placeholder": "Ask a question...",
+    "disclaimer": "AI can make mistakes. For important decisions, contact directly."
+  },
   "faq": {
+    "badge": "FAQ",
     "title": "Frequently Asked Questions",
     "subtitle": "Everything you need to know before we start.",
     "items": [

@@ -101,7 +101,7 @@ export const Contact = () => {
           >
 
           {/* Content Grid */}
-          <div className="relative z-10 grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 p-6 md:p-12 lg:p-16">
+          <div className="relative z-10 grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 p-4 sm:p-6 md:p-12 lg:p-16">
 
             {/* Left Side - Info */}
             <motion.div
@@ -274,7 +274,7 @@ export const Contact = () => {
                         <svg className="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
-                        <span className="text-green-400 text-sm font-semibold">Message Sent!</span>
+                        <span className="text-green-400 text-sm font-semibold">{t("contact.form.sent")}</span>
                       </>
                     ) : (
                       <span className="text-cyan-400 text-sm font-semibold">{t("contact.form.send")}</span>

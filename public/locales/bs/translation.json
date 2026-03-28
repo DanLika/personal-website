@@ -77,8 +77,12 @@
       "name": "Ime",
       "email": "Email",
       "message": "Poruka",
-      "send": "Pošalji Poruku"
+      "send": "Pošalji Poruku",
+      "sent": "Poruka Poslana!"
     }
+  },
+  "nav_a11y": {
+    "skipToContent": "Preskoči na glavni sadržaj"
   },
   "footer": {
     "rights": "© 2025 Licanin. Sva prava zadržana.",
@@ -107,7 +111,17 @@
       "readTime": "min čitanja"
     }
   },
+  "chat": {
+    "title": "Pitaj AI o Dušku",
+    "subtitle": "Gemini 2.0 Flash",
+    "suggested": "Predložena pitanja",
+    "error": "Došlo je do greške. Molimo pokušajte ponovo.",
+    "notConfigured": "AI chat nije konfigurisan. Molimo kontaktirajte me direktno.",
+    "placeholder": "Postavite pitanje...",
+    "disclaimer": "AI može griješiti. Za važne odluke, kontaktirajte direktno."
+  },
   "faq": {
+    "badge": "FAQ",
     "title": "Česta Pitanja",
     "subtitle": "Sve što trebate znati prije početka saradnje.",
     "items": [

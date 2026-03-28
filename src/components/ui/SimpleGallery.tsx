@@ -110,6 +110,9 @@ const SimpleGallery: React.FC<SimpleGalleryProps> = ({ images, title }) => {
             {createPortal(
                 isOpen ? (
                     <div
+                        role="dialog"
+                        aria-modal="true"
+                        aria-label={`${title || 'Gallery'} lightbox - Image ${(selectedImageIndex ?? 0) + 1} of ${images.length}`}
                         className={`fixed inset-0 z-[9999] flex items-center justify-center transition-opacity duration-200 ease-out ${
                             isVisible ? 'opacity-100' : 'opacity-0'
                         }`}
@@ -131,7 +134,8 @@ const SimpleGallery: React.FC<SimpleGalleryProps> = ({ images, title }) => {
                         {/* Close button */}
                         <button
                             onClick={handleClose}
-                            className="absolute top-4 right-4 md:top-8 md:right-8 text-white/70 hover:text-white p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors duration-200 z-20"
+                            aria-label="Close lightbox"
+                            className="absolute top-4 right-4 md:top-8 md:right-8 text-white/70 hover:text-white p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors duration-200 z-20"
                             style={{ transform: 'translate3d(0, 0, 0)' }}
                         >
                             <X size={24} />
@@ -140,6 +144,7 @@ const SimpleGallery: React.FC<SimpleGalleryProps> = ({ images, title }) => {
                         {/* Navigation buttons */}
                         <button
                             onClick={handlePrev}
+                            aria-label="Previous image"
                             className="absolute left-4 md:left-8 text-white/70 hover:text-white p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors duration-200 z-20"
                             style={{ transform: 'translate3d(0, 0, 0)' }}
                         >
@@ -148,6 +153,7 @@ const SimpleGallery: React.FC<SimpleGalleryProps> = ({ images, title }) => {
 
                         <button
                             onClick={handleNext}
+                            aria-label="Next image"
                             className="absolute right-4 md:right-8 text-white/70 hover:text-white p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors duration-200 z-20"
                             style={{ transform: 'translate3d(0, 0, 0)' }}
                         >

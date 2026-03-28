@@ -186,27 +186,20 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
   // Window-level mouse/touch tracking for particles with RAF throttling
   useEffect(() => {
     let rafId: number | null = null;
-    let lastUpdate = 0;
-    const THROTTLE_MS = 16;
     let pendingX = 0;
     let pendingY = 0;
 
     const updatePosition = () => {
-      rafId = null;
-      lastUpdate = performance.now();
       mouseRef.current = { x: pendingX, y: pendingY };
+      rafId = null;
     };
 
     const handleMouseMove = (e: MouseEvent) => {
       pendingX = (e.clientX / window.innerWidth) * 2 - 1;
       pendingY = -((e.clientY / window.innerHeight) * 2 - 1);
-      const now = performance.now();
-      if (now - lastUpdate < THROTTLE_MS) {
-        if (!rafId) rafId = requestAnimationFrame(updatePosition);
-        return;
+      if (!rafId) {
+        rafId = requestAnimationFrame(updatePosition);
       }
-      lastUpdate = now;
-      mouseRef.current = { x: pendingX, y: pendingY };
     };
 
     const handleTouchMove = (e: TouchEvent) => {
@@ -214,13 +207,9 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
         const touch = e.touches[0];
         pendingX = (touch.clientX / window.innerWidth) * 2 - 1;
         pendingY = -((touch.clientY / window.innerHeight) * 2 - 1);
-        const now = performance.now();
-        if (now - lastUpdate < THROTTLE_MS) {
-          if (!rafId) rafId = requestAnimationFrame(updatePosition);
-          return;
+        if (!rafId) {
+          rafId = requestAnimationFrame(updatePosition);
         }
-        lastUpdate = now;
-        mouseRef.current = { x: pendingX, y: pendingY };
       }
     };
 
@@ -409,7 +398,7 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
       {/* QUICK IMPACT STRIP - 3 Cards: Challenge | Solution | Key Result */}
       <section className="relative w-full py-6 sm:py-8 md:py-12">
         <div className={layout.container}>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
             {/* Challenge Card */}
             <ImpactCard
               icon={<Target className="w-5 h-5 sm:w-6 sm:h-6" />}
@@ -509,7 +498,7 @@ export const CaseStudyPage: React.FC<CaseStudyPageProps> = ({ project }) => {
           </motion.h2>
 
           {/* Results Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
             {results.map((result: { title: string; desc: string } | string, index: number) => {
               const title = typeof result === 'string' ? result : result.title;
               const desc = typeof result === 'string' ? '' : result.desc;

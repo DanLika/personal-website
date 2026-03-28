@@ -145,7 +145,7 @@ export const Navbar = () => {
         href="#main-content"
         className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-cyan-500 focus:text-white focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400"
       >
-        Skip to main content
+        {t("nav_a11y.skipToContent")}
       </a>
 
       {/* Desktop Navbar - Floating Pill Style */}
@@ -213,10 +213,11 @@ export const Navbar = () => {
 
       {/* Mobile Navbar - Floating Pill Style */}
       <nav
-        className={`md:hidden fixed top-4 left-4 right-4 z-[60] pointer-events-auto transition-all duration-300 ease-out ${
+        className={`md:hidden fixed left-4 right-4 z-[60] pointer-events-auto transition-all duration-300 ease-out ${
           isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
         }`}
         style={{
+          top: "max(16px, env(safe-area-inset-top, 16px))",
           willChange: 'transform, opacity',
         }}
       >

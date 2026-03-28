@@ -45,7 +45,7 @@ export const FAQSection = () => {
               textShadow: "0 0 10px rgba(59, 201, 255, 0.5)",
             }}
           >
-            FAQ
+            {t("faq.badge")}
           </motion.span>
 
           {/* Title - H2 sizing: 24px → 44px (smaller than H1) */}
@@ -83,6 +83,7 @@ export const FAQSection = () => {
                 <button
                   onClick={() => toggleItem(index)}
                   className="w-full flex items-center justify-between p-5 md:p-6 text-left"
+                  aria-expanded={openIndex === index}
                 >
                   <span className="text-white font-medium text-sm md:text-base pr-4">
                     {item.q}
