@@ -42,7 +42,7 @@ export const FAQSection = () => {
             viewport={{ once: true }}
             className="inline-block px-4 py-1.5 mb-4 text-xs font-semibold uppercase tracking-wider rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-400/20"
             style={{
-              textShadow: "0 0 10px rgba(59, 201, 255, 0.5)",
+              textShadow: "var(--neon-text-glow)",
             }}
           >
             {t("faq.badge")}
@@ -105,11 +105,15 @@ export const FAQSection = () => {
                 <AnimatePresence>
                   {openIndex === index && (
                     <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2, ease: "easeInOut" }}
                       className="overflow-hidden"
+                      style={{
+                        display: "grid",
+                        gridTemplateRows: "1fr",
+                      }}
                     >
                       <div className="px-5 md:px-6 pb-5 md:pb-6 pt-0">
                         <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-4" />

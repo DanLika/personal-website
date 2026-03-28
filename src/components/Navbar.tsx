@@ -177,7 +177,7 @@ export const Navbar = () => {
             <div
               className="text-xl md:text-2xl lg:text-3xl font-bold text-neon cursor-pointer transition-all duration-200 hover:drop-shadow-[0_0_20px_rgba(59,201,255,0.9)]"
               style={{
-                textShadow: "0 0 10px rgba(59, 201, 255, 0.6)",
+                textShadow: "var(--neon-text-glow)",
               }}
               onClick={() => smoothScrollTo("home")}
             >
@@ -240,7 +240,7 @@ export const Navbar = () => {
           <div
             className="text-lg sm:text-xl font-bold text-neon cursor-pointer"
             style={{
-              textShadow: "0 0 10px rgba(59, 201, 255, 0.6)",
+              textShadow: "var(--neon-text-glow)",
             }}
             onClick={() => {
               smoothScrollTo("home");

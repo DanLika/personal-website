@@ -3,11 +3,24 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --color-neon: #3BC9FF;
+    --color-neon-rgb: 59, 201, 255;
+    --color-obsidian: #0A0A0A;
+    --color-charcoal: #13151A;
+    --neon-glow-sm: 0 0 15px rgba(var(--color-neon-rgb), 0.3);
+    --neon-glow-md: 0 0 20px rgba(var(--color-neon-rgb), 0.4);
+    --neon-glow-lg: 0 0 40px rgba(var(--color-neon-rgb), 0.2);
+    --neon-text-glow: 0 0 10px rgba(var(--color-neon-rgb), 0.5);
+    --glass-highlight: inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
   body {
     @apply bg-obsidian text-white font-space antialiased overflow-x-hidden;
-    background-image: 
-      radial-gradient(circle at 50% 0%, rgba(59, 201, 255, 0.08) 0%, transparent 50%),
-      linear-gradient(to bottom, #0A0A0A, #0A0A0A);
+    background-image:
+      radial-gradient(circle at 50% 0%, rgba(var(--color-neon-rgb), 0.08) 0%, transparent 50%),
+      linear-gradient(to bottom, var(--color-obsidian), var(--color-obsidian));
   }
 }
 
@@ -16,10 +29,10 @@
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #13151A;
+  background: var(--color-charcoal);
 }
 ::-webkit-scrollbar-thumb {
-  background: #3BC9FF;
+  background: var(--color-neon);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {

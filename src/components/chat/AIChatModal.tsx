@@ -288,6 +288,7 @@ export const AIChatModal = ({ isOpen, onClose }: AIChatModalProps) => {
                   placeholder={
                     t("chat.placeholder")
                   }
+                  aria-label={t("chat.placeholder")}
                   disabled={isLoading}
                   className="flex-1 bg-white/5 border border-white/10 rounded-full px-4 py-3 text-sm text-white placeholder-white/50 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/30 transition-all disabled:opacity-50"
                 />

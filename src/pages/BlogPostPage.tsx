@@ -238,7 +238,7 @@ export const BlogPostPage = () => {
                 <span
                   className="inline-block px-3 py-1 text-xs font-semibold uppercase tracking-wider rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-400/30"
                   style={{
-                    textShadow: "0 0 10px rgba(59, 201, 255, 0.5)",
+                    textShadow: "var(--neon-text-glow)",
                   }}
                 >
                   {post.category[lang]}

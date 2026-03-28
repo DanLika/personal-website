@@ -14,14 +14,6 @@ export default {
           glow: "rgba(59, 201, 255, 0.5)",
           dim: "#2A8FB5",
         },
-        teal: {
-          light: "#4ccae2",
-          dark: "#399fb1",
-        },
-        glass: {
-          border: "rgba(255, 255, 255, 0.1)",
-          surface: "rgba(255, 255, 255, 0.03)",
-        },
       },
       fontFamily: {
         space: ["'Space Grotesk'", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],

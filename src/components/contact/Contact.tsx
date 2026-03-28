@@ -225,6 +225,7 @@ export const Contact = () => {
                     value={formData.name}
                     onChange={handleInputChange}
                     required
+                    aria-required="true"
                     className="w-full px-4 py-3 bg-charcoal border border-white/10 rounded-xl text-white placeholder-white/50 transition-all duration-300 focus:border-neon focus:shadow-[0_0_15px_rgba(59,201,255,0.3)] focus:outline-none"
                     placeholder={t("contact.form.name")}
                   />
@@ -248,6 +249,7 @@ export const Contact = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
+                    aria-required="true"
                     className="w-full px-4 py-3 bg-charcoal border border-white/10 rounded-xl text-white placeholder-white/50 transition-all duration-300 focus:border-neon focus:shadow-[0_0_15px_rgba(59,201,255,0.3)] focus:outline-none"
                     placeholder={t("contact.form.email")}
                   />
@@ -269,6 +271,7 @@ export const Contact = () => {
                     value={formData.message}
                     onChange={handleInputChange}
                     required
+                    aria-required="true"
                     rows={5}
                     className="w-full px-4 py-3 bg-charcoal border border-white/10 rounded-xl text-white placeholder-white/50 transition-all duration-300 focus:border-neon focus:shadow-[0_0_15px_rgba(59,201,255,0.3)] focus:outline-none resize-none"
                     placeholder={t("contact.form.message")}
