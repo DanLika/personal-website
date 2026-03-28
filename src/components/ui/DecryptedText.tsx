@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import { motion, type HTMLMotionProps } from "framer-motion";
 
 const styles = {
@@ -244,12 +244,14 @@ export const DecryptedText = ({
         }
       : {};
 
+  const charactersArray = useMemo(() => displayText.split(""), [displayText]);
+
   return (
     <motion.span className={parentClassName} ref={containerRef} style={styles.wrapper} {...hoverProps} {...props}>
       <span style={styles.srOnly}>{displayText}</span>
 
       <span aria-hidden="true">
-        {displayText.split("").map((char, index) => {
+        {charactersArray.map((char, index) => {
           const isRevealedOrDone = revealedIndicesRef.current.has(index) || !isScramblingRef.current || !isHoveringRef.current;
 
           return (
