@@ -8,7 +8,8 @@
     "build": "npm run sitemap && tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "sitemap": "node scripts/generate-sitemap.mjs"
+    "sitemap": "node scripts/generate-sitemap.mjs",
+    "test": "npx tsx --test src/**/*.test.tsx src/**/*.test.ts"
   },
   "dependencies": {
     "@types/react-router-dom": "^5.3.3",
